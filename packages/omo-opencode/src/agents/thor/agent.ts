@@ -14,14 +14,16 @@ import { buildThorPrompt as buildGptPrompt } from "./gpt";
 import { buildThorPrompt as buildGpt54Prompt } from "./gpt-5-4";
 import { buildGpt55ThorPrompt as buildGpt55Prompt } from "./gpt-5-5";
 import { buildGpt56ThorPrompt as buildGpt56Prompt } from "./gpt-5-6";
+import { buildThorBasePrompt } from "./base";
 
 const MODE: AgentMode = "primary";
 const GPT_5_4_RE = /^gpt-5[.-]4(?:$|[.-])/i;
 const GPT_5_5_RE = /^gpt-5[.-]5(?:$|[.-])/i;
 
 // ponytail: no model restriction — any model works. GPT variants get
-// optimized prompts, everything else falls back to the base GPT prompt.
-export type ThorPromptSource = "gpt-5-6" | "gpt-5-5" | "gpt-5-4" | "gpt";
+// optimized prompts, everything else uses the adaptive base prompt
+// with auto-injected model capability hints.
+export type ThorPromptSource = "gpt-5-6" | "gpt-5-5" | "gpt-5-4" | "gpt" | "base";
 
 function extractModelName(model: string): string {
   return model.includes("/") ? (model.split("/").pop() ?? model) : model;
@@ -30,11 +32,12 @@ function extractModelName(model: string): string {
 export function getThorPromptSource(
   model?: string,
 ): ThorPromptSource {
-  if (!model) return "gpt";
+  if (!model) return "base";
   if (isGpt5_6Model(model)) return "gpt-5-6";
   if (isGpt5_5Model(model)) return "gpt-5-5";
   if (GPT_5_4_RE.test(extractModelName(model))) return "gpt-5-4";
-  return "gpt";
+  // ponytail: non-GPT models use adaptive base prompt with capability hints
+  return "base";
 }
 
 export interface ThorContext {
@@ -66,41 +69,21 @@ function buildDynamicThorPrompt(ctx?: ThorContext): string {
   let basePrompt: string;
   switch (source) {
     case "gpt-5-6":
-      basePrompt = buildGpt56Prompt(
-        agents,
-        tools,
-        skills,
-        categories,
-        useTaskSystem,
-      );
+      basePrompt = buildGpt56Prompt(agents, tools, skills, categories, useTaskSystem);
       break;
     case "gpt-5-5":
-      basePrompt = buildGpt55Prompt(
-        agents,
-        tools,
-        skills,
-        categories,
-        useTaskSystem,
-      );
+      basePrompt = buildGpt55Prompt(agents, tools, skills, categories, useTaskSystem);
       break;
     case "gpt-5-4":
-      basePrompt = buildGpt54Prompt(
-        agents,
-        tools,
-        skills,
-        categories,
-        useTaskSystem,
-      );
+      basePrompt = buildGpt54Prompt(agents, tools, skills, categories, useTaskSystem);
       break;
     case "gpt":
+      basePrompt = buildGptPrompt(agents, tools, skills, categories, useTaskSystem);
+      break;
+    case "base":
     default:
-      basePrompt = buildGptPrompt(
-        agents,
-        tools,
-        skills,
-        categories,
-        useTaskSystem,
-      );
+      // Adaptive base prompt with auto-injected model capability hints
+      basePrompt = buildThorBasePrompt(agents, tools, skills, categories, useTaskSystem, model);
       break;
   }
 
