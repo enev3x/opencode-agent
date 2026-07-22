@@ -24,7 +24,7 @@ function createBaseArgs(overrides?: Partial<DelegateTaskArgs>): DelegateTaskArgs
     prompt: "Review the current changes",
     run_in_background: false,
     load_skills: [],
-    subagent_type: "oracle",
+    subagent_type: "volva",
     ...overrides,
   }
 }
@@ -82,14 +82,14 @@ describe("resolveSubagentExecution agent overrides", () => {
       updatedAt: "2026-03-03T00:00:00.000Z",
     })
     readConnectedProvidersCacheMock.mockReturnValue(["openai"])
-    const args = createBaseArgs({ subagent_type: "oracle" })
+    const args = createBaseArgs({ subagent_type: "volva" })
     const executorCtx = createExecutorContext(
       async () => ([
-        { name: "oracle", mode: "subagent", model: "anthropic/claude-opus-4-7" },
+        { name: "volva", mode: "subagent", model: "anthropic/claude-opus-4-7" },
       ]),
       {
         agentOverrides: {
-          oracle: {
+          volva: {
             model: "openai/gemini-3.5-flash-thinking",
           },
         } as ExecutorContext["agentOverrides"],
@@ -97,7 +97,7 @@ describe("resolveSubagentExecution agent overrides", () => {
     )
 
     // when
-    const result = await resolveSubagentExecution(args, executorCtx, "sisyphus", "deep")
+    const result = await resolveSubagentExecution(args, executorCtx, "odin", "deep")
 
     // then
     expect(result.error).toBeUndefined()

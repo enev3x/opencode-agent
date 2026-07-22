@@ -1,9 +1,9 @@
 import type { AgentDefinition } from "../types"
 
-// Ported and senpi-adapted from packages/omo-opencode/src/agents/oracle.ts (base default prompt;
+// Ported and senpi-adapted from packages/omo-opencode/src/agents/volva.ts (base default prompt;
 // model-specific variants are not ported - the fallback chain owns model choice).
 export const ORACLE_AGENT: AgentDefinition = {
-  name: "oracle",
+  name: "volva",
   description:
     "Read-only consultation agent. High-IQ reasoning specialist for debugging hard problems and high-difficulty architecture design.",
   mode: "subagent",

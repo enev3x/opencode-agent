@@ -75,9 +75,9 @@ function createMirror(input?: {
 const resolveTestSessionAgent: SessionAgentResolver = async (sessionID) => {
   switch (sessionID) {
     case "ses-main":
-      return "sisyphus"
+      return "odin"
     case "ses-sub":
-      return "atlas"
+      return "heimdall"
     default:
       return null
   }
@@ -108,7 +108,7 @@ describe("TuiStateMirror", () => {
     await mirror.flush()
 
     // then
-    expect(readMirror(projectDir)?.activeAgents).toEqual([{ name: "sisyphus", status: "running" }])
+    expect(readMirror(projectDir)?.activeAgents).toEqual([{ name: "odin", status: "running" }])
   })
 
   it("#given a started mirror #when heartbeat fires without events #then it writes the mirror", async () => {
@@ -128,7 +128,7 @@ describe("TuiStateMirror", () => {
     await heartbeatWrite
 
     // then
-    expect(readMirror(projectDir)?.activeAgents).toEqual([{ name: "sisyphus", status: "busy" }])
+    expect(readMirror(projectDir)?.activeAgents).toEqual([{ name: "odin", status: "busy" }])
     mirror.stop()
   })
 

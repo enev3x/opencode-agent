@@ -73,7 +73,7 @@ const server = http.createServer(async (req, res) => {
     sendSse(res, toolCallEvents(callCount, "task", `call_agent_${callCount}`, {
       description: "split probe child",
       prompt: "SPLIT_CHILD_TASK: reply exactly DONE",
-      subagent_type: "explore",
+      subagent_type: "vidar",
       run_in_background: true,
       load_skills: [],
     }))

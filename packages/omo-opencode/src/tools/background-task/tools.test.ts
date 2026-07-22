@@ -62,7 +62,7 @@ describe("background_output full_session", () => {
 
     const task = createTask({
       id: "task-1",
-      agent: "explore",
+      agent: "vidar",
       description: "Find how task output is rendered",
       status: "running",
     })
@@ -82,13 +82,13 @@ describe("background_output full_session", () => {
     expect(restored?.title).toBe("explore - Find how task output is rendered")
   })
 
-  test("shows category instead of agent for sisyphus-junior", async () => {
+  test("shows category instead of agent for einherjar", async () => {
     // #given
     clearPendingStore()
 
     const task = createTask({
       id: "task-1",
-      agent: "Sisyphus-Junior",
+      agent: "Einherjar",
       category: "quick",
       description: "Fix flaky test",
       status: "running",

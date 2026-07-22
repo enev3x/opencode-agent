@@ -45,7 +45,7 @@ function createSpec(name = `team-${randomUUID().slice(0, 8)}`): TeamSpec {
       {
         kind: "subagent_type",
         name: "lead",
-        subagent_type: "sisyphus",
+        subagent_type: "odin",
         backendType: "in-process",
         isActive: true,
         color: "red",

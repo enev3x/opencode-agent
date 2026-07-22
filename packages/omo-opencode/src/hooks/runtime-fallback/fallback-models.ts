@@ -69,18 +69,18 @@ function getRawFallbackModelsForSession(
   }
 
   const shouldInheritPlanFallback =
-    pluginConfig.sisyphus_agent?.disabled !== true &&
-    pluginConfig.sisyphus_agent?.planner_enabled !== false &&
-    pluginConfig.sisyphus_agent?.replace_plan !== false
-  const tryGetPrometheusFallbackForPlan = (agentName: string) => {
+    pluginConfig.odin_agent?.disabled !== true &&
+    pluginConfig.odin_agent?.planner_enabled !== false &&
+    pluginConfig.odin_agent?.replace_plan !== false
+  const tryGetMimirFallbackForPlan = (agentName: string) => {
     if (agentName.toLowerCase() !== "plan" || !shouldInheritPlanFallback) return undefined
-    return tryGetFallbackFromAgent("prometheus")
+    return tryGetFallbackFromAgent("mimir")
   }
 
   if (agent) {
     const result = tryGetFallbackFromAgent(agent)
     if (result) return result
-    const planFallback = tryGetPrometheusFallbackForPlan(agent)
+    const planFallback = tryGetMimirFallbackForPlan(agent)
     if (planFallback) return planFallback
   }
 
@@ -89,7 +89,7 @@ function getRawFallbackModelsForSession(
     const detectedAgent = sessionAgentMatch[1].toLowerCase()
     const result = tryGetFallbackFromAgent(detectedAgent)
     if (result) return result
-    const planFallback = tryGetPrometheusFallbackForPlan(detectedAgent)
+    const planFallback = tryGetMimirFallbackForPlan(detectedAgent)
     if (planFallback) return planFallback
   }
 

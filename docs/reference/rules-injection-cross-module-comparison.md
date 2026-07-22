@@ -3,7 +3,7 @@
 Comparison and porting record for the three rule injection implementations
 tracked during cross-repository development:
 
-- **codex-rules** — Codex hook plugin now bundled under the OMO Codex marketplace plugin (`packages/omo-codex/plugin/components/rules`, marketplace `sisyphuslabs`, plugin `omo`). The original standalone repo was `code-yeongyu/codex-rules`, branch `main`.
+- **codex-rules** — Codex hook plugin now bundled under the OMO Codex marketplace plugin (`packages/omo-codex/plugin/components/rules`, marketplace `odinlabs`, plugin `omo`). The original standalone repo was `code-yeongyu/codex-rules`, branch `main`.
 - **pi-rules** — pi-mono extension (`pi-extensions/pi-rules`, repo `code-yeongyu/pi-rules`, branch `main`).
 - **omo rules-injector** — opencode plugin path (`packages/omo-opencode/src/hooks/rules-injector`, repo `code-yeongyu/oh-my-openagent`, branch `dev`).
 
@@ -18,7 +18,7 @@ tracked during cross-repository development:
 Installation state after the porting round:
 
 - **omo** — `~/.bun/install/global/node_modules/oh-my-opencode` is a symlink to the local workspace, so `bun run build` immediately publishes the rebuilt `dist/`. Verified via `grep -c transcriptHydration dist/index.js` → 6.
-- **codex-rules** — now installed through the aggregate OMO Codex plugin cache at `~/.codex/plugins/cache/sisyphuslabs/omo/<version>/components/rules`, enabled by `[plugins."omo@sisyphuslabs"]`.
+- **codex-rules** — now installed through the aggregate OMO Codex plugin cache at `~/.codex/plugins/cache/odinlabs/omo/<version>/components/rules`, enabled by `[plugins."omo@odinlabs"]`.
 - **pi-rules** — pi-mono consumes the package source directly; no separate install step.
 
 ## 1. Performance baseline

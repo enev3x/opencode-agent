@@ -406,7 +406,7 @@ describe("auto-slash command executor plugin dispatch", () => {
     expect(result.replacementText).not.toContain("$TIMESTAMP")
   })
 
-  it("renders Atlas as the builtin start-work agent during slash-command execution", async () => {
+  it("renders Heimdall as the builtin start-work agent during slash-command execution", async () => {
     // given
 
     // when
@@ -424,7 +424,7 @@ describe("auto-slash command executor plugin dispatch", () => {
 
     // then
     expect(result.success).toBe(true)
-    expect(result.replacementText).toContain("**Agent**: atlas")
+    expect(result.replacementText).toContain("**Agent**: heimdall")
   })
 })
 
@@ -433,7 +433,7 @@ describe("auto-slash-command runtime substitution", () => {
 
   beforeEach(() => {
     _resetForTesting()
-    registerAgentName("atlas")
+    registerAgentName("heimdall")
     setSystemTime(new Date(FIXED_TIMESTAMP))
     testDir = mkdtempSync(join(tmpdir(), "p5984-start-work-composed-"))
   })
@@ -487,7 +487,7 @@ describe("auto-slash-command runtime substitution", () => {
           message: {},
           parts: [{ type: "text", text: `/start-work ${argumentsText}` }],
         }
-        await handler({ sessionID, agent: "sisyphus" }, output)
+        await handler({ sessionID, agent: "odin" }, output)
         return output.parts
       },
     },

@@ -8,25 +8,25 @@ Oh-My-OpenAgent provides 11 specialized AI agents. Each has distinct expertise, 
 
 | Agent | Primary | Full fallback chain |
 | --- | --- | --- |
-| **sisyphus** | `claude-opus-4-8` | `anthropic\|github-copilot\|opencode\|vercel/claude-opus-4-8 (max)` → `opencode-go\|kimi-for-coding\|moonshotai\|opencode\|vercel\|bailian-coding-plan\|moonshotai-cn\|firmware\|ollama-cloud\|aihubmix/kimi-k3` → `openai\|github-copilot\|opencode\|vercel/gpt-5.6-sol (medium)` → `zai-coding-plan\|opencode\|bailian-coding-plan\|vercel/glm-5` → `opencode/big-pickle` |
-| **hephaestus** | `gpt-5.6-sol` | `openai\|github-copilot\|vercel\|opencode/gpt-5.6-sol (medium)` |
-| **oracle** | `gpt-5.6-sol` | `openai\|opencode\|vercel/gpt-5.6-sol (xhigh)` → `github-copilot/gpt-5.6-sol (high)` → `google\|github-copilot\|opencode\|vercel/gemini-3.1-pro (high)` → `anthropic\|github-copilot\|opencode\|vercel/claude-opus-4-8 (max)` → `opencode-go\|vercel/glm-5.2` |
-| **librarian** | `gpt-5.4-mini-fast` | `openai/gpt-5.4-mini-fast` → `opencode-go\|bailian-coding-plan/qwen3.5-plus` → `vercel/minimax-m2.7-highspeed` → `opencode-go\|vercel/minimax-m3` → `minimax-coding-plan\|minimax-cn-coding-plan/MiniMax-M3` → `opencode-go\|vercel/minimax-m2.7` → `anthropic\|github-copilot\|vercel/claude-haiku-4-5` → `openai\|vercel/gpt-5.4-nano` |
+| **odin** | `claude-opus-4-8` | `anthropic\|github-copilot\|opencode\|vercel/claude-opus-4-8 (max)` → `opencode-go\|kimi-for-coding\|moonshotai\|opencode\|vercel\|bailian-coding-plan\|moonshotai-cn\|firmware\|ollama-cloud\|aihubmix/kimi-k3` → `openai\|github-copilot\|opencode\|vercel/gpt-5.6-sol (medium)` → `zai-coding-plan\|opencode\|bailian-coding-plan\|vercel/glm-5` → `opencode/big-pickle` |
+| **thor** | `gpt-5.6-sol` | `openai\|github-copilot\|vercel\|opencode/gpt-5.6-sol (medium)` |
+| **volva** | `gpt-5.6-sol` | `openai\|opencode\|vercel/gpt-5.6-sol (xhigh)` → `github-copilot/gpt-5.6-sol (high)` → `google\|github-copilot\|opencode\|vercel/gemini-3.1-pro (high)` → `anthropic\|github-copilot\|opencode\|vercel/claude-opus-4-8 (max)` → `opencode-go\|vercel/glm-5.2` |
+| **bragi** | `gpt-5.4-mini-fast` | `openai/gpt-5.4-mini-fast` → `opencode-go\|bailian-coding-plan/qwen3.5-plus` → `vercel/minimax-m2.7-highspeed` → `opencode-go\|vercel/minimax-m3` → `minimax-coding-plan\|minimax-cn-coding-plan/MiniMax-M3` → `opencode-go\|vercel/minimax-m2.7` → `anthropic\|github-copilot\|vercel/claude-haiku-4-5` → `openai\|vercel/gpt-5.4-nano` |
 | **explore** | `gpt-5.4-mini-fast` | `openai/gpt-5.4-mini-fast` → `opencode-go\|bailian-coding-plan/qwen3.5-plus` → `vercel/minimax-m2.7-highspeed` → `opencode-go\|vercel/minimax-m3` → `minimax-coding-plan\|minimax-cn-coding-plan/MiniMax-M3` → `opencode-go\|vercel/minimax-m2.7` → `anthropic\|github-copilot\|vercel/claude-haiku-4-5` → `openai\|vercel/gpt-5.4-nano` |
-| **multimodal-looker** | `gpt-5.6-sol` | `openai\|opencode\|vercel/gpt-5.6-sol (low)` → `opencode-go\|vercel/kimi-k3` → `zai-coding-plan\|vercel/glm-4.6v` → `openai\|github-copilot\|opencode\|vercel/gpt-5-nano` |
-| **prometheus** | `claude-opus-4-8` | `anthropic\|github-copilot\|opencode\|vercel/claude-opus-4-8 (max)` → `openai\|github-copilot\|opencode\|vercel/gpt-5.6-sol (high)` → `opencode-go\|vercel/glm-5.2` → `google\|github-copilot\|opencode\|vercel/gemini-3.1-pro` |
-| **metis** | `claude-sonnet-4-6` | `anthropic\|github-copilot\|opencode\|vercel/claude-sonnet-4-6` → `anthropic\|github-copilot\|opencode\|vercel/claude-opus-4-8 (max)` → `openai\|github-copilot\|opencode\|vercel/gpt-5.6-sol (medium)` → `opencode-go\|vercel/glm-5.2` → `kimi-for-coding/kimi-k3` |
-| **momus** | `gpt-5.6-terra` | `openai\|vercel/gpt-5.6-terra (high)` → `github-copilot/gpt-5.6-terra (high)` → `openai\|opencode\|vercel/gpt-5.6-sol (xhigh)` → `github-copilot/gpt-5.6-sol (high)` → `anthropic\|github-copilot\|opencode\|vercel/claude-opus-4-8 (max)` → `google\|github-copilot\|opencode\|vercel/gemini-3.1-pro (high)` → `opencode-go\|vercel/glm-5.2` |
-| **atlas** | `claude-sonnet-4-6` | `anthropic\|github-copilot\|opencode\|vercel/claude-sonnet-4-6` → `opencode-go\|vercel/kimi-k3` → `openai\|github-copilot\|opencode\|vercel/gpt-5.6-sol (medium)` → `opencode-go\|vercel/minimax-m3` → `minimax-coding-plan\|minimax-cn-coding-plan/MiniMax-M3` → `opencode-go\|vercel/minimax-m2.7` |
-| **sisyphus-junior** | `claude-sonnet-4-6` | `anthropic\|github-copilot\|opencode\|vercel/claude-sonnet-4-6` → `opencode-go\|vercel/kimi-k3` → `openai\|github-copilot\|opencode\|vercel/gpt-5.6-sol (medium)` → `opencode-go\|vercel/minimax-m3` → `minimax-coding-plan\|minimax-cn-coding-plan/MiniMax-M3` → `opencode-go\|vercel/minimax-m2.7` → `opencode/big-pickle` |
+| **huginn** | `gpt-5.6-sol` | `openai\|opencode\|vercel/gpt-5.6-sol (low)` → `opencode-go\|vercel/kimi-k3` → `zai-coding-plan\|vercel/glm-4.6v` → `openai\|github-copilot\|opencode\|vercel/gpt-5-nano` |
+| **mimir** | `claude-opus-4-8` | `anthropic\|github-copilot\|opencode\|vercel/claude-opus-4-8 (max)` → `openai\|github-copilot\|opencode\|vercel/gpt-5.6-sol (high)` → `opencode-go\|vercel/glm-5.2` → `google\|github-copilot\|opencode\|vercel/gemini-3.1-pro` |
+| **urd** | `claude-sonnet-4-6` | `anthropic\|github-copilot\|opencode\|vercel/claude-sonnet-4-6` → `anthropic\|github-copilot\|opencode\|vercel/claude-opus-4-8 (max)` → `openai\|github-copilot\|opencode\|vercel/gpt-5.6-sol (medium)` → `opencode-go\|vercel/glm-5.2` → `kimi-for-coding/kimi-k3` |
+| **forseti** | `gpt-5.6-terra` | `openai\|vercel/gpt-5.6-terra (high)` → `github-copilot/gpt-5.6-terra (high)` → `openai\|opencode\|vercel/gpt-5.6-sol (xhigh)` → `github-copilot/gpt-5.6-sol (high)` → `anthropic\|github-copilot\|opencode\|vercel/claude-opus-4-8 (max)` → `google\|github-copilot\|opencode\|vercel/gemini-3.1-pro (high)` → `opencode-go\|vercel/glm-5.2` |
+| **heimdall** | `claude-sonnet-4-6` | `anthropic\|github-copilot\|opencode\|vercel/claude-sonnet-4-6` → `opencode-go\|vercel/kimi-k3` → `openai\|github-copilot\|opencode\|vercel/gpt-5.6-sol (medium)` → `opencode-go\|vercel/minimax-m3` → `minimax-coding-plan\|minimax-cn-coding-plan/MiniMax-M3` → `opencode-go\|vercel/minimax-m2.7` |
+| **einherjar** | `claude-sonnet-4-6` | `anthropic\|github-copilot\|opencode\|vercel/claude-sonnet-4-6` → `opencode-go\|vercel/kimi-k3` → `openai\|github-copilot\|opencode\|vercel/gpt-5.6-sol (medium)` → `opencode-go\|vercel/minimax-m3` → `minimax-coding-plan\|minimax-cn-coding-plan/MiniMax-M3` → `opencode-go\|vercel/minimax-m2.7` → `opencode/big-pickle` |
 
 ### Invoking Agents
 
 The main agent invokes these automatically, but you can call them explicitly:
 
 ```
-Ask @oracle to review this design and propose an architecture
-Ask @librarian how this is implemented - why does the behavior keep changing?
+Ask @volva to review this design and propose an architecture
+Ask @bragi how this is implemented - why does the behavior keep changing?
 Ask @explore for the policy on this feature
 ```
 
@@ -34,12 +34,12 @@ Ask @explore for the policy on this feature
 
 | Agent             | Restrictions                                                                            |
 | ----------------- | --------------------------------------------------------------------------------------- |
-| oracle            | Read-only: cannot write, edit, or delegate (blocked: write, edit, task, call_omo_agent) |
-| librarian         | Cannot write, edit, or delegate (blocked: write, edit, task, call_omo_agent)            |
+| volva            | Read-only: cannot write, edit, or delegate (blocked: write, edit, task, call_omo_agent) |
+| bragi         | Cannot write, edit, or delegate (blocked: write, edit, task, call_omo_agent)            |
 | explore           | Cannot write, edit, or delegate (blocked: write, edit, task, call_omo_agent)            |
-| multimodal-looker | Allowlist: `read` only                                                                  |
-| atlas             | Cannot delegate (blocked: task, call_omo_agent)                                         |
-| momus             | Cannot write, edit, or delegate (blocked: write, edit, task)                            |
+| huginn | Allowlist: `read` only                                                                  |
+| heimdall             | Cannot delegate (blocked: task, call_omo_agent)                                         |
+| forseti             | Cannot write, edit, or delegate (blocked: write, edit, task)                            |
 
 ### Instruction Files vs Enforcement
 
@@ -50,7 +50,7 @@ deterministic permission boundary.
 Deterministic enforcement today comes from OMO config (`agents.*.permission`,
 agent `tools`, disabled tools/agents), built-in agent restrictions, OpenCode's
 own permission gate when it is available, and guard hooks such as
-`team-tool-gating`, `write-existing-file-guard`, and `prometheus-md-only`.
+`team-tool-gating`, `write-existing-file-guard`, and `mimir-md-only`.
 
 OMO does not currently read an `AGENTOWNERS.yml` file or run a generic
 AGENTOWNERS policy-enforcer hook. If a project needs hard agent boundaries,
@@ -121,7 +121,7 @@ When running inside tmux:
 - Watch multiple agents work in real-time
 - Each pane shows agent output live
 - Auto-cleanup when agents complete
-- **Stable agent ordering**: core-agent tab cycling defaults to Sisyphus, Hephaestus, Prometheus, Atlas, and can be customized with `agent_order`
+- **Stable agent ordering**: core-agent tab cycling defaults to Odin, Thor, Mimir, Heimdall, and can be customized with `agent_order`
 
 When running inside cmux (`cmux omo`), the same pane integration is routed through cmux's tmux compatibility command. OMO detects the cmux environment from `CMUX_SOCKET_PATH` or a cmux-provided `TMUX` value, so `tmux.enabled` can create cmux panes even when a real `tmux` binary is not installed.
 
@@ -141,7 +141,7 @@ See the **[Team Mode Guide](../guide/team-mode.md)** for configuration, team spe
 - **MCP system**: 3 tiers: built-in remote MCPs (`websearch`, `context7`, `grep_app`), `.mcp.json` loader, and skill-embedded MCP from `SKILL.md` frontmatter.
 - **Managers**: plugin startup creates 4 managers: TmuxSessionManager, BackgroundManager, SkillMcpManager, ConfigHandler.
 - **Config pipeline**: 6 phases in order: provider, plugin-components, agents, tools, MCPs, commands.
-- **Canonical core agent order**: Sisyphus, Hephaestus, Prometheus, Atlas.
+- **Canonical core agent order**: Odin, Thor, Mimir, Heimdall.
 - **OpenClaw**: bidirectional integrations for Discord, Telegram, HTTP, and shell with reply listener daemon.
 
 ## Category System
@@ -236,9 +236,9 @@ You can define custom categories in your plugin config file. During the rename t
 }
 ```
 
-### Sisyphus-Junior as Delegated Executor
+### Einherjar as Delegated Executor
 
-When you use a Category, a special agent called **Sisyphus-Junior** performs the work.
+When you use a Category, a special agent called **Einherjar** performs the work.
 
 - **Characteristic**: Cannot **re-delegate** tasks to other agents.
 - **Purpose**: Prevents infinite delegation loops and ensures focus on the assigned task.
@@ -256,7 +256,7 @@ Configure per-agent fallback chains with arrays that can mix plain model strings
 ```jsonc
 {
   "agents": {
-    "sisyphus": {
+    "odin": {
       "fallback_models": [
         "opencode/glm-5",
         { "model": "openai/gpt-5.6-sol", "variant": "high" },
@@ -281,10 +281,10 @@ Load agent system prompts from external files using `file://` URLs in the `promp
 ```jsonc
 {
   "agents": {
-    "sisyphus": {
+    "odin": {
       "prompt": "file:///path/to/custom-prompt.md"
     },
-    "oracle": {
+    "volva": {
       "prompt_append": "file:///path/to/additional-context.md"
     }
   },
@@ -328,7 +328,7 @@ Commands are slash-triggered workflows that execute predefined templates.
 | `/init-deep`         | Initialize hierarchical AGENTS.md knowledge base                                           |
 | `/goal`              | Set, show, pause, resume, or clear the active thread goal                                  |
 | `/refactor`          | Intelligent refactoring with LSP, AST-grep, architecture analysis, and TDD verification    |
-| `/start-work`        | Start Atlas work session from Prometheus plan                                              |
+| `/start-work`        | Start Heimdall work session from Mimir plan                                              |
 | `/stop-continuation` | Stop all continuation mechanisms (todo continuation, Goal, boulder) for this session       |
 | `/handoff`           | Create a detailed context summary for continuing work in a new session                     |
 
@@ -423,7 +423,7 @@ The `/ulw-loop` slash command has been removed; continuous goal pursuit is now h
 
 ### /start-work
 
-**Purpose**: Start execution from a Prometheus-generated plan
+**Purpose**: Start execution from a Mimir-generated plan
 
 **Usage**:
 
@@ -431,7 +431,7 @@ The `/ulw-loop` slash command has been removed; continuous goal pursuit is now h
 /start-work [plan-name]
 ```
 
-Uses atlas agent to execute planned tasks systematically.
+Uses heimdall agent to execute planned tasks systematically.
 
 ### /stop-continuation
 
@@ -468,7 +468,7 @@ Skill sets provide specialized workflows with embedded MCP servers and detailed 
 | **dev-browser**        | Stateful browser scripting                              | Browser automation with persistent page state for iterative workflows and authenticated sessions.                                                                                                                                                                                                                                             |
 | **frontend**           | UI/UX tasks, styling                                    | Designer-turned-developer persona. Crafts strong UI/UX even without design mockups. Emphasizes bold aesthetic direction, distinctive typography, cohesive color palettes.                                                                                                                                                                     |
 | **review-work**        | "review work", "review my work", "QA my work"          | Post-implementation review orchestrator. Launches 5 parallel background sub-agents for comprehensive review: goal verification, code quality, security, hands-on QA, and context mining. All must pass for review to pass.                                                                                                                     |
-| **ulw-research**       | `ulw-research`, deep research requests | Maximum-saturation research. Runs parallel explore/librarian swarms across code, docs, web, and OSS repos; recursively follows `EXPAND` leads until convergence; proves contested claims by running code; and returns cited synthesis. Epistemic instrumentation covers intent-vs-reality diffing, claim graph, observation manifest, independent-observation convergence, temporal evidence, verification economics, and cause-disappearance records. |
+| **ulw-research**       | `ulw-research`, deep research requests | Maximum-saturation research. Runs parallel explore/bragi swarms across code, docs, web, and OSS repos; recursively follows `EXPAND` leads until convergence; proves contested claims by running code; and returns cited synthesis. Epistemic instrumentation covers intent-vs-reality diffing, claim graph, observation manifest, independent-observation convergence, temporal evidence, verification economics, and cause-disappearance records. |
 | **$omo:remove-ai-slops** | "remove AI slop", "de-AI", "humanize"                 | Removes AI-generated code smells from files while preserving functionality. Identifies and eliminates verbose comments, redundant error handling, over-engineered patterns, and generic AI phrasing.                                                                                                                                           |
 
 `ulw-research` is intentionally explicit. Ordinary questions and normal implementation context-gathering will not trigger a saturation swarm. Use `ulw-research` when the research itself is the deliverable and every claim needs a citation, a proof artifact, or an execution-backed verdict.
@@ -674,7 +674,7 @@ AST-aware search and rewrite now lives in the `ast-grep` skill. Load it with the
 
 | Tool                  | Description                                                                                                                                                                                                                             |
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **call_omo_agent**    | Spawn explore/librarian agents. Supports `run_in_background`.                                                                                                                                                                           |
+| **call_omo_agent**    | Spawn explore/bragi agents. Supports `run_in_background`.                                                                                                                                                                           |
 | **task**              | Category-based task delegation. Supports built-in categories like `visual-engineering`, `ultrabrain`, `deep`, `artistry`, `quick`, `unspecified-low`, `unspecified-high`, and `writing`, or direct agent targeting via `subagent_type`. |
 | **background_output** | Retrieve background task results                                                                                                                                                                                                        |
 | **background_cancel** | Cancel running background tasks                                                                                                                                                                                                         |
@@ -683,7 +683,7 @@ AST-aware search and rewrite now lives in the `ast-grep` skill. Load it with the
 
 | Tool        | Description                                                                                                                                                    |
 | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **look_at** | Analyze media files (PDFs, images, diagrams) via Multimodal-Looker agent. Extracts specific information or summaries from documents, describes visual content. |
+| **look_at** | Analyze media files (PDFs, images, diagrams) via Huginn agent. Extracts specific information or summaries from documents, describes visual content. |
 
 ### Skill Tools
 
@@ -903,7 +903,7 @@ Current composition counts:
 
 | Hook                         | Event               | Description                                                                                        |
 | ---------------------------- | ------------------- | -------------------------------------------------------------------------------------------------- |
-| **auto-update-checker**      | Event               | Checks for new versions on session creation, shows startup toast with version and Sisyphus status. |
+| **auto-update-checker**      | Event               | Checks for new versions on session creation, shows startup toast with version and Odin status. |
 | **background-notification**  | Event               | Notifies when background agent tasks complete.                                                     |
 | **session-notification**     | Event               | OS notifications when agents go idle. Works on macOS, Linux, Windows.                              |
 | **agent-usage-reminder**     | PostToolUse + Event | Reminds you to leverage specialized agents for better results.                                     |
@@ -931,7 +931,7 @@ Current composition counts:
 | Hook                         | Event               | Description                                             |
 | ---------------------------- | ------------------- | ------------------------------------------------------- |
 | **claude-code-hooks**        | All                 | Executes hooks from Claude Code's settings.json.        |
-| **atlas**                    | Multiple            | Main orchestration logic for todo-driven work sessions. |
+| **heimdall**                    | Multiple            | Main orchestration logic for todo-driven work sessions. |
 | **interactive-bash-session** | PostToolUse + Event | Manages tmux sessions for interactive CLI.              |
 | **non-interactive-env**      | PreToolUse          | Handles non-interactive environment constraints.        |
 
@@ -939,10 +939,10 @@ Current composition counts:
 
 | Hook                        | Event      | Description                                                |
 | --------------------------- | ---------- | ---------------------------------------------------------- |
-| **prometheus-md-only**      | PreToolUse | Enforces markdown-only output for Prometheus planner.      |
-| **no-sisyphus-gpt**         | Message    | Prevents Sisyphus from running on incompatible GPT models. |
-| **no-hephaestus-non-gpt**   | Message    | Prevents Hephaestus from running on non-GPT models.        |
-| **sisyphus-junior-notepad** | PreToolUse | Manages notepad state for Sisyphus-Junior agents.          |
+| **mimir-md-only**      | PreToolUse | Enforces markdown-only output for Mimir planner.      |
+| **no-odin-gpt**         | Message    | Prevents Odin from running on incompatible GPT models. |
+| **no-thor-non-gpt**   | Message    | Prevents Thor from running on non-GPT models.        |
+| **einherjar-notepad** | PreToolUse | Manages notepad state for Einherjar agents.          |
 
 ### Claude Code Hooks Integration
 

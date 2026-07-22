@@ -23,12 +23,12 @@ export async function executeUnstableAgentTask(
   systemContent: string | undefined,
   actualModel: string | undefined
 ): Promise<string> {
-  const { manager, client, syncPollTimeoutMs, sisyphusAgentConfig } = executorCtx
+  const { manager, client, syncPollTimeoutMs, odinAgentConfig } = executorCtx
   let cleanupReason: string | undefined
   let launchedTaskID: string | undefined
 
   try {
-    const tddEnabled = sisyphusAgentConfig?.tdd
+    const tddEnabled = odinAgentConfig?.tdd
     const effectivePrompt = buildTaskPrompt(args.prompt, agentToUse, tddEnabled)
     const persistedDescription = getPersistedBackgroundTaskDescription(args, agentToUse)
     const task = await manager.launch({

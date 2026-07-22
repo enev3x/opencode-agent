@@ -32,7 +32,7 @@ describe("createCompactionContextInjector prompt", () => {
     it("injects actual task history when backgroundManager and sessionID provided", async () => {
       //#given
       const mockManager = createMockBackgroundManager()
-      mockManager.taskHistory.record("ses_parent", { id: "t1", sessionID: "ses_child", agent: "explore", description: "Find patterns", status: "completed", category: "quick" })
+      mockManager.taskHistory.record("ses_parent", { id: "t1", sessionID: "ses_child", agent: "vidar", description: "Find patterns", status: "completed", category: "quick" })
       const injector = createCompactionContextInjector({ backgroundManager: mockManager })
 
       //#when
@@ -64,7 +64,7 @@ describe("createCompactionContextInjector prompt", () => {
         mockManager.taskHistory.record("ses_parent", {
           id: `t${i}`,
           sessionID: `ses_child_${i}`,
-          agent: "explore",
+          agent: "vidar",
           description: "Inspect verbose delegated task context. ".repeat(200),
           status: "completed",
           category: "quick",

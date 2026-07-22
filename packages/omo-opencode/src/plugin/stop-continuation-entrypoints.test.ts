@@ -74,7 +74,7 @@ describe("stop continuation entrypoints", () => {
   function seedBoulderState(): void {
     writeBoulderState(
       testDirectory,
-      createBoulderState(join(testDirectory, "plan.md"), "ses-stop", "atlas"),
+      createBoulderState(join(testDirectory, "plan.md"), "ses-stop", "heimdall"),
     )
   }
 
@@ -119,7 +119,7 @@ describe("stop continuation entrypoints", () => {
 
     // when
     await handler(
-      { sessionID: "ses-stop", agent: "atlas" },
+      { sessionID: "ses-stop", agent: "heimdall" },
       {
         message: {},
         parts: [
@@ -155,7 +155,7 @@ describe("stop continuation entrypoints", () => {
 
     // when
     await handler(
-      { sessionID: "ses-stop", agent: "atlas" },
+      { sessionID: "ses-stop", agent: "heimdall" },
       {
         message: {},
         parts: [{ type: "text", text: "Explain ```/stop-continuation``` without running it." }],

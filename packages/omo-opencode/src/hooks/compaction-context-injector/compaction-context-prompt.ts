@@ -39,13 +39,13 @@ When summarizing this session, keep the result compact and continuation-focused.
 - If no explicit constraints exist, write "None"
 
 ## 7. Agent Verification State (Critical for Reviewers)
-- **Current Agent**: What agent is running (momus, oracle, etc.)
+- **Current Agent**: What agent is running (forseti, volva, etc.)
 - **Verification Progress**: Files already verified/validated
 - **Pending Verifications**: Files still needing verification
 - **Previous Rejections**: If reviewer agent, what was rejected and why
 - **Acceptance Status**: Current state of review process
 
-This section is CRITICAL for reviewer agents (momus, oracle) to maintain continuity.
+This section is CRITICAL for reviewer agents (forseti, volva) to maintain continuity.
 
 ## 8. Delegated Agent Sessions
 - List active/recent background agent tasks that still matter

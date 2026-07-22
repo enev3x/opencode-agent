@@ -10,18 +10,18 @@ type TestAgent = {
 }
 
 const TASK_DENIED_SUBAGENTS = [
-  "librarian",
-  "explore",
-  "oracle",
-  "multimodal-looker",
-  "metis",
-  "momus",
+  "bragi",
+  "vidar",
+  "volva",
+  "huginn",
+  "urd",
+  "forseti",
 ] as const
 
 const TASK_ALLOWED_AGENT_NAMES = [
-  "sisyphus",
-  "atlas",
-  "hephaestus",
+  "odin",
+  "heimdall",
+  "thor",
 ] as const
 
 function createParams(agentNames: readonly string[]): {
@@ -68,14 +68,14 @@ describe("applyToolConfig task permission hard denials", () => {
     })
   })
 
-  describe("#given librarian search permissions", () => {
+  describe("#given bragi search permissions", () => {
     describe("#when applying tool config", () => {
       it("#then should keep grep_app allowed while task is denied", () => {
-        const params = createParams(["librarian"])
+        const params = createParams(["bragi"])
 
         applyToolConfig(params)
 
-        const permission = requirePermission(params.agentResult, "librarian")
+        const permission = requirePermission(params.agentResult, "bragi")
         expect(permission["grep_app_*"]).toBe("allow")
         expect(permission.task).toBe("deny")
       })
@@ -97,17 +97,17 @@ describe("applyToolConfig task permission hard denials", () => {
     })
   })
 
-  describe("#given sisyphus-junior (factory sets task:deny)", () => {
+  describe("#given einherjar (factory sets task:deny)", () => {
     describe("#when applying tool config with empty initial permission", () => {
-      it("#then should NOT add task:allow to sisyphus-junior (regression of #5193)", () => {
-        // given sisyphus-junior with empty permission (test isolation, not factory state)
-        const params = createParams(["sisyphus-junior"])
+      it("#then should NOT add task:allow to einherjar (regression of #5193)", () => {
+        // given einherjar with empty permission (test isolation, not factory state)
+        const params = createParams(["einherjar"])
 
         // when
         applyToolConfig(params)
 
         // then permission.task must NOT be "allow" — only the other keys get added
-        const permission = requirePermission(params.agentResult, "sisyphus-junior")
+        const permission = requirePermission(params.agentResult, "einherjar")
         expect(permission.task).toBeUndefined()
         // sanity: the other keys ARE still added
         expect(permission["task_*"]).toBe("allow")
@@ -117,9 +117,9 @@ describe("applyToolConfig task permission hard denials", () => {
 
     describe("#when applying tool config with permission.task=deny from factory", () => {
       it("#then should NOT clobber task:deny to allow (sub-bug of #5193)", () => {
-        // given sisyphus-junior with task:deny set by the factory
-        const params = createParams(["sisyphus-junior"])
-        const junior = params.agentResult["sisyphus-junior"] as { permission: Record<string, unknown> }
+        // given einherjar with task:deny set by the factory
+        const params = createParams(["einherjar"])
+        const junior = params.agentResult["einherjar"] as { permission: Record<string, unknown> }
         junior.permission = { task: "deny" }
 
         // when

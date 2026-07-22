@@ -3,7 +3,7 @@ import type { DelegateFallbackEntry } from "@oh-my-opencode/delegate-core"
 // Source of truth mirrored from packages/model-core/src/agent-model-requirements.ts.
 // senpi-task cannot import model-core here without adding a package dependency outside this task's scope.
 export const AGENT_FALLBACK_CHAINS: Readonly<Record<string, readonly DelegateFallbackEntry[]>> = {
-  explore: [
+  vidar: [
     { providers: ["openai"], model: "gpt-5.4-mini-fast" },
     { providers: ["opencode-go", "bailian-coding-plan"], model: "qwen3.5-plus" },
     { providers: ["vercel"], model: "minimax-m2.7-highspeed" },
@@ -13,7 +13,7 @@ export const AGENT_FALLBACK_CHAINS: Readonly<Record<string, readonly DelegateFal
     { providers: ["anthropic", "github-copilot", "vercel"], model: "claude-haiku-4-5" },
     { providers: ["openai", "vercel"], model: "gpt-5.4-nano" },
   ],
-  librarian: [
+  bragi: [
     { providers: ["openai"], model: "gpt-5.4-mini-fast" },
     { providers: ["opencode-go", "bailian-coding-plan"], model: "qwen3.5-plus" },
     { providers: ["vercel"], model: "minimax-m2.7-highspeed" },
@@ -23,14 +23,14 @@ export const AGENT_FALLBACK_CHAINS: Readonly<Record<string, readonly DelegateFal
     { providers: ["anthropic", "github-copilot", "vercel"], model: "claude-haiku-4-5" },
     { providers: ["openai", "vercel"], model: "gpt-5.4-nano" },
   ],
-  metis: [
+  urd: [
     { providers: ["anthropic", "github-copilot", "opencode", "vercel"], model: "claude-sonnet-4-6" },
     { providers: ["anthropic", "github-copilot", "opencode", "vercel"], model: "claude-opus-4-8", variant: "max" },
     { providers: ["openai", "github-copilot", "opencode", "vercel"], model: "gpt-5.6-sol", variant: "medium" },
     { providers: ["opencode-go", "vercel"], model: "glm-5.2" },
     { providers: ["kimi-for-coding"], model: "kimi-k3" },
   ],
-  momus: [
+  forseti: [
     { providers: ["openai", "vercel"], model: "gpt-5.6-terra", variant: "high" },
     { providers: ["github-copilot"], model: "gpt-5.6-terra", variant: "high" },
     { providers: ["openai", "opencode", "vercel"], model: "gpt-5.6-sol", variant: "xhigh" },
@@ -39,7 +39,7 @@ export const AGENT_FALLBACK_CHAINS: Readonly<Record<string, readonly DelegateFal
     { providers: ["google", "github-copilot", "opencode", "vercel"], model: "gemini-3.1-pro", variant: "high" },
     { providers: ["opencode-go", "vercel"], model: "glm-5.2" },
   ],
-  oracle: [
+  volva: [
     { providers: ["openai", "opencode", "vercel"], model: "gpt-5.6-sol", variant: "xhigh" },
     { providers: ["github-copilot"], model: "gpt-5.6-sol", variant: "high" },
     { providers: ["google", "github-copilot", "opencode", "vercel"], model: "gemini-3.1-pro", variant: "high" },

@@ -1414,7 +1414,7 @@ Original task: Build something`
       expect(messagesCalls.length).toBe(1)
     })
 
-    test("should require oracle verification toast for ultrawork completion promise", async () => {
+    test("should require volva verification toast for ultrawork completion promise", async () => {
       // given - hook with ultrawork mode and completion in transcript
       const transcriptPath = join(TEST_DIR, "transcript.jsonl")
       const hook = makeHook(createMockPluginInput(), {
@@ -1431,10 +1431,10 @@ Original task: Build something`
       if (!verificationToast) {
         throw new Error("expected ultrawork verification toast")
       }
-      expect(verificationToast.message).toMatch(/Oracle verification is now required/)
+      expect(verificationToast.message).toMatch(/Volva verification is now required/)
     })
 
-    test("#given loop-start message count resolves late after progress #when ulw DONE appears #then oracle verification still starts", async () => {
+    test("#given loop-start message count resolves late after progress #when ulw DONE appears #then volva verification still starts", async () => {
       // given - the initial message-count request is delayed past the first continuation
       let messageCallCount = 0
       let resolveInitialMessages: ((value: { data: typeof mockSessionMessages }) => void) | undefined
@@ -1477,7 +1477,7 @@ Original task: Build something`
       // then - the late snapshot must not hide the DONE message from verification gating
       expect(hook.getState()?.verification_pending).toBe(true)
       expect(hook.getState()?.completion_promise).toBe("VERIFIED")
-      expect(promptCalls[promptCalls.length - 1]?.text).toContain('task(subagent_type="oracle"')
+      expect(promptCalls[promptCalls.length - 1]?.text).toContain('task(subagent_type="volva"')
     })
 
     test("should show regular completion toast when ultrawork disabled", async () => {

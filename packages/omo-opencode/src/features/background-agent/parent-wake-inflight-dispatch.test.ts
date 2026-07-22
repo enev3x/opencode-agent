@@ -65,7 +65,7 @@ describe("ParentWakeNotifier — in-flight dispatch tracking (P1 race)", () => {
       return { data: {} }
     })
     const sessionID = "parent-inflight-dispatch"
-    notifier.queuePendingParentWake(sessionID, "wake A", { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake(sessionID, "wake A", { agent: "odin" }, true)
 
     try {
       // when: kick off the flush but do not await it; wait until the dispatch await
@@ -101,7 +101,7 @@ describe("ParentWakeNotifier — in-flight dispatch tracking (P1 race)", () => {
       throw new Error("JSON Parse error: Unexpected EOF")
     })
     const sessionID = "parent-inflight-dispatch-failure"
-    notifier.queuePendingParentWake(sessionID, "wake A", { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake(sessionID, "wake A", { agent: "odin" }, true)
 
     try {
       await notifier.flushPendingParentWake(sessionID)

@@ -138,13 +138,13 @@ export async function resolveMultimodalLookerAgentMetadata(
       )
 
       if (registeredModelIsVisionCapable) {
-        log("[look_at] Using registered multimodal-looker model (vision-capable)", {
+        log("[look_at] Using registered huginn model (vision-capable)", {
           model: getFullModelKey(registeredMetadata.agentModel),
         })
         return registeredMetadata
       }
 
-      log("[look_at] Registered multimodal-looker model not in vision-capable cache, using it anyway", {
+      log("[look_at] Registered huginn model not in vision-capable cache, using it anyway", {
         model: getFullModelKey(registeredMetadata.agentModel),
       })
       return registeredMetadata
@@ -160,7 +160,7 @@ export async function resolveMultimodalLookerAgentMetadata(
 
     return {}
   } catch (error) {
-    log("[look_at] Failed to resolve multimodal-looker model info", error)
+    log("[look_at] Failed to resolve huginn model info", error)
     return {}
   }
 }

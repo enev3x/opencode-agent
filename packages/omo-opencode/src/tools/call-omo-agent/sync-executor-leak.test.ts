@@ -12,7 +12,7 @@ type ExecuteSyncDeps = NonNullable<Parameters<typeof executeSync>[3]>
 
 function createArgs(): ExecuteSyncArgs {
   return {
-    subagent_type: "explore",
+    subagent_type: "vidar",
     description: "cleanup leak",
     prompt: "find something",
     run_in_background: false,
@@ -23,7 +23,7 @@ function createToolContext(): ExecuteSyncToolContext {
   return {
     sessionID: "parent-session",
     messageID: "msg-1",
-    agent: "sisyphus",
+    agent: "odin",
     abort: new AbortController().signal,
     metadata: mock(async () => {}),
   }

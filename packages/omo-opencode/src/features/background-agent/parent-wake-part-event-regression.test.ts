@@ -58,7 +58,7 @@ async function dispatchParentWake(manager: BackgroundManager, sessionID: string)
   internals.queuePendingParentWake(
     sessionID,
     "<system-reminder>done</system-reminder>",
-    { agent: "sisyphus" },
+    { agent: "odin" },
     true,
     0,
   )

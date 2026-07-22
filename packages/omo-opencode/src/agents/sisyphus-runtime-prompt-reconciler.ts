@@ -1,7 +1,7 @@
-import { resolveSisyphusPromptFamily } from "./sisyphus-agent-factory";
+import { resolveOdinPromptFamily } from "./odin-agent-factory";
 
 /**
- * Context captured at Sisyphus registration so the per-request system-transform
+ * Context captured at Odin registration so the per-request system-transform
  * hook can rebuild the prompt for the model actually selected at runtime.
  *
  * - `bakedPrompt` is the exact prompt string registered (body + overrides + env),
@@ -9,24 +9,24 @@ import { resolveSisyphusPromptFamily } from "./sisyphus-agent-factory";
  * - `rebuildPromptForModel` re-runs the same registration pipeline with a
  *   different model, so overrides / prompt_append / env context are preserved.
  */
-export type SisyphusRuntimePromptContext = {
+export type OdinRuntimePromptContext = {
   configuredModel: string;
   bakedPrompt: string;
   rebuildPromptForModel: (runtimeModel: string) => string;
 };
 
-let context: SisyphusRuntimePromptContext | undefined;
+let context: OdinRuntimePromptContext | undefined;
 
-export function setSisyphusRuntimePromptContext(ctx: SisyphusRuntimePromptContext): void {
+export function setOdinRuntimePromptContext(ctx: OdinRuntimePromptContext): void {
   context = ctx;
 }
 
-export function clearSisyphusRuntimePromptContext(): void {
+export function clearOdinRuntimePromptContext(): void {
   context = undefined;
 }
 
 /**
- * The Sisyphus prompt body is baked at registration from the *configured* model
+ * The Odin prompt body is baked at registration from the *configured* model
  * in `oh-my-openagent.jsonc`. When the user switches to a different model family
  * in the TUI, the entire baked body is the wrong family for the runtime model
  * (issue #5297/#5316): a GPT-configured agent run on a non-GPT model still
@@ -39,7 +39,7 @@ export function clearSisyphusRuntimePromptContext(): void {
  *
  * Returns true if a swap was performed.
  */
-export function reconcileSisyphusRuntimePrompt(
+export function reconcileOdinRuntimePrompt(
   system: string[],
   runtimeModel: string | undefined,
 ): boolean {
@@ -47,8 +47,8 @@ export function reconcileSisyphusRuntimePrompt(
 
   // Same family => the baked body already matches the runtime model; leave it.
   if (
-    resolveSisyphusPromptFamily(runtimeModel) ===
-    resolveSisyphusPromptFamily(context.configuredModel)
+    resolveOdinPromptFamily(runtimeModel) ===
+    resolveOdinPromptFamily(context.configuredModel)
   ) {
     return false
   }

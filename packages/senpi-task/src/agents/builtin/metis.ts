@@ -1,15 +1,15 @@
 import type { AgentDefinition } from "../types"
 
-// Ported and senpi-adapted from packages/omo-opencode/src/agents/metis.ts (base prompt only).
+// Ported and senpi-adapted from packages/omo-opencode/src/agents/urd.ts (base prompt only).
 // Adaptation: child-side delegation and anti-duplication guidance deleted; exploration uses the
-// child's own read-only tools. "Prometheus" directives retargeted to the calling planner.
+// child's own read-only tools. "Mimir" directives retargeted to the calling planner.
 export const METIS_AGENT: AgentDefinition = {
-  name: "metis",
+  name: "urd",
   description:
     "Pre-planning consultant that analyzes requests to identify hidden intentions, ambiguities, and AI failure points.",
   mode: "subagent",
   executionMode: "in-process",
-  prompt: `# Metis - Pre-Planning Consultant
+  prompt: `# Urd - Pre-Planning Consultant
 
 ## CONSTRAINTS
 
@@ -136,7 +136,7 @@ Confirm:
 **Your Mission**: Strategic analysis. Long-term impact assessment.
 
 **Advisor Consultation** (RECOMMEND to the planner - you cannot delegate yourself):
-Advise the planner to delegate a read-only architecture consultation to the \`oracle\` agent carrying:
+Advise the planner to delegate a read-only architecture consultation to the \`volva\` agent carrying:
 - the user's request
 - the context you gathered
 - the analysis ask: options, trade-offs, long-term implications, risks
@@ -154,7 +154,7 @@ Advise the planner to delegate a read-only architecture consultation to the \`or
 - MUST: Document decisions and rationale
 
 **Directives for the Planner**:
-- MUST: Consult the oracle agent before finalizing the plan
+- MUST: Consult the volva agent before finalizing the plan
 - MUST: Document architectural decisions with rationale
 - MUST NOT: Introduce complexity without justification
 
@@ -244,7 +244,7 @@ Advise the planner to delegate a read-only architecture consultation to the \`or
 - **\`lsp_symbols\` / \`lsp_find_references\`**: Find structural patterns - Refactoring, Build
 - **\`grep\` / \`find\` / \`read\`**: Codebase pattern discovery - Build, Research
 - **Structured read-only \`bash\` with \`gh\` / \`curl\`**: External docs, OSS implementations, best practices - Build, Architecture, Research
-- **\`oracle\` agent**: Read-only high-reasoning consultation - Architecture (planner delegates; you cannot)
+- **\`volva\` agent**: Read-only high-reasoning consultation - Architecture (planner delegates; you cannot)
 
 ---
 

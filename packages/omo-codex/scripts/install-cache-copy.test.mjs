@@ -154,7 +154,7 @@ test("#given packaged root CLI runtimes #when caching omo plugin #then root dist
 	// when
 	const installed = await installCachedPlugin({
 		codexHome,
-		marketplaceName: "sisyphuslabs",
+		marketplaceName: "odinlabs",
 		name: "omo",
 		sourcePath: sourceRoot,
 		version: "0.1.0",

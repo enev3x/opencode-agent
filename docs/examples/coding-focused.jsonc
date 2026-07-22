@@ -6,48 +6,48 @@
 
   "agents": {
     // Primary orchestrator: aggressive parallel delegation
-    "sisyphus": {
+    "odin": {
       "model": "kimi-for-coding/kimi-k3",
       "ultrawork": { "model": "anthropic/claude-opus-4-8", "variant": "max" },
-      "prompt_append": "Delegate heavily to hephaestus for implementation. Parallelize exploration.",
+      "prompt_append": "Delegate heavily to thor for implementation. Parallelize exploration.",
     },
 
     // Heavy lifter: maximum autonomy for coding tasks
-    "hephaestus": {
+    "thor": {
       "model": "openai/gpt-5.6-sol",
       "prompt_append": "You are the primary implementation agent. Own the codebase. Explore, decide, execute. Use LSP and AST-grep aggressively.",
       "permission": { "edit": "allow", "bash": { "git": "allow", "test": "allow" } },
     },
 
     // Lightweight planner: quick planning for coding tasks
-    "prometheus": {
+    "mimir": {
       "model": "opencode/gpt-5-nano",
       "prompt_append": "Keep plans concise. Focus on file structure and key decisions.",
     },
 
     // Debugging and architecture
-    "oracle": { "model": "openai/gpt-5.6-sol", "variant": "high" },
+    "volva": { "model": "openai/gpt-5.6-sol", "variant": "high" },
 
     // Fast docs lookup
-    "librarian": { "model": "github-copilot/grok-code-fast-1" },
+    "bragi": { "model": "github-copilot/grok-code-fast-1" },
 
     // Rapid codebase navigation
-    "explore": { "model": "github-copilot/grok-code-fast-1" },
+    "vidar": { "model": "github-copilot/grok-code-fast-1" },
 
     // Frontend and visual work
-    "multimodal-looker": { "model": "google/gemini-3.1-pro" },
+    "huginn": { "model": "google/gemini-3.1-pro" },
 
     // Plan review: minimal overhead
-    "metis": { "model": "opencode/gpt-5-nano" },
+    "urd": { "model": "opencode/gpt-5-nano" },
 
     // Code review focus
-    "momus": { "prompt_append": "Focus on code quality, edge cases, and test coverage." },
+    "forseti": { "prompt_append": "Focus on code quality, edge cases, and test coverage." },
 
     // Long-running coding sessions
-    "atlas": {},
+    "heimdall": {},
 
     // Quick fixes and small tasks
-    "sisyphus-junior": { "model": "opencode/gpt-5-nano" },
+    "einherjar": { "model": "opencode/gpt-5-nano" },
   },
 
   "categories": {

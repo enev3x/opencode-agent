@@ -39,9 +39,9 @@ const SEND_RESULT_RENDER_CASES = [
   ["interrupted", { kind: "interrupted", task_id: "st_1", previous_status: "running" }, "[warning]task_send interrupted st_1 (was running)[/warning]"],
   ["noop", { kind: "noop", task_id: "st_1", previous_status: "interrupted", reason: "Already interrupted." }, "[warning]task_send no change st_1 (interrupted): Already interrupted.[/warning]"],
   ["team_message", { kind: "team_message", team: { kind: "to_lead", message_id: "msg-1" } }, "[success]task_send team message msg-1 enqueued to lead[/success]"],
-  ["shutdown_requested", { kind: "shutdown_requested", team_run_id: "team-1", member: "atlas" }, "[warning]task_send shutdown requested team-1 member:atlas[/warning]"],
-  ["shutdown_responded", { kind: "shutdown_responded", team_run_id: "team-1", member: "atlas", approved: false }, "[warning]task_send shutdown rejected team-1 member:atlas[/warning]"],
-  ["shutdown_failed", { kind: "shutdown_failed", operation: "reject", team_run_id: "team-1", member: "atlas", code: "team_state_missing", reason: "Team state is unavailable." }, "[error]task_send shutdown reject failed team-1 member:atlas: Team state is unavailable.[/error]"],
+  ["shutdown_requested", { kind: "shutdown_requested", team_run_id: "team-1", member: "heimdall" }, "[warning]task_send shutdown requested team-1 member:heimdall[/warning]"],
+  ["shutdown_responded", { kind: "shutdown_responded", team_run_id: "team-1", member: "heimdall", approved: false }, "[warning]task_send shutdown rejected team-1 member:heimdall[/warning]"],
+  ["shutdown_failed", { kind: "shutdown_failed", operation: "reject", team_run_id: "team-1", member: "heimdall", code: "team_state_missing", reason: "Team state is unavailable." }, "[error]task_send shutdown reject failed team-1 member:heimdall: Team state is unavailable.[/error]"],
 ] satisfies readonly SendResultRenderCase[]
 
 function firstLine(component: { render(width: number): string[] }, width: number): string {
@@ -78,7 +78,7 @@ describe("control tool renderers", () => {
     const line = firstLine(
       renderTaskSendCall(
         {
-          to: "atlas",
+          to: "heimdall",
           deliver_as: "followUp",
           message: "한국어 안내가 아주 길게 이어집니다.\nEnglish guidance also continues long enough to require truncation safely.",
         },
@@ -116,31 +116,31 @@ describe("control tool renderers", () => {
   test("#given structured shutdown task_send messages #when rendering calls #then summaries name request approve reject and reason without object stringification", () => {
     const request = firstLine(
       renderTaskSendCall(
-        { to: "atlas", team_run_id: "team-9", message: { type: "shutdown_request", reason: "done for today" } },
+        { to: "heimdall", team_run_id: "team-9", message: { type: "shutdown_request", reason: "done for today" } },
         TEST_THEME,
       ),
       120,
     )
     const approve = firstLine(
       renderTaskSendCall(
-        { to: "atlas", message: { type: "shutdown_response", request_id: "req-1", approve: true } },
+        { to: "heimdall", message: { type: "shutdown_response", request_id: "req-1", approve: true } },
         TEST_THEME,
       ),
       120,
     )
     const reject = firstLine(
       renderTaskSendCall(
-        { to: "atlas", message: { type: "shutdown_response", request_id: "req-2", approve: false, reason: "still testing" } },
+        { to: "heimdall", message: { type: "shutdown_response", request_id: "req-2", approve: false, reason: "still testing" } },
         TEST_THEME,
       ),
       120,
     )
 
-    expect(request).toContain("task_send shutdown:request to:atlas team:team-9")
+    expect(request).toContain("task_send shutdown:request to:heimdall team:team-9")
     expect(request).toContain("reason:")
-    expect(approve).toContain("task_send shutdown:approve to:atlas")
+    expect(approve).toContain("task_send shutdown:approve to:heimdall")
     expect(approve).toContain("request:req-1")
-    expect(reject).toContain("task_send shutdown:reject to:atlas")
+    expect(reject).toContain("task_send shutdown:reject to:heimdall")
     expect(reject).toContain("reason:")
     expect([request, approve, reject].join("\n")).not.toContain("deliver:")
     expect([request, approve, reject].join("\n")).not.toContain("[object Object]")
@@ -194,16 +194,16 @@ describe("control tool renderers", () => {
   })
 
   test("#given pure interrupt task_send #when rendering the call #then it is meaningful without an empty message label", () => {
-    const line = firstLine(renderTaskSendCall({ to: "atlas", deliver_as: "interrupt" }, TEST_THEME), 80)
+    const line = firstLine(renderTaskSendCall({ to: "heimdall", deliver_as: "interrupt" }, TEST_THEME), 80)
 
-    expect(line).toContain("task_send to:atlas deliver:interrupt")
+    expect(line).toContain("task_send to:heimdall deliver:interrupt")
     expect(line).not.toContain("message:")
   })
 
   test("#given whitespace-only control text #when rendering calls #then empty message and reason labels are omitted", () => {
-    const send = firstLine(renderTaskSendCall({ to: "atlas", message: " \n\t " }, TEST_THEME), 80)
+    const send = firstLine(renderTaskSendCall({ to: "heimdall", message: " \n\t " }, TEST_THEME), 80)
     const shutdown = firstLine(
-      renderTaskSendCall({ to: "atlas", message: { type: "shutdown_request", reason: " \n\t " } }, TEST_THEME),
+      renderTaskSendCall({ to: "heimdall", message: { type: "shutdown_request", reason: " \n\t " } }, TEST_THEME),
       80,
     )
     const cancel = firstLine(renderTaskCancelCall({ task_id: "st_1", reason: " \n\t " }, TEST_THEME), 80)
@@ -230,7 +230,7 @@ describe("control tool renderers", () => {
           kind: "shutdown_failed",
           operation: "approve",
           team_run_id: "team-9",
-          member: "atlas",
+          member: "heimdall",
           code: "team_state_missing",
           reason: "Team state is unavailable.",
         }),
@@ -240,7 +240,7 @@ describe("control tool renderers", () => {
       120,
     )
 
-    expect(line).toBe("[error]task_send shutdown approve failed team-9 member:atlas: Team state is unavailable.[/error]")
+    expect(line).toBe("[error]task_send shutdown approve failed team-9 member:heimdall: Team state is unavailable.[/error]")
     expect(line).not.toContain("ENOENT")
     expect(line).not.toContain("/private/secret")
     expect(line).not.toContain("state.json")

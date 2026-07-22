@@ -8,7 +8,7 @@ Project reality check:
 - Domain: https://omo.dev (legacy https://ohmyopenagent.com, https://ohmyopencode.org, https://ulw.dev, https://ultrawork.ai, https://ultrawork.dev, https://ultrawork.engineer all 301 to omo.dev)
 - Building in Public: https://discord.gg/PUwSMR9XNk
 - Maintained by Jobdori, an AI assistant running on a heavily customized OpenClaw fork
-- Sisyphus Labs: https://sisyphuslabs.ai
+- Odin Labs: https://odinlabs.ai
 
 ---
 
@@ -79,11 +79,11 @@ Token efficiency matters. But not at the cost of work quality or human cognitive
 
 Two approaches achieve this:
 
-### Approach 1: Prometheus (Interview Mode)
+### Approach 1: Mimir (Interview Mode)
 
 You say: "I want to add authentication."
 
-Prometheus:
+Mimir:
 - Researches your codebase to understand existing patterns
 - Asks clarifying questions based on actual findings
 - Surfaces edge cases you hadn't considered
@@ -138,7 +138,7 @@ Just like you can assign a task to a capable team member and trust them to handl
 This means:
 - Clear acceptance criteria, verified independently
 - Self-correcting behavior when something goes wrong
-- Escalation (to Oracle, to user) only when truly needed
+- Escalation (to Volva, to user) only when truly needed
 - Complete work, not "mostly done"
 
 ---
@@ -156,9 +156,9 @@ Everything in Oh My OpenAgent is designed to make this loop work:
 
 | Feature | Purpose |
 |---------|---------|
-| Prometheus | Extract intent through intelligent interview |
-| Metis | Catch ambiguities before they become bugs |
-| Momus | Verify plans are complete before execution |
+| Mimir | Extract intent through intelligent interview |
+| Urd | Catch ambiguities before they become bugs |
+| Forseti | Verify plans are complete before execution |
 | Orchestrator | Coordinate work without human micromanagement |
 | Todo Continuation | Force completion, prevent "I'm done" lies |
 | Category System | Route to optimal model without human decision |

@@ -1,4 +1,4 @@
-import type { SisyphusAgentConfig } from "../../config/schema"
+import type { OdinAgentConfig } from "../../config/schema"
 import { stripInvisibleAgentCharacters } from "../../shared/agent-display-names"
 import { getAgentToolRestrictions } from "../../shared/agent-tool-restrictions"
 import { createInternalAgentTextPart } from "../../shared/internal-initiator-marker"
@@ -40,8 +40,8 @@ function buildPromptGenerationParams(model: DelegatedModelConfig | undefined): R
   }
 }
 
-function isOracleAgent(agentToUse: string): boolean {
-  return stripInvisibleAgentCharacters(agentToUse).toLowerCase() === "oracle"
+function isVolvaAgent(agentToUse: string): boolean {
+  return stripInvisibleAgentCharacters(agentToUse).toLowerCase() === "volva"
 }
 
 function isUnexpectedEofError(error: unknown): boolean {
@@ -80,11 +80,11 @@ export async function sendSyncPrompt(
     directory: string
     toastManager: { removeTask: (id: string) => void } | null | undefined
     taskId: string | undefined
-    sisyphusAgentConfig?: SisyphusAgentConfig
+    odinAgentConfig?: OdinAgentConfig
   },
   deps: SendSyncPromptDeps = sendSyncPromptDeps
 ): Promise<string | null> {
-  const tddEnabled = input.sisyphusAgentConfig?.tdd
+  const tddEnabled = input.odinAgentConfig?.tdd
   const effectivePrompt = buildTaskPrompt(input.args.prompt, input.agentToUse, tddEnabled)
   const userPermission = input.categoryModel?.tools
     ? migrateToolsToPermission(input.categoryModel.tools)
@@ -121,7 +121,7 @@ export async function sendSyncPrompt(
       checkToolState: false,
     })
   } catch (promptError) {
-    if (isOracleAgent(input.agentToUse) && isUnexpectedEofError(promptError)) {
+    if (isVolvaAgent(input.agentToUse) && isUnexpectedEofError(promptError)) {
       return null
     }
 

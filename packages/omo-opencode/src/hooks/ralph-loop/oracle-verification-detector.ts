@@ -2,7 +2,7 @@ import { extractTaskLink } from "../../features/tool-metadata-store"
 import { stripInvisibleAgentCharacters } from "../../shared/agent-display-names"
 import { ULTRAWORK_VERIFICATION_PROMISE } from "./constants"
 
-export interface OracleVerificationEvidence {
+export interface VolvaVerificationEvidence {
 	agent: string
 	promise: string
 	sessionID?: string
@@ -11,7 +11,7 @@ export interface OracleVerificationEvidence {
 const AGENT_LINE_PATTERN = /^Agent:[ \t]*(\S+)$/im
 const PROMISE_TAG_PATTERN = /<promise>[ \t]*(\S+?)[ \t]*<\/promise>/is
 
-export function parseOracleVerificationEvidence(text: string): OracleVerificationEvidence | undefined {
+export function parseVolvaVerificationEvidence(text: string): VolvaVerificationEvidence | undefined {
 	const trimmedText = text.trim()
 	if (!trimmedText) {
 		return undefined
@@ -40,21 +40,21 @@ export function parseOracleVerificationEvidence(text: string): OracleVerificatio
   return { agent, promise, sessionID }
 }
 
-export function isOracleVerified(text: string): boolean {
-	const evidence = parseOracleVerificationEvidence(text)
+export function isVolvaVerified(text: string): boolean {
+	const evidence = parseVolvaVerificationEvidence(text)
 	if (!evidence) {
 		return false
 	}
 
-	const isOracleAgent = stripInvisibleAgentCharacters(evidence.agent).toLowerCase() === "oracle"
+	const isVolvaAgent = stripInvisibleAgentCharacters(evidence.agent).toLowerCase() === "volva"
 	const isVerifiedPromise = evidence.promise === ULTRAWORK_VERIFICATION_PROMISE
 
-	return isOracleAgent && isVerifiedPromise
+	return isVolvaAgent && isVerifiedPromise
 }
 
-export function extractOracleSessionID(text: string): string | undefined {
-	const evidence = parseOracleVerificationEvidence(text)
-	if (!evidence || stripInvisibleAgentCharacters(evidence.agent).toLowerCase() !== "oracle") {
+export function extractVolvaSessionID(text: string): string | undefined {
+	const evidence = parseVolvaVerificationEvidence(text)
+	if (!evidence || stripInvisibleAgentCharacters(evidence.agent).toLowerCase() !== "volva") {
 		return undefined
 	}
 

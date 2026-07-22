@@ -1,0 +1,1 @@
+export { createNoThorNonGptHook } from "./hook"

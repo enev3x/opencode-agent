@@ -92,7 +92,7 @@ function readExploreRecord(stateDir) {
 		name.endsWith(".json"),
 	)) {
 		const record = JSON.parse(readFileSync(join(tasksDir, entry), "utf8"));
-		if (record?.agent_type === "explore")
+		if (record?.agent_type === "vidar")
 			return { taskId: entry.replace(/\.json$/, ""), record };
 	}
 	return {};

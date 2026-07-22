@@ -22,7 +22,7 @@ function snapshotFor(projectDir: string, updatedAt: number): TuiRuntimeSnapshot 
     version: MIRROR_SCHEMA_VERSION,
     projectDir: resolve(projectDir),
     updatedAt,
-    activeAgents: [{ name: "sisyphus", status: "running" }],
+    activeAgents: [{ name: "odin", status: "running" }],
     jobBoard: [
       {
         title: "Index repository",

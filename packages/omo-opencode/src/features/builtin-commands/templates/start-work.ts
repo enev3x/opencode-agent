@@ -1,4 +1,4 @@
-export const START_WORK_TEMPLATE = `You are starting an Atlas work session.
+export const START_WORK_TEMPLATE = `You are starting an Heimdall work session.
 
 ## ARGUMENTS
 
@@ -11,7 +11,7 @@ export const START_WORK_TEMPLATE = `You are starting an Atlas work session.
 
 ## WHAT TO DO
 
-1. **Find available plans**: Search for Prometheus-generated plan files at \`.omo/plans/\`
+1. **Find available plans**: Search for Mimir-generated plan files at \`.omo/plans/\`
 
 2. **Check for active boulder state**: Read \`.omo/boulder.json\` if it exists
 
@@ -45,7 +45,7 @@ export const START_WORK_TEMPLATE = `You are starting an Atlas work session.
    }
    \`\`\`
 
-6. **Read the plan file** and start executing tasks according to atlas workflow
+6. **Read the plan file** and start executing tasks according to heimdall workflow
 
 ## OUTPUT FORMAT
 
@@ -92,7 +92,7 @@ Reading plan and beginning execution...
 - Always update boulder.json BEFORE starting work
 - If worktree_path is set in boulder.json, all work happens inside that worktree directory
 - Read the FULL plan file before delegating any tasks
-- Follow atlas delegation protocols (7-section format)
+- Follow heimdall delegation protocols (7-section format)
 
 ## TASK BREAKDOWN (MANDATORY)
 

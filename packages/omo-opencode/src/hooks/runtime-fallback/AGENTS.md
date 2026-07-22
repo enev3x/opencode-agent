@@ -57,7 +57,7 @@ Priority order (`getRawFallbackModelsForSession`):
 2. **Agent config** `fallback_models`, then the agent's own category `fallback_models` (`tryGetFallbackFromAgent`)
 3. **Session ID pattern match** (detect agent from session ID, then step 2 logic)
 
-When the resolved agent is `plan` and `sisyphus_agent` is enabled (`disabled !== true`, `planner_enabled !== false`, `replace_plan !== false`), it inherits `prometheus`'s fallback models after steps 2 and 3. Explicit `plan` `fallback_models` (even `[]`) takes precedence and suppresses inheritance.
+When the resolved agent is `plan` and `odin_agent` is enabled (`disabled !== true`, `planner_enabled !== false`, `replace_plan !== false`), it inherits `mimir`'s fallback models after steps 2 and 3. Explicit `plan` `fallback_models` (even `[]`) takes precedence and suppresses inheritance.
 
 ## RETRY FLOW
 

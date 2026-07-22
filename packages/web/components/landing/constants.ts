@@ -17,13 +17,13 @@ import {
 } from "lucide-react"
 
 export const SUB_AGENT_KEYS = [
-  "oracle",
-  "librarian",
-  "explore",
-  "metis",
-  "momus",
-  "atlas",
-  "sisyphusJunior",
+  "volva",
+  "bragi",
+  "vidar",
+  "urd",
+  "forseti",
+  "heimdall",
+  "odinJunior",
   "multimodalLooker",
 ] as const
 export type SubAgentKey = (typeof SUB_AGENT_KEYS)[number]
@@ -38,38 +38,38 @@ type AgentStyle = {
 // Consolidated: single secondary accent (violet) for all sub-agents.
 // The visual differentiation comes from the icon, not a rainbow of colors.
 export const AGENT_STYLES: Readonly<Record<SubAgentKey, AgentStyle>> = {
-  oracle: { color: "text-violet-300", border: "border-zinc-800", bg: "bg-violet-400/5", icon: Eye },
-  librarian: {
+  volva: { color: "text-violet-300", border: "border-zinc-800", bg: "bg-violet-400/5", icon: Eye },
+  bragi: {
     color: "text-violet-300",
     border: "border-zinc-800",
     bg: "bg-violet-400/5",
     icon: Search,
   },
-  explore: {
+  vidar: {
     color: "text-violet-300",
     border: "border-zinc-800",
     bg: "bg-violet-400/5",
     icon: Code2,
   },
-  metis: {
+  urd: {
     color: "text-violet-300",
     border: "border-zinc-800",
     bg: "bg-violet-400/5",
     icon: MessageSquare,
   },
-  momus: {
+  forseti: {
     color: "text-violet-300",
     border: "border-zinc-800",
     bg: "bg-violet-400/5",
     icon: Check,
   },
-  atlas: {
+  heimdall: {
     color: "text-violet-300",
     border: "border-zinc-800",
     bg: "bg-violet-400/5",
     icon: Globe,
   },
-  sisyphusJunior: {
+  odinJunior: {
     color: "text-violet-300",
     border: "border-zinc-800",
     bg: "bg-violet-400/5",

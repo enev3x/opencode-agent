@@ -190,54 +190,54 @@ export const AGENT_ELIGIBILITY_REGISTRY: Readonly<Record<string, {
   verdict: "eligible" | "conditional" | "hard-reject"
   rejectionMessage?: string
 }>> = {
-  sisyphus: { verdict: "eligible" },
-  hephaestus: {
+  odin: { verdict: "eligible" },
+  thor: {
     verdict: "conditional",
     rejectionMessage:
-      "Agent 'hephaestus' lacks teammate permission. Either apply D-36 (add teammate: \"allow\" in tool-config-handler.ts) or use subagent_type: \"sisyphus\" instead.",
+      "Agent 'thor' lacks teammate permission. Either apply D-36 (add teammate: \"allow\" in tool-config-handler.ts) or use subagent_type: \"odin\" instead.",
   },
-  oracle: {
+  volva: {
     verdict: "hard-reject",
     rejectionMessage:
-      "Agent 'oracle' is read-only (cannot write files). Team members must write to mailbox inbox files. Use delegate-task with subagent_type: 'oracle' for read-only analysis instead.",
+      "Agent 'volva' is read-only (cannot write files). Team members must write to mailbox inbox files. Use delegate-task with subagent_type: 'volva' for read-only analysis instead.",
   },
-  librarian: {
+  bragi: {
     verdict: "hard-reject",
     rejectionMessage:
-      "Agent 'librarian' is read-only (write/edit denied). Cannot write to mailbox as team member. Use delegate-task for research queries instead.",
+      "Agent 'bragi' is read-only (write/edit denied). Cannot write to mailbox as team member. Use delegate-task for research queries instead.",
   },
-  explore: {
+  vidar: {
     verdict: "hard-reject",
     rejectionMessage:
-      "Agent 'explore' is read-only (write/edit denied). Cannot write to mailbox as team member. Use delegate-task for codebase exploration instead.",
+      "Agent 'vidar' is read-only (write/edit denied). Cannot write to mailbox as team member. Use delegate-task for codebase exploration instead.",
   },
-  "multimodal-looker": {
+  "huginn": {
     verdict: "hard-reject",
     rejectionMessage:
-      "Agent 'multimodal-looker' has read-only tool access (only 'read' allowed). Cannot write to mailbox as team member.",
+      "Agent 'huginn' has read-only tool access (only 'read' allowed). Cannot write to mailbox as team member.",
   },
-  metis: {
+  urd: {
     verdict: "hard-reject",
     rejectionMessage:
-      "Agent 'metis' is read-only (pre-planning consultant). Cannot write to mailbox as team member. Use delegate-task for pre-planning analysis instead.",
+      "Agent 'urd' is read-only (pre-planning consultant). Cannot write to mailbox as team member. Use delegate-task for pre-planning analysis instead.",
   },
-  momus: {
+  forseti: {
     verdict: "hard-reject",
     rejectionMessage:
-      "Agent 'momus' is read-only (plan reviewer). Cannot write to mailbox as team member. Use delegate-task for plan review instead.",
+      "Agent 'forseti' is read-only (plan reviewer). Cannot write to mailbox as team member. Use delegate-task for plan review instead.",
   },
-  atlas: { verdict: "eligible" },
-  prometheus: {
+  heimdall: { verdict: "eligible" },
+  mimir: {
     verdict: "hard-reject",
     rejectionMessage:
-      "Agent 'prometheus' is plan-mode-only; can only write to .omo/*.md (enforced by prometheusMdOnly hook). Cannot write to team mailbox. Use delegate-task with subagent_type: 'plan' instead.",
+      "Agent 'mimir' is plan-mode-only; can only write to .omo/*.md (enforced by mimirMdOnly hook). Cannot write to team mailbox. Use delegate-task with subagent_type: 'plan' instead.",
   },
-  "sisyphus-junior": { verdict: "eligible" },
+  "einherjar": { verdict: "eligible" },
 } as const
 
 /**
  * §V.3 member validation error messages live in member-parser.ts.
- * Includes: "Unknown subagent_type '<name>'. Available ELIGIBLE agents: sisyphus, atlas, sisyphus-junior, hephaestus (if D-36 applied). Use delegate-task for read-only agents like oracle, librarian, explore, metis, momus, multimodal-looker."
+ * Includes: "Unknown subagent_type '<name>'. Available ELIGIBLE agents: odin, heimdall, einherjar, thor (if D-36 applied). Use delegate-task for read-only agents like volva, bragi, vidar, urd, forseti, huginn."
  */
 
 const parseMemberBase = createParseMember(MemberSchema, AGENT_ELIGIBILITY_REGISTRY)

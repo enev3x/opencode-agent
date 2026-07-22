@@ -36,7 +36,7 @@ bunx oh-my-opencode
 | `run <message>` | Non-interactive OpenCode session runner with completion enforcement |
 | `get-local-version` | Show current installed version and check for updates |
 | `refresh-model-capabilities` | Refresh cached model capabilities snapshot from models.dev |
-| `boulder` | Inspect Sisyphus boulder work-state (active plan, per-task timers, session lineage) |
+| `boulder` | Inspect Odin boulder work-state (active plan, per-task timers, session lineage) |
 | `version` | Show CLI version |
 | `mcp oauth` | OAuth token management for MCP servers |
 
@@ -71,7 +71,7 @@ bunx oh-my-openagent install
 | `--no-codex-autonomous` | Leave existing Codex permission settings unchanged when installing Light or Both |
 | `--skip-auth` | Skip authentication setup hints |
 
-When using the `lazycodex-ai` bin alias, `install` defaults to `--platform=codex`. `lazycodex-ai` is only the npm/bin alias; `lazycodex` is the marketplace repository name. The Codex config uses marketplace `sisyphuslabs` and plugin `omo`, enabled as `omo@sisyphuslabs`, with the marketplace source set to the local built cache under `~/.codex/plugins/cache/sisyphuslabs`.
+When using the `lazycodex-ai` bin alias, `install` defaults to `--platform=codex`. `lazycodex-ai` is only the npm/bin alias; `lazycodex` is the marketplace repository name. The Codex config uses marketplace `odinlabs` and plugin `omo`, enabled as `omo@odinlabs`, with the marketplace source set to the local built cache under `~/.codex/plugins/cache/odinlabs`.
 
 Subscription flags (`--claude`, `--openai`, etc.) only apply when `--platform` is `opencode` or `both`. They are rejected under `--platform=codex` because the Light edition does not write OpenCode model config. `--codex-autonomous` and `--no-codex-autonomous` only affect installs where the selected platform includes Codex.
 
@@ -113,7 +113,7 @@ omo uninstall --platform=codex
 | `--project <path>` | Project directory to inspect for project-local legacy Codex artifacts |
 | `--json` | Output structured JSON result |
 
-The command removes the managed `sisyphuslabs` plugin cache and marketplace snapshot, strips `omo@sisyphuslabs` plugin, hook-state, and managed agent blocks from `~/.codex/config.toml` after writing a backup, and removes managed agent TOML files from `~/.codex/agents/`, including orphaned files whose install manifest is already gone. Project-owned `.codex` artifacts are reported, not deleted.
+The command removes the managed `odinlabs` plugin cache and marketplace snapshot, strips `omo@odinlabs` plugin, hook-state, and managed agent blocks from `~/.codex/config.toml` after writing a backup, and removes managed agent TOML files from `~/.codex/agents/`, including orphaned files whose install manifest is already gone. Project-owned `.codex` artifacts are reported, not deleted.
 
 ---
 
@@ -175,7 +175,7 @@ bunx oh-my-openagent run <message>
 1. `--agent`
 2. `OPENCODE_DEFAULT_AGENT`
 3. `default_run_agent` in plugin config
-4. `Sisyphus`
+4. `Odin`
 
 ---
 

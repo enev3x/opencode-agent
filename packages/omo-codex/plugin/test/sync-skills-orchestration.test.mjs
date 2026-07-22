@@ -63,7 +63,7 @@ name: example
 
 # Example Skill
 
-call_omo_agent(subagent_type="explore", prompt="inspect")
+call_omo_agent(subagent_type="vidar", prompt="inspect")
 
 ## Codex Harness Tool Compatibility
 
@@ -104,7 +104,7 @@ Custom guidance for this skill, including \`dispatchInternalPrompt(...)\`.
 
 # Example Skill
 
-call_omo_agent(subagent_type="explore", prompt="inspect")
+call_omo_agent(subagent_type="vidar", prompt="inspect")
 `;
 
 	// when
@@ -126,7 +126,7 @@ This skill may include examples copied from the OpenCode harness. In Codex, do n
 
 | OpenCode example | Codex tool to use |
 | --- | --- |
-| \`call_omo_agent(subagent_type="explore", ...)\` | \`spawn_agent({"task_name":"...","message":"TASK: act as an explorer. ..."})\` |
+| \`call_omo_agent(subagent_type="vidar", ...)\` | \`spawn_agent({"task_name":"...","message":"TASK: act as an explorer. ..."})\` |
 | \`background_output(task_id="...")\` | \`wait_agent(...)\` for mailbox signals |
 
 Obsolete generated compatibility prose.
@@ -137,7 +137,7 @@ When translating \`load_skills=[...]\`, include the requested skill names in the
 
 # Example Skill
 
-call_omo_agent(subagent_type="explore", prompt="inspect")
+call_omo_agent(subagent_type="vidar", prompt="inspect")
 `;
 
 	// when
@@ -162,7 +162,7 @@ name: example
 
 # Example Skill
 
-task(subagent_type="oracle", load_skills=["debugging"], prompt="verify")
+task(subagent_type="volva", load_skills=["debugging"], prompt="verify")
 `;
 
 	// when
@@ -187,7 +187,7 @@ When translating \`load_skills=[...]\`, name the skills inside the spawned agent
 
 export const REFACTOR_TEMPLATE = \`# Refactor
 
-call_omo_agent(subagent_type="explore", prompt="inspect")
+call_omo_agent(subagent_type="vidar", prompt="inspect")
 \`
 `;
 

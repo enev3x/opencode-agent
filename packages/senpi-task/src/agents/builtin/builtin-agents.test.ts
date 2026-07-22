@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test"
 
 import { BUILTIN_AGENTS, BUILTIN_AGENT_DEFAULTS, CURATED_READONLY_AGENT_NAMES } from "./index"
 
-const CURATED_AGENT_NAMES = ["explore", "librarian", "metis", "momus", "oracle"] as const
+const CURATED_AGENT_NAMES = ["vidar", "bragi", "urd", "forseti", "volva"] as const
 
 const EXPECTED_TOOL_ALLOWLIST = [
   "read",

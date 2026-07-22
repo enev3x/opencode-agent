@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Oh My OpenAgent",
-    "description": "最佳 Agent harness。遇见 Sisyphus：开箱即用的 Agent，像你一样编程。"
+    "description": "最佳 Agent harness。遇见 Odin：开箱即用的 Agent，像你一样编程。"
   },
   "nav": {
     "brand": "Oh My OpenAgent",
@@ -60,7 +60,7 @@
       "deepResearch": "深度研究",
       "selfCorrection": "自我纠错",
       "parallelAgents": "并行 Agent",
-      "terminalTitle": "sisyphus — -zsh — 80x24",
+      "terminalTitle": "odin — -zsh — 80x24",
       "terminalInput": "ulw add authentication to the API",
       "steps": {
         "scanning": "正在扫描代码库...",
@@ -72,17 +72,17 @@
       },
       "tagline": "零干预。完全自主。只看结果。"
     },
-    "sisyphus": {
+    "odin": {
       "badge": "主编排器",
-      "title": "Sisyphus",
+      "title": "Odin",
       "headline": "永不眠的 CTO",
-      "description": "以神话人物命名——永远推着巨石上山。Sisyphus 解析隐含需求，适应代码库成熟度，并委派给专家。被中断了？boulder 系统会从你停下的地方精确恢复。",
+      "description": "以神话人物命名——永远推着巨石上山。Odin 解析隐含需求，适应代码库成熟度，并委派给专家。被中断了？boulder 系统会从你停下的地方精确恢复。",
       "phases": {
         "intent": {
           "title": "Intent Gate",
           "description": "解析你真正的意图，而不只是你输入的内容"
         },
-        "explore": {
+        "vidar": {
           "title": "Codebase Assessment",
           "description": "在碰任何一行代码之前先映射架构"
         },
@@ -99,24 +99,24 @@
       "boulderDescription": "活跃工作被记录在 boulder.json 中。停电？系统崩溃？没关系。从你停下的地方精确恢复。",
       "model": "Claude Opus 4.7 Max"
     },
-    "prometheusAtlas": {
+    "mimirHeimdall": {
       "badge": "编排工作流",
       "title": "先想，再动",
       "headline": "规划和执行是不同的工作",
-      "prometheus": {
-        "name": "Prometheus",
+      "mimir": {
+        "name": "Mimir",
         "role": "Strategic Planner",
         "model": "Claude Opus 4.7 Max",
-        "description": "架构师。与你访谈，探索代码库，并创建详细的执行计划。从不写代码。使用 Metis 和 Momus 作为质量关卡。",
+        "description": "架构师。与你访谈，探索代码库，并创建详细的执行计划。从不写代码。使用 Urd 和 Forseti 作为质量关卡。",
         "features": [
           "智能访谈模式",
           "多 agent 代码库探索",
-          "与 Metis 进行差距分析",
-          "与 Momus 进行严苛审查"
+          "与 Urd 进行差距分析",
+          "与 Forseti 进行严苛审查"
         ]
       },
-      "atlas": {
-        "name": "Atlas",
+      "heimdall": {
+        "name": "Heimdall",
         "role": "Master Executor",
         "model": "Claude Sonnet 4.6",
         "description": "构建者。阅读已验证的计划，通过 category+skills 系统委派给专业 agent。跨任务追踪学习。独立验证 — 从不相信子 agent 的说法。",
@@ -127,30 +127,30 @@
           "独立的结果验证"
         ]
       },
-      "metis": {
-        "name": "Metis",
+      "urd": {
+        "name": "Urd",
         "description": "在歧义变成 Bug 之前捕获它们。"
       },
-      "momus": {
-        "name": "Momus",
+      "forseti": {
+        "name": "Forseti",
         "description": "只有当计划真正完美时才说 OKAY。"
       },
       "workflow": {
-        "step1": "向 Prometheus 描述你的工作",
-        "step2": "Metis 分析差距",
-        "step3": "Momus 严苛验证",
-        "step4": "Atlas 委派给专家",
+        "step1": "向 Mimir 描述你的工作",
+        "step2": "Urd 分析差距",
+        "step3": "Forseti 严苛验证",
+        "step4": "Heimdall 委派给专家",
         "step5": "对一切进行独立验证"
       },
       "whyItWorks": "规划者不编码。执行者遵循已验证的计划。智能存在于系统中，而非单个 agent。"
     },
-    "hephaestus": {
+    "thor": {
       "badge": "深度工作者",
-      "title": "Hephaestus",
+      "title": "Thor",
       "headline": "给他目标，不是菜谱",
       "description": "以希腊锻造之神命名。有条不紊、彻底、执着。在写任何代码前启动 2-5 个并行 explore agent。专为深度架构推理、复杂调试和跨领域综合而设计。",
       "loop": {
-        "explore": "EXPLORE — 绘制地形",
+        "vidar": "EXPLORE — 绘制地形",
         "plan": "PLAN — 规划路线",
         "decide": "DECIDE — 确定路径",
         "execute": "EXECUTE — 精确构建",
@@ -199,50 +199,50 @@
     "agents": {
       "title": "Specialized Agents",
       "subtitle": "八个专用 Agent 覆盖常见任务，外加按需动态构建的 Agent 系统。",
-      "oracle": {
-        "name": "Oracle",
+      "volva": {
+        "name": "Volva",
         "role": "Architecture Consultant",
         "model": "GPT 5.5 High",
         "description": "复杂调试和架构决策。当前路不明时。"
       },
-      "librarian": {
-        "name": "Librarian",
+      "bragi": {
+        "name": "Bragi",
         "role": "Docs & Code Search",
         "model": "GPT 5.4 Mini Fast",
         "description": "寻找真正的 GitHub 示例和官方文档。基于证据，附带永久链接。"
       },
-      "explore": {
+      "vidar": {
         "name": "Explore",
         "role": "Codebase Grep",
         "model": "GPT 5.4 Mini Fast",
         "description": "超高速代码库搜索。便宜、并行、始终在后台运行。"
       },
-      "metis": {
-        "name": "Metis",
+      "urd": {
+        "name": "Urd",
         "role": "Plan Consultant",
         "model": "Claude Sonnet 4.6",
         "description": "在计划中的歧义变成生产 Bug 之前捕获它们。"
       },
-      "momus": {
-        "name": "Momus",
+      "forseti": {
+        "name": "Forseti",
         "role": "Plan Reviewer",
         "model": "GPT 5.6 Sol xHigh",
         "description": "严苛验证。只有当计划无懈可击时才批准。"
       },
-      "atlas": {
-        "name": "Atlas",
+      "heimdall": {
+        "name": "Heimdall",
         "role": "并行任务执行者",
         "model": "Claude Sonnet 4.6",
         "description": "编排多步骤计划，跟踪依赖关系。委派给专家并独立验证。"
       },
-      "sisyphusJunior": {
-        "name": "Sisyphus-Junior",
+      "odinJunior": {
+        "name": "Einherjar",
         "role": "专注任务执行者",
         "model": "Per-category",
-        "description": "与 Sisyphus 相同的纪律，不委派。端到端执行单个任务，带有证据绑定 QA。"
+        "description": "与 Odin 相同的纪律，不委派。端到端执行单个任务，带有证据绑定 QA。"
       },
       "multimodalLooker": {
-        "name": "Multimodal-Looker",
+        "name": "Huginn",
         "role": "媒体分析",
         "model": "GPT 5.5 Medium",
         "description": "从 PDF、图片和图表中提取信息。无需完整阅读即可快速摘要。"
@@ -290,7 +290,7 @@
         "author": "Arthur Guiot"
       },
       "review2": {
-        "text": "If Claude Code does in 7 days what a human does in 3 months, Sisyphus does it in 1 hour.",
+        "text": "If Claude Code does in 7 days what a human does in 3 months, Odin does it in 1 hour.",
         "author": "B, Quant Researcher"
       },
       "review3": {
@@ -382,14 +382,14 @@
         },
         "footer": "零干预。完全自主。只看结果。"
       },
-      "prometheus": {
+      "mimir": {
         "badge": "方法 2",
-        "title": "Prometheus + Atlas",
+        "title": "Mimir + Heimdall",
         "subtitle": "当你需要战略性控制时。",
-        "prometheusTitle": "Prometheus",
-        "prometheusDescription": "进行访谈、研究上下文并生成详细的 YAML 计划。",
-        "atlasTitle": "Atlas",
-        "atlasDescription": "执行计划，委派给子 Agent，管理波次并跟踪进度。",
+        "mimirTitle": "Mimir",
+        "mimirDescription": "进行访谈、研究上下文并生成详细的 YAML 计划。",
+        "heimdallTitle": "Heimdall",
+        "heimdallDescription": "执行计划，委派给子 Agent，管理波次并跟踪进度。",
         "footer": "你设计架构。Agent 执行。完全透明。"
       }
     },
@@ -410,16 +410,16 @@
     "coreLoop": {
       "title": "核心循环",
       "features": {
-        "prometheus": {
-          "feature": "Prometheus",
+        "mimir": {
+          "feature": "Mimir",
           "purpose": "通过智能访谈提取意图"
         },
-        "metis": {
-          "feature": "Metis",
+        "urd": {
+          "feature": "Urd",
           "purpose": "在歧义变成 Bug 之前捕获它们"
         },
-        "momus": {
-          "feature": "Momus",
+        "forseti": {
+          "feature": "Forseti",
           "purpose": "在执行前验证计划完整性"
         },
         "orchestrator": {

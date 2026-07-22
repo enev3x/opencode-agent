@@ -55,13 +55,13 @@ export async function syncLazycodexMarketplace(input: SyncLazycodexMarketplaceIn
   const pluginManifestPath = join(pluginRoot, ".codex-plugin", "plugin.json")
 
   const marketplace = await readMarketplaceManifest(marketplacePath)
-  if (marketplace.name !== "sisyphuslabs") {
-    throw new Error(`Sisyphus Labs marketplace manifest must be named sisyphuslabs, got ${marketplace.name}`)
+  if (marketplace.name !== "odinlabs") {
+    throw new Error(`Odin Labs marketplace manifest must be named odinlabs, got ${marketplace.name}`)
   }
 
   const pluginManifest = await readPluginManifest(pluginManifestPath)
   if (pluginManifest.name !== "omo") {
-    throw new Error(`Sisyphus Labs plugin manifest must be named omo, got ${pluginManifest.name}`)
+    throw new Error(`Odin Labs plugin manifest must be named omo, got ${pluginManifest.name}`)
   }
 
   const marketplaceContents = await readFile(marketplacePath, "utf8")
@@ -99,7 +99,7 @@ async function readMarketplaceManifest(path: string): Promise<MarketplaceManifes
   if (isPlainRecord(parsed) && typeof parsed.name === "string") {
     return { name: parsed.name }
   }
-  throw new Error("invalid Sisyphus Labs marketplace manifest")
+  throw new Error("invalid Odin Labs marketplace manifest")
 }
 
 async function readPluginManifest(path: string): Promise<PluginManifest> {

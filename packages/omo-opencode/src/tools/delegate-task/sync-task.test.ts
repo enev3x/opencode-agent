@@ -678,7 +678,7 @@ describe("executeSyncTask - cleanup on error paths", () => {
 
     const result = await executeSyncTask(args, mockCtx, mockExecutorCtx, {
       sessionID: "parent-session",
-    }, "sisyphus-junior", initialModel, undefined, undefined, fallbackChain, deps)
+    }, "einherjar", initialModel, undefined, undefined, fallbackChain, deps)
 
     expect(createdSessions).toEqual(["ses_first", "ses_second"])
     expect(polledSessions).toEqual(["ses_first", "ses_second"])
@@ -770,7 +770,7 @@ describe("executeSyncTask - cleanup on error paths", () => {
     //#when
     const result = await executeSyncTask(args, mockCtx, mockExecutorCtx, {
       sessionID: "parent-session",
-    }, "sisyphus-junior", initialModel, undefined, undefined, fallbackChain, deps)
+    }, "einherjar", initialModel, undefined, undefined, fallbackChain, deps)
 
     //#then
     expect(shouldRetryError({ message: pollError })).toBe(false)
@@ -832,7 +832,7 @@ describe("executeSyncTask - cleanup on error paths", () => {
     //#when
     const result = await executeSyncTask(args, mockCtx, mockExecutorCtx, {
       sessionID: "parent-session",
-    }, "sisyphus-junior", undefined, undefined, undefined, undefined, deps)
+    }, "einherjar", undefined, undefined, undefined, undefined, deps)
 
     //#then
     expect(result).toBe("Forbidden: Selected provider is forbidden")
@@ -894,7 +894,7 @@ describe("executeSyncTask - cleanup on error paths", () => {
 
     const result = await executeSyncTask(args, mockCtx, mockExecutorCtx, {
       sessionID: "parent-session",
-    }, "sisyphus-junior", undefined, "sync delegated skill system", undefined, undefined, deps)
+    }, "einherjar", undefined, "sync delegated skill system", undefined, undefined, deps)
 
     expect(result).toContain("sync result")
     expect(observedBootstrapPrompts[0]).toContain("sync bootstrap prompt")
@@ -968,7 +968,7 @@ describe("executeSyncTask - cleanup on error paths", () => {
 
     const result = await executeSyncTask(args, mockCtx, mockExecutorCtx, {
       sessionID: "parent-session",
-    }, "sisyphus-junior", initialModel, undefined, undefined, fallbackChain, deps)
+    }, "einherjar", initialModel, undefined, undefined, fallbackChain, deps)
 
     expect(result).toContain("Result from ses_second")
     expect(onSyncSessionCreated.mock.calls.map((call: unknown[]) => call[0])).toEqual([
@@ -1042,7 +1042,7 @@ describe("executeSyncTask - cleanup on error paths", () => {
 
     const result = await executeSyncTask(args, mockCtx, mockExecutorCtx, {
       sessionID: "parent-session",
-    }, "sisyphus-junior", initialModel, undefined, undefined, fallbackChain, deps)
+    }, "einherjar", initialModel, undefined, undefined, fallbackChain, deps)
 
     expect(result).toBe("Final retry failed")
     const finalMetadata = metadataCalls[metadataCalls.length - 1]

@@ -50,7 +50,7 @@ describe("stop-continuation-guard", () => {
       parentSessionId: "parent-session",
       parentMessageId: "parent-message",
       prompt: "prompt",
-      agent: "sisyphus-junior",
+      agent: "einherjar",
     }
   }
 

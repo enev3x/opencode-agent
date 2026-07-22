@@ -29,32 +29,32 @@ const EXPLORATION_AGENT_DENYLIST: Record<string, boolean> = {
 }
 
 const AGENT_RESTRICTIONS: Record<string, Record<string, boolean>> = {
-  explore: EXPLORATION_AGENT_DENYLIST,
+  vidar: EXPLORATION_AGENT_DENYLIST,
 
-  librarian: EXPLORATION_AGENT_DENYLIST,
+  bragi: EXPLORATION_AGENT_DENYLIST,
 
-  oracle: {
+  volva: {
     write: false,
     edit: false,
     task: false,
     call_omo_agent: false,
   },
 
-  metis: {
+  urd: {
     write: false,
     edit: false,
   },
 
-  momus: {
+  forseti: {
     write: false,
     edit: false,
   },
 
-  "multimodal-looker": {
+  "huginn": {
     read: true,
   },
 
-  "sisyphus-junior": {
+  "einherjar": {
     task: false,
   },
 }

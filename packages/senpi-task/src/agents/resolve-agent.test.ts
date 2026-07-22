@@ -38,14 +38,14 @@ describe("resolveAgent", () => {
   test("#given an agent fallback chain and matching live model #when resolved #then it returns agent metadata and persona", () => {
     // given
     const agents = roster({
-      name: "explore",
+      name: "vidar",
       prompt: "Inspect the codebase",
       executionMode: "in-process",
     })
     const models = registry([model("openai", "gpt-5.4-mini-fast")])
 
     // when
-    const result = expectResolved(resolveAgent("explore", agents, models))
+    const result = expectResolved(resolveAgent("vidar", agents, models))
 
     // then
     expect(result.model).toBe("openai/gpt-5.4-mini-fast")
@@ -55,7 +55,7 @@ describe("resolveAgent", () => {
       model_id: "gpt-5.4-mini-fast",
       display: "openai/gpt-5.4-mini-fast",
     })
-    expect(result.agentType).toBe("explore")
+    expect(result.agentType).toBe("vidar")
     expect(result.instructions).toBe("Inspect the codebase")
     expect(result.agentExecutionMode).toBe("in-process")
   })
@@ -95,22 +95,22 @@ describe("resolveAgent", () => {
   test("#given a disabled agent #when resolved #then it is hidden as not_found", () => {
     // given
     const agents = roster(
-      { name: "explore", disable: true },
-      { name: "oracle", model: "openai/oracle" },
+      { name: "vidar", disable: true },
+      { name: "volva", model: "openai/volva" },
     )
 
     // when
-    const result = resolveAgent("explore", agents, registry([]))
+    const result = resolveAgent("vidar", agents, registry([]))
 
     // then
-    expect(result).toEqual({ kind: "not_found", agent: "explore", availableAgents: ["oracle"] })
+    expect(result).toEqual({ kind: "not_found", agent: "vidar", availableAgents: ["volva"] })
   })
 
   test("#given an unknown agent name #when resolved #then it returns the active sorted roster", () => {
     // given
     const agents = roster(
-      { name: "oracle", model: "openai/oracle" },
-      { name: "explore", model: "openai/explore" },
+      { name: "volva", model: "openai/volva" },
+      { name: "vidar", model: "openai/vidar" },
     )
 
     // when
@@ -120,7 +120,7 @@ describe("resolveAgent", () => {
     expect(result).toEqual({
       kind: "not_found",
       agent: "missing",
-      availableAgents: ["explore", "oracle"],
+      availableAgents: ["vidar", "volva"],
     })
   })
 
@@ -143,10 +143,10 @@ describe("resolveAgent", () => {
   test("#given a model override without a registry #when resolved #then it returns persona fields and filters the tool allowlist", () => {
     // given
     const agents = roster({
-      name: "oracle",
+      name: "volva",
       prompt: "Advise only",
       executionMode: "in-process",
-      allowedSubagents: ["explore"],
+      allowedSubagents: ["vidar"],
       maxDepth: 2,
       tools: [
         { pattern: "read", allow: true },
@@ -159,7 +159,7 @@ describe("resolveAgent", () => {
 
     // when
     const result = expectResolved(
-      resolveAgent("oracle", agents, undefined, { modelOverride: "openai/explicit" }),
+      resolveAgent("volva", agents, undefined, { modelOverride: "openai/explicit" }),
     )
 
     // then
@@ -168,7 +168,7 @@ describe("resolveAgent", () => {
     expect(result.instructions).toBe("Advise only")
     expect(result.toolAllowlist).toEqual(["read", "lsp_diagnostics"])
     expect(result.agentExecutionMode).toBe("in-process")
-    expect(result.allowedSubagents).toEqual(["explore"])
+    expect(result.allowedSubagents).toEqual(["vidar"])
     expect(result.maxDepth).toBe(2)
   })
 })

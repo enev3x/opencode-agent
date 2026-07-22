@@ -2,7 +2,7 @@ import { lstat, mkdir, readFile, writeFile } from "node:fs/promises"
 import { dirname } from "node:path"
 import { parseAgentHeaderName, parseHookStateHeaderKey, parsePluginHeaderKey } from "./codex-config-toml-sections"
 
-const MANAGED_MARKETPLACES = ["sisyphuslabs", "lazycodex", "code-yeongyu-codex-plugins"] as const
+const MANAGED_MARKETPLACES = ["odinlabs", "lazycodex", "code-yeongyu-codex-plugins"] as const
 
 const LEGACY_MANAGED_CODEX_AGENT_NAMES_TO_PURGE = ["codex-ultrawork-reviewer"] as const
 
@@ -11,9 +11,9 @@ const CURRENT_MANAGED_CODEX_AGENT_NAMES = [
   "lazycodex-worker-high",
   "lazycodex-worker-low",
   "lazycodex-worker-medium",
-  "librarian",
-  "metis",
-  "momus",
+  "bragi",
+  "urd",
+  "forseti",
   "plan",
 ] as const
 

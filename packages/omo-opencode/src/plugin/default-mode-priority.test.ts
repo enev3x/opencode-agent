@@ -156,7 +156,7 @@ async function collectDefaultModeToasts(
   )
 
   await hook["chat.message"](
-    { sessionID, agent: "sisyphus" },
+    { sessionID, agent: "odin" },
     {
       message: {},
       parts: [{ type: "text", text: FIRST_TURN_PROMPT }],
@@ -185,7 +185,7 @@ async function collectGoalCreations(
   await handler(
     {
       sessionID,
-      agent: "sisyphus",
+      agent: "odin",
       model: { providerID: "openai", modelID: "gpt-5.5" },
     },
     output,

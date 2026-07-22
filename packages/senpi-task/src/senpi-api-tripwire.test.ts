@@ -31,7 +31,7 @@ describe("pinned Senpi API surface", () => {
 
     // when
     const result: AgentResolutionResult = senpiTask.resolveAgent(
-      "explore",
+      "vidar",
       senpiTask.BUILTIN_AGENTS,
       undefined,
       options,

@@ -89,7 +89,7 @@ describe("hook message injection boundaries", () => {
   it("writes message and synthetic text part with the original context", () => {
     // given
     const result = injectHookMessage("ses_direct", "test content", {
-      agent: "atlas",
+      agent: "heimdall",
       model: { providerID: "openai", modelID: "gpt-5", variant: "fast" },
       path: { cwd: "/workspace/project" },
       tools: { edit: "allow", bash: false },
@@ -116,7 +116,7 @@ describe("hook message injection boundaries", () => {
     expect(message.id).toMatch(/^msg_[0-9a-f]{8}_\d{6}$/)
     expect(message.sessionID).toBe("ses_direct")
     expect(message.role).toBe("user")
-    expect(message.agent).toBe("atlas")
+    expect(message.agent).toBe("heimdall")
     expect(message.model).toEqual({ providerID: "openai", modelID: "gpt-5", variant: "fast" })
     expect(message.path).toEqual({ cwd: "/workspace/project", root: "/" })
     expect(message.tools).toEqual({ edit: "allow", bash: false })
@@ -147,7 +147,7 @@ describe("hook message injection boundaries", () => {
     mkdirSync(nestedMessageDir, { recursive: true })
     writeFileSync(join(nestedMessageDir, "msg_existing.json"), JSON.stringify({
       id: "msg_existing",
-      agent: "sisyphus",
+      agent: "odin",
       model: { providerID: "anthropic", modelID: "claude-opus-4", variant: "thinking" },
       tools: { write: "deny" },
       time: { created: 100 },
@@ -174,7 +174,7 @@ describe("hook message injection boundaries", () => {
       readonly tools: Record<string, string>
     }>(join(nestedMessageDir, injectedFile ?? ""))
 
-    expect(message.agent).toBe("sisyphus")
+    expect(message.agent).toBe("odin")
     expect(message.model).toEqual({ providerID: "anthropic", modelID: "claude-opus-4", variant: "thinking" })
     expect(message.path).toEqual({ cwd: "/workspace/nested", root: "/workspace" })
     expect(message.tools).toEqual({ write: "deny" })
@@ -217,7 +217,7 @@ describe("hook message injection boundaries", () => {
   it("rejects session IDs that would escape message storage", () => {
     // given
     expect(injectHookMessage("../ses_escape", "test content", {
-      agent: "atlas",
+      agent: "heimdall",
       model: { providerID: "openai", modelID: "gpt-5" },
     })).toBe(false)
 
@@ -235,7 +235,7 @@ describe("hook message injection boundaries", () => {
     try {
       // when
       const result = injectHookMessage("ses_unreadable_project", "test content", {
-        agent: "atlas",
+        agent: "heimdall",
         model: { providerID: "openai", modelID: "gpt-5" },
       })
 
@@ -255,7 +255,7 @@ describe("hook message injection boundaries", () => {
     try {
       // when
       const result = injectHookMessage("ses_part_failure", "test content", {
-        agent: "atlas",
+        agent: "heimdall",
         model: { providerID: "openai", modelID: "gpt-5" },
       })
 
@@ -283,7 +283,7 @@ describe("hook message context resolution boundaries", () => {
     writeFileSync(join(partDir, "prt_0001.json"), JSON.stringify({ type: "compaction" }))
     writeFileSync(join(messageDir, "msg_0002.json"), JSON.stringify({
       id: "msg_0002",
-      agent: "sisyphus",
+      agent: "odin",
       time: { created: 20 },
     }))
 
@@ -291,7 +291,7 @@ describe("hook message context resolution boundaries", () => {
     const result = findFirstMessageWithAgent(messageDir)
 
     // then
-    expect(result).toBe("sisyphus")
+    expect(result).toBe("odin")
   })
 
   it("uses SDK lookups for SQLite backend", async () => {
@@ -301,7 +301,7 @@ describe("hook message context resolution boundaries", () => {
       {
         id: "msg_previous",
         info: {
-          agent: "sisyphus",
+          agent: "odin",
           model: { providerID: "anthropic", modelID: "claude-opus-4" },
           time: { created: 20 },
         },
@@ -314,11 +314,11 @@ describe("hook message context resolution boundaries", () => {
     // then
     expect(result).toEqual({
       prevMessage: {
-        agent: "sisyphus",
+        agent: "odin",
         model: { providerID: "anthropic", modelID: "claude-opus-4" },
         tools: undefined,
       },
-      firstMessageAgent: "sisyphus",
+      firstMessageAgent: "odin",
     })
     expect(mockClient.session.messages).toHaveBeenCalledTimes(1)
   })
@@ -327,11 +327,11 @@ describe("hook message context resolution boundaries", () => {
     // given
     const messageDir = createMessageDir()
     writeFileSync(join(messageDir, "msg_early.json"), JSON.stringify({
-      agent: "atlas",
+      agent: "heimdall",
       time: { created: 10 },
     }))
     writeFileSync(join(messageDir, "msg_late.json"), JSON.stringify({
-      agent: "sisyphus",
+      agent: "odin",
       model: { providerID: "openai", modelID: "gpt-5" },
       time: { created: 100 },
     }))
@@ -342,11 +342,11 @@ describe("hook message context resolution boundaries", () => {
     // then
     expect(result).toEqual({
       prevMessage: {
-        agent: "sisyphus",
+        agent: "odin",
         model: { providerID: "openai", modelID: "gpt-5" },
         time: { created: 100 },
       },
-      firstMessageAgent: "atlas",
+      firstMessageAgent: "heimdall",
     })
   })
 })

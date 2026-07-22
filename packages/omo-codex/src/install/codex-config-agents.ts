@@ -9,9 +9,9 @@ const CURRENT_MANAGED_CODEX_AGENT_NAMES = [
   "lazycodex-worker-high",
   "lazycodex-worker-low",
   "lazycodex-worker-medium",
-  "librarian",
-  "metis",
-  "momus",
+  "bragi",
+  "urd",
+  "forseti",
   "plan",
 ] as const
 

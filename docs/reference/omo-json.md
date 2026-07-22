@@ -131,10 +131,10 @@ The Senpi task engine ships five builtin curated agents. Any Senpi session can d
 | Name | Purpose |
 |------|---------|
 | `explore` | Codebase search specialist. Answers "Where is X?", "Which file has Y?", "Find the code that does Z". Supports thoroughness levels from quick to very thorough. |
-| `librarian` | Remote codebase and documentation research: searches open-source repositories, retrieves official documentation, and finds implementation examples via the GitHub CLI and direct documentation retrieval. |
-| `oracle` | Read-only consultation agent for debugging hard problems and high-difficulty architecture design. |
-| `metis` | Pre-planning consultant that analyzes requests to surface hidden intentions, ambiguities, and AI failure points. |
-| `momus` | Expert reviewer that evaluates work plans against clarity, verifiability, and completeness standards. |
+| `bragi` | Remote codebase and documentation research: searches open-source repositories, retrieves official documentation, and finds implementation examples via the GitHub CLI and direct documentation retrieval. |
+| `volva` | Read-only consultation agent for debugging hard problems and high-difficulty architecture design. |
+| `urd` | Pre-planning consultant that analyzes requests to surface hidden intentions, ambiguities, and AI failure points. |
+| `forseti` | Expert reviewer that evaluates work plans against clarity, verifiability, and completeness standards. |
 
 Each builtin carries its own persona prompt, a read-only tool policy, and a per-agent model fallback chain, and is pinned to `execution_mode: "in-process"`. The nine-name allowlist includes a curated `bash` override, but it is not Senpi's general shell: it directly runs only validated read-only `gh` queries and HTTPS `curl` retrievals, with no shell parsing, redirects, output files, uploads, request bodies, or mutating HTTP methods. Direct `edit`, `write`, and mutating LSP tools are excluded.
 
@@ -153,7 +153,7 @@ To hide a builtin from the task tool description and from spawn resolution, disa
 ```jsonc
 {
   "agents": {
-    "oracle": { "disable": true }
+    "volva": { "disable": true }
   }
 }
 ```
@@ -163,7 +163,7 @@ Overriding `execution_mode` on a curated agent is ignored. All other configured 
 Curated agents and teams. A team member spec naming a curated read-only agent (`kind: "subagent_type"`) is rejected at member validation with this error:
 
 ```
-curated read-only agent "oracle" cannot be a team member; delegate via the task tool instead
+curated read-only agent "volva" cannot be a team member; delegate via the task tool instead
 ```
 
 Team members always spawn in `process` mode, which cannot carry the curated persona or tool policy, so delegate to these agents through the task tool instead of naming them as team members.

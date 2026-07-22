@@ -10,8 +10,8 @@ import { resolvePluginRulesRoot } from "@oh-my-opencode/rules-engine/engine";
 import type { RuleCandidate } from "@oh-my-opencode/rules-engine/engine";
 
 const projectRoot = "/tmp/codex-rules-bundled-priority";
-const bundledPath = join(projectRoot, "bundled-rules", "hephaestus.md");
-const homePath = join(projectRoot, "home", ".opencode", "rules", "hephaestus.md");
+const bundledPath = join(projectRoot, "bundled-rules", "thor.md");
+const homePath = join(projectRoot, "home", ".opencode", "rules", "thor.md");
 const bundledBody = "Bundled baseline discipline.";
 const homeBody = "Home baseline discipline override.";
 const tempDirectories: string[] = [];
@@ -30,14 +30,14 @@ function globalCandidate(source: "plugin-bundled" | "~/.opencode/rules", path: s
 		distance: 9999,
 		isGlobal: true,
 		isSingleFile: false,
-		relativePath: source === "plugin-bundled" ? "bundled-rules/hephaestus.md" : ".opencode/rules/hephaestus.md",
+		relativePath: source === "plugin-bundled" ? "bundled-rules/thor.md" : ".opencode/rules/thor.md",
 	};
 }
 
 function ruleMarkdown(body: string): string {
 	return [
 		"---",
-		"description: OMO Hephaestus baseline discipline for Codex",
+		"description: OMO Thor baseline discipline for Codex",
 		"alwaysApply: true",
 		"---",
 		"",
@@ -85,7 +85,7 @@ describe("plugin bundled rule priority", () => {
 		// then
 		expect(formatted).toContain(homePath);
 		expect(formatted).toContain(homeBody);
-		expect(formatted).not.toContain(`- [hephaestus.md]{${homePath}}`);
+		expect(formatted).not.toContain(`- [thor.md]{${homePath}}`);
 		expect(formatted).not.toContain(bundledPath);
 		expect(formatted).not.toContain(bundledBody);
 	});

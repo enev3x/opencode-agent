@@ -60,7 +60,7 @@ The `src/hooks/keyword-detector/{team,hyperplan}/default.ts` files keep the rege
 
 [`ultrawork/source-detector.ts`](ultrawork/source-detector.ts) decides the ultrawork source in priority order:
 
-1. Planner agents (`prometheus`, `planner`, or normalized `plan`) route to `planner.md`.
+1. Planner agents (`mimir`, `planner`, or normalized `plan`) route to `planner.md`.
 2. GPT family models, as detected by `isGptModel(modelID)`, route to `gpt.md`.
 3. Gemini family models, as detected by `isGeminiModel(modelID)`, route to `gemini.md`.
 4. GLM family models, as detected by `isGlmModel(modelID)`, route to `glm.md`.
@@ -97,7 +97,7 @@ Default: empty/missing means every detector is active. Schema lives at [`src/con
 ## GUARDS
 
 - **System directive skip**: Messages tagged as system directives are not scanned (prevents infinite loops)
-- **Planner agent filter**: Prometheus/plan agents do not receive `ultrawork` injection
+- **Planner agent filter**: Mimir/plan agents do not receive `ultrawork` injection
 - **Non-OMO agent filter**: OpenCode built-in Builder/Plan agents do not receive keyword injection
 - **Session agent tracking**: Uses `getSessionAgent()` to get actual agent (not just input hint)
 - **Model-aware messages**: `getUltraworkMessage(agentName, modelID)` adapts message to active model

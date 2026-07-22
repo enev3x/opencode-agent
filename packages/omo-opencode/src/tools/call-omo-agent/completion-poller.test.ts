@@ -6,7 +6,7 @@ function createToolContext(): Parameters<typeof waitForCompletion>[1] {
   return {
     sessionID: "parent-session",
     messageID: "parent-message",
-    agent: "sisyphus",
+    agent: "odin",
     abort: new AbortController().signal,
     metadata: mock(() => {}),
   }

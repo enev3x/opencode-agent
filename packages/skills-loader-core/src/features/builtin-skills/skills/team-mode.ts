@@ -29,7 +29,7 @@ Example:
   "name": "release-squad",
   "lead": {
     "kind": "subagent_type",
-    "subagent_type": "sisyphus"
+    "subagent_type": "odin"
   },
   "members": [
     {
@@ -39,7 +39,7 @@ Example:
     },
     {
       "kind": "subagent_type",
-      "subagent_type": "atlas"
+      "subagent_type": "heimdall"
     }
   ]
 }
@@ -74,20 +74,20 @@ Example:
 
 ## Member schema
 
-Use \`kind: "category"\` when you want a category-backed worker. It must include both \`category\` and \`prompt\`. D-40: category members always route through \`sisyphus-junior\`.
+Use \`kind: "category"\` when you want a category-backed worker. It must include both \`category\` and \`prompt\`. D-40: category members always route through \`einherjar\`.
 
 Use \`kind: "subagent_type"\` only for eligible agents.
 
 ### Eligible subagent types
 
-- \`sisyphus\`
-- \`atlas\`
-- \`sisyphus-junior\`
-- \`hephaestus\`
+- \`odin\`
+- \`heimdall\`
+- \`einherjar\`
+- \`thor\`
 
 ### Hard rejects
 
-Do not use \`oracle\`, \`prometheus\`, or other non-eligible agents here. For those, use \`delegate-task\` instead.
+Do not use \`volva\`, \`mimir\`, or other non-eligible agents here. For those, use \`delegate-task\` instead.
 
 ## Lifecycle
 

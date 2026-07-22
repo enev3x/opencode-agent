@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Unified telemetry architecture across OpenCode and Codex editions. (PR #5668)
 - Coding Agent Sessions shared skill for finding and reconstructing agent sessions across harnesses. (PR #5600)
-- Atlas final-review verdict classification (approve/reject/missing). (PR #5605)
+- Heimdall final-review verdict classification (approve/reject/missing). (PR #5605)
 - Web terminal visual evidence helper for QA. (PR #5534)
 
 ### Changed
@@ -34,7 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Atlas background output gate requires explicit gate for retrieval. (PR #5653)
+- Heimdall background output gate requires explicit gate for retrieval. (PR #5653)
 - TeamMode leader patience: waits calmly instead of rushing members. (PR #5613)
 - CodeGraph child process environment isolation. (PR #5667)
 - Windows Codex desktop install discovery-first flow. (PR #5618)
@@ -58,7 +58,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Venice provider neutralized in Hephaestus and deep model chains. (PR #5523)
+- Venice provider neutralized in Thor and deep model chains. (PR #5523)
 - Frontend design references materialized from submodules for DMCA compliance. (PR #5472)
 - LazyCodex steering mode defaults to on at install. (PR #5531)
 - CodeGraph cross-platform bundle and MCP handshake improvements. (PR #5475, #5496)
@@ -101,7 +101,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Skill rename: `frontend-ui-ux` to `frontend` (ported with full references and designpowers contract). (PR #5308)
 - Skill rename: `ultraresearch` to `ulw-research`. (PR #5518)
-- ULW plan becomes LLM-agnostic (collapsed per-LLM Prometheus prompts into one skill). (PR #5310)
+- ULW plan becomes LLM-agnostic (collapsed per-LLM Mimir prompts into one skill). (PR #5310)
 - Monitor tool relocated into `omo-opencode` with background command monitoring and ReDoS hardening. (PR #5315)
 - TUI sidebar panel with roster resolver, ULW loop reader, and runtime mirror manager. (PR #5325)
 - CodeGraph MCP serve wrapper and session bootstrap for both OpenCode and Codex. (PR #5322)
@@ -124,7 +124,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Opencode plugin component load failures retried.
 - TeamMode composition invariants enforced.
 - ULW plan honors explicit ask and fork filter.
-- Sisyphus prompt rebuild for runtime model family.
+- Odin prompt rebuild for runtime model family.
 
 ### Removed
 
@@ -168,7 +168,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Toast i18n with English and Chinese locales, backed by plugin config. (PR #3884)
 - `disabled_providers` config schema and helper. (PR #4031)
 - `plan-format-validator` hook warns on malformed task labels in `.omo/plans/*.md`. (PR #4221)
-- Prometheus gains spec-driven development framework awareness (OpenSpec, .specify). (PR #2307)
+- Mimir gains spec-driven development framework awareness (OpenSpec, .specify). (PR #2307)
 - Per-agent skill filtering with `restrictedAgents`. (PR #2827)
 - `look_at` async refactor for non-blocking image analysis. (PR #4098)
 - `keyword-detector.enabled_expansions` allowlist. (PR #4084)
@@ -224,7 +224,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `packages/ast-grep-mcp`: native `packages/omo-opencode/src/tools/ast-grep` removed and replaced with a package-backed MCP server. User-facing tool names `ast_grep_search` / `ast_grep_replace` are preserved via MCP namespacing (server `ast_grep` + tools `search`/`replace`). `disabled_tools` continues to honor the legacy names.
 - Rules-injector transcript hydration: dedup cache is now seeded from the session transcript on context-recovery, preventing duplicate rule injections after compaction.
 - Comment-checker now parses `apply_patch` tool payloads, detecting AI slop comments in patch-style edits (not just plain file writes).
-- `setSisyphusRuleDeprecationLogger` export from `@oh-my-opencode/rules-engine` lets the host inject its logger so the core package stays free of harness-source imports.
+- `setOdinRuleDeprecationLogger` export from `@oh-my-opencode/rules-engine` lets the host inject its logger so the core package stays free of harness-source imports.
 - `ROADMAP.md` documents the multi-harness package layering refactor and contribution flow (`ROADMAP` label).
 
 ### Changed
@@ -249,7 +249,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Reverted Breaking Changes
 
-- Restored `.sisyphus/rules` and `~/.sisyphus/rules` rule-source discovery that was silently removed in v4.2.2..HEAD. They now load with LOWEST priority among project rule sources and emit a deprecation warning. **Planned removal in v4.3.0**: migrate to `.omo/rules` and `~/.omo/rules`.
+- Restored `.odin/rules` and `~/.odin/rules` rule-source discovery that was silently removed in v4.2.2..HEAD. They now load with LOWEST priority among project rule sources and emit a deprecation warning. **Planned removal in v4.3.0**: migrate to `.omo/rules` and `~/.omo/rules`.
 
 ### Internal
 

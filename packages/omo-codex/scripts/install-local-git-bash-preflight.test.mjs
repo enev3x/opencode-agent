@@ -150,5 +150,5 @@ test("#given non-Windows local install #when resolver would fail #then installer
 	}));
 
 	assert.equal(result.gitBashPath, null);
-	assert.match(await readFile(join(codexHome, "config.toml"), "utf8"), /\[marketplaces\.sisyphuslabs\]/);
+	assert.match(await readFile(join(codexHome, "config.toml"), "utf8"), /\[marketplaces\.odinlabs\]/);
 });

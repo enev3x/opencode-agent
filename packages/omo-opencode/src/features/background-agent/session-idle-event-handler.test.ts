@@ -12,7 +12,7 @@ function createRunningTask(overrides: Partial<BackgroundTask> = {}): BackgroundT
     parentMessageId: "msg-1",
     description: "test idle handler",
     prompt: "test",
-    agent: "explore",
+    agent: "vidar",
     status: "running",
     startedAt: new Date(Date.now() - (MIN_IDLE_TIME_MS + 100)),
     ...overrides,

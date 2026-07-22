@@ -26,15 +26,15 @@
 
 > [!NOTE]
 >
-> [![Sisyphus Labs - Meet Dori. Not a demo. Subscribes to everything.](./.github/assets/sisyphuslabs.png?v=4)](https://sisyphuslabs.ai)
+> [![Odin Labs - Meet Dori. Not a demo. Subscribes to everything.](./.github/assets/odinlabs.png?v=4)](https://odinlabs.ai)
 >
-> > **OmO поддерживается Jobdori — ИИ-ассистентом, показанным выше. Познакомьтесь со своим Jobdori — Dori. <br />Присоединяйтесь к листу ожидания [здесь](https://sisyphuslabs.ai).**
+> > **OmO поддерживается Jobdori — ИИ-ассистентом, показанным выше. Познакомьтесь со своим Jobdori — Dori. <br />Присоединяйтесь к листу ожидания [здесь](https://odinlabs.ai).**
 
 > [!TIP] Будьте с нами!
 >
 > | [<img alt="Discord link" src="https://img.shields.io/discord/1452487457085063218?color=5865F2&label=discord&labelColor=black&logo=discord&logoColor=white&style=flat-square" width="156px" />](https://discord.gg/PUwSMR9XNk) | Вступайте в наш [Discord](https://discord.gg/PUwSMR9XNk), чтобы общаться с контрибьюторами и пользователями `oh-my-openagent`. |
 > | :-----| :----- |
-> | [<img alt="X link" src="https://img.shields.io/badge/Follow-%40justsisyphus-00CED1?style=flat-square&logo=x&labelColor=black" width="156px" />](https://x.com/justsisyphus) | Обновления `oh-my-openagent` раньше публиковались на моём аккаунте X. <br /> После ошибочной блокировки [@justsisyphus](https://x.com/justsisyphus) публикует обновления вместо меня. |
+> | [<img alt="X link" src="https://img.shields.io/badge/Follow-%40justodin-00CED1?style=flat-square&logo=x&labelColor=black" width="156px" />](https://x.com/justodin) | Обновления `oh-my-openagent` раньше публиковались на моём аккаунте X. <br /> После ошибочной блокировки [@justodin](https://x.com/justodin) публикует обновления вместо меня. |
 > | [<img alt="GitHub Follow" src="https://img.shields.io/github/followers/code-yeongyu?style=flat-square&logo=github&labelColor=black&color=24292f" width="156px" />](https://github.com/code-yeongyu) | Подпишитесь на [@code-yeongyu](https://github.com/code-yeongyu) на GitHub, чтобы следить за другими проектами. |
 
 <!-- <CENTERED SECTION FOR GITHUB DISPLAY> -->
@@ -78,7 +78,7 @@
 
 > «Из-за него я отменил подписку на Cursor. В опенсорс-сообществе происходит что-то невероятное.» — [Arthur Guiot](https://x.com/arthur_guiot/status/2008736347092382053?s=20)
 
-> «Если Claude Code делает за 7 дней то, на что у человека уходит 3 месяца, Sisyphus справляется за 1 час. Он просто работает, пока задача не выполнена. Это дисциплинированный агент.» <br/>— B, исследователь в области квантовых финансов
+> «Если Claude Code делает за 7 дней то, на что у человека уходит 3 месяца, Odin справляется за 1 час. Он просто работает, пока задача не выполнена. Это дисциплинированный агент.» <br/>— B, исследователь в области квантовых финансов
 
 > «За один день устранил 8000 предупреждений eslint с помощью Oh My Opencode.» <br/>— [Jacob Ferrari](https://x.com/jacobferrari_/status/2003258761952289061)
 
@@ -163,7 +163,7 @@ Read this and tell me why it's not just another boilerplate: https://raw.githubu
 
 |     | Функция                                                  | Editions | Что делает                                                                                                                                                                                                                       |
 | --- | -------------------------------------------------------- | :------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 🤖   | **Дисциплинированные агенты**                            | Ultimate | Sisyphus оркестрирует Hephaestus, Oracle, Librarian, Explore. Полноценная AI-команда разработки в параллельном режиме.                                                                                                           |
+| 🤖   | **Дисциплинированные агенты**                            | Ultimate | Odin оркестрирует Thor, Volva, Bragi, Explore. Полноценная AI-команда разработки в параллельном режиме.                                                                                                           |
 | 🧩   | **Codex CLI Light Edition**                              | Light    | 8 компонентов omo, портированных в OpenAI Codex CLI (rules, comment-checker, git-bash, LSP, ultrawork, ulw-loop, start-work continuation, telemetry). Установка: `npx lazycodex-ai install`.                                                                |
 | 👥   | **Team Mode** (v4.0, opt-in)                             | Ultimate | Лид-агент + до 8 параллельных участников, визуализация в tmux в реальном времени, выделенные инструменты `team_*`. Питает `hyperplan` (5 враждебных критиков) и `security-research` (3 охотника + 2 PoC-инженера). [Документация →](docs/guide/team-mode.md) |
 | ⚡   | **`ultrawork` / `ulw`**                                  | Both     | Одно слово. Все агенты (Ultimate) или Codex-компонент `ultrawork` (Light) активируются. Не останавливается, пока задача не выполнена.                                                                                            |
@@ -180,7 +180,7 @@ Read this and tell me why it's not just another boilerplate: https://raw.githubu
 | 🖥️   | **Интеграция с Tmux**                                    | Ultimate | Полноценный интерактивный терминал. REPL, дебаггеры, TUI. Всё живое.                                                                                                                                                             |
 | 🔌   | **Совместимость с Claude Code**                          | Ultimate | Ваши хуки, команды, навыки, MCP и плагины? Всё работает без изменений. (У Codex своя нативная плагин-система.)                                                                                                                  |
 | 🎯   | **MCP, встроенные в навыки**                             | Ultimate | Навыки несут собственные MCP-серверы. Никакого раздувания контекста.                                                                                                                                                             |
-| 📋   | **Prometheus Planner**                                   | Ultimate | Стратегическое планирование в режиме интервью перед любым выполнением.                                                                                                                                                           |
+| 📋   | **Mimir Planner**                                   | Ultimate | Стратегическое планирование в режиме интервью перед любым выполнением.                                                                                                                                                           |
 | 🔍   | **`/init-deep`**                                         | Ultimate | Автоматически генерирует иерархические файлы `AGENTS.md` по всему проекту. Отлично работает на эффективность токенов и производительность агента.                                                                                |
 
 > **Editions, легенда.** **Ultimate** = только OpenCode (`bunx oh-my-openagent install`). **Light** = только Codex CLI (`bunx oh-my-openagent install --platform=codex`). **Both** = поставляется в обеих редакциях, часто с немного отличающейся реализацией.
@@ -188,19 +188,19 @@ Read this and tell me why it's not just another boilerplate: https://raw.githubu
 ### Дисциплинированные агенты
 
 <table><tr>
-<td align="center"><img src=".github/assets/sisyphus.png" height="300" /></td>
-<td align="center"><img src=".github/assets/hephaestus.png" height="300" /></td>
+<td align="center"><img src=".github/assets/odin.png" height="300" /></td>
+<td align="center"><img src=".github/assets/thor.png" height="300" /></td>
 </tr></table>
 
-**Sisyphus** (`claude-opus-4-8` / **`kimi-k3`** / **`glm-5`**) — главный оркестратор. Он планирует, делегирует задачи специалистам и доводит их до завершения с агрессивным параллельным выполнением. Он не останавливается на полпути. Claude Opus 4.8 и Kimi K3 — рекомендуемые значения по умолчанию.
+**Odin** (`claude-opus-4-8` / **`kimi-k3`** / **`glm-5`**) — главный оркестратор. Он планирует, делегирует задачи специалистам и доводит их до завершения с агрессивным параллельным выполнением. Он не останавливается на полпути. Claude Opus 4.8 и Kimi K3 — рекомендуемые значения по умолчанию.
 
-**Hephaestus** (использует только `gpt-5.6-sol` с medium effort через OpenAI, GitHub Copilot, Vercel или OpenCode) — автономный глубокий исполнитель. Дайте ему цель, а не рецепт. Он исследует кодовую базу, изучает паттерны и выполняет задачи сквозным образом без лишних подсказок. *Законный Мастер.*
+**Thor** (использует только `gpt-5.6-sol` с medium effort через OpenAI, GitHub Copilot, Vercel или OpenCode) — автономный глубокий исполнитель. Дайте ему цель, а не рецепт. Он исследует кодовую базу, изучает паттерны и выполняет задачи сквозным образом без лишних подсказок. *Законный Мастер.*
 
-**Prometheus** (`claude-opus-4-8` / **`gpt-5.6-sol`** / **`glm-5.2`**) — стратегический планировщик. Режим интервью: он задаёт вопросы, определяет объём работ и формирует детальный план до того, как написана хотя бы одна строка кода.
+**Mimir** (`claude-opus-4-8` / **`gpt-5.6-sol`** / **`glm-5.2`**) — стратегический планировщик. Режим интервью: он задаёт вопросы, определяет объём работ и формирует детальный план до того, как написана хотя бы одна строка кода.
 
 Каждый агент настроен под сильные стороны своей модели. Никакого ручного переключения между моделями. [Подробнее →](docs/guide/overview.md)
 
-> Anthropic [заблокировал OpenCode из-за нас.](https://x.com/thdxr/status/2010149530486911014) Именно поэтому Hephaestus зовётся «Законным Мастером». Ирония намеренная.
+> Anthropic [заблокировал OpenCode из-за нас.](https://x.com/thdxr/status/2010149530486911014) Именно поэтому Thor зовётся «Законным Мастером». Ирония намеренная.
 >
 > Мы работаем лучше всего на Opus или Kimi K3, но Kimi K3 + GPT-5.6 Sol уже превосходят ванильный Claude Code. Никакой настройки не требуется.
 
@@ -230,7 +230,7 @@ Read this and tell me why it's not just another boilerplate: https://raw.githubu
 
 ### Оркестрация агентов
 
-Когда Sisyphus делегирует задачу субагенту, он выбирает не модель, а **категорию**. Категория автоматически сопоставляется с нужной моделью:
+Когда Odin делегирует задачу субагенту, он выбирает не модель, а **категорию**. Категория автоматически сопоставляется с нужной моделью:
 
 | Категория            | Для чего предназначена                |
 | -------------------- | ------------------------------------- |
@@ -297,11 +297,11 @@ project/
 
 Агенты автоматически читают нужный контекст. Никакого ручного управления.
 
-### Планирование. Prometheus
+### Планирование. Mimir
 
 Сложная задача? Не нужно молиться и надеяться на промпт.
 
-`/start-work` вызывает Prometheus. Он **интервьюирует вас как настоящий инженер**, определяет объём работ и неоднозначности и формирует проверенный план до прикосновения к коду. Агент знает, что строит, прежде чем начать.
+`/start-work` вызывает Mimir. Он **интервьюирует вас как настоящий инженер**, определяет объём работ и неоднозначности и формирует проверенный план до прикосновения к коду. Агент знает, что строит, прежде чем начать.
 
 ### Навыки
 
@@ -358,10 +358,10 @@ project/
 4. **Удалите omo-codex (Codex CLI Light edition)**
 
    ```bash
-   rm -rf ~/.codex/plugins/cache/sisyphuslabs
+   rm -rf ~/.codex/plugins/cache/odinlabs
    ```
 
-   Затем откройте `~/.codex/config.toml` и удалите блоки `[marketplaces.sisyphuslabs]`, `[plugins."omo@sisyphuslabs"]` и `[hooks.state."omo@sisyphuslabs:..."]`.
+   Затем откройте `~/.codex/config.toml` и удалите блоки `[marketplaces.odinlabs]`, `[plugins."omo@odinlabs"]` и `[hooks.state."omo@odinlabs:..."]`.
 
 ## Функции
 
@@ -371,7 +371,7 @@ project/
 
 **Краткий обзор:**
 
-- **Агенты**: Sisyphus (главный агент), Prometheus (планировщик), Oracle (архитектура/отладка), Librarian (документация/поиск по коду), Explore (быстрый grep по кодовой базе), Multimodal Looker
+- **Агенты**: Odin (главный агент), Mimir (планировщик), Volva (архитектура/отладка), Bragi (документация/поиск по коду), Explore (быстрый grep по кодовой базе), Huginn
 - **Фоновые агенты**: Запускайте несколько агентов параллельно, как настоящая команда разработки
 - **Инструменты LSP и AST**: Рефакторинг, переименование, диагностика, поиск кода с учётом AST
 - **Инструмент правок на основе хэш-якорей**: Ссылки `LINE#ID` проверяют содержимое перед применением каждого изменения. Хирургические правки, ноль ошибок с устаревшими строками
@@ -398,7 +398,7 @@ project/
 - **Поддержка JSONC**: Комментарии и конечные запятые поддерживаются
 - **Агенты**: Переопределение моделей, температур, промптов и разрешений для любого агента
 - **Встроенные навыки**: `playwright` (автоматизация браузера), `git-master` (атомарные коммиты)
-- **Агент Sisyphus**: Главный оркестратор с Prometheus (Планировщик) и Metis (Консультант по плану)
+- **Агент Odin**: Главный оркестратор с Mimir (Планировщик) и Urd (Консультант по плану)
 - **Фоновые задачи**: Настройка ограничений параллельности по провайдеру/модели
 - **Категории**: Делегирование задач по предметной области (`visual`, `business-logic`, пользовательские)
 - **Хуки**: 54+ встроенных хуков жизненного цикла (61 с включённым Team Mode), все настраиваются через `disabled_hooks`

@@ -23,7 +23,7 @@ interface JsonRecord {
   readonly [key: string]: unknown
 }
 
-const MARKETPLACE_NAME = "sisyphuslabs"
+const MARKETPLACE_NAME = "odinlabs"
 const PLUGIN_NAME = "omo"
 const COMPANION_PLUGIN_KEY = "codex@openai-codex"
 const DEFAULT_PLUGIN_VERSION = "0.1.0"
@@ -83,7 +83,7 @@ export async function checkCodex(deps: CodexDoctorDeps = {}): Promise<CheckResul
       `Plugin: ${summary.pluginName}@${summary.pluginVersion ?? "unknown"}${summary.pluginVersionStamped ? "" : " (placeholder, not stamped)"}`,
       `Distribution: ${summary.packageName ?? "unknown"}@${summary.packageVersion ?? "unknown"}`,
       `Config: ${summary.configPath}`,
-      `Enabled plugin: ${summary.config.pluginEnabled ? "omo@sisyphuslabs" : "missing"}`,
+      `Enabled plugin: ${summary.config.pluginEnabled ? "omo@odinlabs" : "missing"}`,
       `Companion plugin: ${formatCompanionPluginStatus(summary.config)}`,
       `Linked bins: ${summary.linkedBins.length > 0 ? summary.linkedBins.join(", ") : "none"}`,
       `Agents: ${summary.agents.length > 0 ? summary.agents.join(", ") : "none"}`,
@@ -133,7 +133,7 @@ function buildCodexIssues(summary: CodexDoctorSummary): DoctorIssue[] {
   if (!summary.config.pluginEnabled) {
     issues.push({
       title: "Codex plugin is not enabled",
-      description: 'Expected [plugins."omo@sisyphuslabs"] enabled = true in Codex config.',
+      description: 'Expected [plugins."omo@odinlabs"] enabled = true in Codex config.',
       fix: "Run: npx lazycodex-ai install",
       severity: "error",
       affects: ["plugin loading"],
@@ -142,7 +142,7 @@ function buildCodexIssues(summary: CodexDoctorSummary): DoctorIssue[] {
   if (!summary.config.marketplaceConfigured) {
     issues.push({
       title: "LazyCodex marketplace is not configured",
-      description: 'Expected [marketplaces.sisyphuslabs] in Codex config.',
+      description: 'Expected [marketplaces.odinlabs] in Codex config.',
       fix: "Run: npx lazycodex-ai install",
       severity: "error",
       affects: ["plugin loading"],
@@ -195,8 +195,8 @@ async function readCodexConfigSummary(configPath: string): Promise<CodexConfigSu
   const content = await readFile(configPath, "utf8")
   return {
     exists: true,
-    marketplaceConfigured: content.includes("[marketplaces.sisyphuslabs]"),
-    pluginEnabled: settingEnabled(sectionBody(content, 'plugins."omo@sisyphuslabs"'), "enabled"),
+    marketplaceConfigured: content.includes("[marketplaces.odinlabs]"),
+    pluginEnabled: settingEnabled(sectionBody(content, 'plugins."omo@odinlabs"'), "enabled"),
     pluginsFeatureEnabled: featureEnabled(content, "plugins"),
     pluginHooksFeatureEnabled: featureEnabled(content, "plugin_hooks"),
     companionPluginEnabled: settingEnabled(sectionBody(content, `plugins.${JSON.stringify(COMPANION_PLUGIN_KEY)}`), "enabled"),

@@ -1,6 +1,6 @@
-import type { SisyphusDynamicPromptSections } from "./sisyphus-dynamic-prompt-sections";
+import type { OdinDynamicPromptSections } from "./odin-dynamic-prompt-sections";
 
-export function renderToneAndConstraintsSection(sections: SisyphusDynamicPromptSections): string {
+export function renderToneAndConstraintsSection(sections: OdinDynamicPromptSections): string {
   return `<Tone_and_Style>
 ## Communication Style
 

@@ -4,13 +4,13 @@
 
 ## OVERVIEW
 
-17 source files (~1690 LOC). The "boulder" Continuation Tier hook: forces Sisyphus to keep rolling when incomplete todos remain. Fires on `session.idle`, injects a continuation prompt after a 2s countdown toast.
+17 source files (~1690 LOC). The "boulder" Continuation Tier hook: forces Odin to keep rolling when incomplete todos remain. Fires on `session.idle`, injects a continuation prompt after a 2s countdown toast.
 
 ## HOW IT WORKS
 
 ```
 session.idle
-  → Is main session (not prometheus/compaction/plan)? (DEFAULT_SKIP_AGENTS)
+  → Is main session (not mimir/compaction/plan)? (DEFAULT_SKIP_AGENTS)
   → No abort detected recently? (ABORT_WINDOW_MS = 3s)
   → Todos still incomplete? (todo.ts)
   → No background tasks running?
@@ -53,7 +53,7 @@ While `continuationBlockReason` is set, `handleSessionIdle` and `continuation-in
 ## CONSTANTS
 
 ```typescript
-DEFAULT_SKIP_AGENTS = ["prometheus", "compaction", "plan"]
+DEFAULT_SKIP_AGENTS = ["mimir", "compaction", "plan"]
 CONTINUATION_COOLDOWN_MS = 5_000      // 5s base, exponential backoff per failure
 MAX_CONSECUTIVE_FAILURES = 5          // Then 5min pause (exponential backoff)
 FAILURE_RESET_WINDOW_MS = 5 * 60_000  // 5min window for failure reset
@@ -83,6 +83,6 @@ interface SessionState {
 
 ## RELATIONSHIP TO ATLAS
 
-`todoContinuationEnforcer` handles **main Sisyphus sessions** only.
-`atlasHook` handles **boulder/ralph/subagent sessions** with a different decision gate.
+`todoContinuationEnforcer` handles **main Odin sessions** only.
+`heimdallHook` handles **boulder/ralph/subagent sessions** with a different decision gate.
 Both fire on `session.idle` but check session type first.

@@ -81,4 +81,4 @@ function isNonFatalFsError(error: unknown): error is Error {
   const code = typeof error === "object" && error !== null && "code" in error ? error.code : undefined
   return typeof code === "string" && ["EACCES", "ENOENT", "ENOTDIR", "EPERM"].includes(code)
 }
-const OMO_CODEX_PLUGIN_CACHE_PUBLISHERS = new Set(["sisyphuslabs"])
+const OMO_CODEX_PLUGIN_CACHE_PUBLISHERS = new Set(["odinlabs"])

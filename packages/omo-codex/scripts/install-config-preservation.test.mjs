@@ -29,8 +29,8 @@ test("#given unrelated Codex config tables #when script installer updates config
 	await updateCodexConfig({
 		configPath,
 		repoRoot: "/repo/packages/omo-codex",
-		marketplaceName: "sisyphuslabs",
-		marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/sisyphuslabs" },
+		marketplaceName: "odinlabs",
+		marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/odinlabs" },
 		pluginNames: ["omo"],
 	});
 
@@ -39,5 +39,5 @@ test("#given unrelated Codex config tables #when script installer updates config
 	assert.match(config, /\[features\][\s\S]*plugins = true/);
 	assert.match(config, /\[tui\][\s\S]*hud = "compact"/);
 	assert.match(config, /\[shell_environment_policy\][\s\S]*inherit = "core"/);
-	assert.match(config, /\[plugins\."omo@sisyphuslabs"\]/);
+	assert.match(config, /\[plugins\."omo@odinlabs"\]/);
 });

@@ -133,7 +133,7 @@ describe("#given git_env_prefix with commit footer", () => {
 			}))
 
 			expect(result).toContain("GIT_MASTER=1 git commit")
-			expect(result).toContain("Ultraworked with [Sisyphus]")
+			expect(result).toContain("Ultraworked with [Odin]")
 		})
 	})
 
@@ -166,7 +166,7 @@ describe("#given git_env_prefix with commit footer", () => {
 
 			expect(result).not.toContain("GIT_MASTER=1 git commit")
 			expect(result).toContain("git commit -m")
-			expect(result).toContain("Ultraworked with [Sisyphus]")
+			expect(result).toContain("Ultraworked with [Odin]")
 		})
 	})
 
@@ -179,8 +179,8 @@ describe("#given git_env_prefix with commit footer", () => {
 			}))
 
 			expect(result).toContain("GIT_MASTER=1 git commit")
-			expect(result).toContain("Ultraworked with [Sisyphus]")
-			expect(result).toContain("Co-authored-by: Sisyphus")
+			expect(result).toContain("Ultraworked with [Odin]")
+			expect(result).toContain("Co-authored-by: Odin")
 		})
 	})
 })

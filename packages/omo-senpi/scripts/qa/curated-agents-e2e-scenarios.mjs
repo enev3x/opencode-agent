@@ -46,7 +46,7 @@ export const CURATED_AGENT_SCRIPT = {
 			type: "tool_call",
 			name: "task",
 			arguments: {
-				subagent_type: "explore",
+				subagent_type: "vidar",
 				prompt: EXPLORE_TASK_SENTINEL,
 				run_in_background: false,
 				name: "curated-explore",

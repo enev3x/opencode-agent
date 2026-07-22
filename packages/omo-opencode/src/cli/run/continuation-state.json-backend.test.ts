@@ -21,12 +21,12 @@ mock.module("../../shared/opencode-message-dir", () => ({
   },
 }))
 
-mock.module("../../hooks/atlas/session-last-agent", () => ({
+mock.module("../../hooks/heimdall/session-last-agent", () => ({
   getLastAgentFromSession: async (sessionID: string) => {
     return sessionLastAgentBySessionID.get(sessionID) ?? null
   },
 }))
-mock.module("../../hooks/atlas/session-last-agent.ts", () => ({
+mock.module("../../hooks/heimdall/session-last-agent.ts", () => ({
   getLastAgentFromSession: async (sessionID: string) => {
     return sessionLastAgentBySessionID.get(sessionID) ?? null
   },
@@ -82,11 +82,11 @@ describe("getContinuationState JSON backend descendant coverage", () => {
         "ses_child_session": "appended",
       },
       plan_name: "json-descendant-plan",
-      agent: "atlas",
+      agent: "heimdall",
     }), "utf-8")
-    writeJsonMessage("ses_child_session", "msg_001.json", "atlas")
+    writeJsonMessage("ses_child_session", "msg_001.json", "heimdall")
     writeJsonMessage("ses_child_session", "msg_002.json", "compaction")
-    sessionLastAgentBySessionID.set("ses_child_session", "atlas")
+    sessionLastAgentBySessionID.set("ses_child_session", "heimdall")
 
     const { getContinuationState } = await import("./continuation-state")
 
@@ -144,13 +144,13 @@ describe("getContinuationState JSON backend descendant coverage", () => {
       started_at: new Date().toISOString(),
       session_ids: ["ses_root_random"],
       plan_name: "json-random-id-plan",
-      agent: "atlas",
+      agent: "heimdall",
     }), "utf-8")
     const sessionID = "ses_child_random"
     const messageDir = join(TEST_MESSAGE_STORAGE, sessionID)
     mkdirSync(messageDir, { recursive: true })
     writeFileSync(join(messageDir, "msg_a91f00ab_000001.json"), JSON.stringify({
-      agent: "atlas",
+      agent: "heimdall",
       model: { providerID: "openai", modelID: "gpt-5.4" },
       time: { created: 100 },
     }), "utf-8")
@@ -160,11 +160,11 @@ describe("getContinuationState JSON backend descendant coverage", () => {
       time: { created: 200 },
     }), "utf-8")
     writeFileSync(join(messageDir, "msg_d4c3b2a1_000003.json"), JSON.stringify({
-      agent: "sisyphus-junior",
+      agent: "einherjar",
       model: { providerID: "openai", modelID: "gpt-5.4" },
       time: { created: 100 },
     }), "utf-8")
-    sessionLastAgentBySessionID.set(sessionID, "sisyphus-junior")
+    sessionLastAgentBySessionID.set(sessionID, "einherjar")
 
     const { getContinuationState } = await import("./continuation-state")
 

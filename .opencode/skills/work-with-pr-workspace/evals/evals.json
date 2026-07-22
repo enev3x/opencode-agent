@@ -21,7 +21,7 @@
     },
     {
       "id": 2,
-      "prompt": "The atlas hook has a bug where it crashes when boulder.json is missing the worktree_path field. Fix it and land the fix as a PR. Make sure CI passes.",
+      "prompt": "The heimdall hook has a bug where it crashes when boulder.json is missing the worktree_path field. Fix it and land the fix as a PR. Make sure CI passes.",
       "expected_output": "Agent creates worktree for the fix branch, adds null check and test for missing worktree_path, creates PR, iterates verification loop",
       "files": [],
       "assertions": [
@@ -29,7 +29,7 @@
         {"id": "minimal-fix", "text": "Fix is minimal — adds null check, doesn't refactor unrelated code"},
         {"id": "test-added", "text": "Test case added for the missing worktree_path scenario"},
         {"id": "two-gates", "text": "Verification loop includes both gates: CI, Cubic"},
-        {"id": "real-atlas-files", "text": "References actual atlas hook files in src/hooks/atlas/"},
+        {"id": "real-heimdall-files", "text": "References actual heimdall hook files in src/hooks/heimdall/"},
         {"id": "fix-branch-naming", "text": "Branch name follows fix/ prefix convention"}
       ]
     },

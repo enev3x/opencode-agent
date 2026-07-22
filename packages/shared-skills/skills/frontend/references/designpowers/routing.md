@@ -14,7 +14,7 @@
 
 ## Planning Through `/ulw-plan`
 
-When planning is needed, `designpowers` supplies design-specific context and lets `/ulw-plan` own the plan artifact. Do not write a separate design plan. The Prometheus plan should receive:
+When planning is needed, `designpowers` supplies design-specific context and lets `/ulw-plan` own the plan artifact. Do not write a separate design plan. The Mimir plan should receive:
 
 - product or page goal;
 - primary tasks and user journeys;
@@ -35,7 +35,7 @@ When a plan is approved or selected, `/start-work` remains the orchestrator. `de
 - required `/visual-qa` loading for rendered visual proof;
 - the design debt rule: unresolved accessibility debt cannot disappear into a summary.
 
-Direct implementation outside `/start-work` is not part of this routing contract when a Prometheus plan is active.
+Direct implementation outside `/start-work` is not part of this routing contract when a Mimir plan is active.
 
 ## UI Build Through Frontend `design` And `perfection`
 

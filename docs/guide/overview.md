@@ -31,7 +31,7 @@ ultrawork
 
 That's it. The agent figures everything out — explores your codebase, researches patterns, implements the feature, verifies with diagnostics. Keeps working until done.
 
-Want more control? Press **Tab** to enter [Prometheus mode](./orchestration.md) for interview-based planning, then run `/start-work` for full orchestration.
+Want more control? Press **Tab** to enter [Mimir mode](./orchestration.md) for interview-based planning, then run `/start-work` for full orchestration.
 
 ---
 
@@ -56,17 +56,17 @@ User Request
     ↓
 [IntentGate] — Classifies what you actually want
     ↓
-[Sisyphus] — Main orchestrator, plans and delegates
+[Odin] — Main orchestrator, plans and delegates
     ↓
-    ├─→ [Prometheus] — Strategic planning (interview mode)
-    ├─→ [Atlas] — Todo orchestration and execution
-    ├─→ [Oracle] — Architecture consultation
-    ├─→ [Librarian] — Documentation/code search
+    ├─→ [Mimir] — Strategic planning (interview mode)
+    ├─→ [Heimdall] — Todo orchestration and execution
+    ├─→ [Volva] — Architecture consultation
+    ├─→ [Bragi] — Documentation/code search
     ├─→ [Explore] — Fast codebase grep
     └─→ [Category-based agents] — Specialized by task type
 ```
 
-When Sisyphus delegates to a subagent, it doesn't pick a model name. It picks a **category** — `visual-engineering`, `ultrabrain`, `deep`, `artistry`, `quick`, `unspecified-low`, `unspecified-high`, `writing`. The category automatically maps to the right model. You touch nothing.
+When Odin delegates to a subagent, it doesn't pick a model name. It picks a **category** — `visual-engineering`, `ultrabrain`, `deep`, `artistry`, `quick`, `unspecified-low`, `unspecified-high`, `writing`. The category automatically maps to the right model. You touch nothing.
 
 For a deep dive into how agents collaborate, see the [Orchestration System Guide](./orchestration.md).
 
@@ -74,28 +74,28 @@ For a deep dive into how agents collaborate, see the [Orchestration System Guide
 
 ## Meet the Agents
 
-### Sisyphus: The Discipline Agent
+### Odin: The Discipline Agent
 
 Named after the Greek myth. He rolls the boulder every day. Never stops. Never gives up.
 
-Sisyphus is your main orchestrator. He plans, delegates to specialists, and drives tasks to completion with aggressive parallel execution. He doesn't stop halfway. He doesn't get distracted. He finishes.
+Odin is your main orchestrator. He plans, delegates to specialists, and drives tasks to completion with aggressive parallel execution. He doesn't stop halfway. He doesn't get distracted. He finishes.
 
 **Recommended models:**
 
-- **Claude Opus 4.8** / **Opus 4.8** — Best overall experience. Sisyphus was built with Claude-optimized prompts.
-- **Kimi K3** — Strongest Kimi for Sisyphus. Recommended when you can accept its thinking-token cost; the K3 prompt is calibrated to stop overthinking and keep work moving.
-- **Kimi K3** / **K3** — Great Claude-like alternatives. K3 is the current default fallback in the primary Sisyphus chain after K3; many users run K3 or the K3/K3 combo exclusively.
-- **GLM 5** — Solid option, especially via Z.ai. **GLM 5.2 is experimental:** Sisyphus uses a GLM-5.2-calibrated prompt for model IDs recognized as GLM, but current evidence is one community report without maintainer end-to-end validation. The automatic chain is configured with `glm-5`, and fuzzy availability matching may resolve that entry to GLM 5.1 or GLM 5.2.
+- **Claude Opus 4.8** / **Opus 4.8** — Best overall experience. Odin was built with Claude-optimized prompts.
+- **Kimi K3** — Strongest Kimi for Odin. Recommended when you can accept its thinking-token cost; the K3 prompt is calibrated to stop overthinking and keep work moving.
+- **Kimi K3** / **K3** — Great Claude-like alternatives. K3 is the current default fallback in the primary Odin chain after K3; many users run K3 or the K3/K3 combo exclusively.
+- **GLM 5** — Solid option, especially via Z.ai. **GLM 5.2 is experimental:** Odin uses a GLM-5.2-calibrated prompt for model IDs recognized as GLM, but current evidence is one community report without maintainer end-to-end validation. The automatic chain is configured with `glm-5`, and fuzzy availability matching may resolve that entry to GLM 5.1 or GLM 5.2.
 
-Sisyphus works best on Claude Opus 4.8 / 4.7, Kimi K3 (or K3), and GLM 5. GPT-5.4 has its own prompt, while GPT-5.5 and GPT-5.6 Sol share a model-aware GPT-native prompt family. Hephaestus remains the recommended GPT-5.6 agent because [issue #6074](https://github.com/code-yeongyu/oh-my-openagent/issues/6074) tracks Sisyphus over-orchestration on bounded work.
+Odin works best on Claude Opus 4.8 / 4.7, Kimi K3 (or K3), and GLM 5. GPT-5.4 has its own prompt, while GPT-5.5 and GPT-5.6 Sol share a model-aware GPT-native prompt family. Thor remains the recommended GPT-5.6 agent because [issue #6074](https://github.com/code-yeongyu/oh-my-openagent/issues/6074) tracks Odin over-orchestration on bounded work.
 
-### Hephaestus: The Legitimate Craftsman
+### Thor: The Legitimate Craftsman
 
 Named with intentional irony. Anthropic blocked OpenCode from using their API because of this project. So the team built an autonomous GPT-native agent instead.
 
-Hephaestus prefers GPT-5.6 Sol at medium effort through OpenAI or Vercel, then falls back to GPT-5.6 Sol at medium effort across OpenAI, GitHub Copilot, OpenCode, or Vercel. Give him a goal, not a recipe. He explores the codebase, researches patterns, and executes end-to-end without hand-holding.
+Thor prefers GPT-5.6 Sol at medium effort through OpenAI or Vercel, then falls back to GPT-5.6 Sol at medium effort across OpenAI, GitHub Copilot, OpenCode, or Vercel. Give him a goal, not a recipe. He explores the codebase, researches patterns, and executes end-to-end without hand-holding.
 
-Use Hephaestus when you need deep architectural reasoning, complex debugging across many files, or cross-domain knowledge synthesis. Switch to him explicitly when the work benefits from a GPT-native autonomous agent.
+Use Thor when you need deep architectural reasoning, complex debugging across many files, or cross-domain knowledge synthesis. Switch to him explicitly when the work benefits from a GPT-native autonomous agent.
 
 **Why this beats vanilla Codex CLI:**
 
@@ -104,29 +104,29 @@ Use Hephaestus when you need deep architectural reasoning, complex debugging acr
 - **Category system.** Tasks are routed by intent, not model name. `visual-engineering` gets Gemini. `ultrabrain` prefers GPT-5.6 Sol xhigh through OpenAI or Vercel. `deep` prefers GPT-5.6 Terra xhigh through OpenAI or Vercel. `artistry` gets Gemini. `quick` gets GPT-5.4 Mini. `unspecified-low` prefers GPT-5.6 Luna xhigh. `unspecified-high` gets Claude Opus. `writing` gets prose-optimized models. No manual juggling.
 - **Accumulated wisdom.** Subagents learn from previous results. Conventions discovered in task 1 are passed to task 5. Mistakes made early aren't repeated. The system gets smarter as it works.
 
-### Prometheus: The Strategic Planner
+### Mimir: The Strategic Planner
 
-Prometheus interviews you like a real engineer. Asks clarifying questions. Identifies scope and ambiguities. Builds a detailed plan before a single line of code is touched.
+Mimir interviews you like a real engineer. Asks clarifying questions. Identifies scope and ambiguities. Builds a detailed plan before a single line of code is touched.
 
-Press **Tab** to enter Prometheus mode, or type `@plan "your task"` from Sisyphus.
+Press **Tab** to enter Mimir mode, or type `@plan "your task"` from Odin.
 
-### Atlas: The Conductor
+### Heimdall: The Conductor
 
-Atlas executes Prometheus plans. Distributes tasks to specialized subagents. Accumulates learnings across tasks. Verifies completion independently.
+Heimdall executes Mimir plans. Distributes tasks to specialized subagents. Accumulates learnings across tasks. Verifies completion independently.
 
-Run `/start-work` to activate Atlas on your latest plan.
+Run `/start-work` to activate Heimdall on your latest plan.
 
-### Oracle: The Consultant
+### Volva: The Consultant
 
-Read-only high-IQ consultant for architecture decisions and complex debugging. Consult Oracle when facing unfamiliar patterns, security concerns, or multi-system tradeoffs.
+Read-only high-IQ consultant for architecture decisions and complex debugging. Consult Volva when facing unfamiliar patterns, security concerns, or multi-system tradeoffs.
 
 ### Supporting Cast
 
-- **Metis** — Gap analyzer. Catches what Prometheus missed before plans are finalized.
-- **Momus** — Ruthless reviewer. Validates plans against clarity, verification, and context criteria.
+- **Urd** — Gap analyzer. Catches what Mimir missed before plans are finalized.
+- **Forseti** — Ruthless reviewer. Validates plans against clarity, verification, and context criteria.
 - **Explore** — Fast codebase grep. Uses speed-focused models for pattern discovery.
-- **Librarian** — Documentation and OSS code search. Stays current on library APIs and best practices.
-- **Multimodal Looker** — Vision and screenshot analysis.
+- **Bragi** — Documentation and OSS code search. Stays current on library APIs and best practices.
+- **Huginn** — Vision and screenshot analysis.
 
 ---
 
@@ -140,15 +140,15 @@ The agent figures everything out. Explores your codebase. Researches patterns. I
 
 This is the "just do it" mode. Full automatic. You don't have to think deep because the agent thinks deep for you.
 
-### Prometheus Mode: For the Precise
+### Mimir Mode: For the Precise
 
-Press **Tab** to enter Prometheus mode.
+Press **Tab** to enter Mimir mode.
 
-Prometheus interviews you like a real engineer. Asks clarifying questions. Identifies scope and ambiguities. Builds a detailed plan before a single line of code is touched.
+Mimir interviews you like a real engineer. Asks clarifying questions. Identifies scope and ambiguities. Builds a detailed plan before a single line of code is touched.
 
-Then run `/start-work` and Atlas takes over. Tasks are distributed to specialized subagents. Each completion is verified independently. Learnings accumulate across tasks. Progress tracks across sessions.
+Then run `/start-work` and Heimdall takes over. Tasks are distributed to specialized subagents. Each completion is verified independently. Learnings accumulate across tasks. Progress tracks across sessions.
 
-Use Prometheus for multi-day projects, critical production changes, complex refactoring, or when you want a documented decision trail.
+Use Mimir for multi-day projects, critical production changes, complex refactoring, or when you want a documented decision trail.
 
 ---
 
@@ -172,17 +172,17 @@ You can override specific agents or categories in your config:
 
   "agents": {
     // Main orchestrator: Claude Opus or Kimi K3 work best
-    "sisyphus": {
+    "odin": {
       "model": "kimi-for-coding/kimi-k3",
       "ultrawork": { "model": "anthropic/claude-opus-4-8", "variant": "max" },
     },
 
     // Research agents: cheaper models are fine
-    "librarian": { "model": "google/gemini-3-flash" },
+    "bragi": { "model": "google/gemini-3-flash" },
     "explore": { "model": "github-copilot/grok-code-fast-1" },
 
     // Architecture consultation: GPT or Claude Opus
-    "oracle": { "model": "openai/gpt-5.6-sol", "variant": "high" },
+    "volva": { "model": "openai/gpt-5.6-sol", "variant": "high" },
   },
 
   "categories": {
@@ -226,10 +226,10 @@ You can override specific agents or categories in your config:
 
 **GPT models** (explicit reasoning, principle-driven):
 
-- GPT-5.6 Sol — preferred for Hephaestus and `ultrabrain` when OpenAI or Vercel exposes it; first fallback for `deep`
-- GPT-5.6 Terra — mid-tier; default for the `deep` category (xhigh); preferred for Momus (high)
+- GPT-5.6 Sol — preferred for Thor and `ultrabrain` when OpenAI or Vercel exposes it; first fallback for `deep`
+- GPT-5.6 Terra — mid-tier; default for the `deep` category (xhigh); preferred for Forseti (high)
 - GPT-5.6 Luna — light tier; default for the `unspecified-low` category (xhigh)
-- GPT-5.6 Sol — deep coding powerhouse, default for Oracle and the first GPT fallback for GPT-5.6-native roles
+- GPT-5.6 Sol — deep coding powerhouse, default for Volva and the first GPT fallback for GPT-5.6-native roles
 - GPT-5.4 Mini — fast and cheap utility tasks
 
 **Different-behavior models**:
@@ -266,7 +266,7 @@ Oh My OpenAgent turns that into a coordinated team:
 
 ## IntentGate
 
-Before acting on any request, Sisyphus classifies your true intent.
+Before acting on any request, Odin classifies your true intent.
 
 Are you asking for research? Implementation? Investigation? A fix? The Intent Gate figures out what you actually want, not just the literal words you typed. This means the agent understands context, nuance, and the real goal behind your request.
 
@@ -277,7 +277,7 @@ Claude Code doesn't have this. It takes your prompt and runs. Oh My OpenAgent th
 ## What's Next
 
 - **[Installation Guide](./installation.md)** — Complete setup instructions, provider authentication, and troubleshooting
-- **[Orchestration Guide](./orchestration.md)** — Deep dive into agent collaboration, planning with Prometheus, and execution with Atlas
+- **[Orchestration Guide](./orchestration.md)** — Deep dive into agent collaboration, planning with Mimir, and execution with Heimdall
 - **[Agent-Model Matching Guide](./agent-model-matching.md)** — Which models work best for each agent and how to customize
 - **[Team Mode Guide](./team-mode.md)** — Parallel multi-agent coordination (OFF by default); 12 `team_*` tools, shared mailbox, shared task list, optional tmux layout
 - **[Configuration Reference](../reference/configuration.md)** — Full config options with examples

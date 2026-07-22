@@ -152,7 +152,7 @@ describe("parent wake noReply admission liveness (issues #4874/#5086)", () => {
       sessionStatuses: { "parent-1": { type: "idle" } },
       messagesProvider: () => (blocked ? BLOCKED_MESSAGES : SAFE_MESSAGES),
     })
-    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       // when: flush while the latest assistant turn still blocks internal prompts
@@ -201,7 +201,7 @@ describe("parent wake noReply admission liveness (issues #4874/#5086)", () => {
       sessionStatuses: { "parent-1": { type: "idle" } },
       messagesProvider: () => BLOCKED_MESSAGES,
     })
-    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       // when
@@ -226,7 +226,7 @@ describe("parent wake noReply admission liveness (issues #4874/#5086)", () => {
       sessionStatuses: { "parent-1": { type: "idle" } },
       messagesProvider: () => (blocked ? BLOCKED_MESSAGES : SAFE_MESSAGES),
     })
-    notifier.queuePendingParentWake("parent-1", FAILURE_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake("parent-1", FAILURE_WAKE, { agent: "odin" }, true)
 
     try {
       // when: flush while the latest assistant turn still blocks internal prompts
@@ -267,7 +267,7 @@ describe("parent wake noReply admission liveness (issues #4874/#5086)", () => {
         },
       ],
     })
-    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       // when
@@ -302,20 +302,20 @@ describe("parent wake noReply admission liveness (issues #4874/#5086)", () => {
         await operation()
       },
     })
-    queue.queueWake("parent-1", FINAL_WAKE, { agent: "sisyphus" }, true)
+    queue.queueWake("parent-1", FINAL_WAKE, { agent: "odin" }, true)
     const wake = queue.getWake("parent-1")
     expect(wake).toBeDefined()
     if (!wake) throw new Error("missing wake")
     wake.noReplyAdmittedAt = 100_000
 
     // when: the identical notification merges again
-    queue.queueWake("parent-1", FINAL_WAKE, { agent: "sisyphus" }, true)
+    queue.queueWake("parent-1", FINAL_WAKE, { agent: "odin" }, true)
 
     // then: nothing changed, the admission marker survives
     expect(queue.getWake("parent-1")?.noReplyAdmittedAt).toBe(100_000)
 
     // when: a genuinely new final notification merges in
-    queue.queueWake("parent-1", SECOND_FINAL_WAKE, { agent: "sisyphus" }, true)
+    queue.queueWake("parent-1", SECOND_FINAL_WAKE, { agent: "odin" }, true)
 
     // then: the marker resets so the new content can be admitted for visibility
     expect(queue.getWake("parent-1")?.noReplyAdmittedAt).toBeUndefined()
@@ -349,7 +349,7 @@ describe("parent wake admitted-consumption drop (duplicate ALL-COMPLETE regressi
             ]
           : BLOCKED_MESSAGES,
     })
-    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       // when: flush admits the wake as noReply during history deferral
@@ -388,7 +388,7 @@ describe("parent wake admitted-consumption drop (duplicate ALL-COMPLETE regressi
       sessionStatuses: { "parent-1": { type: "idle" } },
       messagesProvider: () => BLOCKED_MESSAGES,
     })
-    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       // when: flush admits the wake as noReply during history deferral
@@ -422,7 +422,7 @@ describe("parent wake admitted-consumption drop (duplicate ALL-COMPLETE regressi
       sessionStatuses: { "parent-1": { type: "idle" } },
       messagesProvider: () => BLOCKED_MESSAGES,
     })
-    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "odin" }, true)
     const wake = notifier.getPendingParentWakes().get("parent-1")
     expect(wake).toBeDefined()
     if (!wake) throw new Error("missing wake")
@@ -471,7 +471,7 @@ describe("parent wake admitted-consumption drop (duplicate ALL-COMPLETE regressi
             ]
           : BLOCKED_MESSAGES,
     })
-    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       // when: flush admits the wake as noReply during history deferral
@@ -522,7 +522,7 @@ describe("parent wake admitted-consumption drop (duplicate ALL-COMPLETE regressi
             ]
           : BLOCKED_MESSAGES,
     })
-    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       // when: admitted as noReply while blocked

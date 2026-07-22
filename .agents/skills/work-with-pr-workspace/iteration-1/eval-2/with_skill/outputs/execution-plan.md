@@ -1,16 +1,16 @@
-# Execution Plan — Fix atlas hook crash on missing worktree_path
+# Execution Plan — Fix heimdall hook crash on missing worktree_path
 
 ## Phase 0: Setup
 
 1. **Create worktree from origin/dev**:
    ```bash
    git fetch origin dev
-   git worktree add ../omo-wt/fix-atlas-worktree-path-crash origin/dev
+   git worktree add ../omo-wt/fix-heimdall-worktree-path-crash origin/dev
    ```
 2. **Create feature branch**:
    ```bash
-   cd ../omo-wt/fix-atlas-worktree-path-crash
-   git checkout -b fix/atlas-worktree-path-crash
+   cd ../omo-wt/fix-heimdall-worktree-path-crash
+   git checkout -b fix/heimdall-worktree-path-crash
    ```
 
 ## Phase 1: Implement
@@ -20,12 +20,12 @@
 - Ensure `worktree_path` is `string | undefined`, never `null` or other types
 - This is the root cause: raw `JSON.parse` + `as BoulderState` cast allows type violations at runtime
 
-### Step 2: Add defensive guard in `src/hooks/atlas/idle-event.ts`
+### Step 2: Add defensive guard in `src/hooks/heimdall/idle-event.ts`
 - Before passing `boulderState.worktree_path` to `injectContinuation`, validate it's a string
 - Apply same guard in the `scheduleRetry` callback (line 86)
 - Ensures even if `readBoulderState` is bypassed, the idle handler won't crash
 
-### Step 3: Add test coverage in `src/hooks/atlas/index.test.ts`
+### Step 3: Add test coverage in `src/hooks/heimdall/index.test.ts`
 - Add test: boulder.json without `worktree_path` field → session.idle works
 - Add test: boulder.json with `worktree_path: null` → session.idle works (no `[Worktree: null]` in prompt)
 - Add test: `readBoulderState` sanitizes `null` worktree_path to `undefined`
@@ -34,15 +34,15 @@
 ### Step 4: Local validation
 ```bash
 bun run typecheck
-bun test src/hooks/atlas/
+bun test src/hooks/heimdall/
 bun test src/features/boulder-state/
 bun run build
 ```
 
 ### Step 5: Atomic commit
 ```bash
-git add src/features/boulder-state/storage.ts src/hooks/atlas/idle-event.ts src/hooks/atlas/index.test.ts
-git commit -m "fix(atlas): prevent crash when boulder.json missing worktree_path field
+git add src/features/boulder-state/storage.ts src/hooks/heimdall/idle-event.ts src/hooks/heimdall/index.test.ts
+git commit -m "fix(heimdall): prevent crash when boulder.json missing worktree_path field
 
 readBoulderState() performs unsafe cast of parsed JSON as BoulderState.
 When worktree_path is absent or null in boulder.json, downstream code
@@ -56,17 +56,17 @@ in idle-event.ts could receive null where string|undefined is expected.
 ## Phase 2: PR Creation
 
 ```bash
-git push -u origin fix/atlas-worktree-path-crash
+git push -u origin fix/heimdall-worktree-path-crash
 gh pr create \
   --base dev \
-  --title "fix(atlas): prevent crash when boulder.json missing worktree_path" \
-  --body-file /tmp/pull-request-atlas-worktree-fix.md
+  --title "fix(heimdall): prevent crash when boulder.json missing worktree_path" \
+  --body-file /tmp/pull-request-heimdall-worktree-fix.md
 ```
 
 ## Phase 3: Verify Loop
 
 - **Gate A (CI)**: `gh pr checks --watch` — wait for all checks green
-- **Gate B (review-work)**: Run 5-agent review (Oracle goal, Oracle quality, Oracle security, QA execution, context mining)
+- **Gate B (review-work)**: Run 5-agent review (Volva goal, Volva quality, Volva security, QA execution, context mining)
 - **Gate C (Cubic)**: Wait for cubic-dev-ai[bot] to respond "No issues found"
 - On any failure: fix-commit-push, re-enter verify loop
 
@@ -74,5 +74,5 @@ gh pr create \
 
 ```bash
 gh pr merge --squash --delete-branch
-git worktree remove ../omo-wt/fix-atlas-worktree-path-crash
+git worktree remove ../omo-wt/fix-heimdall-worktree-path-crash
 ```

@@ -84,7 +84,7 @@ No import updates needed. Backward compatibility preserved through:
 
 | Consumer | Imports | Source Path |
 |----------|---------|-------------|
-| `src/agents/atlas/prompt-section-builder.ts` | `CATEGORY_DESCRIPTIONS` | `../../tools/delegate-task/constants` |
+| `src/agents/heimdall/prompt-section-builder.ts` | `CATEGORY_DESCRIPTIONS` | `../../tools/delegate-task/constants` |
 | `src/agents/builtin-agents.ts` | `CATEGORY_DESCRIPTIONS` | `../tools/delegate-task/constants` |
 | `src/plugin/available-categories.ts` | `CATEGORY_DESCRIPTIONS` | `../tools/delegate-task/constants` |
 | `src/plugin-handlers/category-config-resolver.ts` | `DEFAULT_CATEGORIES` | `../tools/delegate-task/constants` |

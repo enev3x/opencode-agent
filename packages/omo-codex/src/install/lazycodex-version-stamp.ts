@@ -32,7 +32,7 @@ export function resolveLazyCodexPluginVersion(input: {
   if (override !== undefined && override.length > 0) {
     return override
   }
-  if (input.marketplaceName === "sisyphuslabs" && input.pluginName === "omo" && input.distributionManifest !== undefined) {
+  if (input.marketplaceName === "odinlabs" && input.pluginName === "omo" && input.distributionManifest !== undefined) {
     return input.distributionManifest.version
   }
   return input.manifestVersion ?? "local"

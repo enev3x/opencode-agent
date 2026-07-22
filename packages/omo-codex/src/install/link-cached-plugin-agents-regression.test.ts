@@ -8,32 +8,32 @@ describe("managed bundled agent effort migration", () => {
   test("#given old bundled support-agent efforts #when agents are re-linked #then upgrades to current bundled defaults", async () => {
     const { codexHome, pluginRoot } = await makeAgentFixture()
     await mkdir(join(codexHome, "agents"), { recursive: true })
-    await writeFile(join(codexHome, "agents", "momus.toml"), agentToml("momus", "gpt-5.5", "xhigh"))
+    await writeFile(join(codexHome, "agents", "forseti.toml"), agentToml("forseti", "gpt-5.5", "xhigh"))
     await writeFile(join(codexHome, "agents", "explorer.toml"), agentToml("explorer", "gpt-5.4-mini", "low"))
-    await writeFile(join(codexHome, "agents", "librarian.toml"), agentToml("librarian", "gpt-5.4-mini", "low"))
+    await writeFile(join(codexHome, "agents", "bragi.toml"), agentToml("bragi", "gpt-5.4-mini", "low"))
     const preservedReasoning = await capturePreservedAgentReasoning({ codexHome })
 
     await linkCachedPluginAgents({ codexHome, pluginRoot, preservedReasoning })
 
-    expect(await readAgentEffort(codexHome, "momus")).toBe("high")
-    // explorer/librarian chain lands on the newest bundled default (luna/low), 2026-07-11
+    expect(await readAgentEffort(codexHome, "forseti")).toBe("high")
+    // explorer/bragi chain lands on the newest bundled default (luna/low), 2026-07-11
     expect(await readAgentEffort(codexHome, "explorer")).toBe("low")
-    expect(await readAgentEffort(codexHome, "librarian")).toBe("low")
+    expect(await readAgentEffort(codexHome, "bragi")).toBe("low")
   })
 
   test("#given custom installed support-agent efforts #when agents are re-linked #then preserves customization", async () => {
     const { codexHome, pluginRoot } = await makeAgentFixture()
     await mkdir(join(codexHome, "agents"), { recursive: true })
-    await writeFile(join(codexHome, "agents", "momus.toml"), agentToml("momus", "gpt-5.6-sol", "high"))
+    await writeFile(join(codexHome, "agents", "forseti.toml"), agentToml("forseti", "gpt-5.6-sol", "high"))
     await writeFile(join(codexHome, "agents", "explorer.toml"), agentToml("explorer", "gpt-5.6-terra", "xhigh"))
-    await writeFile(join(codexHome, "agents", "librarian.toml"), agentToml("librarian", "gpt-5.6-terra", "high"))
+    await writeFile(join(codexHome, "agents", "bragi.toml"), agentToml("bragi", "gpt-5.6-terra", "high"))
     const preservedReasoning = await capturePreservedAgentReasoning({ codexHome })
 
     await linkCachedPluginAgents({ codexHome, pluginRoot, preservedReasoning })
 
-    expect(await readAgentEffort(codexHome, "momus")).toBe("high")
+    expect(await readAgentEffort(codexHome, "forseti")).toBe("high")
     expect(await readAgentEffort(codexHome, "explorer")).toBe("xhigh")
-    expect(await readAgentEffort(codexHome, "librarian")).toBe("high")
+    expect(await readAgentEffort(codexHome, "bragi")).toBe("high")
   })
 
   test("#given old effort on a non-default model #when agents are re-linked #then preserves customization", async () => {
@@ -54,9 +54,9 @@ async function makeAgentFixture(): Promise<{ readonly codexHome: string; readonl
   const pluginRoot = join(root, "plugin")
   const agentsDir = join(pluginRoot, "components", "ultrawork", "agents")
   await mkdir(agentsDir, { recursive: true })
-  await writeFile(join(agentsDir, "momus.toml"), agentToml("momus", "gpt-5.6-terra", "high"))
+  await writeFile(join(agentsDir, "forseti.toml"), agentToml("forseti", "gpt-5.6-terra", "high"))
   await writeFile(join(agentsDir, "explorer.toml"), agentToml("explorer", "gpt-5.6-terra", "medium"))
-  await writeFile(join(agentsDir, "librarian.toml"), agentToml("librarian", "gpt-5.6-terra", "medium"))
+  await writeFile(join(agentsDir, "bragi.toml"), agentToml("bragi", "gpt-5.6-terra", "medium"))
   return { codexHome, pluginRoot }
 }
 

@@ -6,9 +6,9 @@ import { Section } from "@/components/ui/section"
 export async function CoreLoopSection(): Promise<JSX.Element> {
   const t = await getTranslations("manifesto")
   const coreLoopKeys = [
-    "prometheus",
-    "metis",
-    "momus",
+    "mimir",
+    "urd",
+    "forseti",
     "orchestrator",
     "todoContinuation",
     "categorySystem",

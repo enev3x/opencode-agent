@@ -62,7 +62,7 @@ describe("createDelegateTask native skill prompt filtering", () => {
           sessionId: "ses_native_prompt_filter",
           status: "pending",
           description: "Native prompt filter",
-          agent: "explore",
+          agent: "vidar",
         }
       },
       getTask() {
@@ -71,14 +71,14 @@ describe("createDelegateTask native skill prompt filtering", () => {
           sessionId: "ses_native_prompt_filter",
           status: "pending",
           description: "Native prompt filter",
-          agent: "explore",
+          agent: "vidar",
         }
       },
     }
     const client = {
       app: {
         async agents() {
-          return { data: [{ name: "explore", mode: "subagent" }] }
+          return { data: [{ name: "vidar", mode: "subagent" }] }
         },
       },
       config: {
@@ -146,14 +146,14 @@ describe("createDelegateTask native skill prompt filtering", () => {
       {
         description: "Native prompt filter",
         prompt: "Inspect delegate system content",
-        subagent_type: "explore",
+        subagent_type: "vidar",
         run_in_background: true,
         load_skills: [],
       },
       {
         sessionID: "ses_parent",
         messageID: "msg_parent",
-        agent: "sisyphus",
+        agent: "odin",
         abort: new AbortController().signal,
       },
     )

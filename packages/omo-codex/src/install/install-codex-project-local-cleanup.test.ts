@@ -23,7 +23,7 @@ async function createPackagedCodexRepoRoot(): Promise<string> {
   await mkdir(join(pluginRoot, "hooks"), { recursive: true })
   await writeFile(
     join(codexPackageRoot, "marketplace.json"),
-    JSON.stringify({ name: "sisyphuslabs", plugins: [{ name: "omo", source: "./plugin" }] }),
+    JSON.stringify({ name: "odinlabs", plugins: [{ name: "omo", source: "./plugin" }] }),
   )
   await writeFile(
     join(pluginRoot, ".codex-plugin", "plugin.json"),
@@ -31,7 +31,7 @@ async function createPackagedCodexRepoRoot(): Promise<string> {
   )
   await writeFile(
     join(pluginRoot, "package.json"),
-    JSON.stringify({ name: "@sisyphuslabs/omo-codex-plugin", version: "0.1.0" }),
+    JSON.stringify({ name: "@odinlabs/omo-codex-plugin", version: "0.1.0" }),
   )
   await writeFile(join(pluginRoot, "dist", "cli.js"), "#!/usr/bin/env node\n")
   await writeFile(join(pluginRoot, "hooks", "hooks.json"), JSON.stringify({ hooks: {} }))

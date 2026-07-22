@@ -233,7 +233,7 @@ import (
 
 func TestMain(m *testing.M) {
     goleak.VerifyTestMain(m,
-        goleak.IgnoreTopFunction("github.com/prometheus/client_golang/prometheus.(*Registry)..."),
+        goleak.IgnoreTopFunction("github.com/mimir/client_golang/mimir.(*Registry)..."),
     )
 }
 ```

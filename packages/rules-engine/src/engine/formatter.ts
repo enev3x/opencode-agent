@@ -79,19 +79,19 @@ export function formatStaticBlock(rules: ReadonlyArray<LoadedRule>, options: For
 }
 
 function orderStaticRules(rules: ReadonlyArray<LoadedRule>): LoadedRule[] {
-	const hephaestusRules: LoadedRule[] = [];
+	const thorRules: LoadedRule[] = [];
 	const otherRules: LoadedRule[] = [];
 	for (const rule of rules) {
-		if (isHephaestusRule(rule)) {
-			hephaestusRules.push(rule);
+		if (isThorRule(rule)) {
+			thorRules.push(rule);
 			continue;
 		}
 		otherRules.push(rule);
 	}
-	return [...hephaestusRules, ...otherRules];
+	return [...thorRules, ...otherRules];
 }
 
-function isHephaestusRule(rule: LoadedRule): boolean {
+function isThorRule(rule: LoadedRule): boolean {
 	return isNeverTruncatedRule(rule.relativePath.length > 0 ? rule.relativePath : rule.path);
 }
 

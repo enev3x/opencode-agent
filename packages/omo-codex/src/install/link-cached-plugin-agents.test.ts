@@ -18,8 +18,8 @@ async function makeFixture(): Promise<{ codexHome: string; pluginRoot: string }>
     'name = "explorer"\n',
   )
   await writeFile(
-    join(pluginRoot, "components", "ultrawork", "agents", "librarian.toml"),
-    'name = "librarian"\n',
+    join(pluginRoot, "components", "ultrawork", "agents", "bragi.toml"),
+    'name = "bragi"\n',
   )
   await writeFile(
     join(pluginRoot, "components", "ulw-loop", "agents", "planner.toml"),
@@ -39,7 +39,7 @@ describe("linkCachedPluginAgents", () => {
     // then
     expect(linked.map((entry) => entry.name).sort()).toEqual([
       "explorer.toml",
-      "librarian.toml",
+      "bragi.toml",
       "planner.toml",
     ])
     for (const entry of linked) {
@@ -250,7 +250,7 @@ describe("linkCachedPluginAgents", () => {
     const manifest = JSON.parse(manifestContent) as { agents: string[] }
     expect(manifest.agents.sort()).toEqual([
       join(codexHome, "agents", "explorer.toml"),
-      join(codexHome, "agents", "librarian.toml"),
+      join(codexHome, "agents", "bragi.toml"),
       join(codexHome, "agents", "planner.toml"),
     ])
   })
@@ -267,7 +267,7 @@ describe("linkCachedPluginAgents", () => {
     // then
     expect(linked).toHaveLength(3)
     const entries = (await readdir(join(codexHome, "agents"))).sort()
-    expect(entries).toEqual(["explorer.toml", "librarian.toml", "planner.toml"])
+    expect(entries).toEqual(["explorer.toml", "bragi.toml", "planner.toml"])
   })
 
   test("discovers TOMLs across multiple component agent directories", async () => {

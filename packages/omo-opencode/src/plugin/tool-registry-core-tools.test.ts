@@ -58,7 +58,7 @@ describe("#given disabled native skills in the registry skill context", () => {
     createCoreTools({
       ctx: unsafeTestValue({ directory: "/tmp/project" }),
       pluginConfig: unsafeTestValue({
-        disabled_agents: ["multimodal-looker"],
+        disabled_agents: ["huginn"],
       }),
       managers: unsafeTestValue({
         backgroundManager: {},
@@ -101,7 +101,7 @@ describe("#given core skill tools are registered", () => {
         },
       }),
       pluginConfig: unsafeTestValue({
-        disabled_agents: ["multimodal-looker"],
+        disabled_agents: ["huginn"],
       }),
       managers: unsafeTestValue({
         backgroundManager: {},

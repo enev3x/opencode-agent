@@ -4,9 +4,9 @@ import { buildClaudeThinkingConfig } from "./types";
 import type { AgentMode } from "./types";
 
 const SISYPHUS_DESCRIPTION =
-  "Powerful AI orchestrator. Plans obsessively with todos, assesses search complexity before exploration, delegates strategically via category+skills combinations. Uses explore for internal code (parallel-friendly), librarian for external docs. (Sisyphus - OhMyOpenCode)";
+  "Powerful AI orchestrator. Plans obsessively with todos, assesses search complexity before exploration, delegates strategically via category+skills combinations. Uses explore for internal code (parallel-friendly), bragi for external docs. (Odin - OhMyOpenCode)";
 
-function buildSisyphusPermission(model: string): AgentConfig["permission"] {
+function buildOdinPermission(model: string): AgentConfig["permission"] {
   return {
     question: "allow",
     call_omo_agent: "deny",
@@ -14,7 +14,7 @@ function buildSisyphusPermission(model: string): AgentConfig["permission"] {
   } as AgentConfig["permission"];
 }
 
-function buildBaseSisyphusAgentConfig(
+function buildBaseOdinAgentConfig(
   mode: AgentMode,
   model: string,
   prompt: string,
@@ -26,36 +26,36 @@ function buildBaseSisyphusAgentConfig(
     maxTokens: 64000,
     prompt,
     color: "#00CED1",
-    permission: buildSisyphusPermission(model),
+    permission: buildOdinPermission(model),
   };
 }
 
-export function buildGptSisyphusAgentConfig(
+export function buildGptOdinAgentConfig(
   mode: AgentMode,
   model: string,
   prompt: string,
 ): AgentConfig {
   return {
-    ...buildBaseSisyphusAgentConfig(mode, model, prompt),
+    ...buildBaseOdinAgentConfig(mode, model, prompt),
     reasoningEffort: "medium",
   };
 }
 
-export function buildGlmSisyphusAgentConfig(
+export function buildGlmOdinAgentConfig(
   mode: AgentMode,
   model: string,
   prompt: string,
 ): AgentConfig {
-  return buildBaseSisyphusAgentConfig(mode, model, prompt);
+  return buildBaseOdinAgentConfig(mode, model, prompt);
 }
 
-export function buildClaudeSisyphusAgentConfig(
+export function buildClaudeOdinAgentConfig(
   mode: AgentMode,
   model: string,
   prompt: string,
 ): AgentConfig {
   return {
-    ...buildBaseSisyphusAgentConfig(mode, model, prompt),
+    ...buildBaseOdinAgentConfig(mode, model, prompt),
     ...buildClaudeThinkingConfig(model),
   };
 }

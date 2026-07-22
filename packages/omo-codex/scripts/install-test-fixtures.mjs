@@ -42,7 +42,7 @@ export async function writePluginAt(pluginRoot, name, version) {
 	await writeJson(join(pluginRoot, "hooks", "hooks.json"), { hooks: {} });
 	await writeFile(join(pluginRoot, "skills", name, "SKILL.md"), "---\nname: test\n---\n");
 	await writeFile(join(pluginRoot, "components", "ultrawork", "agents", "explorer.toml"), 'name = "explorer"\n');
-	await writeFile(join(pluginRoot, "components", "ultrawork", "agents", "librarian.toml"), 'name = "librarian"\n');
+	await writeFile(join(pluginRoot, "components", "ultrawork", "agents", "bragi.toml"), 'name = "bragi"\n');
 	await writeFile(join(pluginRoot, "components", "ultrawork", "agents", "plan.toml"), 'name = "plan"\n');
 	await writeJson(join(pluginRoot, "package.json"), {
 		name: `@example/${name}`,

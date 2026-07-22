@@ -112,20 +112,20 @@ describe("detectCompletionInSessionMessages", () => {
   })
 
   describe("#given promise appears in tool_result part (not text part)", () => {
-    test("#when Oracle returns VERIFIED via task() tool_result #then should detect completion", async () => {
+    test("#when Volva returns VERIFIED via task() tool_result #then should detect completion", async () => {
       const messages = [
         {
           info: { role: "assistant" },
           parts: [
-            { type: "text", text: "Consulting Oracle for verification." },
-            { type: "tool_use", text: '{"subagent_type":"oracle"}' },
+            { type: "text", text: "Consulting Volva for verification." },
+            { type: "tool_use", text: '{"subagent_type":"volva"}' },
           ],
         },
         {
           info: { role: "assistant" },
           parts: [
-            { type: "tool_result", text: 'Task completed.\n\nAgent: oracle\n\n<promise>VERIFIED</promise>\n\n<task_metadata>\nsession_id: ses_abc123\n</task_metadata>' },
-            { type: "text", text: "Oracle verified the task." },
+            { type: "tool_result", text: 'Task completed.\n\nAgent: volva\n\n<promise>VERIFIED</promise>\n\n<task_metadata>\nsession_id: ses_abc123\n</task_metadata>' },
+            { type: "text", text: "Volva verified the task." },
           ],
         },
       ]
@@ -142,7 +142,7 @@ describe("detectCompletionInSessionMessages", () => {
       expect(detected).toBe(true)
     })
 
-    test("#when non-Oracle tool_result returns VERIFIED #then should NOT detect completion", async () => {
+    test("#when non-Volva tool_result returns VERIFIED #then should NOT detect completion", async () => {
       const messages = [
         {
           info: { role: "assistant" },
@@ -193,7 +193,7 @@ describe("detectCompletionInSessionMessages", () => {
           info: { role: "assistant" },
           parts: [
             { type: "tool_use", text: 'prompt containing <promise>VERIFIED</promise> as instruction' },
-            { type: "text", text: "Calling Oracle." },
+            { type: "text", text: "Calling Volva." },
           ],
         },
       ]

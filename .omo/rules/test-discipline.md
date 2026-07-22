@@ -58,7 +58,7 @@ A prompt, skill (`SKILL.md`), rule, or any markdown/instruction file is PROSE. I
 **BANNED - every one of these guards a diff, not behavior:**
 
 ```ts
-expect(prompt).toContain("You are Sisyphus")      // phrase-present pin
+expect(prompt).toContain("You are Odin")      // phrase-present pin
 expect(skill).not.toContain("old wording")        // phrase-absent / past-wording guard
 expect(prompt).toMatchSnapshot()                  // snapshot of prose
 expect(prompt).toBe(EXPECTED_PROMPT)              // full-text pin

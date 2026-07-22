@@ -24,7 +24,7 @@ describe("buildTaskExecute spawn", () => {
 
     const result = await execute(
       "call-1",
-      { prompt: "explore", category: "quick", run_in_background: true },
+      { prompt: "vidar", category: "quick", run_in_background: true },
       undefined,
       undefined,
       CTX,
@@ -166,7 +166,7 @@ describe("buildTaskExecute spawn", () => {
     })
     const execute = buildTaskExecute(makeDeps(manager))
 
-    const result = await execute("c", { prompt: "p", subagent_type: "oracle" }, undefined, undefined, CTX)
+    const result = await execute("c", { prompt: "p", subagent_type: "volva" }, undefined, undefined, CTX)
 
     expect(waitForId).toBe("st_00000004")
     const text = result.content[0]?.type === "text" ? result.content[0].text : ""
@@ -226,7 +226,7 @@ describe("buildTaskExecute spawn", () => {
 
     const result = await execute(
       "c",
-      { prompt: "p", category: "quick", subagent_type: "oracle" },
+      { prompt: "p", category: "quick", subagent_type: "volva" },
       undefined,
       undefined,
       CTX,

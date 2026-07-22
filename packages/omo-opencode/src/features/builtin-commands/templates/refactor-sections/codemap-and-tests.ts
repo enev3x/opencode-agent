@@ -74,7 +74,7 @@ ls -la *_test.go
 \`\`\`
 // Find all tests related to target
 call_omo_agent(
-  subagent_type="explore",
+  subagent_type="vidar",
   run_in_background=false,  // Need this synchronously
   prompt="Analyze test coverage for [TARGET]:
   1. Which test files cover this code?

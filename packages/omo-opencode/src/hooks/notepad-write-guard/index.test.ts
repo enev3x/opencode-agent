@@ -33,12 +33,12 @@ async function expectWriteBlocked(hook: Hook, filePath: string): Promise<void> {
 describe("createNotepadWriteGuardHook", () => {
   test("#given notepad decisions.md #when write executes #then rejects with actionable error", async () => {
     const hook = createNotepadWriteGuardHook()
-    await expectWriteBlocked(hook, ".sisyphus/notepads/foo/decisions.md")
+    await expectWriteBlocked(hook, ".odin/notepads/foo/decisions.md")
   })
 
   test("#given notepad state.json #when write executes #then rejects (entire notepad subtree blocked)", async () => {
     const hook = createNotepadWriteGuardHook()
-    await expectWriteBlocked(hook, ".sisyphus/notepads/foo/state.json")
+    await expectWriteBlocked(hook, ".odin/notepads/foo/state.json")
   })
 
   test("#given current omo notepad file #when write executes #then rejects", async () => {
@@ -58,26 +58,26 @@ describe("createNotepadWriteGuardHook", () => {
     const hook = createNotepadWriteGuardHook()
     await invoke(hook, {
       tool: "read",
-      filePath: ".sisyphus/notepads/foo/decisions.md",
+      filePath: ".odin/notepads/foo/decisions.md",
     })
   })
 
-  test("#given sisyphus plans file (not notepads) #when write executes #then allows", async () => {
+  test("#given odin plans file (not notepads) #when write executes #then allows", async () => {
     const hook = createNotepadWriteGuardHook()
     await invoke(hook, {
       tool: "write",
-      filePath: ".sisyphus/plans/my-plan.md",
+      filePath: ".odin/plans/my-plan.md",
     })
   })
 
   test("#given absolute notepad path #when write executes #then rejects", async () => {
     const hook = createNotepadWriteGuardHook()
-    await expectWriteBlocked(hook, "/home/user/project/.sisyphus/notepads/plan/decisions.md")
+    await expectWriteBlocked(hook, "/home/user/project/.odin/notepads/plan/decisions.md")
   })
 
   test("#given error message #when rejected #then message names the file and gives guidance", async () => {
     const hook = createNotepadWriteGuardHook()
-    const filePath = ".sisyphus/notepads/foo/decisions.md"
+    const filePath = ".odin/notepads/foo/decisions.md"
     let caughtMessage = ""
     try {
       await invoke(hook, { tool: "write", filePath })

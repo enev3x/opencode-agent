@@ -61,7 +61,7 @@ describe("loadTeamRegistry", () => {
     // given
     const projectRoot = makeProjectDir()
     writeProjectTeamSpec(projectRoot, "shared", {
-      members: [{ kind: "subagent_type", subagent_type: "atlas" }],
+      members: [{ kind: "subagent_type", subagent_type: "heimdall" }],
     })
     const omoTeams = {
       shared: { members: [{ kind: "category", category: "quick", prompt: "work" }] },
@@ -82,7 +82,7 @@ describe("loadTeamRegistry", () => {
     // given
     const projectRoot = makeProjectDir()
     const omoTeams = {
-      "bad-team": { members: [{ kind: "oracle-like-unknown", name: "x" }] },
+      "bad-team": { members: [{ kind: "volva-like-unknown", name: "x" }] },
     }
     const ports: SenpiTeamMemberPorts = {
       isCategoryResolvable: () => false,
@@ -104,7 +104,7 @@ describe("loadTeamRegistry", () => {
     const projectRoot = makeProjectDir()
     const omoTeams = {
       "lead-field-team": {
-        lead: { kind: "subagent_type", subagent_type: "sisyphus" },
+        lead: { kind: "subagent_type", subagent_type: "odin" },
         members: [{ kind: "category", category: "quick", prompt: "work" }],
       },
     }

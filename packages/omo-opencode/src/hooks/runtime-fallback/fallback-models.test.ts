@@ -32,25 +32,25 @@ describe("runtime-fallback fallback-models", () => {
     //#given
     const pluginConfig = unsafeTestValue({
       agents: {
-        oracle: {
+        volva: {
           fallback_models: ["openai/gpt-5.5", "anthropic/claude-opus-4-7"],
         },
       },
     })
 
     //#when
-    const result = getFallbackModelsForSession("ses_runtime_fallback_agent", "oracle", pluginConfig)
+    const result = getFallbackModelsForSession("ses_runtime_fallback_agent", "volva", pluginConfig)
 
     //#then
     expect(result).toEqual(["openai/gpt-5.5", "anthropic/claude-opus-4-7"])
   })
 
-  test("inherits prometheus fallback_models for a replaced plan agent by default", () => {
+  test("inherits mimir fallback_models for a replaced plan agent by default", () => {
     //#given
     const pluginConfig = unsafeTestValue({
       agents: {
         plan: {},
-        prometheus: {
+        mimir: {
           fallback_models: ["openai/gpt-5.5", "anthropic/claude-opus-4-7"],
         },
       },
@@ -63,14 +63,14 @@ describe("runtime-fallback fallback-models", () => {
     expect(result).toEqual(["openai/gpt-5.5", "anthropic/claude-opus-4-7"])
   })
 
-  test("uses explicit plan fallback_models before prometheus inheritance", () => {
+  test("uses explicit plan fallback_models before mimir inheritance", () => {
     //#given
     const pluginConfig = unsafeTestValue({
       agents: {
         plan: {
           fallback_models: ["openai/gpt-5.4"],
         },
-        prometheus: {
+        mimir: {
           fallback_models: ["openai/gpt-5.5"],
         },
       },
@@ -83,14 +83,14 @@ describe("runtime-fallback fallback-models", () => {
     expect(result).toEqual(["openai/gpt-5.4"])
   })
 
-  test("explicit empty plan fallback_models suppresses prometheus inheritance", () => {
+  test("explicit empty plan fallback_models suppresses mimir inheritance", () => {
     //#given
     const pluginConfig = unsafeTestValue({
       agents: {
         plan: {
           fallback_models: [],
         },
-        prometheus: {
+        mimir: {
           fallback_models: ["openai/gpt-5.5"],
         },
       },
@@ -107,13 +107,13 @@ describe("runtime-fallback fallback-models", () => {
     { planner_enabled: false },
     { replace_plan: false },
     { disabled: true },
-  ])("does not inherit prometheus fallback_models when plan replacement is disabled: %#", (sisyphusAgent) => {
+  ])("does not inherit mimir fallback_models when plan replacement is disabled: %#", (odinAgent) => {
     //#given
     const pluginConfig = unsafeTestValue({
-      sisyphus_agent: sisyphusAgent,
+      odin_agent: odinAgent,
       agents: {
         plan: {},
-        prometheus: {
+        mimir: {
           fallback_models: ["openai/gpt-5.5"],
         },
       },
@@ -130,10 +130,10 @@ describe("runtime-fallback fallback-models", () => {
     //#given
     const pluginConfig = unsafeTestValue({
       agents: {
-        sisyphus: {
+        odin: {
           fallback_models: ["quotio/gpt-5.5", "quotio/glm-5", "quotio/kimi-k2.5"],
         },
-        oracle: {
+        volva: {
           fallback_models: ["openai/gpt-5.5", "anthropic/claude-opus-4-7"],
         },
       },

@@ -1,0 +1,1 @@
+export { createThorAgentsMdInjectorHook } from "./hook"

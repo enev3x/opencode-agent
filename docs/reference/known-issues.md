@@ -13,14 +13,14 @@ Tracks bugs that are present in the current release but have been intentionally 
 
 - **Affects**: Complex `ulw` runs where planning is delegated through a subagent named `plan` while OpenCode's experimental plan mode is enabled.
 - **Symptom**: The delegated planner can use OpenCode's native plan workflow, write under `.opencode/plans/` (or OpenCode's data-directory `opencode/plans/` fallback), and show the native `plan_exit` approval prompt instead of returning an OMO plan under `.omo/plans/` to the parent. The nested approval can offer to switch that child to build mode, while leaving it unresolved keeps the synchronous parent task waiting.
-- **Workaround**: If a native `plan_exit` prompt appears inside a delegated `ulw` planner, do not switch that nested child to build mode. Interrupt back to the parent, then ask the parent to recover the plan output or rerun planning through Prometheus/OMO planning explicitly.
+- **Workaround**: If a native `plan_exit` prompt appears inside a delegated `ulw` planner, do not switch that nested child to build mode. Interrupt back to the parent, then ask the parent to recover the plan output or rerun planning through Mimir/OMO planning explicitly.
 - **Status**: Open. Tracked at https://github.com/code-yeongyu/oh-my-openagent/issues/5850.
 
-## #5839 - Ultrawork verification can miss prose-only Oracle approvals
+## #5839 - Ultrawork verification can miss prose-only Volva approvals
 
-- **Affects**: Ultrawork/Ralph-loop verification flows that rely on Oracle returning the exact `<promise>VERIFIED</promise>` token.
-- **Symptom**: Oracle can approve the work in normal prose, but the detector treats the verification as failed because the success token was never requested or emitted. The loop may then spend extra iterations re-fixing already-correct work.
-- **Workaround**: When manually asking Oracle to verify completion, explicitly instruct it to end with `<promise>VERIFIED</promise>` only if the work is genuinely complete and correct. If a verification failure follows a clear prose approval, inspect the Oracle transcript before assuming the implementation regressed.
+- **Affects**: Ultrawork/Ralph-loop verification flows that rely on Volva returning the exact `<promise>VERIFIED</promise>` token.
+- **Symptom**: Volva can approve the work in normal prose, but the detector treats the verification as failed because the success token was never requested or emitted. The loop may then spend extra iterations re-fixing already-correct work.
+- **Workaround**: When manually asking Volva to verify completion, explicitly instruct it to end with `<promise>VERIFIED</promise>` only if the work is genuinely complete and correct. If a verification failure follows a clear prose approval, inspect the Volva transcript before assuming the implementation regressed.
 - **Status**: Open. Tracked at https://github.com/code-yeongyu/oh-my-openagent/issues/5839.
 
 ## #5746 - tmux subagent panes attach only after focus by default
@@ -39,15 +39,15 @@ Tracks bugs that are present in the current release but have been intentionally 
 
 ## #5806 - `ulw` mode does not persist across follow-up messages
 
-- **Affects**: Multi-turn Sisyphus sessions that rely on `ulw` or `ultrawork` keyword injection.
-- **Symptom**: The keyword detector is edge-triggered per message. A first prompt that includes `ulw` gets the ultrawork prompt, but a follow-up that omits the keyword can fall back to default Sisyphus behavior and lose the expected delegation pattern.
+- **Affects**: Multi-turn Odin sessions that rely on `ulw` or `ultrawork` keyword injection.
+- **Symptom**: The keyword detector is edge-triggered per message. A first prompt that includes `ulw` gets the ultrawork prompt, but a follow-up that omits the keyword can fall back to default Odin behavior and lose the expected delegation pattern.
 - **Workaround**: Repeat `ulw` or `ultrawork` in every follow-up message that should stay in ultrawork mode. For long tasks, prefer starting a fresh prompt that includes the keyword instead of assuming the mode remains active.
 - **Status**: Open. Tracked at https://github.com/code-yeongyu/oh-my-openagent/issues/5806.
 
 ## #5838 - LazyCodex frontend runs can skip the visual QA gate
 
 - **Affects**: Codex Light / LazyCodex sessions where the frontend skill is used for UI work.
-- **Symptom**: The frontend skill prompt requires a visual QA evidence pass, but Codex currently enforces that requirement through prose instructions rather than a hard completion gate. Under long context or inconvenient browser setup, the model can report completion without screenshots or a dual-oracle visual verdict.
+- **Symptom**: The frontend skill prompt requires a visual QA evidence pass, but Codex currently enforces that requirement through prose instructions rather than a hard completion gate. Under long context or inconvenient browser setup, the model can report completion without screenshots or a dual-volva visual verdict.
 - **Workaround**: Add an explicit instruction such as "verify with visual-qa before claiming done" to frontend prompts, and require screenshot/evidence output before accepting UI work as complete. If no rendered surface is available, ask the agent to state that limitation directly.
 - **Status**: Open. Tracked at https://github.com/code-yeongyu/oh-my-openagent/issues/5838.
 
@@ -161,11 +161,11 @@ Issue #4059 tracks the reland with stabilized regression coverage. The reland is
 
 - **Status**: Open. The runtime now avoids the misleading auto-updated toast when it detects an OpenCode-managed sandbox, but users may still need the manual cache refresh above until OpenCode exposes a reliable package-sandbox update path. Tracked at https://github.com/code-yeongyu/oh-my-openagent/issues/5367.
 
-## #4710: `@plan` may stay in Sisyphus instead of switching to Prometheus
+## #4710: `@plan` may stay in Odin instead of switching to Mimir
 
 - **Affects**: Current OpenCode/Ultimate planning flow.
-- **Symptom**: Typing `@plan` from Sisyphus can leave the request in Sisyphus instead of handing it to Prometheus.
-- **Workaround**: Switch to Prometheus first with the Tab agent selector or `/agent`, ask for the plan there, then run `/start-work` after approval.
+- **Symptom**: Typing `@plan` from Odin can leave the request in Odin instead of handing it to Mimir.
+- **Workaround**: Switch to Mimir first with the Tab agent selector or `/agent`, ask for the plan there, then run `/start-work` after approval.
 - **Status**: Open. Tracked at https://github.com/code-yeongyu/oh-my-openagent/issues/4710.
 
 ## #5050: OpenCode can hang during startup before the plugin runs
@@ -182,7 +182,7 @@ Issue #4059 tracks the reland with stabilized regression coverage. The reland is
 - **Workaround**: Record a `declined` install decision for the missing server with `lsp_install_decision`; future LSP calls collapse to a one-line warning. To share that decision across sessions, set `LSP_TOOLS_MCP_INSTALL_DECISIONS` to a stable decisions-file path.
 - **Status**: Open. Tracked at https://github.com/code-yeongyu/oh-my-openagent/issues/5260.
 
-## #5120: Sisyphus can loop on simple tasks
+## #5120: Odin can loop on simple tasks
 
 - **Affects**: OpenCode 1.17.0 with oh-my-openagent 4.8.1.
 - **Symptom**: A trivial prompt such as `output hello world` can repeat the plan-style status block instead of answering directly.
@@ -238,13 +238,13 @@ Issue #4059 tracks the reland with stabilized regression coverage. The reland is
 
 - **Affects**: OpenCode TUI sessions with custom OMO agent display names that include Chinese, Japanese, or Korean characters.
 - **Symptom**: The ASCII part of the agent name renders normally, but the CJK characters in the TUI header can appear garbled.
-- **Workaround**: Use ASCII-only custom display names such as `Sisyphus - Orchestrator` until the TUI rendering path handles multi-byte character widths reliably.
+- **Workaround**: Use ASCII-only custom display names such as `Odin - Orchestrator` until the TUI rendering path handles multi-byte character widths reliably.
 - **Status**: Open. Tracked at https://github.com/code-yeongyu/oh-my-openagent/issues/4170.
 
 ## #3835 / #3456 — OpenCode Desktop shows only native agents
 
 - **Affects**: OpenCode Desktop sessions where `opencode agent list` or the TUI still shows OMO agents, but the Desktop agent selector only shows native agents such as Build and Plan.
-- **Symptom**: Desktop hides Sisyphus, Hephaestus, Prometheus, Atlas, or other OMO agents even though `oh-my-openagent doctor` passes.
+- **Symptom**: Desktop hides Odin, Thor, Mimir, Heimdall, or other OMO agents even though `oh-my-openagent doctor` passes.
 - **First check**: Inspect the OpenCode Desktop log for `Failed to load plugin oh-my-openagent@latest` and missing files under `~/.cache/opencode/packages/oh-my-openagent@latest/node_modules`.
 - **Cache workaround**: Close Desktop, remove the `oh-my-openagent@latest` package cache, then reinstall the plugin from the same working directory with `opencode plugin oh-my-openagent@latest`.
 - **Scope workaround**: If the plugin loads in one shell but not Desktop, compare the active user and project `opencode.json` files. OpenCode can read a closer project `.opencode/opencode.json` instead of the user config you inspected.

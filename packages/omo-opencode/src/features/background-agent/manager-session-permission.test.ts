@@ -27,7 +27,7 @@ describe("BackgroundManager session permission", () => {
     await manager.launch({
       description: "Test task",
       prompt: "Do something",
-      agent: "explore",
+      agent: "vidar",
       parentSessionId: "ses_parent",
       parentMessageId: "msg_parent",
     })
@@ -60,7 +60,7 @@ describe("BackgroundManager session permission", () => {
     await manager.launch({
       description: "Test task",
       prompt: "Do something",
-      agent: "explore",
+      agent: "vidar",
       parentSessionId: "ses_parent",
       parentMessageId: "msg_parent",
     })
@@ -101,7 +101,7 @@ describe("BackgroundManager session permission", () => {
     await manager.launch({
       description: "Test task",
       prompt: "Do something",
-      agent: "explore",
+      agent: "vidar",
       parentSessionId: "ses_parent",
       parentMessageId: "msg_parent",
       sessionPermission: [

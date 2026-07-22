@@ -151,7 +151,7 @@ describe("skills/ulw-loop/SKILL.md", () => {
 			const badBin = join(root, "bad-bin");
 			const home = join(root, "home");
 			const codexHome = join(home, ".codex");
-			const cachedCli = join(codexHome, "plugins", "cache", "sisyphuslabs", "omo", "0.1.0", "components", "ulw-loop", "dist", "cli.js");
+			const cachedCli = join(codexHome, "plugins", "cache", "odinlabs", "omo", "0.1.0", "components", "ulw-loop", "dist", "cli.js");
 			await mkdir(badBin, { recursive: true });
 			await mkdir(dirname(cachedCli), { recursive: true });
 			await writeFile(join(badBin, "omo"), "#!/bin/sh\nprintf '%s\\n' \"error: unknown command 'ulw-loop'\" >&2\nexit 1\n");

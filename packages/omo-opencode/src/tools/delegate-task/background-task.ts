@@ -112,7 +112,7 @@ export async function executeBackgroundTask(
   const { manager } = executorCtx
 
   try {
-    const tddEnabled = executorCtx.sisyphusAgentConfig?.tdd
+    const tddEnabled = executorCtx.odinAgentConfig?.tdd
     const normalizedAgent = stripAgentListSortPrefix(agentToUse)
     const effectivePrompt = buildTaskPrompt(args.prompt, normalizedAgent, tddEnabled)
     const persistedDescription = getPersistedBackgroundTaskDescription(args, normalizedAgent)

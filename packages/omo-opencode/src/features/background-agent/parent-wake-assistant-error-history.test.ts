@@ -74,7 +74,7 @@ describe("ParentWakeNotifier assistant error history", () => {
         parts: [],
       },
     ])
-    notifier.queuePendingParentWake("parent-assistant-error-history", FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake("parent-assistant-error-history", FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       await notifier.flushPendingParentWake("parent-assistant-error-history")

@@ -8,7 +8,7 @@ import type { OpencodeClient, ToolContextWithMetadata } from "./types"
 const toolContext: ToolContextWithMetadata = {
   sessionID: "ses_parent",
   messageID: "msg_parent",
-  agent: "sisyphus",
+  agent: "odin",
   abort: new AbortController().signal,
 }
 
@@ -40,7 +40,7 @@ describe("pollSyncSession status fallback", () => {
     // when
     const result = await pollSyncSession(toolContext, client, {
       sessionID: "ses_missing_status",
-      agentToUse: "sisyphus",
+      agentToUse: "odin",
       toastManager: null,
       taskId: undefined,
     }, 50)

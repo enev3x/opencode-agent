@@ -44,7 +44,7 @@ test("#given custom CODEX_HOME and PATH without omo #when installing locally wit
 	const pluginRoot = join(codexPackageRoot, "plugin");
 
 	await writeJson(join(codexPackageRoot, "marketplace.json"), {
-		name: "sisyphuslabs",
+		name: "odinlabs",
 		plugins: [{ name: "omo", source: "./plugins/omo" }],
 	});
 	await writePluginAt(pluginRoot, "omo", "0.1.0");
@@ -80,7 +80,7 @@ test("#given repoRoot without root CLI dist #when installing locally #then warns
 	const pluginRoot = join(codexPackageRoot, "plugin");
 
 	await writeJson(join(codexPackageRoot, "marketplace.json"), {
-		name: "sisyphuslabs",
+		name: "odinlabs",
 		plugins: [{ name: "omo", source: "./plugins/omo" }],
 	});
 	await writePluginAt(pluginRoot, "omo", "0.1.0");
@@ -134,18 +134,18 @@ test("#given CODEX_LOCAL_BIN_DIR with surrounding whitespace #when resolving loc
 	);
 });
 
-test("#given omo plugin source #when inspecting identity #then uses sisyphuslabs omo metadata", async () => {
+test("#given omo plugin source #when inspecting identity #then uses odinlabs omo metadata", async () => {
 	const pluginRoot = join(scriptDir, "..", "plugin");
 
 	const manifest = JSON.parse(await readFile(join(pluginRoot, ".codex-plugin", "plugin.json"), "utf8"));
 	const packageJson = JSON.parse(await readFile(join(pluginRoot, "package.json"), "utf8"));
 
-	assert.equal(packageJson.name, "@sisyphuslabs/omo-codex-plugin");
-	assert.equal(manifest.homepage, "https://github.com/sisyphuslabs/omo");
-	assert.equal(manifest.repository, "https://github.com/sisyphuslabs/omo");
-	assert.equal(manifest.interface.websiteURL, "https://github.com/sisyphuslabs/omo");
-	assert.equal(manifest.interface.privacyPolicyURL, "https://github.com/sisyphuslabs/omo#privacy");
-	assert.equal(manifest.interface.termsOfServiceURL, "https://github.com/sisyphuslabs/omo#license");
+	assert.equal(packageJson.name, "@odinlabs/omo-codex-plugin");
+	assert.equal(manifest.homepage, "https://github.com/odinlabs/omo");
+	assert.equal(manifest.repository, "https://github.com/odinlabs/omo");
+	assert.equal(manifest.interface.websiteURL, "https://github.com/odinlabs/omo");
+	assert.equal(manifest.interface.privacyPolicyURL, "https://github.com/odinlabs/omo#privacy");
+	assert.equal(manifest.interface.termsOfServiceURL, "https://github.com/odinlabs/omo#license");
 });
 
 test("#given plugin hooks #when installing #then records trusted hook hashes", async () => {

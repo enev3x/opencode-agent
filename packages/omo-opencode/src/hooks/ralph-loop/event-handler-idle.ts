@@ -134,7 +134,7 @@ export async function handleIdleEvent(
 
 	if (state.verification_pending) {
 		if (!verificationSessionID && matchesSession.parent) {
-			log(`[${HOOK_NAME}] Verification pending without tracked oracle session, running recovery check`, {
+			log(`[${HOOK_NAME}] Verification pending without tracked volva session, running recovery check`, {
 				sessionID,
 				iteration: state.iteration,
 			})

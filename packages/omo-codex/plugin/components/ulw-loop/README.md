@@ -27,7 +27,7 @@ Validation batches are optional review boundaries declared at plan creation with
 
 ## Codex Plugin
 
-This directory is a component of the aggregate `@sisyphuslabs/omo-codex-plugin` root. Plugin discovery (`.codex-plugin/plugin.json`) is owned by that aggregate root, not by this component. The component ships:
+This directory is a component of the aggregate `@odinlabs/omo-codex-plugin` root. Plugin discovery (`.codex-plugin/plugin.json`) is owned by that aggregate root, not by this component. The component ships:
 
 - `hooks/hooks.json` registering four hooks:
   - `UserPromptSubmit` -> `node "${PLUGIN_ROOT}/dist/cli.js" hook user-prompt-submit --with-ultrawork`
@@ -57,14 +57,14 @@ npm pack --dry-run
 npx lazycodex-ai install
 ```
 
-The installer builds and copies the plugin into `~/.codex/plugins/cache/sisyphuslabs/omo/0.1.0`, registers the `sisyphuslabs` marketplace from the `lazycodex` Git repository, installs runtime dependencies there, and enables:
+The installer builds and copies the plugin into `~/.codex/plugins/cache/odinlabs/omo/0.1.0`, registers the `odinlabs` marketplace from the `lazycodex` Git repository, installs runtime dependencies there, and enables:
 
 ```toml
 [features]
 plugins = true
 plugin_hooks = true
 
-[plugins."omo@sisyphuslabs"]
+[plugins."omo@odinlabs"]
 enabled = true
 ```
 
@@ -78,5 +78,5 @@ This component runs locally and does not call a network service by itself.
 
 ## Related
 
-- [lazycodex](https://github.com/code-yeongyu/lazycodex) - Sisyphus Labs Codex marketplace repository.
+- [lazycodex](https://github.com/code-yeongyu/lazycodex) - Odin Labs Codex marketplace repository.
 - [oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent) - the monorepo this component is developed in.

@@ -1,6 +1,6 @@
 ## Summary
 
-- Fix crash in atlas hook when `boulder.json` is missing `worktree_path` (or other required fields) by hardening `readBoulderState()` validation
+- Fix crash in heimdall hook when `boulder.json` is missing `worktree_path` (or other required fields) by hardening `readBoulderState()` validation
 - Wrap the unprotected `setTimeout` retry callback in `idle-event.ts` with try/catch to prevent unhandled promise rejections
 - Add defensive type guard in `getPlanProgress()` to prevent `existsSync(undefined)` TypeError
 
@@ -15,9 +15,9 @@ When `boulder.json` is malformed or manually edited to omit fields, `readBoulder
 - `readBoulderState()`: Strip `worktree_path` if present but not a string type
 - `getPlanProgress()`: Add `typeof planPath !== "string"` guard before `existsSync`
 
-### `src/hooks/atlas/idle-event.ts`
+### `src/hooks/heimdall/idle-event.ts`
 - Wrap `scheduleRetry` setTimeout async callback body in try/catch
 
 ### Tests
 - `src/features/boulder-state/storage.test.ts`: 5 new tests for missing/malformed fields
-- `src/hooks/atlas/index.test.ts`: 2 new tests for worktree_path presence/absence in continuation prompt
+- `src/hooks/heimdall/index.test.ts`: 2 new tests for worktree_path presence/absence in continuation prompt

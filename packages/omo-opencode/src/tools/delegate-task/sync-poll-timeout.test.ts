@@ -114,7 +114,7 @@ describe("syncPollTimeoutMs threading", () => {
         await withMockedDateNow(60_000, async () => {
           const result = await pollSyncSession(createMockCtx(), mockClient, {
             sessionID: "ses_active",
-            agentToUse: "oracle",
+            agentToUse: "volva",
             toastManager: null,
             taskId: undefined,
           }, 120_000)

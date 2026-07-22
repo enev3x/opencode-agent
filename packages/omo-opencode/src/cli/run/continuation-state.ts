@@ -5,8 +5,8 @@ import {
   isContinuationMarkerActive,
   readContinuationMarker,
 } from "../../features/run-continuation-state"
-import { isSessionInBoulderLineage } from "../../hooks/atlas/boulder-session-lineage"
-import { getLastAgentFromSession } from "../../hooks/atlas/session-last-agent"
+import { isSessionInBoulderLineage } from "../../hooks/heimdall/boulder-session-lineage"
+import { getLastAgentFromSession } from "../../hooks/heimdall/session-last-agent"
 import { getAgentConfigKey } from "../../shared/agent-display-names"
 import { readState as readRalphLoopState } from "../../hooks/ralph-loop/storage"
 import type { RunContext } from "./types"
@@ -79,11 +79,11 @@ async function hasActiveBoulderContinuation(
     return false
   }
 
-  const requiredAgentKey = getAgentConfigKey(boulder.agent ?? "atlas")
+  const requiredAgentKey = getAgentConfigKey(boulder.agent ?? "heimdall")
   const sessionAgentKey = getAgentConfigKey(sessionAgent)
   if (
     sessionAgentKey !== requiredAgentKey
-    && !(requiredAgentKey === getAgentConfigKey("atlas") && sessionAgentKey === getAgentConfigKey("sisyphus"))
+    && !(requiredAgentKey === getAgentConfigKey("heimdall") && sessionAgentKey === getAgentConfigKey("odin"))
   ) {
     return false
   }

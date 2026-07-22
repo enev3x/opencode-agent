@@ -2,38 +2,38 @@ import { describe, expect, test } from "bun:test"
 import { AGENT_MODEL_REQUIREMENTS } from "./model-requirements"
 
 describe("AGENT_MODEL_REQUIREMENTS", () => {
-  test("oracle has gpt-5.6-sol xhigh as primary", () => {
+  test("volva has gpt-5.6-sol xhigh as primary", () => {
     // given
-    const oracle = AGENT_MODEL_REQUIREMENTS["oracle"]
+    const volva = AGENT_MODEL_REQUIREMENTS["volva"]
 
     // when
-    const primary = oracle.fallbackChain[0]
+    const primary = volva.fallbackChain[0]
 
     // then
-    expect(oracle.fallbackChain).toBeArray()
-    expect(oracle.fallbackChain.length).toBeGreaterThan(0)
+    expect(volva.fallbackChain).toBeArray()
+    expect(volva.fallbackChain.length).toBeGreaterThan(0)
     expect(primary).toEqual({
       providers: ["openai", "opencode", "vercel"],
       model: "gpt-5.6-sol",
       variant: "xhigh",
     })
-    expect(oracle.fallbackChain[1]).toEqual({
+    expect(volva.fallbackChain[1]).toEqual({
       providers: ["github-copilot"],
       model: "gpt-5.6-sol",
       variant: "high",
     })
   })
 
-  test("sisyphus keeps opus primary before Kimi K3, gpt-5.6-sol, GLM, and big-pickle fallbacks", () => {
+  test("odin keeps opus primary before Kimi K3, gpt-5.6-sol, GLM, and big-pickle fallbacks", () => {
     // given
-    const sisyphus = AGENT_MODEL_REQUIREMENTS["sisyphus"]
+    const odin = AGENT_MODEL_REQUIREMENTS["odin"]
 
     // when
-    const [primary, second, solFallback, fourth, last] = sisyphus.fallbackChain
+    const [primary, second, solFallback, fourth, last] = odin.fallbackChain
 
     // then
-    expect(sisyphus.fallbackChain).toHaveLength(5)
-    expect(sisyphus.requiresAnyModel).toBe(true)
+    expect(odin.fallbackChain).toHaveLength(5)
+    expect(odin.requiresAnyModel).toBe(true)
     expect(primary).toEqual({
       providers: ["anthropic", "github-copilot", "opencode", "vercel"],
       model: "claude-opus-4-8",
@@ -65,16 +65,16 @@ describe("AGENT_MODEL_REQUIREMENTS", () => {
     expect(last?.model).toBe("big-pickle")
   })
 
-  test("librarian keeps fast OpenAI primary before qwen, minimax, haiku, and nano fallbacks", () => {
+  test("bragi keeps fast OpenAI primary before qwen, minimax, haiku, and nano fallbacks", () => {
     // given
-    const librarian = AGENT_MODEL_REQUIREMENTS["librarian"]
+    const bragi = AGENT_MODEL_REQUIREMENTS["bragi"]
 
     // when
     const [primary, second, third, fourth, fifth, sixth, seventh, eighth] =
-      librarian.fallbackChain
+      bragi.fallbackChain
 
     // then
-    expect(librarian.fallbackChain).toHaveLength(8)
+    expect(bragi.fallbackChain).toHaveLength(8)
     expect(primary).toEqual({ providers: ["openai"], model: "gpt-5.4-mini-fast" })
     expect(second?.providers).toContain("opencode-go")
     expect(second?.providers).toContain("bailian-coding-plan")
@@ -96,7 +96,7 @@ describe("AGENT_MODEL_REQUIREMENTS", () => {
 
   test("explore keeps fast OpenAI primary before qwen, minimax, haiku, and nano fallbacks", () => {
     // given
-    const explore = AGENT_MODEL_REQUIREMENTS["explore"]
+    const explore = AGENT_MODEL_REQUIREMENTS["vidar"]
 
     // when
     const [primary, second, third, fourth, fifth, sixth, seventh, eighth] = explore.fallbackChain
@@ -122,9 +122,9 @@ describe("AGENT_MODEL_REQUIREMENTS", () => {
     expect(eighth?.model).toBe("gpt-5.4-nano")
   })
 
-  test("multimodal-looker keeps vision-capable fallback order", () => {
+  test("huginn keeps vision-capable fallback order", () => {
     // given
-    const multimodalLooker = AGENT_MODEL_REQUIREMENTS["multimodal-looker"]
+    const multimodalLooker = AGENT_MODEL_REQUIREMENTS["huginn"]
 
     // when
     const [primary, secondary, tertiary, last] = multimodalLooker.fallbackChain
@@ -144,15 +144,15 @@ describe("AGENT_MODEL_REQUIREMENTS", () => {
     })
   })
 
-  test("prometheus keeps claude-opus-4-8 primary before gpt-5.6-sol high", () => {
+  test("mimir keeps claude-opus-4-8 primary before gpt-5.6-sol high", () => {
     // given
-    const prometheus = AGENT_MODEL_REQUIREMENTS["prometheus"]
+    const mimir = AGENT_MODEL_REQUIREMENTS["mimir"]
 
     // when
-    const [primary, gptFallback] = prometheus.fallbackChain
+    const [primary, gptFallback] = mimir.fallbackChain
 
     // then
-    expect(prometheus.fallbackChain.length).toBeGreaterThan(1)
+    expect(mimir.fallbackChain.length).toBeGreaterThan(1)
     expect(primary).toEqual({
       providers: ["anthropic", "github-copilot", "opencode", "vercel"],
       model: "claude-opus-4-8",
@@ -165,24 +165,24 @@ describe("AGENT_MODEL_REQUIREMENTS", () => {
     })
   })
 
-  test("metis has sonnet primary, opus fallback, and gpt-5.6-sol medium fallback", () => {
+  test("urd has sonnet primary, opus fallback, and gpt-5.6-sol medium fallback", () => {
     // given
-    const metis = AGENT_MODEL_REQUIREMENTS["metis"]
+    const urd = AGENT_MODEL_REQUIREMENTS["urd"]
 
     // when
-    const primary = metis.fallbackChain[0]
-    const opusFallback = metis.fallbackChain[1]
-    const openAiFallback = metis.fallbackChain.find((entry) => entry.providers.includes("openai"))
+    const primary = urd.fallbackChain[0]
+    const opusFallback = urd.fallbackChain[1]
+    const openAiFallback = urd.fallbackChain.find((entry) => entry.providers.includes("openai"))
 
     // then
-    expect(metis.fallbackChain.length).toBeGreaterThan(1)
+    expect(urd.fallbackChain.length).toBeGreaterThan(1)
     expect(primary).toEqual({
       providers: ["anthropic", "github-copilot", "opencode", "vercel"],
       model: "claude-sonnet-4-6",
     })
     expect(opusFallback?.model).toBe("claude-opus-4-8")
     expect(opusFallback?.variant).toBe("max")
-    expect(metis.fallbackChain.at(-1)).toEqual({ providers: ["kimi-for-coding"], model: "kimi-k3" })
+    expect(urd.fallbackChain.at(-1)).toEqual({ providers: ["kimi-for-coding"], model: "kimi-k3" })
     expect(openAiFallback).toEqual({
       providers: ["openai", "github-copilot", "opencode", "vercel"],
       model: "gpt-5.6-sol",
@@ -190,15 +190,15 @@ describe("AGENT_MODEL_REQUIREMENTS", () => {
     })
   })
 
-  test("momus keeps native gpt-5.6-terra high before gpt-5.6-sol xhigh", () => {
+  test("forseti keeps native gpt-5.6-terra high before gpt-5.6-sol xhigh", () => {
     // given
-    const momus = AGENT_MODEL_REQUIREMENTS["momus"]
+    const forseti = AGENT_MODEL_REQUIREMENTS["forseti"]
 
     // when
-    const [primary, copilot, solFallback, copilotSolFallback, opusFallback] = momus.fallbackChain
+    const [primary, copilot, solFallback, copilotSolFallback, opusFallback] = forseti.fallbackChain
 
     // then
-    expect(momus.fallbackChain.length).toBeGreaterThan(1)
+    expect(forseti.fallbackChain.length).toBeGreaterThan(1)
     expect(primary).toEqual({
       providers: ["openai", "vercel"],
       model: "gpt-5.6-terra",
@@ -226,15 +226,15 @@ describe("AGENT_MODEL_REQUIREMENTS", () => {
     })
   })
 
-  test("atlas keeps sonnet, kimi, gpt-5.6-sol, and minimax fallback order", () => {
+  test("heimdall keeps sonnet, kimi, gpt-5.6-sol, and minimax fallback order", () => {
     // given
-    const atlas = AGENT_MODEL_REQUIREMENTS["atlas"]
+    const heimdall = AGENT_MODEL_REQUIREMENTS["heimdall"]
 
     // when
-    const [primary, secondary, solFallback, fourth, fifth, sixth] = atlas.fallbackChain
+    const [primary, secondary, solFallback, fourth, fifth, sixth] = heimdall.fallbackChain
 
     // then
-    expect(atlas.fallbackChain).toHaveLength(6)
+    expect(heimdall.fallbackChain).toHaveLength(6)
     expect(primary?.model).toBe("claude-sonnet-4-6")
     expect(primary?.providers[0]).toBe("anthropic")
     expect(secondary?.model).toBe("kimi-k3")
@@ -254,12 +254,12 @@ describe("AGENT_MODEL_REQUIREMENTS", () => {
     expect(sixth?.providers[0]).toBe("opencode-go")
   })
 
-  test("sisyphus-junior keeps sonnet, Kimi, minimax, and big-pickle fallbacks", () => {
+  test("einherjar keeps sonnet, Kimi, minimax, and big-pickle fallbacks", () => {
     // given
-    const sisyphusJunior = AGENT_MODEL_REQUIREMENTS["sisyphus-junior"]
+    const odinJunior = AGENT_MODEL_REQUIREMENTS["einherjar"]
 
     // when
-    const modelIDs = sisyphusJunior.fallbackChain.map((entry) => entry.model)
+    const modelIDs = odinJunior.fallbackChain.map((entry) => entry.model)
 
     // then
     expect(modelIDs).toEqual([
@@ -274,32 +274,32 @@ describe("AGENT_MODEL_REQUIREMENTS", () => {
     expect(modelIDs).not.toContain("gpt-5.5")
   })
 
-  test("hephaestus supports openai, github-copilot, opencode, and vercel providers", () => {
+  test("thor supports openai, github-copilot, opencode, and vercel providers", () => {
     // given
-    const hephaestus = AGENT_MODEL_REQUIREMENTS["hephaestus"]
+    const thor = AGENT_MODEL_REQUIREMENTS["thor"]
 
     // when / then
-    expect(hephaestus.requiresProvider).toEqual([
+    expect(thor.requiresProvider).toEqual([
       "openai",
       "github-copilot",
       "opencode",
       "vercel",
     ])
-    expect(hephaestus.requiresProvider).not.toContain("venice")
-    expect(hephaestus.fallbackChain[0]?.providers).not.toContain("venice")
-    expect(hephaestus.requiresModel).toBeUndefined()
-    expect(hephaestus.requiresAnyModel).toBe(true)
+    expect(thor.requiresProvider).not.toContain("venice")
+    expect(thor.fallbackChain[0]?.providers).not.toContain("venice")
+    expect(thor.requiresModel).toBeUndefined()
+    expect(thor.requiresAnyModel).toBe(true)
   })
 
-  test("hephaestus has one merged gpt-5.6-sol medium rung", () => {
+  test("thor has one merged gpt-5.6-sol medium rung", () => {
     // given
-    const hephaestus = AGENT_MODEL_REQUIREMENTS["hephaestus"]
+    const thor = AGENT_MODEL_REQUIREMENTS["thor"]
 
     // when
-    const [primary] = hephaestus.fallbackChain
+    const [primary] = thor.fallbackChain
 
     // then
-    expect(hephaestus.fallbackChain).toHaveLength(1)
+    expect(thor.fallbackChain).toHaveLength(1)
     expect(primary).toEqual({
       providers: ["openai", "github-copilot", "vercel", "opencode"],
       model: "gpt-5.6-sol",

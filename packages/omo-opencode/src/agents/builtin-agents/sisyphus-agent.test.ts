@@ -1,16 +1,16 @@
 /// <reference types="bun-types" />
 
 import { describe, expect, test } from "bun:test";
-import { maybeCreateSisyphusConfig } from "./sisyphus-agent";
+import { maybeCreateOdinConfig } from "./odin-agent";
 import type { AgentOverrides } from "../types";
 import type { CategoryConfig } from "../../config/schema";
 
-describe("maybeCreateSisyphusConfig", () => {
+describe("maybeCreateOdinConfig", () => {
   describe("#given GPT model with user override allowing apply_patch", () => {
     test("#when config is created #then user override is respected", () => {
       // given
       const agentOverrides: AgentOverrides = {
-        sisyphus: {
+        odin: {
           model: "openai/gpt-5.4",
           permission: {
             apply_patch: "allow",
@@ -20,7 +20,7 @@ describe("maybeCreateSisyphusConfig", () => {
       const mergedCategories: Record<string, CategoryConfig> = {};
 
       // when
-      const config = maybeCreateSisyphusConfig({
+      const config = maybeCreateOdinConfig({
         disabledAgents: [],
         agentOverrides,
         availableModels: new Set(["openai/gpt-5.4"]),
@@ -44,7 +44,7 @@ describe("maybeCreateSisyphusConfig", () => {
     test("#when config is created #then apply_patch is not forced to deny", () => {
       // given
       const agentOverrides: AgentOverrides = {
-        sisyphus: {
+        odin: {
           model: "anthropic/claude-opus-4-7",
           permission: {
             apply_patch: "allow",
@@ -54,7 +54,7 @@ describe("maybeCreateSisyphusConfig", () => {
       const mergedCategories: Record<string, CategoryConfig> = {};
 
       // when
-      const config = maybeCreateSisyphusConfig({
+      const config = maybeCreateOdinConfig({
         disabledAgents: [],
         agentOverrides,
         availableModels: new Set(["anthropic/claude-opus-4-7"]),
@@ -79,7 +79,7 @@ describe("maybeCreateSisyphusConfig", () => {
     test("#when config is created #then grep and glob are still denied", () => {
       // given
       const agentOverrides: AgentOverrides = {
-        sisyphus: {
+        odin: {
           model: "anthropic/claude-opus-4-7",
           permission: {
             grep: "allow",
@@ -90,7 +90,7 @@ describe("maybeCreateSisyphusConfig", () => {
       const mergedCategories: Record<string, CategoryConfig> = {};
 
       // when
-      const config = maybeCreateSisyphusConfig({
+      const config = maybeCreateOdinConfig({
         disabledAgents: [],
         agentOverrides,
         availableModels: new Set(["anthropic/claude-opus-4-7"]),
@@ -113,7 +113,7 @@ describe("maybeCreateSisyphusConfig", () => {
     test("#when config is created #then grep and glob are still denied", () => {
       // given
       const agentOverrides: AgentOverrides = {
-        sisyphus: {
+        odin: {
           model: "anthropic/claude-opus-4.7",
           permission: {
             grep: "allow",
@@ -124,7 +124,7 @@ describe("maybeCreateSisyphusConfig", () => {
       const mergedCategories: Record<string, CategoryConfig> = {};
 
       // when
-      const config = maybeCreateSisyphusConfig({
+      const config = maybeCreateOdinConfig({
         disabledAgents: [],
         agentOverrides,
         availableModels: new Set(["anthropic/claude-opus-4.7"]),
@@ -147,7 +147,7 @@ describe("maybeCreateSisyphusConfig", () => {
     test("#when config is created #then grep and glob are still denied", () => {
       // given
       const agentOverrides: AgentOverrides = {
-        sisyphus: {
+        odin: {
           model: "openai/gpt-5.5",
           permission: {
             grep: "allow",
@@ -158,7 +158,7 @@ describe("maybeCreateSisyphusConfig", () => {
       const mergedCategories: Record<string, CategoryConfig> = {};
 
       // when
-      const config = maybeCreateSisyphusConfig({
+      const config = maybeCreateOdinConfig({
         disabledAgents: [],
         agentOverrides,
         availableModels: new Set(["openai/gpt-5.5"]),
@@ -181,7 +181,7 @@ describe("maybeCreateSisyphusConfig", () => {
     test("#when config is created #then stale grep and glob denies are cleared", () => {
       // given
       const agentOverrides: AgentOverrides = {
-        sisyphus: {
+        odin: {
           category: "non-frontier",
         },
       };
@@ -192,7 +192,7 @@ describe("maybeCreateSisyphusConfig", () => {
       };
 
       // when
-      const config = maybeCreateSisyphusConfig({
+      const config = maybeCreateOdinConfig({
         disabledAgents: [],
         agentOverrides,
         availableModels: new Set(["anthropic/claude-opus-4-7", "openai/gpt-5.4"]),
@@ -216,7 +216,7 @@ describe("maybeCreateSisyphusConfig", () => {
     test("#when config is created #then explicit user denies are preserved", () => {
       // given
       const agentOverrides: AgentOverrides = {
-        sisyphus: {
+        odin: {
           model: "openai/gpt-5.4",
           permission: {
             grep: "deny",
@@ -227,7 +227,7 @@ describe("maybeCreateSisyphusConfig", () => {
       const mergedCategories: Record<string, CategoryConfig> = {};
 
       // when
-      const config = maybeCreateSisyphusConfig({
+      const config = maybeCreateOdinConfig({
         disabledAgents: [],
         agentOverrides,
         availableModels: new Set(["openai/gpt-5.4"]),
@@ -257,12 +257,12 @@ describe("maybeCreateSisyphusConfig", () => {
         },
       };
       const agentOverrides: AgentOverrides = {
-        sisyphus: legacyOverride,
+        odin: legacyOverride,
       };
       const mergedCategories: Record<string, CategoryConfig> = {};
 
       // when
-      const config = maybeCreateSisyphusConfig({
+      const config = maybeCreateOdinConfig({
         disabledAgents: [],
         agentOverrides,
         availableModels: new Set(["openai/gpt-5.4"]),
@@ -285,7 +285,7 @@ describe("maybeCreateSisyphusConfig", () => {
     test("#when config is created #then user override is respected", () => {
       // given
       const agentOverrides: AgentOverrides = {
-        sisyphus: {
+        odin: {
           model: "openai/gpt-4o",
           permission: {
             apply_patch: "allow",
@@ -295,7 +295,7 @@ describe("maybeCreateSisyphusConfig", () => {
       const mergedCategories: Record<string, CategoryConfig> = {};
 
       // when
-      const config = maybeCreateSisyphusConfig({
+      const config = maybeCreateOdinConfig({
         disabledAgents: [],
         agentOverrides,
         availableModels: new Set(["openai/gpt-4o"]),

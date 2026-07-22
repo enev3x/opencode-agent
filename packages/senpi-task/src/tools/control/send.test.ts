@@ -56,7 +56,7 @@ describe("runTaskSend", () => {
       manager,
       service: fakeTeamToolsService,
       teamRunId: "team-run-1",
-      from: "atlas",
+      from: "heimdall",
     })
 
     expect(typeof leadTool.renderCall).toBe("function")

@@ -54,7 +54,7 @@ function createToolContext(ask?: PermissionAsk): ToolContext {
   return unsafeTestValue<ToolContext>({
     sessionID: "ses_parent",
     messageID: "msg_parent",
-    agent: "sisyphus",
+    agent: "odin",
     directory: "/repo",
     worktree: "/repo",
     abort: new AbortController().signal,

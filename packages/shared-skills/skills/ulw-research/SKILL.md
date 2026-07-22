@@ -1,6 +1,6 @@
 ---
 name: ulw-research
-description: "Maximum-saturation research orchestration: parallel explore+librarian swarms across codebase, web, official docs, and OSS repos; a recursive EXPAND loop driven by leads workers return in message text; empirical verification by running code; cited synthesis and optional MD/HTML/PDF/PPTX reports. ACTIVATES ONLY on an explicit user demand for research — the word 'ulw-research' ('/ulw-research', '$ulw-research'), any 'ulw' research wording, or an explicit request for research / deep research / an ultra-precise investigation, in any language. Never self-activates for ordinary questions, debugging, or implementation context-gathering. While active it overrides exploration-bounding defaults: exhaustive coverage is the goal."
+description: "Maximum-saturation research orchestration: parallel explore+bragi swarms across codebase, web, official docs, and OSS repos; a recursive EXPAND loop driven by leads workers return in message text; empirical verification by running code; cited synthesis and optional MD/HTML/PDF/PPTX reports. ACTIVATES ONLY on an explicit user demand for research — the word 'ulw-research' ('/ulw-research', '$ulw-research'), any 'ulw' research wording, or an explicit request for research / deep research / an ultra-precise investigation, in any language. Never self-activates for ordinary questions, debugging, or implementation context-gathering. While active it overrides exploration-bounding defaults: exhaustive coverage is the goal."
 ---
 
 ## Codex Harness Tool Compatibility
@@ -10,14 +10,14 @@ This skill may include examples copied from the OpenCode harness. In Codex, do n
 | OpenCode example | Codex tool to use |
 | --- | --- |
 | `call_omo_agent(subagent_type="explore", ...)` | `multi_agent_v1.spawn_agent({"message":"TASK: act as an explorer. ...","agent_type":"explorer","fork_context":false})` |
-| `call_omo_agent(subagent_type="librarian", ...)` | `multi_agent_v1.spawn_agent({"message":"TASK: act as a librarian. ...","agent_type":"librarian","fork_context":false})` |
+| `call_omo_agent(subagent_type="bragi", ...)` | `multi_agent_v1.spawn_agent({"message":"TASK: act as a bragi. ...","agent_type":"bragi","fork_context":false})` |
 | `task(subagent_type="plan", ...)` | `multi_agent_v1.spawn_agent({"message":"TASK: act as a planning agent. ...","agent_type":"plan","fork_context":false})` |
-| `task(subagent_type="oracle", ...)` for final verification | `multi_agent_v1.spawn_agent({"message":"TASK: act as a rigorous reviewer. ...","agent_type":"lazycodex-gate-reviewer","fork_context":false})` |
+| `task(subagent_type="volva", ...)` for final verification | `multi_agent_v1.spawn_agent({"message":"TASK: act as a rigorous reviewer. ...","agent_type":"lazycodex-gate-reviewer","fork_context":false})` |
 | `task(category="...", ...)` for implementation or QA | `multi_agent_v1.spawn_agent({"message":"TASK: act as an implementation or QA worker. ...","fork_context":false})` |
 | `background_output(task_id="...")` | `multi_agent_v1.wait_agent(...)` for mailbox signals |
 | `team_*(...)` | Use Codex native subagents via `multi_agent_v1.spawn_agent` and `multi_agent_v1.wait_agent`; use `multi_agent_v1.send_input` and `multi_agent_v1.close_agent` only when exposed in the active tools list |
 
-Role-specific behavior must be described in a self-contained `message`. Use `fork_context: false` to start the child with only the initial prompt (no parent history); use `fork_context: true` only when full parent history is truly required. Include any required conversation context, files, diffs, constraints, and requested skill names directly in the spawned agent's `message`. OMO installs these selectable agent roles into `~/.codex/agents/`: `explorer`, `librarian`, `plan`, `momus`, `metis`, `lazycodex-code-reviewer`, `lazycodex-qa-executor`, and `lazycodex-gate-reviewer` — pass the matching name as `agent_type` so the child gets that role's model and instructions. If the spawn tool exposes no `agent_type` parameter, omit it and describe the role inside `message`. If a code block below conflicts with this section, this section wins.
+Role-specific behavior must be described in a self-contained `message`. Use `fork_context: false` to start the child with only the initial prompt (no parent history); use `fork_context: true` only when full parent history is truly required. Include any required conversation context, files, diffs, constraints, and requested skill names directly in the spawned agent's `message`. OMO installs these selectable agent roles into `~/.codex/agents/`: `explorer`, `bragi`, `plan`, `forseti`, `urd`, `lazycodex-code-reviewer`, `lazycodex-qa-executor`, and `lazycodex-gate-reviewer` — pass the matching name as `agent_type` so the child gets that role's model and instructions. If the spawn tool exposes no `agent_type` parameter, omit it and describe the role inside `message`. If a code block below conflicts with this section, this section wins.
 
 Codex exposes ONE of two subagent tool surfaces per session; check your own tool list and route accordingly. If `multi_agent_v1.*` tools exist, use the table above as written. If instead a flat `spawn_agent` with a required `task_name` exists (`multi_agent_v2`), rewrite every `multi_agent_v1.*` example: `multi_agent_v1.spawn_agent({...,"fork_context":false})` becomes `spawn_agent({"task_name":"<lowercase_digits_underscores>","message":...,"agent_type":...,"fork_turns":"none"})` (`"all"` only when full parent history is truly required); `send_input` becomes `send_message`; do not call `close_agent`/`resume_agent` (finished agents end on their own; `followup_task` re-tasks one, `interrupt_agent` stops one); `wait_agent` takes only `timeout_ms` and returns on any child mailbox activity. `agent_type` works the same on both surfaces. If a code block below conflicts with this section, this section wins.
 
@@ -78,7 +78,7 @@ Saturation research defaults to teammode, not isolated fire-and-forget workers: 
 
 ## Worker ground rules
 
-Research workers (explore, librarian, browsing) differ by harness, but assume:
+Research workers (explore, bragi, browsing) differ by harness, but assume:
 
 - **Read-only.** Most research workers cannot write files. Never ask a worker to write the journal or any session file — every journal write is yours.
 - **No recursion.** Workers cannot spawn their own subagents. Depth comes from your expansion waves, not from worker-side recursion.
@@ -140,7 +140,7 @@ Launch the entire first wave in one turn — every axis at once, as team members
 
 Scaling floor — more angles always justify more workers:
 
-| Query scope | explore | librarian | browsing | repo-dive | floor |
+| Query scope | explore | bragi | browsing | repo-dive | floor |
 |---|---|---|---|---|---|
 | Single topic, codebase only | 3 | 0 | 0 | 0 | 3 |
 | Single topic, web only | 0 | 4 | 1 | 1 | 6 |
@@ -151,11 +151,11 @@ Scaling floor — more angles always justify more workers:
 Role protocols — embed the relevant one in each spawn message; every worker gets a unique angle:
 
 - **Codebase (explore), 2-4 workers.** Grep with 3+ keyword variations; structural/AST search; LSP definitions and references; file-name globs; `git log --all -S '<keyword>'` and `--grep` for history including deleted code. Cross-validate hits across tools. Report absolute file paths, patterns with `file:line`, and how findings connect.
-- **Web (librarian), 3-6 workers.** At least 10 distinct websearch queries per worker, each with a different operator or angle (see Search craft); fetch the full page for every result that matters — snippets lie. Context7 with 3+ queries per known library. grep.app and `gh search code|repos|issues` for real-world usage. Official docs via sitemap discovery (`<base>/sitemap.xml`), then targeted pages.
+- **Web (bragi), 3-6 workers.** At least 10 distinct websearch queries per worker, each with a different operator or angle (see Search craft); fetch the full page for every result that matters — snippets lie. Context7 with 3+ queries per known library. grep.app and `gh search code|repos|issues` for real-world usage. Official docs via sitemap discovery (`<base>/sitemap.xml`), then targeted pages.
 - **Browsing, 0-3 workers.** Pages plain fetch cannot read (WAF, 403, Cloudflare, dynamic rendering, login): the worker loads the `ultimate-browsing` skill and escalates through its tiers — Tier-1 insane-search engine first, then Tier-2 Chrome stealth — rather than abandoning the source. Capture screenshots when visual context matters. When one blocked territory hides many leads, fan out more browsing subagents in parallel for breadth instead of serializing one worker through them.
-- **Repo deep-dive (librarian), 0-2 workers.** Shallow-clone the most relevant repos to `${TMPDIR:-/tmp}`, pin the HEAD SHA, read core modules, follow call chains, return SHA-pinned permalinks.
+- **Repo deep-dive (bragi), 0-2 workers.** Shallow-clone the most relevant repos to `${TMPDIR:-/tmp}`, pin the HEAD SHA, read core modules, follow call chains, return SHA-pinned permalinks.
 
-Example spawn (codebase axis; librarian, browsing, and repo-dive follow the same contract with their own protocol):
+Example spawn (codebase axis; bragi, browsing, and repo-dive follow the same contract with their own protocol):
 
 ```
 task(subagent_type="explore", run_in_background=true, prompt="TASK: act as a codebase researcher. AXIS: <specific angle>.
@@ -174,9 +174,9 @@ This loop is what makes the mode research rather than search. Collect returns as
 3. Spawn an expansion worker immediately for each new unchecked lead:
 
 ```
-task(subagent_type="librarian", run_in_background=true, prompt="TASK: expansion wave <N> — investigate: <lead>.
+task(subagent_type="bragi", run_in_background=true, prompt="TASK: expansion wave <N> — investigate: <lead>.
 PARENT: <which return surfaced it>. This is an explicit exhaustive-research assignment; budgets do not apply.
-<role protocol for the lead's territory — librarian protocol for external leads, explore protocol for codebase leads>
+<role protocol for the lead's territory — bragi protocol for external leads, explore protocol for codebase leads>
 End your reply with the ## EXPAND tail.")
 ```
 
@@ -253,7 +253,7 @@ Assembly worker — `task(category="deep", load_skills=["frontend", "visual-qa",
 
 ## Search craft
 
-English first: run every search in English by default — it is the largest, most authoritative corpus on every engine, GitHub, and documentation site. Add a secondary local-language sweep (1-2 librarians) only after the English sweep, when the topic is inherently local, or when the user asks for sources in a specific language.
+English first: run every search in English by default — it is the largest, most authoritative corpus on every engine, GitHub, and documentation site. Add a secondary local-language sweep (1-2 bragis) only after the English sweep, when the topic is inherently local, or when the user asks for sources in a specific language.
 
 Vary operators on every query — same query twice wastes a worker:
 

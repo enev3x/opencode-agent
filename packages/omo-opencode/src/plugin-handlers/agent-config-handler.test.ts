@@ -4,7 +4,7 @@ import type { AgentConfig } from "@opencode-ai/sdk"
 import { afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test"
 import * as agents from "../agents"
 import * as shared from "../shared"
-import * as sisyphusJunior from "../agents/sisyphus-junior"
+import * as odinJunior from "../agents/einherjar"
 import type { OhMyOpenCodeConfig } from "../config"
 import * as agentLoader from "../features/claude-code-agent-loader"
 import * as skillLoader from "../features/opencode-skill-loader"
@@ -18,9 +18,9 @@ import {
 import { applyAgentConfig } from "./agent-config-handler"
 import type { PluginComponents } from "./plugin-components-loader"
 
-const BUILTIN_SISYPHUS_DISPLAY_NAME = getAgentListDisplayName("sisyphus")
-const BUILTIN_SISYPHUS_JUNIOR_DISPLAY_NAME = getAgentListDisplayName("sisyphus-junior")
-const BUILTIN_MULTIMODAL_LOOKER_DISPLAY_NAME = getAgentListDisplayName("multimodal-looker")
+const BUILTIN_SISYPHUS_DISPLAY_NAME = getAgentListDisplayName("odin")
+const BUILTIN_SISYPHUS_JUNIOR_DISPLAY_NAME = getAgentListDisplayName("einherjar")
+const BUILTIN_MULTIMODAL_LOOKER_DISPLAY_NAME = getAgentListDisplayName("huginn")
 
 function createPluginComponents(): PluginComponents {
   return {
@@ -48,7 +48,7 @@ function createPluginConfig(): OhMyOpenCodeConfig {
       include_co_authored_by: true,
       git_env_prefix: "GIT_MASTER=1",
     },
-    sisyphus_agent: {
+    odin_agent: {
       planner_enabled: false,
     },
   }
@@ -56,7 +56,7 @@ function createPluginConfig(): OhMyOpenCodeConfig {
 
 describe("applyAgentConfig builtin override protection", () => {
   let createBuiltinAgentsSpy: ReturnType<typeof spyOn>
-  let createSisyphusJuniorAgentSpy: ReturnType<typeof spyOn>
+  let createOdinJuniorAgentSpy: ReturnType<typeof spyOn>
   let discoverConfigSourceSkillsSpy: ReturnType<typeof spyOn>
   let discoverUserClaudeSkillsSpy: ReturnType<typeof spyOn>
   let discoverProjectClaudeSkillsSpy: ReturnType<typeof spyOn>
@@ -73,34 +73,34 @@ describe("applyAgentConfig builtin override protection", () => {
   let migrateAgentConfigSpy: ReturnType<typeof spyOn>
   let logSpy: ReturnType<typeof spyOn>
 
-  const builtinSisyphusConfig: AgentConfig = {
-    name: "Builtin Sisyphus",
+  const builtinOdinConfig: AgentConfig = {
+    name: "Builtin Odin",
     prompt: "builtin prompt",
     mode: "primary",
     order: 1,
   }
 
-  const builtinOracleConfig: AgentConfig = {
-    name: "oracle",
-    prompt: "oracle prompt",
+  const builtinVolvaConfig: AgentConfig = {
+    name: "volva",
+    prompt: "volva prompt",
     mode: "subagent",
   }
 
   const builtinMultimodalLookerConfig: AgentConfig = {
-    name: "multimodal-looker",
+    name: "huginn",
     prompt: "multimodal prompt",
     mode: "subagent",
   }
 
-  const builtinAtlasConfig: AgentConfig = {
-    name: "atlas",
-    prompt: "atlas prompt",
+  const builtinHeimdallConfig: AgentConfig = {
+    name: "heimdall",
+    prompt: "heimdall prompt",
     mode: "all",
     model: "openai/gpt-5.4",
   }
 
-  const sisyphusJuniorConfig: AgentConfig = {
-    name: "Sisyphus-Junior",
+  const odinJuniorConfig: AgentConfig = {
+    name: "Einherjar",
     prompt: "junior prompt",
     mode: "all",
   }
@@ -109,16 +109,16 @@ describe("applyAgentConfig builtin override protection", () => {
     resetSessionStateForTesting()
 
     createBuiltinAgentsSpy = spyOn(agents, "createBuiltinAgents").mockResolvedValue({
-      sisyphus: builtinSisyphusConfig,
-      oracle: builtinOracleConfig,
-      "multimodal-looker": builtinMultimodalLookerConfig,
-      atlas: builtinAtlasConfig,
+      odin: builtinOdinConfig,
+      volva: builtinVolvaConfig,
+      "huginn": builtinMultimodalLookerConfig,
+      heimdall: builtinHeimdallConfig,
     })
 
-    createSisyphusJuniorAgentSpy = spyOn(
-      sisyphusJunior,
-      "createSisyphusJuniorAgentWithOverrides",
-    ).mockReturnValue(sisyphusJuniorConfig)
+    createOdinJuniorAgentSpy = spyOn(
+      odinJunior,
+      "createOdinJuniorAgentWithOverrides",
+    ).mockReturnValue(odinJuniorConfig)
 
     discoverConfigSourceSkillsSpy = spyOn(
       skillLoader,
@@ -169,7 +169,7 @@ describe("applyAgentConfig builtin override protection", () => {
     resetSessionStateForTesting()
 
     createBuiltinAgentsSpy.mockRestore()
-    createSisyphusJuniorAgentSpy.mockRestore()
+    createOdinJuniorAgentSpy.mockRestore()
     discoverConfigSourceSkillsSpy.mockRestore()
     discoverUserClaudeSkillsSpy.mockRestore()
     discoverProjectClaudeSkillsSpy.mockRestore()
@@ -209,7 +209,7 @@ describe("applyAgentConfig builtin override protection", () => {
   test("normalizes display-name default_agent to runtime agent name", async () => {
     // given
     const config = createBaseConfig()
-    config.default_agent = "Sisyphus - Ultraworker"
+    config.default_agent = "Odin - Ultraworker"
 
     // when
     await applyAgentConfig({
@@ -220,13 +220,13 @@ describe("applyAgentConfig builtin override protection", () => {
     })
 
     // then
-    expect(config.default_agent).toBe(getAgentDisplayName("sisyphus"))
+    expect(config.default_agent).toBe(getAgentDisplayName("odin"))
   })
 
   test("keeps config-key default_agent behavior unchanged", async () => {
     // given
     const config = createBaseConfig()
-    config.default_agent = "sisyphus"
+    config.default_agent = "odin"
 
     // when
     await applyAgentConfig({
@@ -237,7 +237,7 @@ describe("applyAgentConfig builtin override protection", () => {
     })
 
     // then
-    expect(config.default_agent).toBe(getAgentDisplayName("sisyphus"))
+    expect(config.default_agent).toBe(getAgentDisplayName("odin"))
   })
 
   test("keeps fallback default_agent behavior unchanged", async () => {
@@ -253,7 +253,7 @@ describe("applyAgentConfig builtin override protection", () => {
     })
 
     // then
-    expect(config.default_agent).toBe(getAgentDisplayName("sisyphus"))
+    expect(config.default_agent).toBe(getAgentDisplayName("odin"))
   })
 
   test("resolved default_agent contains no zero-width invisible characters", async () => {
@@ -294,8 +294,8 @@ describe("applyAgentConfig builtin override protection", () => {
 
     // then
     expect(result[BUILTIN_SISYPHUS_DISPLAY_NAME]).toEqual({
-      ...builtinSisyphusConfig,
-      name: getAgentDisplayName("sisyphus"),
+      ...builtinOdinConfig,
+      name: getAgentDisplayName("odin"),
     })
   })
 
@@ -319,8 +319,8 @@ describe("applyAgentConfig builtin override protection", () => {
 
     // then
     expect(result[BUILTIN_SISYPHUS_DISPLAY_NAME]).toEqual({
-      ...builtinSisyphusConfig,
-      name: getAgentDisplayName("sisyphus"),
+      ...builtinOdinConfig,
+      name: getAgentDisplayName("odin"),
     })
     expect(result.SiSyPhUs).toBeUndefined()
   })
@@ -328,30 +328,30 @@ describe("applyAgentConfig builtin override protection", () => {
   test("filters host config agent display-name aliases before they override resolved builtin models", async () => {
     // given
     createBuiltinAgentsSpy.mockResolvedValue({
-      sisyphus: {
-        name: "sisyphus",
-        prompt: "resolved sisyphus prompt",
+      odin: {
+        name: "odin",
+        prompt: "resolved odin prompt",
         mode: "primary",
         model: "openai/gpt-5.5",
       },
       explore: {
-        name: "explore",
+        name: "vidar",
         prompt: "resolved explore prompt",
         mode: "subagent",
         model: "minimax-cn-coding-plan/MiniMax-M2.5-highspeed",
       },
-      atlas: builtinAtlasConfig,
+      heimdall: builtinHeimdallConfig,
     })
     const config = createBaseConfig()
     config.agent = {
-      [getAgentListDisplayName("sisyphus")]: {
-        name: getAgentListDisplayName("sisyphus"),
-        prompt: "stale sisyphus prompt",
+      [getAgentListDisplayName("odin")]: {
+        name: getAgentListDisplayName("odin"),
+        prompt: "stale odin prompt",
         mode: "primary",
         model: "anthropic/claude-opus-4-7",
       },
-      [getAgentListDisplayName("explore")]: {
-        name: getAgentListDisplayName("explore"),
+      [getAgentListDisplayName("vidar")]: {
+        name: getAgentListDisplayName("vidar"),
         prompt: "stale explore prompt",
         mode: "subagent",
         model: "openai/gpt-5.4",
@@ -361,7 +361,7 @@ describe("applyAgentConfig builtin override protection", () => {
       ...createPluginConfig(),
       team_mode: { enabled: true },
       agents: {
-        sisyphus: { model: "openai/gpt-5.5" },
+        odin: { model: "openai/gpt-5.5" },
         explore: { model: "minimax-cn-coding-plan/MiniMax-M2.5-highspeed" },
       },
     } as OhMyOpenCodeConfig
@@ -375,8 +375,8 @@ describe("applyAgentConfig builtin override protection", () => {
     })
 
     // then
-    expect((result[getAgentListDisplayName("sisyphus")] as AgentConfig).model).toBe("openai/gpt-5.5")
-    expect((result[getAgentListDisplayName("explore")] as AgentConfig).model).toBe(
+    expect((result[getAgentListDisplayName("odin")] as AgentConfig).model).toBe("openai/gpt-5.5")
+    expect((result[getAgentListDisplayName("vidar")] as AgentConfig).model).toBe(
       "minimax-cn-coding-plan/MiniMax-M2.5-highspeed"
     )
   })
@@ -402,8 +402,8 @@ describe("applyAgentConfig builtin override protection", () => {
 
     // then
     expect(result[BUILTIN_SISYPHUS_DISPLAY_NAME]).toEqual({
-      ...builtinSisyphusConfig,
-      name: getAgentDisplayName("sisyphus"),
+      ...builtinOdinConfig,
+      name: getAgentDisplayName("odin"),
     })
   })
 
@@ -412,8 +412,8 @@ describe("applyAgentConfig builtin override protection", () => {
       test("filters the override", async () => {
         // given
         loadUserAgentsSpy.mockReturnValue({
-          multimodal_looker: {
-            name: "multimodal_looker",
+          huginn: {
+            name: "huginn",
             prompt: "user multimodal alias prompt",
             mode: "subagent",
           },
@@ -429,16 +429,16 @@ describe("applyAgentConfig builtin override protection", () => {
 
         // then
         expect(result[BUILTIN_MULTIMODAL_LOOKER_DISPLAY_NAME]).toEqual(builtinMultimodalLookerConfig)
-        expect(result.multimodal_looker).toBeUndefined()
+        expect(result.huginn).toBeUndefined()
       })
     })
 
-    describe("#when a user agent uses the underscored sisyphus junior alias", () => {
+    describe("#when a user agent uses the underscored odin junior alias", () => {
       test("filters the override", async () => {
         // given
         loadUserAgentsSpy.mockReturnValue({
-          sisyphus_junior: {
-            name: "sisyphus_junior",
+          odin_junior: {
+            name: "odin_junior",
             prompt: "user junior alias prompt",
             mode: "subagent",
           },
@@ -453,13 +453,13 @@ describe("applyAgentConfig builtin override protection", () => {
         })
 
         // then
-        expect(result[BUILTIN_SISYPHUS_JUNIOR_DISPLAY_NAME]).toEqual(sisyphusJuniorConfig)
-        expect(result.sisyphus_junior).toBeUndefined()
+        expect(result[BUILTIN_SISYPHUS_JUNIOR_DISPLAY_NAME]).toEqual(odinJuniorConfig)
+        expect(result.odin_junior).toBeUndefined()
       })
     })
   })
 
-  test("passes the resolved Atlas model to Sisyphus-Junior as its fallback default", async () => {
+  test("passes the resolved Heimdall model to Einherjar as its fallback default", async () => {
     // given
 
     // when
@@ -471,7 +471,7 @@ describe("applyAgentConfig builtin override protection", () => {
     })
 
     // then
-    expect(createSisyphusJuniorAgentSpy).toHaveBeenCalledWith(undefined, "openai/gpt-5.4", false)
+    expect(createOdinJuniorAgentSpy).toHaveBeenCalledWith(undefined, "openai/gpt-5.4", false)
   })
 
   test("defaults mode to subagent for configAgent entries missing mode", async () => {
@@ -565,7 +565,7 @@ describe("applyAgentConfig builtin override protection", () => {
     // then - the lookup mirrors the freshly rebuilt agent config only
     expect(isAgentRegistered("stale-connect-agent")).toBe(false)
     expect(isAgentRegistered(BUILTIN_SISYPHUS_DISPLAY_NAME)).toBe(true)
-    expect(isAgentRegistered("sisyphus")).toBe(true)
+    expect(isAgentRegistered("odin")).toBe(true)
   })
 
   test("includes project and global .agents skills in builtin agent awareness", async () => {
@@ -742,8 +742,8 @@ describe("applyAgentConfig builtin override protection", () => {
     test("agent_definitions cannot override builtin agents", async () => {
       // given
       loadAgentDefinitionsSpy.mockReturnValue({
-        oracle: {
-          name: "oracle",
+        volva: {
+          name: "volva",
           prompt: "evil override prompt",
           mode: "subagent",
         },
@@ -760,8 +760,8 @@ describe("applyAgentConfig builtin override protection", () => {
       })
 
       // then
-      expect(result.oracle).toBeDefined()
-      expect(result.oracle?.prompt).not.toBe("evil override prompt")
+      expect(result.volva).toBeDefined()
+      expect(result.volva?.prompt).not.toBe("evil override prompt")
     })
 
     test("precedence: configAgents override agent_definitions", async () => {
@@ -904,7 +904,7 @@ describe("applyAgentConfig builtin override protection", () => {
       expect(result["shared-name"]?.prompt).toBe("from-definitions")
     })
 
-    test("both Sisyphus-enabled and disabled paths include new sources", async () => {
+    test("both Odin-enabled and disabled paths include new sources", async () => {
       // given
       loadAgentDefinitionsSpy.mockReturnValue({
         "definitions-agent": {
@@ -922,8 +922,8 @@ describe("applyAgentConfig builtin override protection", () => {
       })
       const pluginConfig = createPluginConfig()
       pluginConfig.agent_definitions = ["/fake/path/agent.md"]
-      if (pluginConfig.sisyphus_agent) {
-        pluginConfig.sisyphus_agent.planner_enabled = false
+      if (pluginConfig.odin_agent) {
+        pluginConfig.odin_agent.planner_enabled = false
       }
 
       // when

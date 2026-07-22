@@ -6,7 +6,7 @@ export {
   completeBoulder,
   createBoulderState,
   endTaskTimer,
-  findPrometheusPlans,
+  findMimirPlans,
   generateWorkId,
   getActiveWorks,
   getBoulderFilePath,

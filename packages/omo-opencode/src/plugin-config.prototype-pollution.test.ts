@@ -24,13 +24,13 @@ afterEach(() => {
 describe("plugin config prototype pollution guards", () => {
   it("#given unsafe top-level keys #when partially parsing config #then prototype keys are ignored", () => {
     // given
-    const rawConfig = JSON.parse('{"__proto__":{"polluted":true},"constructor":{"polluted":true},"agents":{"oracle":{"model":"safe/model"}}}') as Record<string, unknown>
+    const rawConfig = JSON.parse('{"__proto__":{"polluted":true},"constructor":{"polluted":true},"agents":{"volva":{"model":"safe/model"}}}') as Record<string, unknown>
 
     // when
     const result = parseConfigPartially(rawConfig)
 
     // then
-    expect(result?.agents?.oracle?.model).toBe("safe/model")
+    expect(result?.agents?.volva?.model).toBe("safe/model")
     expect(({} as Record<string, unknown>).polluted).toBeUndefined()
     expect(hasOwnKey(result ?? {}, "__proto__")).toBe(false)
     expect(hasOwnKey(result ?? {}, "constructor")).toBe(false)
@@ -40,19 +40,19 @@ describe("plugin config prototype pollution guards", () => {
     // given
     const base = OhMyOpenCodeConfigSchema.parse({
       agents: {
-        oracle: { model: "base/model" },
+        volva: { model: "base/model" },
       },
     })
     const override = OhMyOpenCodeConfigSchema.parse({
-      agents: JSON.parse('{"__proto__":{"polluted":true},"oracle":{"temperature":0.4}}'),
+      agents: JSON.parse('{"__proto__":{"polluted":true},"volva":{"temperature":0.4}}'),
     })
 
     // when
     const result = mergeConfigs(base, override)
 
     // then
-    expect(result.agents?.oracle?.model).toBe("base/model")
-    expect(result.agents?.oracle?.temperature).toBe(0.4)
+    expect(result.agents?.volva?.model).toBe("base/model")
+    expect(result.agents?.volva?.temperature).toBe(0.4)
     expect(({} as Record<string, unknown>).polluted).toBeUndefined()
     expect(hasOwnKey(result.agents ?? {}, "__proto__")).toBe(false)
   })
@@ -69,11 +69,11 @@ describe("plugin config prototype pollution guards", () => {
     mkdirSync(join(projectDir, ".opencode"), { recursive: true })
     writeFileSync(
       join(userConfigDir, "oh-my-openagent.jsonc"),
-      '{"mcp_env_allowlist":["USER_ONLY_TOKEN"],"agents":{"oracle":{"model":"user/model"}}}',
+      '{"mcp_env_allowlist":["USER_ONLY_TOKEN"],"agents":{"volva":{"model":"user/model"}}}',
     )
     writeFileSync(
       join(projectDir, ".opencode", "oh-my-openagent.jsonc"),
-      '{"__proto__":{"polluted":true},"mcp_env_allowlist":["PROJECT_TOKEN"],"agents":{"oracle":{"temperature":0.2}}}',
+      '{"__proto__":{"polluted":true},"mcp_env_allowlist":["PROJECT_TOKEN"],"agents":{"volva":{"temperature":0.2}}}',
     )
 
     process.env.OPENCODE_CONFIG_DIR = userConfigDir
@@ -84,8 +84,8 @@ describe("plugin config prototype pollution guards", () => {
 
     // then
     expect(config.mcp_env_allowlist).toEqual(["USER_ONLY_TOKEN"])
-    expect(config.agents?.oracle?.model).toBe("user/model")
-    expect(config.agents?.oracle?.temperature).toBe(0.2)
+    expect(config.agents?.volva?.model).toBe("user/model")
+    expect(config.agents?.volva?.temperature).toBe(0.2)
     expect(({} as Record<string, unknown>).polluted).toBeUndefined()
     expect(hasOwnKey(config, "__proto__")).toBe(false)
   })

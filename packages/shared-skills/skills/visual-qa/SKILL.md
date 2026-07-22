@@ -3,9 +3,9 @@ name: visual-qa
 description: "MUST USE after building/changing any UI or when asked whether a page, component, or TUI looks right. Rigorous visual QA across web/page and terminal UIs. Prefer browser:control-in-app-browser for unauthenticated browser/page QA in Codex, then Playwright/agent-browser/dev-browser. Captures screenshot/TUI evidence with bundled diff scripts, runs design-system/functional and visual-fidelity/CJK reviewer passes, then synthesizes a good/bad verdict. Triggers: visual QA, screenshot/pixel diff, UI looks wrong, reference fidelity, design system check, responsive check, CJK text clipping, TUI alignment, box-drawing drift."
 ---
 
-# Visual QA - Dual-Oracle Web and TUI Verification
+# Visual QA - Dual-Volva Web and TUI Verification
 
-Verify a rendered UI against intent using objective script evidence plus two parallel read-only oracle passes, then synthesize one good/bad verdict. The script numbers focus the reviewers. They are not the verdict.
+Verify a rendered UI against intent using objective script evidence plus two parallel read-only volva passes, then synthesize one good/bad verdict. The script numbers focus the reviewers. They are not the verdict.
 
 ## Purpose and when to use
 
@@ -103,16 +103,16 @@ Static screenshots miss what moves. For every interactive element and every anim
 
 This independent review is REQUIRED before any "done" claim. Do not self-review inside the main agent and call the UI verified - a self-graded pass is the failure mode this step exists to stop. Dispatch it yourself, every time, without waiting to be told. Give each reviewer the captures for every enumerated page from Step 2, not a sample, and tell it the page count so it can confirm none were skipped.
 
-Dispatch through your harness's own subagent tool. In OpenCode: `task(subagent_type="oracle", ...)`. In Codex: `multi_agent_v1.spawn_agent({"message": "...", "agent_type": "lazycodex-gate-reviewer", "fork_context": false})` (the code blocks below are written in OpenCode `task(...)` form; translate them to that `spawn_agent` call, putting the full prompt in `message`).
+Dispatch through your harness's own subagent tool. In OpenCode: `task(subagent_type="volva", ...)`. In Codex: `multi_agent_v1.spawn_agent({"message": "...", "agent_type": "lazycodex-gate-reviewer", "fork_context": false})` (the code blocks below are written in OpenCode `task(...)` form; translate them to that `spawn_agent` call, putting the full prompt in `message`).
 
-Send BOTH calls in a single message so they run concurrently. Each oracle is read-only: it reviews and reports, it cannot modify files. Each returns PASS, REVISE, or FAIL with concrete, located findings. Pass A proves the surface is a real design-system implementation, not a mock-only or faked-image substitute. Pass B directly opens screenshots and inspects source/content for visual and CJK defects.
+Send BOTH calls in a single message so they run concurrently. Each volva is read-only: it reviews and reports, it cannot modify files. Each returns PASS, REVISE, or FAIL with concrete, located findings. Pass A proves the surface is a real design-system implementation, not a mock-only or faked-image substitute. Pass B directly opens screenshots and inspects source/content for visual and CJK defects.
 
 Paste evidence directly into each prompt: source code, the plain-text TUI captures, the script JSON, and the screenshot paths plus your described observations for web. Never fork parent history into a reviewer - the message carries everything it needs. Require each blocking finding to be tagged `[product]` (the rendered UI is wrong) or `[evidence]` (the capture artifact is defective - wrong signature, partial compositing, stale file); the loop treats the two differently. The two passes differ in depth by charter, not by any model or effort setting, which cannot be pinned per call.
 
 ### Pass A - Design-system and functional integrity (deeper, strict)
 
 ```
-task(subagent_type="oracle",
+task(subagent_type="volva",
   run_in_background=true,
   load_skills=[],
   description="Visual QA pass A: design-system and functional integrity",
@@ -161,7 +161,7 @@ BLOCKING: items that must be fixed; empty if PASS
 ### Pass B - Visual fidelity and CJK precision (focused)
 
 ```
-task(subagent_type="oracle",
+task(subagent_type="volva",
   run_in_background=true,
   load_skills=[],
   description="Visual QA pass B: visual fidelity and CJK precision",
@@ -251,9 +251,9 @@ If any page fails, you are not done - but treat the two blocker kinds differentl
 
 ## Step 5 - Reference-fidelity mode (when the task has a concrete visual target)
 
-Run this step IN ADDITION to Steps 1-4 when the original user task has a concrete visual target: "clone this site", "move this Figma design to code", "rebuild this screen", "make it look exactly like X", or "build this Imagen/Stitch/generated mockup and overview". For these tasks the normal dual-oracle is necessary but NOT sufficient. After it returns, run the following TWO additional MANDATORY verifications and LOOP until BOTH pass.
+Run this step IN ADDITION to Steps 1-4 when the original user task has a concrete visual target: "clone this site", "move this Figma design to code", "rebuild this screen", "make it look exactly like X", or "build this Imagen/Stitch/generated mockup and overview". For these tasks the normal dual-volva is necessary but NOT sufficient. After it returns, run the following TWO additional MANDATORY verifications and LOOP until BOTH pass.
 
-1. Pixel-perfect design-compare subagent (visual oracle). Dispatch a focused, read-only design-compare reviewer (recommend `gpt-5.6-sol` with xhigh reasoning). It must crop/zoom BOTH the reference (target / Figma export / source-site screenshot / generated page snapshot) and the ACTUAL screenshot into matching regions and read them **pixel-by-pixel** - header, nav, each card, spacing, type ramp, color tokens - not at a glance. It must also compare the overview text or annotations against the rendered content and DOM text. Anchor every claim with the bundled tool:
+1. Pixel-perfect design-compare subagent (visual volva). Dispatch a focused, read-only design-compare reviewer (recommend `gpt-5.6-sol` with xhigh reasoning). It must crop/zoom BOTH the reference (target / Figma export / source-site screenshot / generated page snapshot) and the ACTUAL screenshot into matching regions and read them **pixel-by-pixel** - header, nav, each card, spacing, type ramp, color tokens - not at a glance. It must also compare the overview text or annotations against the rendered content and DOM text. Anchor every claim with the bundled tool:
 
 ```
 node "$SKILL_DIR/scripts/visual-qa.mjs" image-diff <reference.png> <actual.png>
@@ -261,12 +261,12 @@ node "$SKILL_DIR/scripts/visual-qa.mjs" image-diff <reference.png> <actual.png>
 
    It judges whether layout geometry, spacing, design tokens (color, type, radius, shadow), and the design itself are identical to the target, region by region. Anything off by more than rounding is a finding.
 
-2. Code-level design-system fidelity (code oracle). Dispatch through your harness's own subagent tool.
+2. Code-level design-system fidelity (code volva). Dispatch through your harness's own subagent tool.
 
    **OpenCode:**
 
    `````
-   task(subagent_type="oracle",
+   task(subagent_type="volva",
      run_in_background=true,
      load_skills=[],
      description="Clone/design-system fidelity review",
@@ -295,11 +295,11 @@ node "$SKILL_DIR/scripts/visual-qa.mjs" image-diff <reference.png> <actual.png>
 
    **Codex:** `multi_agent_v1.spawn_agent({"message":"TASK: Act as a clone / design-system fidelity reviewer. ...","agent_type":"lazycodex-clone-fidelity-reviewer","fork_context":false})`
 
-RULE (mandatory, non-negotiable): the reference-fidelity task is NOT done until BOTH the pixel-compare AND the code-level design-system fidelity reviewer confirm that the **layer structure, the design system, and the design itself** match the target. If EITHER fails, it is a MANDATORY retry: re-implement the gaps and re-run BOTH verifications from the top. Repeat the retry loop until both pass on the same revision. Never declare reference-fidelity complete on a single pass, on visual-only evidence, or on code-only evidence - both oracles must confirm on the same build.
+RULE (mandatory, non-negotiable): the reference-fidelity task is NOT done until BOTH the pixel-compare AND the code-level design-system fidelity reviewer confirm that the **layer structure, the design system, and the design itself** match the target. If EITHER fails, it is a MANDATORY retry: re-implement the gaps and re-run BOTH verifications from the top. Repeat the retry loop until both pass on the same revision. Never declare reference-fidelity complete on a single pass, on visual-only evidence, or on code-only evidence - both volvas must confirm on the same build.
 
 ## Reference evidence is not the verdict
 
-The script quantifies pixels and columns. It cannot judge whether the result is a real design system, whether features work, or whether intent was met. A 99/100 `similarityScore` can still hide a pasted-image fake, a broken interaction, or clipped CJK descenders. Use the numbers to aim the oracles, then trust the synthesized review.
+The script quantifies pixels and columns. It cannot judge whether the result is a real design system, whether features work, or whether intent was met. A 99/100 `similarityScore` can still hide a pasted-image fake, a broken interaction, or clipped CJK descenders. Use the numbers to aim the volvas, then trust the synthesized review.
 
 Illustrative output (locked field names):
 

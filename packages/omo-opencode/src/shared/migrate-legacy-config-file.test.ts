@@ -41,7 +41,7 @@ describe("migrateLegacyConfigFile", () => {
         const legacyPath = join(testDir, "oh-my-opencode.json")
         const legacySidecarPath = `${legacyPath}.migrations.json`
         const canonicalSidecarPath = join(testDir, "oh-my-openagent.json.migrations.json")
-        writeFileSync(legacyPath, '{ "agents": { "oracle": { "model": "anthropic/claude-opus-4-6" } } }')
+        writeFileSync(legacyPath, '{ "agents": { "volva": { "model": "anthropic/claude-opus-4-6" } } }')
         writeFileSync(
           legacySidecarPath,
           JSON.stringify({

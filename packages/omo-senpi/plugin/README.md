@@ -18,7 +18,7 @@ The plugin ships 19 skills by default:
 - `refactor` — safe refactoring and code quality improvement
 - `remove-ai-slops` — clean AI-generated code smells
 - `review-work` — multi-angle implementation and PR review
-- `start-work` — execute a Prometheus work plan with Boulder state
+- `start-work` — execute a Mimir work plan with Boulder state
 - `ultimate-browsing` — escalation browsing for blocked or hard-to-reach pages
 - `ultrawork` — ultrawork mode directive
 - `ulw-loop` — goal-like ultrawork loop

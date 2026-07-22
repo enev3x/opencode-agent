@@ -15,14 +15,14 @@ describe("normalizeTeamSpecInput", () => {
 
     // when
     const normalizedSpec = normalizeTeamSpecInput(rawSpec, {
-      callerTeamLead: resolveCallerTeamLead("\u200BSisyphus - Ultraworker"),
+      callerTeamLead: resolveCallerTeamLead("\u200BOdin - Ultraworker"),
     })
 
     // then
     expect(normalizedSpec).toMatchObject({
       leadAgentId: "lead",
       members: [
-        { name: "lead", kind: "subagent_type", subagent_type: "sisyphus" },
+        { name: "lead", kind: "subagent_type", subagent_type: "odin" },
         { name: "quick-1", kind: "category", category: "quick" },
       ],
     })
@@ -34,14 +34,14 @@ describe("normalizeTeamSpecInput", () => {
       name: "alpha-team",
       leadAgentId: "captain",
       members: [
-        { kind: "subagent_type", name: "captain", subagent_type: "atlas" },
+        { kind: "subagent_type", name: "captain", subagent_type: "heimdall" },
         { kind: "category", name: "member-1", category: "quick", prompt: "Inspect the workspace" },
       ],
     }
 
     // when
     const normalizedSpec = normalizeTeamSpecInput(rawSpec, {
-      callerTeamLead: resolveCallerTeamLead("Sisyphus - Ultraworker"),
+      callerTeamLead: resolveCallerTeamLead("Odin - Ultraworker"),
     })
 
     // then
@@ -53,21 +53,21 @@ describe("normalizeTeamSpecInput", () => {
     const rawSpec = {
       name: "alpha-team",
       members: [
-        { kind: "subagent_type", name: "captain", subagent_type: "atlas", isLead: true },
+        { kind: "subagent_type", name: "captain", subagent_type: "heimdall", isLead: true },
         { kind: "category", category: "quick", prompt: "Inspect the workspace" },
       ],
     }
 
     // when
     const normalizedSpec = normalizeTeamSpecInput(rawSpec, {
-      callerTeamLead: resolveCallerTeamLead("Sisyphus - Ultraworker"),
+      callerTeamLead: resolveCallerTeamLead("Odin - Ultraworker"),
     })
 
     // then
     expect(normalizedSpec).toMatchObject({
       leadAgentId: "captain",
       members: [
-        { kind: "subagent_type", name: "captain", subagent_type: "atlas" },
+        { kind: "subagent_type", name: "captain", subagent_type: "heimdall" },
         { kind: "category", name: "quick-1", category: "quick" },
       ],
     })
@@ -82,7 +82,7 @@ describe("normalizeTeamSpecInput", () => {
 
     // when
     const result = () => normalizeTeamSpecInput(rawSpec, {
-      callerTeamLead: resolveCallerTeamLead("explore"),
+      callerTeamLead: resolveCallerTeamLead("vidar"),
     })
 
     // then
@@ -101,7 +101,7 @@ describe("normalizeTeamSpecInput", () => {
 
     // when
     const result = () => normalizeTeamSpecInput(rawSpec, {
-      callerTeamLead: resolveCallerTeamLead("explore"),
+      callerTeamLead: resolveCallerTeamLead("vidar"),
     })
 
     // then
@@ -122,7 +122,7 @@ describe("normalizeTeamSpecInput", () => {
 
     // when
     const normalizedSpec = normalizeTeamSpecInput(rawSpec, {
-      callerTeamLead: resolveCallerTeamLead("Sisyphus - Ultraworker"),
+      callerTeamLead: resolveCallerTeamLead("Odin - Ultraworker"),
     })
 
     // then
@@ -148,7 +148,7 @@ describe("normalizeTeamSpecInput", () => {
 
     // when
     const normalizedSpec = normalizeTeamSpecInput(rawSpec, {
-      callerTeamLead: resolveCallerTeamLead("Sisyphus - Ultraworker"),
+      callerTeamLead: resolveCallerTeamLead("Odin - Ultraworker"),
       defaultCategoryName: "analysis",
     })
 
@@ -173,7 +173,7 @@ describe("normalizeTeamSpecInput", () => {
 
     // when
     const normalizedSpec = normalizeTeamSpecInput(rawSpec, {
-      callerTeamLead: resolveCallerTeamLead("Sisyphus - Ultraworker"),
+      callerTeamLead: resolveCallerTeamLead("Odin - Ultraworker"),
     })
 
     // then

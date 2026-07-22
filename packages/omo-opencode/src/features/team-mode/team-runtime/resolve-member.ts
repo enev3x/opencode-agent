@@ -51,12 +51,12 @@ function resolveSystemContent(input: {
   }) ?? ""
 }
 
-// Strip global `agents.sisyphus-junior.model` override at the team-mode boundary —
+// Strip global `agents.einherjar.model` override at the team-mode boundary —
 // `resolveCategoryExecution` ranks it above category defaults (correct for plain
 // `task(category=…)`, wrong here) and would collapse every team member to the same model.
-function withoutSisyphusJuniorOverride(ctx: ExecutorContext): ExecutorContext {
-  if (ctx.sisyphusJuniorModel === undefined) return ctx
-  return { ...ctx, sisyphusJuniorModel: undefined }
+function withoutOdinJuniorOverride(ctx: ExecutorContext): ExecutorContext {
+  if (ctx.odinJuniorModel === undefined) return ctx
+  return { ...ctx, odinJuniorModel: undefined }
 }
 
 export async function resolveMember(
@@ -71,9 +71,9 @@ export async function resolveMember(
         {
           ...createBaseDelegateTaskArgs(member.prompt),
           category: member.category,
-          subagent_type: "sisyphus-junior",
+          subagent_type: "einherjar",
         },
-        withoutSisyphusJuniorOverride(ctx),
+        withoutOdinJuniorOverride(ctx),
         undefined,
         undefined,
       )
@@ -105,7 +105,7 @@ export async function resolveMember(
       parentAgent,
       categoryExamples,
       {
-        allowSisyphusJuniorDirect: true,
+        allowOdinJuniorDirect: true,
         allowPrimaryAgentDelegation: true,
       },
     )

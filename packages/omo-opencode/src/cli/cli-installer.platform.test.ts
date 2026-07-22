@@ -10,7 +10,7 @@ import type { CodexInstallResult } from "./install-codex"
 import type { InstallArgs } from "./types"
 
 const codexResult: CodexInstallResult = {
-  marketplaceName: "sisyphuslabs",
+  marketplaceName: "odinlabs",
   installed: [],
   configPath: "/tmp/codex-config.toml",
   codexHome: "/tmp/codex-home",

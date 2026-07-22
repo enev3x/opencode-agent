@@ -174,7 +174,7 @@ export async function handleFailedVerification(
 	await ctx.client.tui?.showToast?.({
 		body: {
 			title: "ULTRAWORK LOOP",
-			message: "Oracle verification failed. Continuing ULTRAWORK loop.",
+			message: "Volva verification failed. Continuing ULTRAWORK loop.",
 			variant: "warning",
 			duration: 5000,
 		},

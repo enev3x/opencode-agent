@@ -101,14 +101,14 @@ describe("rules formatter hook context", () => {
 		expect(block).not.toContain("/repo/packages/CONTEXT.md");
 	});
 
-	it("#given a Hephaestus static rule #when formatting SessionStart context #then it injects its body before other rule bodies", () => {
+	it("#given a Thor static rule #when formatting SessionStart context #then it injects its body before other rule bodies", () => {
 		// given
 		const rules = [
 			loadedRule({ path: "/repo/alpha.md", relativePath: "alpha.md", body: "Alpha guidance." }),
 			loadedRule({
-				path: "/repo/bundled-rules/hephaestus.md",
-				relativePath: "bundled-rules/hephaestus.md",
-				body: "Hephaestus guidance.",
+				path: "/repo/bundled-rules/thor.md",
+				relativePath: "bundled-rules/thor.md",
+				body: "Thor guidance.",
 			}),
 			loadedRule({ path: "/repo/beta.md", relativePath: "beta.md", body: "Beta guidance." }),
 		];
@@ -117,40 +117,40 @@ describe("rules formatter hook context", () => {
 		const block = formatStaticBlock(rules, FORMAT_OPTIONS);
 
 		// then
-		expect(block).toContain("Instructions from: /repo/bundled-rules/hephaestus.md");
-		expect(block).toContain("Hephaestus guidance.");
+		expect(block).toContain("Instructions from: /repo/bundled-rules/thor.md");
+		expect(block).toContain("Thor guidance.");
 		expect(block).toContain("Alpha guidance.");
 		expect(block).toContain("Beta guidance.");
-		expect(block.indexOf("Hephaestus guidance.")).toBeLessThan(block.indexOf("Alpha guidance."));
+		expect(block.indexOf("Thor guidance.")).toBeLessThan(block.indexOf("Alpha guidance."));
 		expect(block.indexOf("Alpha guidance.")).toBeLessThan(block.indexOf("Beta guidance."));
 		expect(block).not.toContain("must read project rules:");
-		expect(block).not.toContain("- [hephaestus.md]");
+		expect(block).not.toContain("- [thor.md]");
 	});
 
-	it("#given only a Hephaestus static rule #when formatting SessionStart context #then it emits no project rule link section", () => {
+	it("#given only a Thor static rule #when formatting SessionStart context #then it emits no project rule link section", () => {
 		// given
 		const rule = loadedRule({
-			path: "/repo/bundled-rules/hephaestus.md",
-			relativePath: "bundled-rules/hephaestus.md",
-			body: "Hephaestus guidance.",
+			path: "/repo/bundled-rules/thor.md",
+			relativePath: "bundled-rules/thor.md",
+			body: "Thor guidance.",
 		});
 
 		// when
 		const block = formatStaticBlock([rule], FORMAT_OPTIONS);
 
 		// then
-		expect(block).toContain("Instructions from: /repo/bundled-rules/hephaestus.md");
-		expect(block).toContain("Hephaestus guidance.");
-		expect(block).not.toContain("- [hephaestus.md]");
+		expect(block).toContain("Instructions from: /repo/bundled-rules/thor.md");
+		expect(block).toContain("Thor guidance.");
+		expect(block).not.toContain("- [thor.md]");
 		expect(block).not.toContain("must read project rules:");
 	});
 
-	it("#given an oversized Hephaestus static rule #when formatting under a tight result budget #then its body is never truncated", () => {
+	it("#given an oversized Thor static rule #when formatting under a tight result budget #then its body is never truncated", () => {
 		// given
 		const tailMarker = "HEPHAESTUS_TAIL_SENTINEL";
 		const rule = loadedRule({
-			path: "/repo/bundled-rules/hephaestus.md",
-			relativePath: "bundled-rules/hephaestus.md",
+			path: "/repo/bundled-rules/thor.md",
+			relativePath: "bundled-rules/thor.md",
 			body: `${"H".repeat(500)}\n\n${tailMarker}`,
 		});
 

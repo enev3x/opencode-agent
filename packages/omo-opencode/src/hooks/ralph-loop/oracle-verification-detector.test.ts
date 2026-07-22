@@ -1,33 +1,33 @@
 /// <reference types="bun-types" />
 import { describe, expect, test } from "bun:test"
 import {
-	extractOracleSessionID,
-	isOracleVerified,
-	parseOracleVerificationEvidence,
-} from "./oracle-verification-detector"
+	extractVolvaSessionID,
+	isVolvaVerified,
+	parseVolvaVerificationEvidence,
+} from "./volva-verification-detector"
 import { ULTRAWORK_VERIFICATION_PROMISE } from "./constants"
 
-describe("parseOracleVerificationEvidence", () => {
-	test("#given valid oracle verification text #then should parse all fields", () => {
+describe("parseVolvaVerificationEvidence", () => {
+	test("#given valid volva verification text #then should parse all fields", () => {
 		// #given
 		const text = `Task completed.
 
-Agent: oracle
+Agent: volva
 
 <promise>VERIFIED</promise>
 
 <task_metadata>
-session_id: ses_oracle_123
+session_id: ses_volva_123
 </task_metadata>`
 
 		// #when
-		const evidence = parseOracleVerificationEvidence(text)
+		const evidence = parseVolvaVerificationEvidence(text)
 
 		// #then
 		expect(evidence).toBeDefined()
-		expect(evidence?.agent).toBe("oracle")
+		expect(evidence?.agent).toBe("volva")
 		expect(evidence?.promise).toBe("VERIFIED")
-		expect(evidence?.sessionID).toBe("ses_oracle_123")
+		expect(evidence?.sessionID).toBe("ses_volva_123")
 	})
 
 	test("#given text without agent line #then should return undefined", () => {
@@ -35,7 +35,7 @@ session_id: ses_oracle_123
 		const text = `<promise>VERIFIED</promise>`
 
 		// #when
-		const evidence = parseOracleVerificationEvidence(text)
+		const evidence = parseVolvaVerificationEvidence(text)
 
 		// #then
 		expect(evidence).toBeUndefined()
@@ -43,10 +43,10 @@ session_id: ses_oracle_123
 
 	test("#given text without promise tag #then should return undefined", () => {
 		// #given
-		const text = `Agent: oracle`
+		const text = `Agent: volva`
 
 		// #when
-		const evidence = parseOracleVerificationEvidence(text)
+		const evidence = parseVolvaVerificationEvidence(text)
 
 		// #then
 		expect(evidence).toBeUndefined()
@@ -59,7 +59,7 @@ session_id: ses_oracle_123
 <promise>VERIFIED</promise>`
 
 		// #when
-		const evidence = parseOracleVerificationEvidence(text)
+		const evidence = parseVolvaVerificationEvidence(text)
 
 		// #then
 		expect(evidence).toBeUndefined()
@@ -67,12 +67,12 @@ session_id: ses_oracle_123
 
 	test("#given text with empty promise #then should return undefined", () => {
 		// #given
-		const text = `Agent: oracle
+		const text = `Agent: volva
 
 <promise>   </promise>`
 
 		// #when
-		const evidence = parseOracleVerificationEvidence(text)
+		const evidence = parseVolvaVerificationEvidence(text)
 
 		// #then
 		expect(evidence).toBeUndefined()
@@ -80,23 +80,23 @@ session_id: ses_oracle_123
 
 	test("#given text without metadata #then should parse agent and promise only", () => {
 		// #given
-		const text = `Agent: oracle
+		const text = `Agent: volva
 
 <promise>VERIFIED</promise>`
 
 		// #when
-		const evidence = parseOracleVerificationEvidence(text)
+		const evidence = parseVolvaVerificationEvidence(text)
 
 		// #then
 		expect(evidence).toBeDefined()
-		expect(evidence?.agent).toBe("oracle")
+		expect(evidence?.agent).toBe("volva")
 		expect(evidence?.promise).toBe("VERIFIED")
 		expect(evidence?.sessionID).toBeUndefined()
 	})
 
 	test("#given text with metadata but no session_id #then should parse agent and promise only", () => {
 		// #given
-		const text = `Agent: oracle
+		const text = `Agent: volva
 
 <promise>VERIFIED</promise>
 
@@ -105,11 +105,11 @@ other_field: value
 </task_metadata>`
 
 		// #when
-		const evidence = parseOracleVerificationEvidence(text)
+		const evidence = parseVolvaVerificationEvidence(text)
 
 		// #then
 		expect(evidence).toBeDefined()
-		expect(evidence?.agent).toBe("oracle")
+		expect(evidence?.agent).toBe("volva")
 		expect(evidence?.promise).toBe("VERIFIED")
 		expect(evidence?.sessionID).toBeUndefined()
 	})
@@ -119,7 +119,7 @@ other_field: value
 		const text = ""
 
 		// #when
-		const evidence = parseOracleVerificationEvidence(text)
+		const evidence = parseVolvaVerificationEvidence(text)
 
 		// #then
 		expect(evidence).toBeUndefined()
@@ -130,7 +130,7 @@ other_field: value
 		const text = "   \n\t  "
 
 		// #when
-		const evidence = parseOracleVerificationEvidence(text)
+		const evidence = parseVolvaVerificationEvidence(text)
 
 		// #then
 		expect(evidence).toBeUndefined()
@@ -143,7 +143,7 @@ other_field: value
 <promise>VERIFIED</promise>`
 
 		// #when
-		const evidence = parseOracleVerificationEvidence(text)
+		const evidence = parseVolvaVerificationEvidence(text)
 
 		// #then
 		expect(evidence).toBeDefined()
@@ -151,28 +151,28 @@ other_field: value
 	})
 })
 
-describe("isOracleVerified", () => {
-	test("#given valid oracle verification #then should return true", () => {
+describe("isVolvaVerified", () => {
+	test("#given valid volva verification #then should return true", () => {
 		// #given
-		const text = `Agent: oracle
+		const text = `Agent: volva
 
 <promise>${ULTRAWORK_VERIFICATION_PROMISE}</promise>`
 
 		// #when
-		const result = isOracleVerified(text)
+		const result = isVolvaVerified(text)
 
 		// #then
 		expect(result).toBe(true)
 	})
 
-	test("#given non-oracle agent #then should return false", () => {
+	test("#given non-volva agent #then should return false", () => {
 		// #given
-		const text = `Agent: sisyphus
+		const text = `Agent: odin
 
 <promise>${ULTRAWORK_VERIFICATION_PROMISE}</promise>`
 
 		// #when
-		const result = isOracleVerified(text)
+		const result = isVolvaVerified(text)
 
 		// #then
 		expect(result).toBe(false)
@@ -180,25 +180,25 @@ describe("isOracleVerified", () => {
 
 	test("#given wrong promise #then should return false", () => {
 		// #given
-		const text = `Agent: oracle
+		const text = `Agent: volva
 
 <promise>DONE</promise>`
 
 		// #when
-		const result = isOracleVerified(text)
+		const result = isVolvaVerified(text)
 
 		// #then
 		expect(result).toBe(false)
 	})
 
-	test("#given oracle agent with different casing #then should return true", () => {
+	test("#given volva agent with different casing #then should return true", () => {
 		// #given
 		const text = `Agent: ORACLE
 
 <promise>${ULTRAWORK_VERIFICATION_PROMISE}</promise>`
 
 		// #when
-		const result = isOracleVerified(text)
+		const result = isVolvaVerified(text)
 
 		// #then
 		expect(result).toBe(true)
@@ -209,47 +209,47 @@ describe("isOracleVerified", () => {
 		const text = ""
 
 		// #when
-		const result = isOracleVerified(text)
+		const result = isVolvaVerified(text)
 
 		// #then
 		expect(result).toBe(false)
 	})
 })
 
-describe("extractOracleSessionID", () => {
-	test("#given valid oracle verification with session_id #then should return session_id", () => {
+describe("extractVolvaSessionID", () => {
+	test("#given valid volva verification with session_id #then should return session_id", () => {
 		// #given
-		const text = `Agent: oracle
+		const text = `Agent: volva
 
 <promise>${ULTRAWORK_VERIFICATION_PROMISE}</promise>
 
 <task_metadata>
-session_id: ses_oracle_123
+session_id: ses_volva_123
 </task_metadata>`
 
 		// #when
-		const sessionID = extractOracleSessionID(text)
+		const sessionID = extractVolvaSessionID(text)
 
 		// #then
-		expect(sessionID).toBe("ses_oracle_123")
+		expect(sessionID).toBe("ses_volva_123")
 	})
 
-	test("#given valid oracle verification without session_id #then should return undefined", () => {
+	test("#given valid volva verification without session_id #then should return undefined", () => {
 		// #given
-		const text = `Agent: oracle
+		const text = `Agent: volva
 
 <promise>${ULTRAWORK_VERIFICATION_PROMISE}</promise>`
 
 		// #when
-		const sessionID = extractOracleSessionID(text)
+		const sessionID = extractVolvaSessionID(text)
 
 		// #then
 		expect(sessionID).toBeUndefined()
 	})
 
-	test("#given non-oracle agent #then should return undefined", () => {
+	test("#given non-volva agent #then should return undefined", () => {
 		// #given
-		const text = `Agent: sisyphus
+		const text = `Agent: odin
 
 <promise>${ULTRAWORK_VERIFICATION_PROMISE}</promise>
 
@@ -258,13 +258,13 @@ session_id: ses_sis_123
 </task_metadata>`
 
 		// #when
-		const sessionID = extractOracleSessionID(text)
+		const sessionID = extractVolvaSessionID(text)
 
 		// #then
 		expect(sessionID).toBeUndefined()
 	})
 
-	test("#given non-oracle agent with different casing #then should return undefined", () => {
+	test("#given non-volva agent with different casing #then should return undefined", () => {
 		// #given
 		const text = `Agent: SISYPHUS
 
@@ -275,7 +275,7 @@ session_id: ses_sis_123
 </task_metadata>`
 
 		// #when
-		const sessionID = extractOracleSessionID(text)
+		const sessionID = extractVolvaSessionID(text)
 
 		// #then
 		expect(sessionID).toBeUndefined()
@@ -286,7 +286,7 @@ session_id: ses_sis_123
 		const text = ""
 
 		// #when
-		const sessionID = extractOracleSessionID(text)
+		const sessionID = extractVolvaSessionID(text)
 
 		// #then
 		expect(sessionID).toBeUndefined()

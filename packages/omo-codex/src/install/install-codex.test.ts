@@ -136,23 +136,23 @@ describe("install-codex", () => {
     const first = await runCodexInstaller({ codexHome, binDir, repoRoot, astGrepInstaller: skipAstGrepInstall, runCommand: async () => undefined })
 
     // then
-    expect(first.marketplaceName).toBe("sisyphuslabs")
+    expect(first.marketplaceName).toBe("odinlabs")
     expect(first.installed.length).toBe(1)
     const configContent = await readFile(join(codexHome, "config.toml"), "utf8")
     expect(configContent).toContain("[features]")
-    expect(configContent).toContain("[marketplaces.sisyphuslabs]")
+    expect(configContent).toContain("[marketplaces.odinlabs]")
     expect(configContent).toContain('source_type = "local"')
-    expect(configContent).toContain(`source = ${formatTomlString(join(codexHome, "plugins", "cache", "sisyphuslabs"))}`)
+    expect(configContent).toContain(`source = ${formatTomlString(join(codexHome, "plugins", "cache", "odinlabs"))}`)
     expect(configContent).not.toContain('source = "https://github.com/code-yeongyu/lazycodex.git"')
     expect(configContent).not.toContain('ref = "main"')
-    expect(configContent).toContain("[plugins.\"omo@sisyphuslabs\"]")
+    expect(configContent).toContain("[plugins.\"omo@odinlabs\"]")
     expect(configContent).toContain("[hooks.state.")
     expect(configContent).not.toContain("code-yeongyu-codex-plugins")
     expect(configContent).not.toContain("[marketplaces.lazycodex]")
 
     const pluginPath = first.installed[0]?.path
     expect(pluginPath).toBeDefined()
-    expect(pluginPath).toContain(join("plugins", "cache", "sisyphuslabs", "omo"))
+    expect(pluginPath).toContain(join("plugins", "cache", "odinlabs", "omo"))
     const stats = await stat(pluginPath ?? "")
     expect(stats.isDirectory()).toBe(true)
     const rootPackage = JSON.parse(await readFile(join(repoRoot, "package.json"), "utf8")) as { readonly name: string; readonly version: string }
@@ -173,7 +173,7 @@ describe("install-codex", () => {
     if (rootSkillNames.length > 0) {
       expect(rootSkillNames).toContain("ulw-plan")
       expect(rootSkillNames).toContain("ulw-loop")
-      expect(rootSkillNames).not.toContain("planing-prometheustic")
+      expect(rootSkillNames).not.toContain("planing-mimirtic")
       const installedSkillFiles = await listRelativeFiles(join(pluginPath ?? "", "skills"))
       const nestedReferenceSkillFiles = installedSkillFiles.filter((file) => file.startsWith("frontend/references/") && file.endsWith("/SKILL.md"))
       const designpowersReferenceFiles = installedSkillFiles.filter((file) =>
@@ -196,7 +196,7 @@ describe("install-codex", () => {
     expect(mcpManifest.mcpServers.lsp.args[0]?.startsWith(pluginPath ?? "")).toBe(true)
     expect((await stat(mcpManifest.mcpServers.lsp.args[0] ?? "")).isFile()).toBe(true)
     const marketplace = JSON.parse(
-      await readFile(join(codexHome, "plugins", "cache", "sisyphuslabs", ".agents", "plugins", "marketplace.json"), "utf8"),
+      await readFile(join(codexHome, "plugins", "cache", "odinlabs", ".agents", "plugins", "marketplace.json"), "utf8"),
     ) as { plugins: Array<{ name: string; source: { source: string; path: string } }> }
     expect(marketplace.plugins).toEqual([{ name: "omo", source: { source: "local", path: `./omo/${rootPackage.version}` } }])
     let legacyCacheMissing = false

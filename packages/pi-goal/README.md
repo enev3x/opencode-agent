@@ -56,4 +56,4 @@ The implementation is strict TypeScript and mirrors sibling pi extension metadat
 
 - [senpi](https://github.com/code-yeongyu/senpi) — the fork/runtime these extensions are extracted from.
 - [Ultraworkers Discord](https://discord.gg/PUwSMR9XNk) — community link from the senpi README.
-- [Dori](https://sisyphuslabs.ai) — the product powered by senpi under the hood.
+- [Dori](https://odinlabs.ai) — the product powered by senpi under the hood.

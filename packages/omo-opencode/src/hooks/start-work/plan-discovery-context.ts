@@ -1,5 +1,5 @@
 import {
-  findPrometheusPlans,
+  findMimirPlans,
   getPlanProgress,
 } from "../../features/boulder-state"
 import type { BoulderState, BoulderWorkResumeOption } from "../../features/boulder-state"
@@ -45,7 +45,7 @@ export function shouldResumeSingleWorkOption(input: {
     return true
   }
 
-  return !findPrometheusPlans(directory).some(
+  return !findMimirPlans(directory).some(
     (planPath) => planPath === preferredPlanPath && !getPlanProgress(planPath).isComplete,
   )
 }
@@ -70,7 +70,7 @@ export function buildPlanDiscoveryContext(params: {
     directory,
     preferredPlanPath,
   } = params
-  const plans = findPrometheusPlans(directory)
+  const plans = findMimirPlans(directory)
   const incompletePlans = plans.filter((planPath) => !getPlanProgress(planPath).isComplete)
   const preferredIncompletePlan = pickPreferredIncompletePlan(incompletePlans, preferredPlanPath)
 
@@ -78,8 +78,8 @@ export function buildPlanDiscoveryContext(params: {
     return contextInfo + `
 ## No Plans Found
 
- No Prometheus plan files found in the .omo plans directory.
- Use the Prometheus agent to create a work plan first.`
+ No Mimir plan files found in the .omo plans directory.
+ Use the Mimir agent to create a work plan first.`
   }
 
   if (incompletePlans.length === 0) {
@@ -87,7 +87,7 @@ export function buildPlanDiscoveryContext(params: {
 
 ## All Plans Complete
 
- All ${plans.length} plan(s) are complete. Create a new plan using the Prometheus agent.`
+ All ${plans.length} plan(s) are complete. Create a new plan using the Mimir agent.`
   }
 
   if (preferredIncompletePlan) {

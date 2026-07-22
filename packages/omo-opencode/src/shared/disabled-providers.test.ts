@@ -89,7 +89,7 @@ describe("applyDisabledProviders", () => {
   test("no-op when disabled_providers is unset or empty", () => {
     const config = {
       agents: {
-        hephaestus: {
+        thor: {
           model: "github-copilot/gpt-5.5",
           fallback_models: ["github-copilot/gpt-5.4-mini", "openai/gpt-5.5"],
         },
@@ -98,15 +98,15 @@ describe("applyDisabledProviders", () => {
 
     applyDisabledProviders(config)
     const agents = config.agents as Record<string, { model?: string; fallback_models?: unknown }>
-    expect(agents.hephaestus.model).toBe("github-copilot/gpt-5.5")
-    expect(agents.hephaestus.fallback_models).toEqual(["github-copilot/gpt-5.4-mini", "openai/gpt-5.5"])
+    expect(agents.thor.model).toBe("github-copilot/gpt-5.5")
+    expect(agents.thor.fallback_models).toEqual(["github-copilot/gpt-5.4-mini", "openai/gpt-5.5"])
   })
 
   test("filters fallback chain and substitutes primary from the first allowed entry", () => {
     const config = {
       disabled_providers: ["github-copilot", "vercel"],
       agents: {
-        hephaestus: {
+        thor: {
           model: "github-copilot/gpt-5.5",
           fallback_models: [
             "github-copilot/gpt-5.4-mini",
@@ -115,7 +115,7 @@ describe("applyDisabledProviders", () => {
             "opencode/gpt-5.5",
           ],
         },
-        sisyphus: {
+        odin: {
           model: "anthropic/claude-opus-4-7",
           fallback_models: [{ model: "github-copilot/claude-sonnet-4.6" }, "opencode-go/glm-5.1"],
         },
@@ -125,21 +125,21 @@ describe("applyDisabledProviders", () => {
     applyDisabledProviders(config)
 
     const agents = config.agents as Record<string, { model?: string; fallback_models?: unknown }>
-    expect(agents.hephaestus.model).toBe("openai/gpt-5.5")
-    expect(agents.hephaestus.fallback_models).toEqual([
+    expect(agents.thor.model).toBe("openai/gpt-5.5")
+    expect(agents.thor.fallback_models).toEqual([
       { model: "openai/gpt-5.5", variant: "medium" },
       "opencode/gpt-5.5",
     ])
 
-    expect(agents.sisyphus.model).toBe("anthropic/claude-opus-4-7")
-    expect(agents.sisyphus.fallback_models).toEqual(["opencode-go/glm-5.1"])
+    expect(agents.odin.model).toBe("anthropic/claude-opus-4-7")
+    expect(agents.odin.fallback_models).toEqual(["opencode-go/glm-5.1"])
   })
 
   test("leaves primary unchanged but records a config-load error when every chain entry is also disabled", () => {
     const config = {
       disabled_providers: ["github-copilot"],
       agents: {
-        oracle: {
+        volva: {
           model: "github-copilot/gpt-5.5",
           fallback_models: ["github-copilot/gpt-5.4-mini", { model: "github-copilot/gemini-3" }],
         },
@@ -149,14 +149,14 @@ describe("applyDisabledProviders", () => {
     applyDisabledProviders(config)
 
     const agents = config.agents as Record<string, { model?: string; fallback_models?: unknown }>
-    expect(agents.oracle.model).toBe("github-copilot/gpt-5.5")
+    expect(agents.volva.model).toBe("github-copilot/gpt-5.5")
     // Empty chain is normalized to undefined so "no chain declared" and
     // "empty chain declared" stay semantically distinct downstream.
-    expect(agents.oracle.fallback_models).toBeUndefined()
+    expect(agents.volva.fallback_models).toBeUndefined()
 
     const errors = getConfigLoadErrors()
     expect(errors.length).toBe(1)
-    expect(errors[0]!.path).toBe("disabled_providers:agents.oracle")
+    expect(errors[0]!.path).toBe("disabled_providers:agents.volva")
     expect(errors[0]!.error).toContain("github-copilot/gpt-5.5")
     expect(errors[0]!.error).toContain("disabled provider")
   })
@@ -165,7 +165,7 @@ describe("applyDisabledProviders", () => {
     const config = {
       disabled_providers: ["GitHub-Copilot"],
       agents: {
-        hephaestus: {
+        thor: {
           model: "github-copilot/gpt-5.5",
           fallback_models: [
             "GITHUB-COPILOT/gpt-5.4-mini",
@@ -178,8 +178,8 @@ describe("applyDisabledProviders", () => {
     applyDisabledProviders(config)
 
     const agents = config.agents as Record<string, { model?: string; fallback_models?: unknown }>
-    expect(agents.hephaestus.model).toBe("openai/gpt-5.5")
-    expect(agents.hephaestus.fallback_models).toEqual(["openai/gpt-5.5"])
+    expect(agents.thor.model).toBe("openai/gpt-5.5")
+    expect(agents.thor.fallback_models).toEqual(["openai/gpt-5.5"])
   })
 
   test("applies the same rules to categories", () => {

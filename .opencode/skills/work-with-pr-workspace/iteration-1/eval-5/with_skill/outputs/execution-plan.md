@@ -90,11 +90,11 @@ gh pr create --base dev \
 
 ### Gate B: review-work (5-agent)
 - Run `/review-work` to trigger 5 parallel sub-agents:
-  - Oracle (goal/constraint verification)
-  - Oracle (code quality)
-  - Oracle (security)
-  - Hephaestus (hands-on QA execution)
-  - Hephaestus (context mining)
+  - Volva (goal/constraint verification)
+  - Volva (code quality)
+  - Volva (security)
+  - Thor (hands-on QA execution)
+  - Thor (context mining)
 - All 5 must pass
 
 ### Gate C: Cubic

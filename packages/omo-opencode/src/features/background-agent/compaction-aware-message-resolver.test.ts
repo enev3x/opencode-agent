@@ -56,9 +56,9 @@ describe("isCompactionAgent", () => {
       expect(result).toBe(false)
     })
 
-    test("returns false for non-compaction agent like 'sisyphus'", () => {
+    test("returns false for non-compaction agent like 'odin'", () => {
       // when
-      const result = isCompactionAgent("sisyphus")
+      const result = isCompactionAgent("odin")
 
       // then
       expect(result).toBe(false)
@@ -83,7 +83,7 @@ describe("findNearestMessageExcludingCompaction", () => {
     test("finds message with full agent and model", () => {
       // given
       const message = {
-        agent: "sisyphus",
+        agent: "odin",
         model: { providerID: "anthropic", modelID: "claude-opus-4-7" },
       }
       writeFileSync(join(tempDir, "001.json"), JSON.stringify(message))
@@ -93,7 +93,7 @@ describe("findNearestMessageExcludingCompaction", () => {
 
       // then
       expect(result).not.toBeNull()
-      expect(result?.agent).toBe("sisyphus")
+      expect(result?.agent).toBe("odin")
       expect(result?.model?.providerID).toBe("anthropic")
       expect(result?.model?.modelID).toBe("claude-opus-4-7")
     })
@@ -105,7 +105,7 @@ describe("findNearestMessageExcludingCompaction", () => {
         model: { providerID: "anthropic", modelID: "claude-opus-4-7" },
       }
       const validMessage = {
-        agent: "sisyphus",
+        agent: "odin",
         model: { providerID: "anthropic", modelID: "claude-opus-4-7" },
       }
       writeFileSync(join(tempDir, "002.json"), JSON.stringify(compactionMessage))
@@ -116,7 +116,7 @@ describe("findNearestMessageExcludingCompaction", () => {
 
       // then
       expect(result).not.toBeNull()
-      expect(result?.agent).toBe("sisyphus")
+      expect(result?.agent).toBe("odin")
     })
 
     test("skips JSON messages whose part storage contains a compaction marker", () => {
@@ -125,12 +125,12 @@ describe("findNearestMessageExcludingCompaction", () => {
       const partDir = getCompactionPartStorageDir(compactionMessageID)
       writeFileSync(join(tempDir, "002.json"), JSON.stringify({
         id: compactionMessageID,
-        agent: "atlas",
+        agent: "heimdall",
         model: { providerID: "anthropic", modelID: "claude-opus-4-7" },
       }))
       writeFileSync(join(tempDir, "001.json"), JSON.stringify({
         id: "msg_001",
-        agent: "sisyphus",
+        agent: "odin",
         model: { providerID: "anthropic", modelID: "claude-opus-4-7" },
       }))
       mkdirSync(partDir, { recursive: true })
@@ -140,13 +140,13 @@ describe("findNearestMessageExcludingCompaction", () => {
       const result = findNearestMessageExcludingCompaction(tempDir)
 
       // then
-      expect(result?.agent).toBe("sisyphus")
+      expect(result?.agent).toBe("odin")
     })
 
     test("falls back to partial agent/model match", () => {
       // given
       const messageWithAgentOnly = {
-        agent: "hephaestus",
+        agent: "thor",
       }
       const messageWithModelOnly = {
         model: { providerID: "openai", modelID: "gpt-5.5" },
@@ -160,7 +160,7 @@ describe("findNearestMessageExcludingCompaction", () => {
       // then
       expect(result).not.toBeNull()
       // Should find the one with agent first (sorted reverse, so 002 is checked first)
-      expect(result?.agent).toBe("hephaestus")
+      expect(result?.agent).toBe("thor")
     })
 
     test("returns null for empty directory", () => {
@@ -188,7 +188,7 @@ describe("findNearestMessageExcludingCompaction", () => {
       // given
       const invalidJson = "{ invalid json"
       const validMessage = {
-        agent: "oracle",
+        agent: "volva",
         model: { providerID: "google", modelID: "gemini-2-flash" },
       }
       writeFileSync(join(tempDir, "002.json"), invalidJson)
@@ -199,7 +199,7 @@ describe("findNearestMessageExcludingCompaction", () => {
 
       // then
       expect(result).not.toBeNull()
-      expect(result?.agent).toBe("oracle")
+      expect(result?.agent).toBe("volva")
     })
 
     test("finds newest valid message (sorted by filename reverse)", () => {
@@ -229,7 +229,7 @@ describe("findNearestMessageExcludingCompaction", () => {
         join(tempDir, "003.json"),
         JSON.stringify({ model: { providerID: "anthropic", modelID: "claude-opus-4-1" } }),
       )
-      writeFileSync(join(tempDir, "002.json"), JSON.stringify({ agent: "atlas" }))
+      writeFileSync(join(tempDir, "002.json"), JSON.stringify({ agent: "heimdall" }))
       writeFileSync(join(tempDir, "001.json"), JSON.stringify({ tools: { bash: true } }))
 
       // when
@@ -237,7 +237,7 @@ describe("findNearestMessageExcludingCompaction", () => {
 
       // then
       expect(result).toEqual({
-        agent: "atlas",
+        agent: "heimdall",
         model: { providerID: "anthropic", modelID: "claude-opus-4-1" },
         tools: { bash: true },
       })
@@ -246,7 +246,7 @@ describe("findNearestMessageExcludingCompaction", () => {
     test("fills missing metadata from compaction checkpoint", () => {
       // given
       setCompactionAgentConfigCheckpoint("ses_checkpoint", {
-        agent: "sisyphus",
+        agent: "odin",
         model: { providerID: "openai", modelID: "gpt-5" },
       })
       writeFileSync(join(tempDir, "001.json"), JSON.stringify({ tools: { bash: true } }))
@@ -256,7 +256,7 @@ describe("findNearestMessageExcludingCompaction", () => {
 
       // then
       expect(result).toEqual({
-        agent: "sisyphus",
+        agent: "odin",
         model: { providerID: "openai", modelID: "gpt-5" },
         tools: { bash: true },
       })
@@ -268,7 +268,7 @@ describe("resolvePromptContextFromSessionMessages", () => {
   test("merges partial prompt context from recent SDK messages", () => {
     // given
     const messages = [
-      { info: { agent: "atlas" } },
+      { info: { agent: "heimdall" } },
       { info: { model: { providerID: "anthropic", modelID: "claude-opus-4-1" } } },
       { info: { tools: { bash: true } } },
     ]
@@ -278,7 +278,7 @@ describe("resolvePromptContextFromSessionMessages", () => {
 
     // then
     expect(result).toEqual({
-      agent: "atlas",
+      agent: "heimdall",
       model: { providerID: "anthropic", modelID: "claude-opus-4-1" },
       tools: { bash: true },
     })
@@ -289,10 +289,10 @@ describe("resolvePromptContextFromSessionMessages", () => {
     const messages = [
       {
         id: "msg_compaction",
-        info: { agent: "atlas", model: { providerID: "openai", modelID: "gpt-5" } },
+        info: { agent: "heimdall", model: { providerID: "openai", modelID: "gpt-5" } },
         parts: [{ type: "compaction" }],
       },
-      { info: { agent: "sisyphus" } },
+      { info: { agent: "odin" } },
       { info: { model: { providerID: "anthropic", modelID: "claude-opus-4-1" } } },
       { info: { tools: { bash: true } } },
     ]
@@ -302,7 +302,7 @@ describe("resolvePromptContextFromSessionMessages", () => {
 
     // then
     expect(result).toEqual({
-      agent: "sisyphus",
+      agent: "odin",
       model: { providerID: "anthropic", modelID: "claude-opus-4-1" },
       tools: { bash: true },
     })

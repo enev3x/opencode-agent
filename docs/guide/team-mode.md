@@ -55,7 +55,7 @@ Team specs live under `~/.omo/teams/{name}/config.json` (user scope) or `<projec
 {
   "name": "ccapi-explorers",
   "description": "Explore the ccapi project structure.",
-  "lead": { "kind": "subagent_type", "subagent_type": "sisyphus" },
+  "lead": { "kind": "subagent_type", "subagent_type": "odin" },
   "members": [
     { "kind": "category", "name": "scout-1", "category": "deep", "prompt": "Scout the source directory for auth patterns." },
     { "kind": "category", "name": "scout-2", "category": "quick", "prompt": "Scout tests for auth coverage." }
@@ -69,14 +69,14 @@ When both scopes define the same team name, project scope wins.
 
 ## Member kinds
 
-- **`kind: "subagent_type"`** — direct agent (atlas, sisyphus, sisyphus-junior, hephaestus). `prompt` optional.
-- **`kind: "category"`** — routed through `sisyphus-junior` with the chosen category model. `prompt` REQUIRED.
+- **`kind: "subagent_type"`** — direct agent (heimdall, odin, einherjar, thor). `prompt` optional.
+- **`kind: "category"`** — routed through `einherjar` with the chosen category model. `prompt` REQUIRED.
 
 ## Eligible agents
 
-- **Eligible:** `sisyphus`, `atlas`, `sisyphus-junior`.
-- **Conditional:** `hephaestus` (needs teammate permission `teammate: "allow"`; otherwise use `subagent_type: "sisyphus"`).
-- **Hard-reject:** `oracle`, `librarian`, `explore`, `multimodal-looker`, `metis`, `momus`, `prometheus`.
+- **Eligible:** `odin`, `heimdall`, `einherjar`.
+- **Conditional:** `thor` (needs teammate permission `teammate: "allow"`; otherwise use `subagent_type: "odin"`).
+- **Hard-reject:** `volva`, `bragi`, `explore`, `huginn`, `urd`, `forseti`, `mimir`.
 
 Hard-reject agents fail TeamSpec parsing because they cannot write mailbox state. Use `delegate-task` for those agents.
 

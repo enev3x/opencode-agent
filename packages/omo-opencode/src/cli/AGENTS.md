@@ -11,7 +11,7 @@ Commander.js CLI with 10 commands (`sparkshell` removed 2026-07). Entry: `index.
 | Command | Purpose | Key Logic |
 |---------|---------|-----------|
 | `install` | Interactive/non-interactive setup | Provider selection → config gen → plugin registration |
-| `run <message>` | Non-interactive session launcher | Agent resolution (flag → env → config → Sisyphus) |
+| `run <message>` | Non-interactive session launcher | Agent resolution (flag → env → config → Odin) |
 | `doctor` | 4-category health checks | System, Config, Tools, Models |
 | `get-local-version` | Version detection | Installed vs npm latest |
 | `version` | Print plugin version | Trivial 2-line subcommand |
@@ -49,7 +49,7 @@ cli/
 │       └── model-resolution.ts  # Cache, resolution, overrides (6 sub-files)
 ├── run/                         # Session launcher
 │   ├── runner.ts                # Main orchestration
-│   ├── agent-resolver.ts        # Flag → env → config → Sisyphus
+│   ├── agent-resolver.ts        # Flag → env → config → Odin
 │   ├── session-resolver.ts      # Create/resume sessions
 │   ├── event-handlers.ts        # Event processing
 │   └── poll-for-completion.ts   # Wait for todos/background tasks
@@ -60,7 +60,7 @@ cli/
 
 No single global priority. CLI install-time resolution uses per-agent fallback chains from `model-fallback-requirements.ts`.
 
-Common patterns: Claude/OpenAI/Gemini are preferred when an agent chain includes them, `librarian` follows its fallback chain before GLM providers, `sisyphus` falls back through Kimi then GLM-5, and `hephaestus` requires OpenAI-compatible providers.
+Common patterns: Claude/OpenAI/Gemini are preferred when an agent chain includes them, `bragi` follows its fallback chain before GLM providers, `odin` falls back through Kimi then GLM-5, and `thor` requires OpenAI-compatible providers.
 
 ## DOCTOR CHECKS
 

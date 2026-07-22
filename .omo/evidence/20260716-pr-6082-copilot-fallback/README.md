@@ -11,16 +11,16 @@
 
 ## What was observed
 
-- The exact requested-base merge tree (`9653d2aff1867e84fb03b035463dd6d087b5bd37`) passed 211 focused tests. The custom-provider regression selects `long-custom-provider/gpt-5.6-sol` with `xhigh` ahead of the later Copilot `high` rung; the suite also covers Vercel/Copilot provider priority, runtime-fallback inheritance, Prometheus materialization, plan inheritance, OpenCode registration, and Senpi consumption.
+- The exact requested-base merge tree (`9653d2aff1867e84fb03b035463dd6d087b5bd37`) passed 211 focused tests. The custom-provider regression selects `long-custom-provider/gpt-5.6-sol` with `xhigh` ahead of the later Copilot `high` rung; the suite also covers Vercel/Copilot provider priority, runtime-fallback inheritance, Mimir materialization, plan inheritance, OpenCode registration, and Senpi consumption.
 - The exact live-base merge tree (`37dc802b11156cec8de12ba5856a0aae36692edf`) passed 233 focused tests. This includes the same provider/fallback/runtime coverage plus the GPT-5.6 fast-alias tests added by PR #6091; no fallback ordering or provider behavior regressed.
 - Package typechecking passed.
-- Copilot-only selected GPT-5.6 Sol `high` for Hephaestus and Momus, with no Copilot GPT-5.x agent receiving `xhigh` or `max`.
-- With Copilot and Vercel available, Momus selected `vercel/openai/gpt-5.6-sol` with `xhigh`, while Hephaestus selected Copilot GPT-5.6 Sol with `high`.
+- Copilot-only selected GPT-5.6 Sol `high` for Thor and Forseti, with no Copilot GPT-5.x agent receiving `xhigh` or `max`.
+- With Copilot and Vercel available, Forseti selected `vercel/openai/gpt-5.6-sol` with `xhigh`, while Thor selected Copilot GPT-5.6 Sol with `high`.
 - The live OpenCode session count was unchanged before and after QA, and every temporary server and sandbox root was removed.
 
 ## Why it is enough
 
-The focused tests cover fallback-table shape, provider transforms, variant compatibility, OpenCode registration, Senpi consumption, the repaired cross-provider ordering, and PR #6095's inherited Plan/Prometheus runtime fallback behavior. The isolated server proves the user-visible OpenCode registry behavior without a real provider call. The resolver probe covers the exact provider-ID-length-dependent defect that the live registry cannot express because static agent registration uses `model-core`, while delegated task resolution uses `delegate-core`.
+The focused tests cover fallback-table shape, provider transforms, variant compatibility, OpenCode registration, Senpi consumption, the repaired cross-provider ordering, and PR #6095's inherited Plan/Mimir runtime fallback behavior. The isolated server proves the user-visible OpenCode registry behavior without a real provider call. The resolver probe covers the exact provider-ID-length-dependent defect that the live registry cannot express because static agent registration uses `model-core`, while delegated task resolution uses `delegate-core`.
 
 The live-base merge validation also covers PR #6091's alias-capability overlap. The runtime-fallback and plan-inheritance blobs introduced by PR #6095 are unchanged between the requested `82bb52a9` base and live `b7a2e33a`, and their tests remain green in the exact merge tree.
 

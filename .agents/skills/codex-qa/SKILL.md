@@ -65,7 +65,7 @@ Windows.
 |---|---|
 | `scripts/lib/common.sh --self-check` | deps present; isolated `CODEX_HOME` is created inside a sandbox and auto-removed on exit; mock model serves the Responses SSE; real `~/.codex` unchanged |
 | `scripts/app-server-drive.sh` | `--self-test`: a bare turn completes and the mock assistant text comes back. `--plugin`: installs local omo, drives a turn, and asserts `hook/completed` for `sessionStart,userPromptSubmit` |
-| `scripts/install-verify.sh` | local omo installs into the isolated home; `config.toml` enables `omo@sisyphuslabs`; component bins + agent TOMLs linked in the sandbox; real `~/.codex` unchanged |
+| `scripts/install-verify.sh` | local omo installs into the isolated home; `config.toml` enables `omo@odinlabs`; component bins + agent TOMLs linked in the sandbox; real `~/.codex` unchanged |
 | `scripts/hook-unit-probe.sh` | the `ultrawork` component injects `<ultrawork-mode>` on an `ulw` UserPromptSubmit (also a manual `--component/--event` mode) |
 | `scripts/tui-smoke.sh` | the real codex TUI boots in the isolated home, renders, and survives (no early exit); captures the pane |
 

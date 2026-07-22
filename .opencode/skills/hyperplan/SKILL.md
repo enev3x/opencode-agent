@@ -19,12 +19,12 @@ Before starting, verify:
 
 1. **`team_*` tools must be available.** If they are not, STOP and tell the user:
    > "Hyperplan requires team-mode. Set `team_mode.enabled: true` in `~/.config/opencode/oh-my-opencode.jsonc` and restart opencode, then retry."
-2. **You are running as `sisyphus` (or another lead-eligible agent).** If you are running as a planner (`prometheus`, `plan`), this skill is the wrong tool — direct the user to use `/start-work` instead.
+2. **You are running as `odin` (or another lead-eligible agent).** If you are running as a planner (`mimir`, `plan`), this skill is the wrong tool — direct the user to use `/start-work` instead.
 3. **You are in the main session** (not a background subagent). Hyperplan only works as a top-level orchestration.
 
 ## THE 5 ADVERSARIAL MEMBERS — RnR & CHARACTERISTICS
 
-Each member is a `kind: "category"` team member. They route through `sisyphus-junior` with the category's model and prompt-append shaping their behavior. The `prompt` field below is the **system prompt** that establishes their adversarial identity.
+Each member is a `kind: "category"` team member. They route through `einherjar` with the category's model and prompt-append shaping their behavior. The `prompt` field below is the **system prompt** that establishes their adversarial identity.
 
 Required categories are `unspecified-low`, `unspecified-high`, `ultrabrain`, and `artistry`. Include `deep` only when that category is enabled; if `deep` is disabled or unavailable, retry without only the researcher member and state the degraded roster.
 
@@ -435,7 +435,7 @@ If any step fails, surface the error and suggest manual cleanup via `team_list` 
 | Forgetting to clean up the team | Leaks runtime state. Always Phase 7. |
 | Calling `delegate_task` instead of `team_send_message` | These are different systems. `team_*` only for inter-member traffic. |
 | Calling `team_send_message` to ship the bundle to the plan agent | Wrong channel. Plan agent is NOT a team member. Use `task(subagent_type="plan", ...)` for the handoff. |
-| Running this from a planner agent (prometheus) | Planners cannot orchestrate teams. Must run from sisyphus. |
+| Running this from a planner agent (mimir) | Planners cannot orchestrate teams. Must run from odin. |
 | Running this in a non-main session | Team-mode is main-session-only. |
 
 ## NOTES FOR THE LEAD (YOU)
@@ -447,4 +447,4 @@ If any step fails, surface the error and suggest manual cleanup via `team_list` 
 - Keep bundles concise — ≤32KB per message. If aggregated findings exceed this, summarize before forwarding (preserve the spirit of each finding).
 - The skill explicitly forbids you from softening adversarial prompts. The hostility IS the mechanism.
 - The Phase 6 plan-agent handoff runs **synchronously** (`run_in_background: false`) — you wait for the planner before Phase 7 cleanup. Do NOT shut down the team until the plan agent has returned, in case the planner needs you to forward a clarifying question to a specific member (rare, but possible).
-- The plan agent does NOT have access to the team mailbox. Everything it needs must be in the bundle you dispatch. If the planner asks for additional context, you fetch it (via explore/librarian/oracle) and re-dispatch with `task_id` resume — do NOT spin up a new plan agent.
+- The plan agent does NOT have access to the team mailbox. Everything it needs must be in the bundle you dispatch. If the planner asks for additional context, you fetch it (via explore/bragi/volva) and re-dispatch with `task_id` resume — do NOT spin up a new plan agent.

@@ -1,10 +1,10 @@
 import type { AgentDefinition } from "../types"
 
-import { EXPLORE_AGENT } from "./explore"
-import { LIBRARIAN_AGENT } from "./librarian"
-import { METIS_AGENT } from "./metis"
-import { MOMUS_AGENT } from "./momus"
-import { ORACLE_AGENT } from "./oracle"
+import { EXPLORE_AGENT } from "./vidar"
+import { LIBRARIAN_AGENT } from "./bragi"
+import { METIS_AGENT } from "./urd"
+import { MOMUS_AGENT } from "./forseti"
+import { ORACLE_AGENT } from "./volva"
 
 export const BUILTIN_AGENT_DEFAULTS: readonly AgentDefinition[] = [
   EXPLORE_AGENT,

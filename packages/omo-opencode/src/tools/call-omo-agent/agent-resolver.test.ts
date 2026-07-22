@@ -32,22 +32,22 @@ describe("resolveCallableAgents", () => {
 
       const result = await resolveCallableAgents(client)
 
-      expect(result).toEqual(["explore", "librarian"])
+      expect(result).toEqual(["vidar", "bragi"])
       expect(client.app.agents).not.toHaveBeenCalled()
     })
 
     test("#then non-lookup built-ins are not included", async () => {
       const client = createMockClient([
-        { name: "oracle", mode: "subagent" },
-        { name: "hephaestus", mode: "subagent" },
-        { name: "metis", mode: "subagent" },
+        { name: "volva", mode: "subagent" },
+        { name: "thor", mode: "subagent" },
+        { name: "urd", mode: "subagent" },
       ])
 
       const result = await resolveCallableAgents(client)
 
-      expect(result).not.toContain("oracle")
-      expect(result).not.toContain("hephaestus")
-      expect(result).not.toContain("metis")
+      expect(result).not.toContain("volva")
+      expect(result).not.toContain("thor")
+      expect(result).not.toContain("urd")
     })
 
     test("#then each call returns a defensive copy", async () => {
@@ -57,7 +57,7 @@ describe("resolveCallableAgents", () => {
       first.push("general")
       const second = await resolveCallableAgents(client)
 
-      expect(second).toEqual(["explore", "librarian"])
+      expect(second).toEqual(["vidar", "bragi"])
     })
   })
 })

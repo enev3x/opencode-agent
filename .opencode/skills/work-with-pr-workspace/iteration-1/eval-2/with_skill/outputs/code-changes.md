@@ -25,7 +25,7 @@
 
 ---
 
-## File 2: `src/hooks/atlas/idle-event.ts`
+## File 2: `src/hooks/heimdall/idle-event.ts`
 
 **Change**: Add defensive string type guard before passing `worktree_path` to continuation functions.
 
@@ -56,7 +56,7 @@
 ```
 
 ```typescript
-// BEFORE (lines 184-188 in handleAtlasSessionIdle):
+// BEFORE (lines 184-188 in handleHeimdallSessionIdle):
   await injectContinuation({
     ctx,
     sessionID,
@@ -85,7 +85,7 @@
 
 ---
 
-## File 3: `src/hooks/atlas/index.test.ts`
+## File 3: `src/hooks/heimdall/index.test.ts`
 
 **Change**: Add test cases for missing `worktree_path` scenarios within the existing `session.idle handler` describe block.
 
@@ -107,7 +107,7 @@
       expect(readState?.worktree_path).toBeUndefined()
 
       const mockInput = createMockPluginInput()
-      const hook = createAtlasHook(mockInput)
+      const hook = createHeimdallHook(mockInput)
 
       // when
       await hook.handler({
@@ -139,7 +139,7 @@
       }, null, 2))
 
       const mockInput = createMockPluginInput()
-      const hook = createAtlasHook(mockInput)
+      const hook = createHeimdallHook(mockInput)
 
       // when
       await hook.handler({
@@ -167,7 +167,7 @@
   describe("#given boulder.json with worktree_path: null", () => {
     test("#then readBoulderState should sanitize null to undefined", () => {
       // given
-      const boulderPath = join(TEST_DIR, ".sisyphus", "boulder.json")
+      const boulderPath = join(TEST_DIR, ".odin", "boulder.json")
       writeFileSync(boulderPath, JSON.stringify({
         active_plan: "/path/to/plan.md",
         started_at: "2026-01-02T10:00:00Z",
@@ -186,7 +186,7 @@
 
     test("#then readBoulderState should preserve valid worktree_path string", () => {
       // given
-      const boulderPath = join(TEST_DIR, ".sisyphus", "boulder.json")
+      const boulderPath = join(TEST_DIR, ".odin", "boulder.json")
       writeFileSync(boulderPath, JSON.stringify({
         active_plan: "/path/to/plan.md",
         started_at: "2026-01-02T10:00:00Z",

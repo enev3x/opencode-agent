@@ -15,7 +15,7 @@ describe("executeBackgroundAgent", () => {
     id: "test-task-id",
     sessionId: null,
     description: "Test task",
-    agent: "explore",
+    agent: "vidar",
     status: "pending",
   }))
   const getTaskMock = mock()
@@ -38,7 +38,7 @@ describe("executeBackgroundAgent", () => {
   const testArgs = {
     description: "Test background task",
     prompt: "Test prompt",
-    subagent_type: "explore",
+    subagent_type: "vidar",
   } as Parameters<typeof executeBackgroundAgent>[0]
 
   const mockClient = {
@@ -53,14 +53,14 @@ describe("executeBackgroundAgent", () => {
       id: "test-task-id",
       sessionId: "ses-agent-cta",
       description: "Test task",
-      agent: "explore",
+      agent: "vidar",
       status: "pending",
     })
     getTaskMock.mockReturnValueOnce({
       id: "test-task-id",
       sessionId: "ses-agent-cta",
       description: "Test task",
-      agent: "explore",
+      agent: "vidar",
       status: "pending",
     })
 

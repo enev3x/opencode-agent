@@ -9,7 +9,7 @@ describe("CodeGraph sweep CLI", () => {
 	it("#given sweep dry-run args with an injected root #when invoked #then it reports candidates as JSON and does not kill", async () => {
 		// given
 		const homeDir = mkdtempSync(join(tmpdir(), "omo-codegraph-sweep-cli-home-"));
-		const root = join(homeDir, ".codex", "plugins", "cache", "sisyphuslabs", "omo", "4.15.1");
+		const root = join(homeDir, ".codex", "plugins", "cache", "odinlabs", "omo", "4.15.1");
 		const stdout: string[] = [];
 		const killed: string[] = [];
 		try {

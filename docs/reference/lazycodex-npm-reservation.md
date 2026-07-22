@@ -1,6 +1,6 @@
 # Publishing the lazycodex-ai npm name (publish playbook)
 
-`lazycodex-ai` is the npm package and bin alias for the Codex CLI Light edition. `lazycodex` (without the `-ai` suffix) is the GitHub repository that hosts the native Codex marketplace bundle. Neither is the marketplace identity. Codex installs marketplace `sisyphuslabs` and plugin `omo`, enabled as `omo@sisyphuslabs`.
+`lazycodex-ai` is the npm package and bin alias for the Codex CLI Light edition. `lazycodex` (without the `-ai` suffix) is the GitHub repository that hosts the native Codex marketplace bundle. Neither is the marketplace identity. Codex installs marketplace `odinlabs` and plugin `omo`, enabled as `omo@odinlabs`.
 
 > The bare `lazycodex` npm name was unpublished on 2026-05-30 and is no longer installable. Use `lazycodex-ai` for all npm/bin references.
 

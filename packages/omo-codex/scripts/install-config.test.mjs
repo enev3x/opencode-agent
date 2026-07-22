@@ -112,7 +112,7 @@ test("#given empty Codex config #when script installer updates config #then leav
 	assert.doesNotMatch(config, /YOUR_API_KEY/);
 });
 
-test("#given sisyphuslabs omo install #when script installer updates config #then enables Context7 plugin mcp policy", async () => {
+test("#given odinlabs omo install #when script installer updates config #then enables Context7 plugin mcp policy", async () => {
 	// given
 	const root = await mkdtemp(join(tmpdir(), "omo-codex-script-config-context7-plugin-policy-"));
 	const configPath = join(root, "config.toml");
@@ -121,15 +121,15 @@ test("#given sisyphuslabs omo install #when script installer updates config #the
 	await updateCodexConfig({
 		configPath,
 		repoRoot: "/repo/packages/omo-codex",
-		marketplaceName: "sisyphuslabs",
-		marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/sisyphuslabs" },
+		marketplaceName: "odinlabs",
+		marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/odinlabs" },
 		pluginNames: ["omo"],
 	});
 
 	// then
 	const config = await readFile(configPath, "utf8");
-	assert.match(config, /\[plugins\."omo@sisyphuslabs"\.mcp_servers\.context7\]/);
-	assert.match(config, /\[plugins\."omo@sisyphuslabs"\.mcp_servers\.context7\][\s\S]*?enabled = true/);
+	assert.match(config, /\[plugins\."omo@odinlabs"\.mcp_servers\.context7\]/);
+	assert.match(config, /\[plugins\."omo@odinlabs"\.mcp_servers\.context7\][\s\S]*?enabled = true/);
 	assert.doesNotMatch(config, /\[mcp_servers\.context7\]/);
 	assert.doesNotMatch(config, /@upstash\/context7-mcp/);
 	assert.doesNotMatch(config, /YOUR_API_KEY/);
@@ -187,8 +187,8 @@ test("#given real Context7 API key and placeholder comment #when script installe
 	await updateCodexConfig({
 		configPath,
 		repoRoot: "/repo/packages/omo-codex",
-		marketplaceName: "sisyphuslabs",
-		marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/sisyphuslabs" },
+		marketplaceName: "odinlabs",
+		marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/odinlabs" },
 		pluginNames: ["omo"],
 	});
 
@@ -197,7 +197,7 @@ test("#given real Context7 API key and placeholder comment #when script installe
 	assert.match(config, /\[mcp_servers\.context7\]/);
 	assert.match(config, /ctx7sk_live_example/);
 	assert.match(config, /replace YOUR_API_KEY in docs only/);
-	assert.match(config, /\[plugins\."omo@sisyphuslabs"\.mcp_servers\.context7\]/);
+	assert.match(config, /\[plugins\."omo@odinlabs"\.mcp_servers\.context7\]/);
 });
 
 test("#given stale Context7 placeholder MCP config #when script installer updates config #then removes it for plugin MCP", async () => {
@@ -219,14 +219,14 @@ test("#given stale Context7 placeholder MCP config #when script installer update
 	await updateCodexConfig({
 		configPath,
 		repoRoot: "/repo/packages/omo-codex",
-		marketplaceName: "sisyphuslabs",
-		marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/sisyphuslabs" },
+		marketplaceName: "odinlabs",
+		marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/odinlabs" },
 		pluginNames: ["omo"],
 	});
 
 	// then
 	const config = await readFile(configPath, "utf8");
-	assert.match(config, /\[plugins\."omo@sisyphuslabs"\.mcp_servers\.context7\]/);
+	assert.match(config, /\[plugins\."omo@odinlabs"\.mcp_servers\.context7\]/);
 	assert.doesNotMatch(config, /\[mcp_servers\.context7\]/);
 	assert.doesNotMatch(config, /@upstash\/context7-mcp/);
 	assert.doesNotMatch(config, /YOUR_API_KEY/);
@@ -244,8 +244,8 @@ test("#given Codex config is a symlink #when script installer updates config #th
 	await updateCodexConfig({
 		configPath,
 		repoRoot: "/repo/packages/omo-codex",
-		marketplaceName: "sisyphuslabs",
-		marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/sisyphuslabs" },
+		marketplaceName: "odinlabs",
+		marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/odinlabs" },
 		pluginNames: ["omo"],
 	});
 
@@ -254,26 +254,26 @@ test("#given Codex config is a symlink #when script installer updates config #th
 	const targetConfig = await readFile(targetPath, "utf8");
 	assert.equal(configStat.isSymbolicLink(), true);
 	assert.match(targetConfig, /plugins = true/);
-	assert.match(targetConfig, /\[plugins\."omo@sisyphuslabs"\]/);
+	assert.match(targetConfig, /\[plugins\."omo@odinlabs"\]/);
 });
 
-test("#given sisyphuslabs config without explicit source #when script installer updates config #then uses local marketplace", async () => {
+test("#given odinlabs config without explicit source #when script installer updates config #then uses local marketplace", async () => {
 	// given
-	const root = await mkdtemp(join(tmpdir(), "omo-codex-script-config-sisyphuslabs-"));
+	const root = await mkdtemp(join(tmpdir(), "omo-codex-script-config-odinlabs-"));
 	const configPath = join(root, "config.toml");
 
 	// when
 	await updateCodexConfig({
 		configPath,
 		repoRoot: "/repo/packages/omo-codex",
-		marketplaceName: "sisyphuslabs",
+		marketplaceName: "odinlabs",
 		marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex" },
 		pluginNames: ["omo"],
 	});
 
 	// then
 	const config = await readFile(configPath, "utf8");
-	assert.match(config, /\[marketplaces\.sisyphuslabs\]/);
+	assert.match(config, /\[marketplaces\.odinlabs\]/);
 	assert.match(config, /source_type = "local"/);
 	assert.match(config, /source = "\/repo\/packages\/omo-codex"/);
 	assert.doesNotMatch(config, /lazycodex\.git/);
@@ -539,13 +539,13 @@ test("#given existing trust and lsp blocks #when updating config #then existing 
 	await writeFile(
 		configPath,
 		[
-			'[plugins."omo@sisyphuslabs"]',
+			'[plugins."omo@odinlabs"]',
 			"enabled = true",
 			"",
-			'[plugins."omo@sisyphuslabs".mcp_servers.lsp]',
+			'[plugins."omo@odinlabs".mcp_servers.lsp]',
 			"enabled = true",
 			"",
-			'[hooks.state."omo@sisyphuslabs:hooks/hooks.json:post_tool_use:0:0"]',
+			'[hooks.state."omo@odinlabs:hooks/hooks.json:post_tool_use:0:0"]',
 			'trusted_hash = "sha256:keep"',
 			"",
 		].join("\n"),
@@ -555,17 +555,17 @@ test("#given existing trust and lsp blocks #when updating config #then existing 
 	await updateCodexConfig({
 		configPath,
 		repoRoot: "/repo/packages/omo-codex",
-		marketplaceName: "sisyphuslabs",
-		marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/sisyphuslabs" },
+		marketplaceName: "odinlabs",
+		marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/odinlabs" },
 		pluginNames: ["omo"],
-		trustedHookStates: [{ key: "omo@sisyphuslabs:hooks/hooks.json:post_tool_use:0:0", trustedHash: "sha256:keep" }],
+		trustedHookStates: [{ key: "omo@odinlabs:hooks/hooks.json:post_tool_use:0:0", trustedHash: "sha256:keep" }],
 	});
 
 	// then
 	const content = await readFile(configPath, "utf8");
-	assert.match(content, /\[plugins\."omo@sisyphuslabs"\]/);
-	assert.match(content, /\[plugins\."omo@sisyphuslabs"\.mcp_servers\.lsp\]/);
-	assert.match(content, /\[hooks\.state\."omo@sisyphuslabs:hooks\/hooks\.json:post_tool_use:0:0"\]/);
+	assert.match(content, /\[plugins\."omo@odinlabs"\]/);
+	assert.match(content, /\[plugins\."omo@odinlabs"\.mcp_servers\.lsp\]/);
+	assert.match(content, /\[hooks\.state\."omo@odinlabs:hooks\/hooks\.json:post_tool_use:0:0"\]/);
 	assert.match(content, /trusted_hash = "sha256:keep"/);
 });
 

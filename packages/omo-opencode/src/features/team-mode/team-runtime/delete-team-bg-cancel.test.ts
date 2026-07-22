@@ -18,7 +18,7 @@ function createBackgroundTask(input: BackgroundTaskInput): BackgroundTask {
     parentSessionId: "lead-session",
     description: "test task",
     prompt: "test prompt",
-    agent: "sisyphus",
+    agent: "odin",
     status: "running",
   }
 }

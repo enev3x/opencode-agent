@@ -50,7 +50,7 @@ test("#given resolveSafeOmoPath #when the target escapes .omo or the workspace #
 	const { resolveSafeOmoPath } = await import(scriptUrl);
 	const cwd = "/tmp/ws";
 
-	// then --- the prometheus-md-only hook gates Write/Edit but not Bash, so the script self-guards its own writes
+	// then --- the mimir-md-only hook gates Write/Edit but not Bash, so the script self-guards its own writes
 	assert.ok(resolveSafeOmoPath(cwd, ".omo/plans/x.md").endsWith("x.md"));
 	assert.throws(() => resolveSafeOmoPath(cwd, "../escape/x.md"));
 	assert.throws(() => resolveSafeOmoPath(cwd, "src/x.md"));
@@ -127,7 +127,7 @@ test("#given an explicit review modifier at startup #when draft-only scaffold ru
 		assert.match(draft, /review_required: true/);
 		assert.match(draft, /plan_path: \.omo\/plans\/demo\.md/);
 		assert.match(draft, /pending-action: write and review \.omo\/plans\/demo\.md/);
-		assert.match(draft, /momus:\n\s+status: pending/);
+		assert.match(draft, /forseti:\n\s+status: pending/);
 		assert.match(draft, /independent:\n\s+status: pending/);
 		await assert.rejects(() => readFile(join(dir, ".omo", "plans", "demo.md"), "utf8"), /ENOENT/);
 	} finally {
@@ -147,7 +147,7 @@ test("#given automatic review for non-Trivial UNCLEAR intent #when draft-only sc
 		assert.match(draft, /plan_sha256: null/);
 		assert.match(draft, /review_round_id: null/);
 		assert.match(draft, /pending-action: write and review \.omo\/plans\/demo\.md/);
-		assert.match(draft, /momus:\n\s+status: pending[\s\S]*?target: \.omo\/plans\/demo\.md[\s\S]*?result: null/);
+		assert.match(draft, /forseti:\n\s+status: pending[\s\S]*?target: \.omo\/plans\/demo\.md[\s\S]*?result: null/);
 		assert.match(draft, /independent:\n\s+status: pending[\s\S]*?target: \.omo\/plans\/demo\.md[\s\S]*?result: null/);
 		await assert.rejects(() => readFile(join(dir, ".omo", "plans", "demo.md"), "utf8"), /ENOENT/);
 	} finally {

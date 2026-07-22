@@ -22,7 +22,7 @@ type SessionCreateArgs = {
 type PromptCall = { readonly path: { readonly id: string }; readonly body?: unknown }
 
 const originalXdgCacheHome = process.env.XDG_CACHE_HOME
-const testDirectory = "/tmp/omo-atlas-fallback-test"
+const testDirectory = "/tmp/omo-heimdall-fallback-test"
 let cacheCounter = 0
 
 beforeEach(() => {
@@ -54,14 +54,14 @@ async function flushAsyncWork(cycles = 30): Promise<void> {
   }
 }
 
-function createAtlasHarness(): {
+function createHeimdallHarness(): {
   readonly manager: BackgroundManager
   readonly createdSessions: Array<{ readonly id: string; readonly body: SessionCreateArgs["body"] }>
   readonly promptCalls: PromptCall[]
   readonly markSessionMissing: (sessionID: string) => void
 } {
   const directory = testDirectory
-  const sessionAlive = new Map<string, boolean>([["atlas-parent", true]])
+  const sessionAlive = new Map<string, boolean>([["heimdall-parent", true]])
   const createdSessions: Array<{ readonly id: string; readonly body: SessionCreateArgs["body"] }> = []
   const promptCalls: PromptCall[] = []
   const sessionIDs = ["ses_primary", "ses_fallback"]
@@ -69,11 +69,11 @@ function createAtlasHarness(): {
   const client = {
     session: {
       get: async ({ path }: SessionGetArgs) => {
-        if (path.id === "atlas-parent") {
+        if (path.id === "heimdall-parent") {
           return { data: { id: path.id, directory, parentID: undefined } }
         }
         if (sessionAlive.get(path.id)) {
-          return { data: { id: path.id, directory, parentID: "atlas-parent" } }
+          return { data: { id: path.id, directory, parentID: "heimdall-parent" } }
         }
         return { error: { status: 404, message: `session ${path.id} not found` } }
       },
@@ -103,14 +103,14 @@ function createAtlasHarness(): {
   }
 }
 
-async function launchAtlasOracleSubagent(manager: BackgroundManager): Promise<string> {
+async function launchHeimdallVolvaSubagent(manager: BackgroundManager): Promise<string> {
   const task = await manager.launch({
-    description: "Atlas oracle subagent",
+    description: "Heimdall volva subagent",
     prompt: "Investigate fallback behavior",
-    agent: "oracle",
-    parentSessionId: "atlas-parent",
-    parentMessageId: "atlas-message",
-    parentAgent: "atlas",
+    agent: "volva",
+    parentSessionId: "heimdall-parent",
+    parentMessageId: "heimdall-message",
+    parentAgent: "heimdall",
     model: { providerID: "openai", modelID: "gpt-5.5", variant: "high" },
     fallbackChain: [
       { providers: ["github-copilot"], model: "claude-sonnet-4.6", variant: "high" },
@@ -138,11 +138,11 @@ function emitUsageLimitError(manager: BackgroundManager, sessionID: string): voi
   })
 }
 
-describe("Atlas-spawned subagent runtime fallback", () => {
-  test("retries oracle subagent on OpenAI usage_limit_reached and registers the fallback session", async () => {
+describe("Heimdall-spawned subagent runtime fallback", () => {
+  test("retries volva subagent on OpenAI usage_limit_reached and registers the fallback session", async () => {
     //#given
-    const { manager, createdSessions, promptCalls } = createAtlasHarness()
-    const taskID = await launchAtlasOracleSubagent(manager)
+    const { manager, createdSessions, promptCalls } = createHeimdallHarness()
+    const taskID = await launchHeimdallVolvaSubagent(manager)
 
     //#when
     emitUsageLimitError(manager, "ses_primary")
@@ -159,15 +159,15 @@ describe("Atlas-spawned subagent runtime fallback", () => {
     expect(promptCalls).toHaveLength(2)
     expect(subagentSessions.has("ses_primary")).toBe(false)
     expect(subagentSessions.has("ses_fallback")).toBe(true)
-    expect(getSessionAgent("ses_fallback")).toBe("oracle")
+    expect(getSessionAgent("ses_fallback")).toBe("volva")
 
     manager.shutdown()
   })
 
-  test("surfaces non-retryable oracle subagent errors without creating a fallback session", async () => {
+  test("surfaces non-retryable volva subagent errors without creating a fallback session", async () => {
     //#given
-    const { manager, createdSessions, markSessionMissing } = createAtlasHarness()
-    const taskID = await launchAtlasOracleSubagent(manager)
+    const { manager, createdSessions, markSessionMissing } = createHeimdallHarness()
+    const taskID = await launchHeimdallVolvaSubagent(manager)
     markSessionMissing("ses_primary")
 
     //#when
@@ -189,10 +189,10 @@ describe("Atlas-spawned subagent runtime fallback", () => {
     manager.shutdown()
   })
 
-  test("marks oracle subagent errored when usage_limit_reached exhausts all fallbacks", async () => {
+  test("marks volva subagent errored when usage_limit_reached exhausts all fallbacks", async () => {
     //#given
-    const { manager, createdSessions, markSessionMissing } = createAtlasHarness()
-    const taskID = await launchAtlasOracleSubagent(manager)
+    const { manager, createdSessions, markSessionMissing } = createHeimdallHarness()
+    const taskID = await launchHeimdallVolvaSubagent(manager)
     emitUsageLimitError(manager, "ses_primary")
     await flushAsyncWork(60)
     markSessionMissing("ses_fallback")

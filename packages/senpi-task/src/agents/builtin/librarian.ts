@@ -1,9 +1,9 @@
 import type { AgentDefinition } from "../types"
 
-// Ported and senpi-adapted from packages/omo-opencode/src/agents/librarian.ts.
+// Ported and senpi-adapted from packages/omo-opencode/src/agents/bragi.ts.
 // Remote research uses Senpi's curated, shell-free gh/curl broker.
 export const LIBRARIAN_AGENT: AgentDefinition = {
-  name: "librarian",
+  name: "bragi",
   description:
     "Specialized codebase understanding agent for multi-repository analysis, searching remote codebases, retrieving official documentation, and finding implementation examples using the GitHub CLI and direct documentation retrieval. MUST BE USED when users ask to look up code in remote repositories, explain library internals, or find usage examples in open source.",
   mode: "subagent",

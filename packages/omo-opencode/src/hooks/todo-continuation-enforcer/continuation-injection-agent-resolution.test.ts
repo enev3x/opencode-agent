@@ -17,9 +17,9 @@ describe("todo continuation registered agent resolution", () => {
     _resetForTesting()
   })
 
-  test("#given OpenCode registered Atlas under legacy display name #when continuation inherits config key #then prompt uses registered name", async () => {
+  test("#given OpenCode registered Heimdall under legacy display name #when continuation inherits config key #then prompt uses registered name", async () => {
     // given
-    registerAgentName("Atlas (Plan Executor)")
+    registerAgentName("Heimdall (Plan Executor)")
     let capturedAgent: string | undefined
     const ctx = unsafeTestValue<PluginInput>({
       directory: "/tmp/test",
@@ -40,21 +40,21 @@ describe("todo continuation registered agent resolution", () => {
     // when
     await injectContinuation({
       ctx,
-      sessionID: "ses_todo_registered_atlas",
+      sessionID: "ses_todo_registered_heimdall",
       resolvedInfo: {
-        agent: "atlas",
+        agent: "heimdall",
         model: { providerID: "openai", modelID: "gpt-5.5" },
       },
       sessionStateStore: unsafeTestValue(sessionStateStore),
     })
 
     // then
-    expect(capturedAgent).toBe("Atlas (Plan Executor)")
+    expect(capturedAgent).toBe("Heimdall (Plan Executor)")
   })
 
-  test("#given OpenCode registered Atlas with a zero-width sort prefix #when continuation inherits config key #then prompt keeps the registered name", async () => {
+  test("#given OpenCode registered Heimdall with a zero-width sort prefix #when continuation inherits config key #then prompt keeps the registered name", async () => {
     // given
-    registerAgentName("\u200BAtlas (Plan Executor)")
+    registerAgentName("\u200BHeimdall (Plan Executor)")
     let capturedAgent: string | undefined
     const ctx = unsafeTestValue<PluginInput>({
       directory: "/tmp/test",
@@ -75,15 +75,15 @@ describe("todo continuation registered agent resolution", () => {
     // when
     await injectContinuation({
       ctx,
-      sessionID: "ses_todo_registered_zwsp_atlas",
+      sessionID: "ses_todo_registered_zwsp_heimdall",
       resolvedInfo: {
-        agent: "atlas",
+        agent: "heimdall",
         model: { providerID: "openai", modelID: "gpt-5.5" },
       },
       sessionStateStore: unsafeTestValue(sessionStateStore),
     })
 
     // then
-    expect(capturedAgent).toBe("\u200BAtlas (Plan Executor)")
+    expect(capturedAgent).toBe("\u200BHeimdall (Plan Executor)")
   })
 })

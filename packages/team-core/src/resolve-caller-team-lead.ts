@@ -2,12 +2,12 @@ import { AGENT_ELIGIBILITY_REGISTRY, type TeamSpec } from "./types"
 import type { CallerTeamLead } from "./team-registry/caller-team-lead"
 
 const DISPLAY_NAME_TO_AGENT_TYPE: Readonly<Record<string, string>> = {
-  sisyphus: "sisyphus",
-  "sisyphus - ultraworker": "sisyphus",
-  hephaestus: "hephaestus",
-  "hephaestus - implementation": "hephaestus",
-  atlas: "atlas",
-  "sisyphus-junior": "sisyphus-junior",
+  odin: "odin",
+  "odin - ultraworker": "odin",
+  thor: "thor",
+  "thor - implementation": "thor",
+  heimdall: "heimdall",
+  "einherjar": "einherjar",
 }
 
 function stripAgentListSortPrefix(rawAgentName: string): string {

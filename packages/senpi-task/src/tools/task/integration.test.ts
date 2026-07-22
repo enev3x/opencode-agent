@@ -31,7 +31,7 @@ describe("task tool over the real TaskManager", () => {
     // when
     const result = await execute(
       "call-1",
-      { prompt: "explore", category: "quick", run_in_background: true },
+      { prompt: "vidar", category: "quick", run_in_background: true },
       undefined,
       undefined,
       CTX,
@@ -41,7 +41,7 @@ describe("task tool over the real TaskManager", () => {
     const taskId = result.details.task_id
     expect(taskId.startsWith("st_")).toBe(true)
     expect(inProcess.startedSpecs[0]?.parentSessionId).toBe("parent-session-1")
-    expect(inProcess.startedSpecs[0]?.prompt).toBe("explore")
+    expect(inProcess.startedSpecs[0]?.prompt).toBe("vidar")
     const record = store.load(taskId)
     expect(record).not.toBeNull()
     if (record === null) throw new Error("expected a persisted record")
@@ -57,7 +57,7 @@ describe("task tool over the real TaskManager", () => {
     // when
     const result = await execute(
       "call-2",
-      { prompt: "p", category: "quick", subagent_type: "oracle" },
+      { prompt: "p", category: "quick", subagent_type: "volva" },
       undefined,
       undefined,
       CTX,

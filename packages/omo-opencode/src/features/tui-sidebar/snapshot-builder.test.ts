@@ -89,9 +89,9 @@ function createBackgroundManager(tasks: readonly BackgroundTaskSnapshot[]): Fake
 const resolveTestSessionAgent: SessionAgentResolver = async (sessionID) => {
   switch (sessionID) {
     case "ses-main":
-      return "sisyphus"
+      return "odin"
     case "ses-sub":
-      return "atlas"
+      return "heimdall"
     default:
       return null
   }
@@ -127,7 +127,7 @@ describe("buildTuiRuntimeSnapshot", () => {
           status: "running",
           toolCalls: 3,
           lastTool: "grep",
-          agent: "sisyphus",
+          agent: "odin",
         },
       ]),
       sessionAgentResolver: resolveTestSessionAgent,
@@ -137,8 +137,8 @@ describe("buildTuiRuntimeSnapshot", () => {
     expect(TuiRuntimeSnapshotSchema.safeParse(snapshot).success).toBe(true)
     expect(snapshot.projectDir).toBe(realpathSync.native(resolve(projectDir)))
     expect(snapshot.activeAgents).toEqual([
-      { name: "sisyphus", status: "busy" },
-      { name: "atlas", status: "retry" },
+      { name: "odin", status: "busy" },
+      { name: "heimdall", status: "retry" },
     ])
     expect(snapshot.jobBoard).toEqual([
       { title: "Explore runtime", status: "running", toolCalls: 3, lastTool: "grep" },
@@ -187,11 +187,11 @@ describe("buildTuiRuntimeSnapshot", () => {
       client: createClient({}),
       backgroundManager: createBackgroundManager([
         {
-          title: "atlas background task",
+          title: "heimdall background task",
           status: "running",
           toolCalls: 1,
           lastTool: "read",
-          agent: "atlas",
+          agent: "heimdall",
         },
       ]),
       sessionAgentResolver: resolveTestSessionAgent,
@@ -200,7 +200,7 @@ describe("buildTuiRuntimeSnapshot", () => {
     // then
     expect(snapshot.loop?.activeGoal).toBeNull()
     expect(snapshot.jobBoard).toEqual([
-      { title: "atlas background task", status: "running", toolCalls: 1, lastTool: "read" },
+      { title: "heimdall background task", status: "running", toolCalls: 1, lastTool: "read" },
     ])
     expect(JSON.stringify(snapshot)).not.toContain("sk-live")
   })

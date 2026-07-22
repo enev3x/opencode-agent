@@ -426,7 +426,7 @@ test("#given stale Context7 placeholder MCP config #when migrating #then removes
 			'args = ["-y", "@upstash/context7-mcp", "--api-key", "YOUR_API_KEY"]',
 			"startup_timeout_sec = 20",
 			"",
-			'[plugins."omo@sisyphuslabs".mcp_servers.context7]',
+			'[plugins."omo@odinlabs".mcp_servers.context7]',
 			"enabled = true",
 			"",
 		].join("\n"),
@@ -442,7 +442,7 @@ test("#given stale Context7 placeholder MCP config #when migrating #then removes
 	assert.doesNotMatch(content, /\[mcp_servers\.context7\]/);
 	assert.doesNotMatch(content, /@upstash\/context7-mcp/);
 	assert.doesNotMatch(content, /YOUR_API_KEY/);
-	assert.match(content, /\[plugins\."omo@sisyphuslabs"\.mcp_servers\.context7\][\s\S]*?enabled = true/);
+	assert.match(content, /\[plugins\."omo@odinlabs"\.mcp_servers\.context7\][\s\S]*?enabled = true/);
 });
 
 test("#given real Context7 API key and placeholder comment #when migrating #then preserves user server settings", async () => {
@@ -463,7 +463,7 @@ test("#given real Context7 API key and placeholder comment #when migrating #then
 			'args = ["-y", "@upstash/context7-mcp", "--api-key", "ctx7sk_live_example"] # replace YOUR_API_KEY in docs only',
 			"startup_timeout_sec = 20",
 			"",
-			'[plugins."omo@sisyphuslabs".mcp_servers.context7]',
+			'[plugins."omo@odinlabs".mcp_servers.context7]',
 			"enabled = true",
 			"",
 		].join("\n"),
@@ -479,7 +479,7 @@ test("#given real Context7 API key and placeholder comment #when migrating #then
 	assert.match(content, /\[mcp_servers\.context7\]/);
 	assert.match(content, /ctx7sk_live_example/);
 	assert.match(content, /replace YOUR_API_KEY in docs only/);
-	assert.match(content, /\[plugins\."omo@sisyphuslabs"\.mcp_servers\.context7\][\s\S]*?enabled = true/);
+	assert.match(content, /\[plugins\."omo@odinlabs"\.mcp_servers\.context7\][\s\S]*?enabled = true/);
 });
 
 test("#given multi_agent_v2 enabled #when forcing disable #then flips the flag to false", () => {

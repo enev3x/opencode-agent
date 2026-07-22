@@ -65,9 +65,9 @@ async function runChatMessageHooks(args: {
   await hooks.thinkMode?.["chat.message"]?.(input, output)
   await hooks.claudeCodeHooks?.["chat.message"]?.(input, output)
   await hooks.autoSlashCommand?.["chat.message"]?.(input, output)
-  await hooks.noSisyphusGpt?.["chat.message"]?.(input, output)
-  await hooks.noHephaestusNonGpt?.["chat.message"]?.(input, output)
-  await hooks.hephaestusAgentsMdInjector?.["chat.message"]?.(input, output)
+  await hooks.noOdinGpt?.["chat.message"]?.(input, output)
+  await hooks.noThorNonGpt?.["chat.message"]?.(input, output)
+  await hooks.thorAgentsMdInjector?.["chat.message"]?.(input, output)
 }
 
 export function createChatMessageHandler(args: {

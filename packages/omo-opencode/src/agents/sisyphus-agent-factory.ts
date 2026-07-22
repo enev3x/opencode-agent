@@ -6,20 +6,20 @@ import type {
   AvailableSkill,
 } from "./dynamic-agent-prompt-builder";
 import {
-  buildClaudeSisyphusAgentConfig,
-  buildGlmSisyphusAgentConfig,
-  buildGptSisyphusAgentConfig,
-} from "./sisyphus-agent-config";
-import { buildFallbackSisyphusPrompt } from "./sisyphus-dynamic-prompt";
-import { buildClaudeFable5SisyphusPrompt } from "./sisyphus/claude-fable-5";
-import { buildClaudeOpus47SisyphusPrompt } from "./sisyphus/claude-opus-4-7";
-import { buildClaudeOpus48SisyphusPrompt } from "./sisyphus/claude-opus-4-8";
-import { buildGlm52SisyphusPrompt } from "./sisyphus/glm-5-2";
-import { buildGpt54SisyphusPrompt } from "./sisyphus/gpt-5-4";
-import { buildGpt55SisyphusPrompt } from "./sisyphus/gpt-5-5";
-import { buildKimiK26SisyphusPrompt } from "./sisyphus/kimi-k2-6";
-import { buildKimiK27SisyphusPrompt } from "./sisyphus/kimi-k2-7";
-import { buildKimiK3SisyphusPrompt } from "./sisyphus/kimi-k3";
+  buildClaudeOdinAgentConfig,
+  buildGlmOdinAgentConfig,
+  buildGptOdinAgentConfig,
+} from "./odin-agent-config";
+import { buildFallbackOdinPrompt } from "./odin-dynamic-prompt";
+import { buildClaudeFable5OdinPrompt } from "./odin/claude-fable-5";
+import { buildClaudeOpus47OdinPrompt } from "./odin/claude-opus-4-7";
+import { buildClaudeOpus48OdinPrompt } from "./odin/claude-opus-4-8";
+import { buildGlm52OdinPrompt } from "./odin/glm-5-2";
+import { buildGpt54OdinPrompt } from "./odin/gpt-5-4";
+import { buildGpt55OdinPrompt } from "./odin/gpt-5-5";
+import { buildKimiK26OdinPrompt } from "./odin/kimi-k2-6";
+import { buildKimiK27OdinPrompt } from "./odin/kimi-k2-7";
+import { buildKimiK3OdinPrompt } from "./odin/kimi-k3";
 import type { AgentMode } from "./types";
 import {
   isClaudeFable5Model,
@@ -29,7 +29,7 @@ import {
   isGpt5_5Model,
   isGpt5_6Model,
   isGptModel,
-  isGptNativeSisyphusModel,
+  isGptNativeOdinModel,
   isKimiK2Model,
   isKimiK27Model,
   isKimiK3Model,
@@ -38,13 +38,13 @@ import {
 const MODE: AgentMode = "primary";
 
 /**
- * Identifies which prompt body `createSisyphusAgent` bakes for a given model.
- * The whole Sisyphus prompt is model-family-specific and selected here, so this
+ * Identifies which prompt body `createOdinAgent` bakes for a given model.
+ * The whole Odin prompt is model-family-specific and selected here, so this
  * is the single source of truth shared with the runtime reconciler: when the TUI
  * runtime model resolves to a different family than the configured one, the baked
  * body is the wrong family and must be rebuilt (issue #5297/#5316).
  */
-export type SisyphusPromptFamily =
+export type OdinPromptFamily =
   | "kimi-k3"
   | "kimi-k2-7"
   | "kimi-k2-6"
@@ -56,12 +56,12 @@ export type SisyphusPromptFamily =
   | "glm-5-2"
   | "fallback";
 
-export function resolveSisyphusPromptFamily(model: string): SisyphusPromptFamily {
+export function resolveOdinPromptFamily(model: string): OdinPromptFamily {
   if (isKimiK3Model(model)) return "kimi-k3";
   if (isKimiK27Model(model)) return "kimi-k2-7";
   if (isKimiK2Model(model)) return "kimi-k2-6";
   if (isGpt5_5Model(model) || isGpt5_6Model(model)) return "gpt-5-5";
-  if (isGptNativeSisyphusModel(model)) return "gpt-5-4";
+  if (isGptNativeOdinModel(model)) return "gpt-5-4";
   if (isClaudeFable5Model(model)) return "claude-fable-5";
   if (isClaudeOpus48Model(model)) return "claude-opus-4-8";
   if (isClaudeOpus47Model(model)) return "claude-opus-4-7";
@@ -69,7 +69,7 @@ export function resolveSisyphusPromptFamily(model: string): SisyphusPromptFamily
   return "fallback";
 }
 
-export function createSisyphusAgent(
+export function createOdinAgent(
   model: string,
   availableAgents?: AvailableAgent[],
   availableToolNames?: string[],
@@ -82,63 +82,63 @@ export function createSisyphusAgent(
   const categories = availableCategories ?? [];
   const agents = availableAgents ?? [];
 
-  switch (resolveSisyphusPromptFamily(model)) {
+  switch (resolveOdinPromptFamily(model)) {
     case "kimi-k3":
-      return buildGptSisyphusAgentConfig(
+      return buildGptOdinAgentConfig(
         MODE,
         model,
-        buildKimiK3SisyphusPrompt(model, agents, tools, skills, categories, useTaskSystem),
+        buildKimiK3OdinPrompt(model, agents, tools, skills, categories, useTaskSystem),
       );
     case "kimi-k2-7":
-      return buildGptSisyphusAgentConfig(
+      return buildGptOdinAgentConfig(
         MODE,
         model,
-        buildKimiK27SisyphusPrompt(model, agents, tools, skills, categories, useTaskSystem),
+        buildKimiK27OdinPrompt(model, agents, tools, skills, categories, useTaskSystem),
       );
     case "kimi-k2-6":
-      return buildGptSisyphusAgentConfig(
+      return buildGptOdinAgentConfig(
         MODE,
         model,
-        buildKimiK26SisyphusPrompt(model, agents, tools, skills, categories, useTaskSystem),
+        buildKimiK26OdinPrompt(model, agents, tools, skills, categories, useTaskSystem),
       );
     case "gpt-5-5":
-      return buildGptSisyphusAgentConfig(
+      return buildGptOdinAgentConfig(
         MODE,
         model,
-        buildGpt55SisyphusPrompt(model, agents, tools, skills, categories, useTaskSystem),
+        buildGpt55OdinPrompt(model, agents, tools, skills, categories, useTaskSystem),
       );
     case "gpt-5-4":
-      return buildGptSisyphusAgentConfig(
+      return buildGptOdinAgentConfig(
         MODE,
         model,
-        buildGpt54SisyphusPrompt(model, agents, tools, skills, categories, useTaskSystem),
+        buildGpt54OdinPrompt(model, agents, tools, skills, categories, useTaskSystem),
       );
     case "claude-fable-5":
-      return buildClaudeSisyphusAgentConfig(
+      return buildClaudeOdinAgentConfig(
         MODE,
         model,
-        buildClaudeFable5SisyphusPrompt(model, agents, tools, skills, categories, useTaskSystem),
+        buildClaudeFable5OdinPrompt(model, agents, tools, skills, categories, useTaskSystem),
       );
     case "claude-opus-4-8":
-      return buildClaudeSisyphusAgentConfig(
+      return buildClaudeOdinAgentConfig(
         MODE,
         model,
-        buildClaudeOpus48SisyphusPrompt(model, agents, tools, skills, categories, useTaskSystem),
+        buildClaudeOpus48OdinPrompt(model, agents, tools, skills, categories, useTaskSystem),
       );
     case "claude-opus-4-7":
-      return buildClaudeSisyphusAgentConfig(
+      return buildClaudeOdinAgentConfig(
         MODE,
         model,
-        buildClaudeOpus47SisyphusPrompt(model, agents, tools, skills, categories, useTaskSystem),
+        buildClaudeOpus47OdinPrompt(model, agents, tools, skills, categories, useTaskSystem),
       );
     case "glm-5-2":
-      return buildGlmSisyphusAgentConfig(
+      return buildGlmOdinAgentConfig(
         MODE,
         model,
-        buildGlm52SisyphusPrompt(model, agents, tools, skills, categories, useTaskSystem),
+        buildGlm52OdinPrompt(model, agents, tools, skills, categories, useTaskSystem),
       );
     case "fallback": {
-      const prompt = buildFallbackSisyphusPrompt(
+      const prompt = buildFallbackOdinPrompt(
         model,
         agents,
         tools,
@@ -147,9 +147,9 @@ export function createSisyphusAgent(
         useTaskSystem,
       );
       return isGptModel(model)
-        ? buildGptSisyphusAgentConfig(MODE, model, prompt)
-        : buildClaudeSisyphusAgentConfig(MODE, model, prompt);
+        ? buildGptOdinAgentConfig(MODE, model, prompt)
+        : buildClaudeOdinAgentConfig(MODE, model, prompt);
     }
   }
 }
-createSisyphusAgent.mode = MODE;
+createOdinAgent.mode = MODE;

@@ -11,9 +11,9 @@ type BudgetResult = BudgetRule & {
 };
 
 const NEVER_TRUNCATED_RULE_PATHS = new Set([
-	"bundled-rules/hephaestus.md",
-	"bundled-rules/hephaestus/gpt-5.5.md",
-	"bundled-rules/hephaestus/gpt-5.6.md",
+	"bundled-rules/thor.md",
+	"bundled-rules/thor/gpt-5.5.md",
+	"bundled-rules/thor/gpt-5.6.md",
 ]);
 
 function truncationNotice(relativePath: string): string {

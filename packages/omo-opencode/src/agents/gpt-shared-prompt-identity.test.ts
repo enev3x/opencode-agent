@@ -1,7 +1,7 @@
 /// <reference types="bun-types" />
 
 import { describe, expect, test } from "bun:test"
-import { getAtlasPromptSource } from "./atlas/agent"
+import { getHeimdallPromptSource } from "./heimdall/agent"
 import { getGptPromptIdentityKey } from "./gpt-prompt-identity"
 
 describe("shared GPT prompt identities", () => {
@@ -21,11 +21,11 @@ describe("shared GPT prompt identities", () => {
   }
 
   for (const model of ["openai/gpt-5.5", "openai/gpt-5.6-sol"]) {
-    test(`routes ${model} through the shared Atlas GPT prompt source`, () => {
+    test(`routes ${model} through the shared Heimdall GPT prompt source`, () => {
       // given a supported GPT model
 
-      // when the Atlas prompt source is resolved
-      const source = getAtlasPromptSource(model)
+      // when the Heimdall prompt source is resolved
+      const source = getHeimdallPromptSource(model)
 
       // then both versions use the model-neutral GPT-family source
       expect(source).toBe("gpt")

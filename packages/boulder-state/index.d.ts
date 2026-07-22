@@ -142,7 +142,7 @@ export declare function endTaskTimer(
   taskKey: string,
   endedAt?: string,
 ): BoulderState | null
-export declare function findPrometheusPlans(directory: string): string[]
+export declare function findMimirPlans(directory: string): string[]
 export declare function generateWorkId(planName: string): string
 export declare function getActiveWorks(directory: string): BoulderWorkState[]
 export declare function getBoulderFilePath(directory: string): string

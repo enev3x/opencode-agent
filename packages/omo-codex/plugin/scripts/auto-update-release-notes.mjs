@@ -20,7 +20,7 @@ export function formatMarketplaceFlowNotice({ updateContext, releaseNotes }) {
 	return [
 		"[LazyCodex] Auto-update skipped: this LazyCodex install is managed by the Codex plugin marketplace, so the npx self-update was not started.",
 		versionText,
-		"Tell the user, in the user's preferred tone, to upgrade with `codex plugin marketplace upgrade sisyphuslabs` when they want the update, and explain that Codex will require hook re-approval after the upgrade.",
+		"Tell the user, in the user's preferred tone, to upgrade with `codex plugin marketplace upgrade odinlabs` when they want the update, and explain that Codex will require hook re-approval after the upgrade.",
 		formatReleaseNotesForNotice({ version: updateContext.latestVersion, releaseNotes }),
 	].join(" ");
 }

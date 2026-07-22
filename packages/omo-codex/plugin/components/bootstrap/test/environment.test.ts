@@ -20,7 +20,7 @@ const componentRoot = dirname(dirname(fileURLToPath(import.meta.url)));
 const repoRoot = dirname(dirname(dirname(dirname(dirname(componentRoot)))));
 
 const GIT_SOURCE_CONFIG = [
-	"[marketplaces.sisyphuslabs]",
+	"[marketplaces.odinlabs]",
 	'last_updated = "2026-06-12T00:00:00Z"',
 	'source_type = "git"',
 	'source = "https://github.com/lazycodex-ai/lazycodex.git"',
@@ -28,7 +28,7 @@ const GIT_SOURCE_CONFIG = [
 ].join("\n");
 
 const LOCAL_SOURCE_CONFIG = [
-	"[marketplaces.sisyphuslabs]",
+	"[marketplaces.odinlabs]",
 	'last_updated = "2026-06-12T00:00:00Z"',
 	'source_type = "local"',
 	'source = "/Users/someone/local-workspaces/omo"',
@@ -45,7 +45,7 @@ async function withTempDir<T>(prefix: string, run: (directory: string) => Promis
 }
 
 async function writePluginRoot(directory: string, options: { readonly withSnapshot: boolean }): Promise<string> {
-	const pluginRoot = join(directory, "plugins", "sisyphuslabs", "omo", "4.9.2");
+	const pluginRoot = join(directory, "plugins", "odinlabs", "omo", "4.9.2");
 	await mkdir(pluginRoot, { recursive: true });
 	if (options.withSnapshot) {
 		await writeFile(join(pluginRoot, "lazycodex-install.json"), '{"packageName":"lazycodex-ai","version":"4.9.2"}\n');
@@ -99,7 +99,7 @@ describe("detectInstallFlow", () => {
 	it("#given an unclassifiable marketplace source #when detecting #then reports unknown", async () => {
 		await withTempDir("omo-flow-", async (directory) => {
 			const pluginRoot = await writePluginRoot(directory, { withSnapshot: false });
-			const config = ['[marketplaces.sisyphuslabs]', 'source = "./relative/checkout"', ""].join("\n");
+			const config = ['[marketplaces.odinlabs]', 'source = "./relative/checkout"', ""].join("\n");
 			expect(await detectInstallFlow({ configToml: config, pluginRoot })).toBe("unknown");
 		});
 	});
@@ -107,12 +107,12 @@ describe("detectInstallFlow", () => {
 	it("#given a quoted marketplace header #when detecting #then the section is still recognized", async () => {
 		await withTempDir("omo-flow-", async (directory) => {
 			const pluginRoot = await writePluginRoot(directory, { withSnapshot: false });
-			const config = ['[marketplaces."sisyphuslabs"]', 'source = "https://github.com/lazycodex-ai/lazycodex"', ""].join("\n");
+			const config = ['[marketplaces."odinlabs"]', 'source = "https://github.com/lazycodex-ai/lazycodex"', ""].join("\n");
 			expect(await detectInstallFlow({ configToml: config, pluginRoot })).toBe("marketplace");
 		});
 	});
 
-	it("#given a config without the sisyphuslabs marketplace #when detecting #then only the snapshot signal decides", async () => {
+	it("#given a config without the odinlabs marketplace #when detecting #then only the snapshot signal decides", async () => {
 		await withTempDir("omo-flow-", async (directory) => {
 			const pluginRoot = await writePluginRoot(directory, { withSnapshot: true });
 			const config = ['[marketplaces.other]', 'source = "https://github.com/other/marketplace.git"', ""].join("\n");
@@ -123,7 +123,7 @@ describe("detectInstallFlow", () => {
 	it("#given a windows drive marketplace source #when detecting with a snapshot #then reports npx-local", async () => {
 		await withTempDir("omo-flow-", async (directory) => {
 			const pluginRoot = await writePluginRoot(directory, { withSnapshot: true });
-			const config = ["[marketplaces.sisyphuslabs]", 'source = "C:\\\\workspaces\\\\omo"', ""].join("\n");
+			const config = ["[marketplaces.odinlabs]", 'source = "C:\\\\workspaces\\\\omo"', ""].join("\n");
 			expect(await detectInstallFlow({ configToml: config, pluginRoot })).toBe("npx-local");
 		});
 	});
@@ -133,7 +133,7 @@ describe("detectInstallFlowFromEnvironment", () => {
 	it("#given a codex store layout with a git marketplace config #when detecting from environment #then reports marketplace", async () => {
 		await withTempDir("omo-flow-env-", async (directory) => {
 			const codexHome = join(directory, ".codex");
-			const pluginRoot = join(codexHome, "plugins", "sisyphuslabs", "omo", "4.9.2");
+			const pluginRoot = join(codexHome, "plugins", "odinlabs", "omo", "4.9.2");
 			await mkdir(pluginRoot, { recursive: true });
 			await writeFile(join(codexHome, "config.toml"), GIT_SOURCE_CONFIG);
 
@@ -147,7 +147,7 @@ describe("detectInstallFlowFromEnvironment", () => {
 	it("#given a codex store layout with a local source and an install snapshot #when detecting from environment #then reports npx-local", async () => {
 		await withTempDir("omo-flow-env-", async (directory) => {
 			const codexHome = join(directory, ".codex");
-			const pluginRoot = join(codexHome, "plugins", "sisyphuslabs", "omo", "4.9.2");
+			const pluginRoot = join(codexHome, "plugins", "odinlabs", "omo", "4.9.2");
 			await mkdir(pluginRoot, { recursive: true });
 			await writeFile(join(codexHome, "config.toml"), LOCAL_SOURCE_CONFIG);
 			await writeFile(join(pluginRoot, "lazycodex-install.json"), '{"packageName":"lazycodex-ai","version":"4.9.2"}\n');
@@ -193,7 +193,7 @@ describe("resolveCodexHome", () => {
 		await withTempDir("omo-home-", async (directory) => {
 			const resolution = await resolveCodexHome({
 				env: { CODEX_HOME: directory },
-				pluginRoot: join(directory, "plugins", "sisyphuslabs", "omo", "4.9.2"),
+				pluginRoot: join(directory, "plugins", "odinlabs", "omo", "4.9.2"),
 			});
 			expect(resolution).toEqual({ path: directory, source: "env" });
 		});
@@ -202,7 +202,7 @@ describe("resolveCodexHome", () => {
 	it("#given a codex store layout #when resolving without env #then walking up finds the config.toml dir", async () => {
 		await withTempDir("omo-home-", async (directory) => {
 			const codexHome = join(directory, ".codex");
-			const pluginRoot = join(codexHome, "plugins", "sisyphuslabs", "omo", "4.9.2");
+			const pluginRoot = join(codexHome, "plugins", "odinlabs", "omo", "4.9.2");
 			await mkdir(pluginRoot, { recursive: true });
 			await writeFile(join(codexHome, "config.toml"), GIT_SOURCE_CONFIG);
 
@@ -238,7 +238,7 @@ describe("resolveCodexHome", () => {
 
 	it("#given no env and no config.toml ancestor #when resolving #then defaults to ~/.codex", async () => {
 		await withTempDir("omo-home-", async (directory) => {
-			const pluginRoot = join(directory, "plugins", "sisyphuslabs", "omo", "4.9.2");
+			const pluginRoot = join(directory, "plugins", "odinlabs", "omo", "4.9.2");
 			await mkdir(pluginRoot, { recursive: true });
 
 			const resolution = await resolveCodexHome({ env: {}, pluginRoot });
@@ -306,9 +306,9 @@ describe("bootstrapLocks", () => {
 	});
 
 	it("#given the path helpers #when resolving state and lock paths #then they follow the PLUGIN_DATA bootstrap layout", () => {
-		expect(resolveBootstrapStatePath("/data/omo-sisyphuslabs")).toBe(join("/data/omo-sisyphuslabs", "bootstrap", "state.json"));
-		expect(resolveBootstrapLockPath("/data/omo-sisyphuslabs")).toBe(
-			join("/data/omo-sisyphuslabs", "bootstrap", "state.json.lock"),
+		expect(resolveBootstrapStatePath("/data/omo-odinlabs")).toBe(join("/data/omo-odinlabs", "bootstrap", "state.json"));
+		expect(resolveBootstrapLockPath("/data/omo-odinlabs")).toBe(
+			join("/data/omo-odinlabs", "bootstrap", "state.json.lock"),
 		);
 	});
 });
@@ -328,11 +328,11 @@ async function writeExecutableStub(path: string): Promise<void> {
 async function writeSyncSourceFixture(sourceRoot: string): Promise<void> {
 	const pluginSource = join(sourceRoot, "packages", "omo-codex", "plugin");
 	await writeJson(join(sourceRoot, "packages", "omo-codex", "marketplace.json"), {
-		name: "sisyphuslabs",
+		name: "odinlabs",
 		plugins: [{ name: "omo", source: "./plugins/omo" }],
 	});
 	await writeJson(join(pluginSource, ".codex-plugin", "plugin.json"), { name: "omo", version: "1.2.3" });
-	await writeJson(join(pluginSource, "package.json"), { name: "@sisyphuslabs/omo-codex-plugin", version: "1.2.3" });
+	await writeJson(join(pluginSource, "package.json"), { name: "@odinlabs/omo-codex-plugin", version: "1.2.3" });
 	const bootstrapSessionStart = {
 		hooks: {
 			SessionStart: [

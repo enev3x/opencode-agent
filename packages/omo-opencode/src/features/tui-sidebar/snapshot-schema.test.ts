@@ -12,8 +12,8 @@ describe("TuiRuntimeSnapshotSchema", () => {
       projectDir: "/tmp/project",
       updatedAt: 1_718_000_000,
       activeAgents: [
-        { name: "sisyphus", status: "running" },
-        { name: "atlas", status: "retry" },
+        { name: "odin", status: "running" },
+        { name: "heimdall", status: "retry" },
       ],
       jobBoard: [
         {

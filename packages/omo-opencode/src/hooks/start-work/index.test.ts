@@ -6,7 +6,7 @@ import { dirname, join } from "node:path"
 import { tmpdir } from "node:os"
 import { randomUUID } from "node:crypto"
 import { createStartWorkHook } from "./index"
-import { createAtlasHook } from "../atlas"
+import { createHeimdallHook } from "../heimdall"
 import {
   writeBoulderState,
   clearBoulderState,
@@ -40,7 +40,7 @@ describe("start-work hook", () => {
     const userRequest = options?.userRequest ?? ""
 
     return `<command-instruction>
-You are starting an Atlas work session.
+You are starting an Heimdall work session.
 </command-instruction>
 
 <session-context>${sessionContext}</session-context>${userRequest ? `
@@ -50,8 +50,8 @@ You are starting an Atlas work session.
 
   beforeEach(() => {
     sessionState._resetForTesting()
-    sessionState.registerAgentName("atlas")
-    sessionState.registerAgentName("sisyphus")
+    sessionState.registerAgentName("heimdall")
+    sessionState.registerAgentName("odin")
     testDir = join(tmpdir(), `start-work-test-${randomUUID()}`)
     omoDir = join(testDir, ".omo")
     if (!existsSync(testDir)) {
@@ -160,7 +160,7 @@ You are starting an Atlas work session.
 
     test("should prefer the plan most recently referenced in the current session", async () => {
       // given - two incomplete plans and current session recently referenced plan-b
-      const plansDir = join(testDir, ".sisyphus", "plans")
+      const plansDir = join(testDir, ".odin", "plans")
       mkdirSync(plansDir, { recursive: true })
 
       const planAPath = join(plansDir, "plan-a.md")
@@ -208,7 +208,7 @@ You are starting an Atlas work session.
 
     test("should ignore unrelated active boulder state when current session references another plan", async () => {
       // given - active boulder points to old plan, current session most recently referenced new plan
-      const plansDir = join(testDir, ".sisyphus", "plans")
+      const plansDir = join(testDir, ".odin", "plans")
       mkdirSync(plansDir, { recursive: true })
 
       const oldPlanPath = join(plansDir, "old-plan.md")
@@ -261,7 +261,7 @@ You are starting an Atlas work session.
 
     test("should still find nested plan references when direct input fields contain a different plan path", async () => {
       // given - direct path points to plan-a but nested serialized input also references newer plan-b
-      const plansDir = join(testDir, ".sisyphus", "plans")
+      const plansDir = join(testDir, ".odin", "plans")
       mkdirSync(plansDir, { recursive: true })
 
       const planAPath = join(plansDir, "plan-a.md")
@@ -717,7 +717,7 @@ You are starting an Atlas work session.
   })
 
   describe("session agent management", () => {
-    test("should update session agent to Atlas when start-work command is triggered", async () => {
+    test("should update session agent to Heimdall when start-work command is triggered", async () => {
       // given
       const updateSpy = spyOn(sessionState, "updateSessionAgent")
       
@@ -728,16 +728,16 @@ You are starting an Atlas work session.
 
       // when
       await hook["chat.message"](
-        { sessionID: "ses-prometheus-to-sisyphus" },
+        { sessionID: "ses-mimir-to-odin" },
         output
       )
 
       // then
-      expect(updateSpy).toHaveBeenCalledWith("ses-prometheus-to-sisyphus", "atlas")
+      expect(updateSpy).toHaveBeenCalledWith("ses-mimir-to-odin", "heimdall")
       updateSpy.mockRestore()
     })
 
-    test("should stamp the outgoing message with Atlas config key so OpenCode can resolve the agent", async () => {
+    test("should stamp the outgoing message with Heimdall config key so OpenCode can resolve the agent", async () => {
       // given
       const hook = createStartWorkHook(createMockPluginInput())
       const output = {
@@ -747,18 +747,18 @@ You are starting an Atlas work session.
 
       // when
       await hook["chat.message"](
-        { sessionID: "ses-prometheus-to-atlas" },
+        { sessionID: "ses-mimir-to-heimdall" },
         output
       )
 
-      // then - config key, not display name (matches no-sisyphus-gpt / boulder-continuation-injector convention)
-      expect(output.message.agent).toBe("atlas")
+      // then - config key, not display name (matches no-odin-gpt / boulder-continuation-injector convention)
+      expect(output.message.agent).toBe("heimdall")
     })
 
-    test("should switch to Atlas even when current session is Sisyphus (regression: #3155)", async () => {
-      // given: user runs /start-work while in a Sisyphus session
-      // atlas is registered, so /start-work must always hand off to atlas
-      sessionState.updateSessionAgent("ses-sisyphus-to-atlas", "sisyphus")
+    test("should switch to Heimdall even when current session is Odin (regression: #3155)", async () => {
+      // given: user runs /start-work while in a Odin session
+      // heimdall is registered, so /start-work must always hand off to heimdall
+      sessionState.updateSessionAgent("ses-odin-to-heimdall", "odin")
 
       const hook = createStartWorkHook(createMockPluginInput())
       const output = {
@@ -767,20 +767,20 @@ You are starting an Atlas work session.
       }
 
       await hook["chat.message"](
-        { sessionID: "ses-sisyphus-to-atlas" },
+        { sessionID: "ses-odin-to-heimdall" },
         output
       )
 
-      // atlas is registered in beforeEach, so it must be selected
-      expect(output.message.agent).toBe("atlas")
-      expect(sessionState.getSessionAgent("ses-sisyphus-to-atlas")).toBe("atlas")
+      // heimdall is registered in beforeEach, so it must be selected
+      expect(output.message.agent).toBe("heimdall")
+      expect(sessionState.getSessionAgent("ses-odin-to-heimdall")).toBe("heimdall")
     })
 
-    test("should keep the current agent when Atlas is unavailable", async () => {
+    test("should keep the current agent when Heimdall is unavailable", async () => {
       // given
       sessionState._resetForTesting()
-      sessionState.registerAgentName("sisyphus")
-      sessionState.updateSessionAgent("ses-prometheus-to-sisyphus", "sisyphus")
+      sessionState.registerAgentName("odin")
+      sessionState.updateSessionAgent("ses-mimir-to-odin", "odin")
 
       const hook = createStartWorkHook(createMockPluginInput())
       const output = {
@@ -790,21 +790,21 @@ You are starting an Atlas work session.
 
       // when
       await hook["chat.message"](
-        { sessionID: "ses-prometheus-to-sisyphus" },
+        { sessionID: "ses-mimir-to-odin" },
         output
       )
 
       // then
-      expect(output.message.agent).toBe("sisyphus")
-      expect(sessionState.getSessionAgent("ses-prometheus-to-sisyphus")).toBe("sisyphus")
+      expect(output.message.agent).toBe("odin")
+      expect(sessionState.getSessionAgent("ses-mimir-to-odin")).toBe("odin")
     })
 
-    test("should fall back to Sisyphus instead of keeping Prometheus when Atlas is unavailable", async () => {
+    test("should fall back to Odin instead of keeping Mimir when Heimdall is unavailable", async () => {
       // given
       sessionState._resetForTesting()
-      sessionState.registerAgentName("prometheus")
-      sessionState.registerAgentName("sisyphus")
-      sessionState.updateSessionAgent("ses-prometheus-to-worker", "prometheus")
+      sessionState.registerAgentName("mimir")
+      sessionState.registerAgentName("odin")
+      sessionState.updateSessionAgent("ses-mimir-to-worker", "mimir")
 
       const plansDir = join(testDir, ".omo", "plans")
       mkdirSync(plansDir, { recursive: true })
@@ -818,22 +818,22 @@ You are starting an Atlas work session.
 
       // when
       await hook["chat.message"](
-        { sessionID: "ses-prometheus-to-worker" },
+        { sessionID: "ses-mimir-to-worker" },
         output
       )
 
       // then
-      expect(output.message.agent).toBe("sisyphus")
-      expect(sessionState.getSessionAgent("ses-prometheus-to-worker")).toBe("sisyphus")
-      expect(readBoulderState(testDir)?.agent).toBe("sisyphus")
+      expect(output.message.agent).toBe("odin")
+      expect(sessionState.getSessionAgent("ses-mimir-to-worker")).toBe("odin")
+      expect(readBoulderState(testDir)?.agent).toBe("odin")
     })
 
-    test("should rewrite stale Prometheus boulder state to Sisyphus when resuming without Atlas", async () => {
+    test("should rewrite stale Mimir boulder state to Odin when resuming without Heimdall", async () => {
       // given
       sessionState._resetForTesting()
-      sessionState.registerAgentName("prometheus")
-      sessionState.registerAgentName("sisyphus")
-      sessionState.updateSessionAgent("ses-prometheus-resume", "prometheus")
+      sessionState.registerAgentName("mimir")
+      sessionState.registerAgentName("odin")
+      sessionState.updateSessionAgent("ses-mimir-resume", "mimir")
 
       const planPath = join(testDir, "resume-plan.md")
       writeFileSync(planPath, "# Plan\n- [ ] Task 1")
@@ -842,7 +842,7 @@ You are starting an Atlas work session.
         started_at: "2026-01-02T10:00:00Z",
         session_ids: ["old-session"],
         plan_name: "resume-plan",
-        agent: "prometheus",
+        agent: "mimir",
       })
 
       const hook = createStartWorkHook(createMockPluginInput())
@@ -853,25 +853,25 @@ You are starting an Atlas work session.
 
       // when
       await hook["chat.message"](
-        { sessionID: "ses-prometheus-resume" },
+        { sessionID: "ses-mimir-resume" },
         output
       )
 
       // then
-      expect(output.message.agent).toBe("sisyphus")
-      expect(readBoulderState(testDir)?.agent).toBe("sisyphus")
+      expect(output.message.agent).toBe("odin")
+      expect(readBoulderState(testDir)?.agent).toBe("odin")
     })
 
-    test("#given start-work hands the session to Atlas #when Atlas later receives session.idle #then the same session continues the selected plan", async () => {
+    test("#given start-work hands the session to Heimdall #when Heimdall later receives session.idle #then the same session continues the selected plan", async () => {
       // given
       const plansDir = join(testDir, ".omo", "plans")
       mkdirSync(plansDir, { recursive: true })
-      writeFileSync(join(plansDir, "atlas-plan.md"), "# Plan\n- [ ] Task 1\n- [ ] Task 2")
+      writeFileSync(join(plansDir, "heimdall-plan.md"), "# Plan\n- [ ] Task 1\n- [ ] Task 2")
 
       const promptAsyncMock = spyOn({
         promptAsync: async (_request: unknown) => undefined,
       }, "promptAsync")
-      const ctx = unsafeTestValue<Parameters<typeof createAtlasHook>[0]>({
+      const ctx = unsafeTestValue<Parameters<typeof createHeimdallHook>[0]>({
         directory: testDir,
         client: {
           session: {
@@ -883,29 +883,29 @@ You are starting an Atlas work session.
         },
       })
       const startWorkHook = createStartWorkHook(ctx)
-      const atlasHook = createAtlasHook(ctx)
+      const heimdallHook = createHeimdallHook(ctx)
       const output = {
         message: {} as Record<string, unknown>,
-        parts: [{ type: "text", text: createStartWorkPrompt({ userRequest: "atlas-plan" }) }],
+        parts: [{ type: "text", text: createStartWorkPrompt({ userRequest: "heimdall-plan" }) }],
       }
 
       // when
       await startWorkHook["chat.message"]({ sessionID: "session-123" }, output)
-      await atlasHook.handler({ event: { type: "session.idle", properties: { sessionID: "session-123" } } })
+      await heimdallHook.handler({ event: { type: "session.idle", properties: { sessionID: "session-123" } } })
 
       // then
-      expect(output.message.agent).toBe("atlas")
+      expect(output.message.agent).toBe("heimdall")
       expect(readBoulderState(testDir)?.session_ids).toContain("opencode:session-123")
-      expect(readBoulderState(testDir)?.agent).toBe("atlas")
+      expect(readBoulderState(testDir)?.agent).toBe("heimdall")
       expect(promptAsyncMock).toHaveBeenCalledTimes(1)
       promptAsyncMock.mockRestore()
     })
 
-    test("#given start-work hands the session to Atlas but background work is still running #when that work finishes #then Atlas resumes via retry for the same session", async () => {
+    test("#given start-work hands the session to Heimdall but background work is still running #when that work finishes #then Heimdall resumes via retry for the same session", async () => {
       // given
       const plansDir = join(testDir, ".omo", "plans")
       mkdirSync(plansDir, { recursive: true })
-      writeFileSync(join(plansDir, "atlas-plan.md"), "# Plan\n- [ ] Task 1\n- [ ] Task 2")
+      writeFileSync(join(plansDir, "heimdall-plan.md"), "# Plan\n- [ ] Task 1\n- [ ] Task 2")
 
       const capturedTimers = new Map<number, { callback: Function; cleared: boolean }>()
       let nextTimerId = 4000
@@ -941,7 +941,7 @@ You are starting an Atlas work session.
 
       Date.now = () => fakeNow
 
-      const ctx = unsafeTestValue<Parameters<typeof createAtlasHook>[0]>({
+      const ctx = unsafeTestValue<Parameters<typeof createHeimdallHook>[0]>({
         directory: testDir,
         client: {
           session: {
@@ -953,15 +953,15 @@ You are starting an Atlas work session.
         },
       })
       const startWorkHook = createStartWorkHook(ctx)
-      const atlasHook = createAtlasHook(ctx, {
+      const heimdallHook = createHeimdallHook(ctx, {
         directory: testDir,
-        backgroundManager: unsafeTestValue<NonNullable<Parameters<typeof createAtlasHook>[1]>["backgroundManager"]>({
+        backgroundManager: unsafeTestValue<NonNullable<Parameters<typeof createHeimdallHook>[1]>["backgroundManager"]>({
           getTasksByParentSession: () => backgroundRunning ? [{ status: "running" }] : [],
         }),
       })
       const output = {
         message: {} as Record<string, unknown>,
-        parts: [{ type: "text", text: createStartWorkPrompt({ userRequest: "atlas-plan" }) }],
+        parts: [{ type: "text", text: createStartWorkPrompt({ userRequest: "heimdall-plan" }) }],
       }
 
       async function firePendingTimers(): Promise<void> {
@@ -977,7 +977,7 @@ You are starting an Atlas work session.
       try {
         // when
         await startWorkHook["chat.message"]({ sessionID: "session-123" }, output)
-        await atlasHook.handler({ event: { type: "session.idle", properties: { sessionID: "session-123" } } })
+        await heimdallHook.handler({ event: { type: "session.idle", properties: { sessionID: "session-123" } } })
         expect(promptAsyncMock).toHaveBeenCalledTimes(0)
         expect(capturedTimers.size).toBe(1)
 
@@ -985,9 +985,9 @@ You are starting an Atlas work session.
         await firePendingTimers()
 
         // then
-        expect(output.message.agent).toBe("atlas")
+        expect(output.message.agent).toBe("heimdall")
         expect(readBoulderState(testDir)?.session_ids).toContain("opencode:session-123")
-        expect(readBoulderState(testDir)?.agent).toBe("atlas")
+        expect(readBoulderState(testDir)?.agent).toBe("heimdall")
         expect(promptAsyncMock).toHaveBeenCalledTimes(1)
       } finally {
         globalThis.setTimeout = originalSetTimeout

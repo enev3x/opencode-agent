@@ -34,7 +34,7 @@ describe("CodeGraph zombie process selection", () => {
 
   it("#given a Windows-shaped owned root #when selecting Windows zombies #then platform-specific root resolution is used", () => {
     // given
-    const omoRoot = "C:\\Users\\runner\\.codex\\plugins\\cache\\sisyphuslabs\\omo\\4.15.1"
+    const omoRoot = "C:\\Users\\runner\\.codex\\plugins\\cache\\odinlabs\\omo\\4.15.1"
     const processes = [
       {
         command: `${process.execPath} ${omoRoot}\\components\\codegraph\\dist\\serve.js`,
@@ -54,8 +54,8 @@ describe("CodeGraph zombie process selection", () => {
     // given
     const omoRoot = "/tmp/omo"
     const siblingRoot = "/tmp/omo-evil"
-    const versionRoot = "/tmp/codex/plugins/cache/sisyphuslabs/omo/4.15.1"
-    const siblingVersionRoot = "/tmp/codex/plugins/cache/sisyphuslabs/omo/4.15.10"
+    const versionRoot = "/tmp/codex/plugins/cache/odinlabs/omo/4.15.1"
+    const siblingVersionRoot = "/tmp/codex/plugins/cache/odinlabs/omo/4.15.10"
     const processes = [
       {
         command: `${process.execPath} ${siblingRoot}/node_modules/@colbymchenry/codegraph/bin/codegraph.js serve --mcp`,
@@ -345,11 +345,11 @@ describe("CodeGraph zombie process selection", () => {
 })
 
 describe("CodeGraph owned root discovery", () => {
-  it("#given Codex plugin cache has OMO under another publisher #when discovering roots #then only sisyphuslabs omo cache is trusted", () => {
+  it("#given Codex plugin cache has OMO under another publisher #when discovering roots #then only odinlabs omo cache is trusted", () => {
     // given
     const codexHome = mkdtempSync(join(tmpdir(), "omo-codegraph-roots-codex-"))
     try {
-      const trustedRoot = join(codexHome, "plugins", "cache", "sisyphuslabs", "omo", "4.15.1")
+      const trustedRoot = join(codexHome, "plugins", "cache", "odinlabs", "omo", "4.15.1")
       const untrustedRoot = join(codexHome, "plugins", "cache", "evil", "omo", "1.0.0")
       mkdirSync(trustedRoot, { recursive: true })
       mkdirSync(untrustedRoot, { recursive: true })

@@ -6601,7 +6601,7 @@ function isManagedComponentBinTarget(target) {
 }
 function hasOmoPluginCachePrefix(parts, endExclusive) {
   for (let index = 0;index < endExclusive - 4; index += 1) {
-    if (parts[index] === "plugins" && parts[index + 1] === "cache" && parts[index + 2] === "sisyphuslabs" && parts[index + 3] === "omo") {
+    if (parts[index] === "plugins" && parts[index + 1] === "cache" && parts[index + 2] === "odinlabs" && parts[index + 3] === "omo") {
       return index + 4 < endExclusive;
     }
   }
@@ -8372,9 +8372,9 @@ var CURRENT_MANAGED_CODEX_AGENT_NAMES = [
   "lazycodex-worker-high",
   "lazycodex-worker-low",
   "lazycodex-worker-medium",
-  "librarian",
-  "metis",
-  "momus",
+  "bragi",
+  "urd",
+  "forseti",
   "plan"
 ];
 var MANAGED_CODEX_AGENT_NAMES = [
@@ -8606,7 +8606,7 @@ ${featureName} = true
 // packages/omo-codex/src/install/codex-config-marketplaces.ts
 var SISYPHUS_LEGACY_MARKETPLACES = ["lazycodex", "code-yeongyu-codex-plugins"];
 function legacyMarketplaceNames(marketplaceName) {
-  return marketplaceName === "sisyphuslabs" ? SISYPHUS_LEGACY_MARKETPLACES : [];
+  return marketplaceName === "odinlabs" ? SISYPHUS_LEGACY_MARKETPLACES : [];
 }
 function removeMarketplaceBlock(config, marketplaceName) {
   return removeTomlSections(config, (header) => header === `marketplaces.${marketplaceName}`);
@@ -8702,14 +8702,14 @@ enabled = true
   return replaceOrInsertSetting(config, section, "enabled", "true");
 }
 function ensureOmoBuiltinMcpPolicies(config, input) {
-  if (input.marketplaceName !== "sisyphuslabs" || !input.pluginNames.includes("omo"))
+  if (input.marketplaceName !== "odinlabs" || !input.pluginNames.includes("omo"))
     return config;
   const codegraphEnabled = input.codegraphMcpEnabled ?? true;
   const gitBashEnabled = (input.platform ?? process.platform) === "win32" && input.gitBashEnabled === true;
   let nextConfig = removeStaleContext7PlaceholderMcp(config);
-  nextConfig = ensurePluginMcpEnabled(nextConfig, "omo@sisyphuslabs", "context7", true);
-  nextConfig = ensurePluginMcpEnabled(nextConfig, "omo@sisyphuslabs", "codegraph", codegraphEnabled);
-  nextConfig = ensurePluginMcpEnabled(nextConfig, "omo@sisyphuslabs", "git_bash", gitBashEnabled);
+  nextConfig = ensurePluginMcpEnabled(nextConfig, "omo@odinlabs", "context7", true);
+  nextConfig = ensurePluginMcpEnabled(nextConfig, "omo@odinlabs", "codegraph", codegraphEnabled);
+  nextConfig = ensurePluginMcpEnabled(nextConfig, "omo@odinlabs", "git_bash", gitBashEnabled);
   return nextConfig;
 }
 function ensureHookTrusted(config, state) {
@@ -9374,7 +9374,7 @@ var MANAGED_REASONING_DEFAULT_UPGRADES = new Map([
     ]
   ],
   [
-    "librarian",
+    "bragi",
     [
       {
         previous: { model: "gpt-5.4-mini", effort: "low" },
@@ -9387,7 +9387,7 @@ var MANAGED_REASONING_DEFAULT_UPGRADES = new Map([
     ]
   ],
   [
-    "momus",
+    "forseti",
     [
       {
         previous: { model: "gpt-5.5", effort: "xhigh" },
@@ -9983,7 +9983,7 @@ function resolveLazyCodexPluginVersion(input) {
   if (override !== undefined && override.length > 0) {
     return override;
   }
-  if (input.marketplaceName === "sisyphuslabs" && input.pluginName === "omo" && input.distributionManifest !== undefined) {
+  if (input.marketplaceName === "odinlabs" && input.pluginName === "omo" && input.distributionManifest !== undefined) {
     return input.distributionManifest.version;
   }
   return input.manifestVersion ?? "local";
@@ -10915,7 +10915,7 @@ async function runCodexInstaller(options = {}) {
       sourcePath,
       version: version2
     });
-    if (marketplace.name === "sisyphuslabs" && plugin.name === "omo") {
+    if (marketplace.name === "odinlabs" && plugin.name === "omo") {
       await stampLazyCodexPluginVersion({ pluginRoot: plugin.path, version: version2 });
       await writeLazyCodexInstallSnapshot({ pluginRoot: plugin.path, distributionManifest });
       await removeGitBashHooksOffWindows({ platform, pluginRoot: plugin.path });
@@ -10924,7 +10924,7 @@ async function runCodexInstaller(options = {}) {
     for (const link of links) {
       log(`Linked ${link.name} -> ${link.target}`);
     }
-    if (marketplace.name === "sisyphuslabs" && plugin.name === "omo") {
+    if (marketplace.name === "odinlabs" && plugin.name === "omo") {
       const runtimeLink = await linkRootRuntimeBin({ binDir, codexHome, repoRoot, platform });
       if (runtimeLink !== null)
         log(`Linked ${runtimeLink.name} -> ${runtimeLink.target}`);
@@ -11040,7 +11040,7 @@ function agentNameFromToml3(fileName) {
   return fileName.endsWith(".toml") ? fileName.slice(0, -".toml".length) : fileName;
 }
 async function agentSourceRootsForInstall(input) {
-  if (input.marketplace.name !== "sisyphuslabs") {
+  if (input.marketplace.name !== "odinlabs") {
     return new Map(input.installed.map((plugin) => [plugin.name, plugin.path]));
   }
   const snapshotPlugins = await writeInstalledMarketplaceSnapshot({
@@ -11051,7 +11051,7 @@ async function agentSourceRootsForInstall(input) {
   return new Map(snapshotPlugins.map((plugin) => [plugin.name, plugin.path]));
 }
 function legacyCacheMarketplaces(marketplaceName) {
-  return marketplaceName === "sisyphuslabs" ? SISYPHUS_LEGACY_CACHE_MARKETPLACES : [];
+  return marketplaceName === "odinlabs" ? SISYPHUS_LEGACY_CACHE_MARKETPLACES : [];
 }
 function findRepoRootFromImporter(importerDir) {
   let current = importerDir;
@@ -11425,7 +11425,7 @@ var INSTALLED_VERSION_FILE = "lazycodex-install.json";
 var KNOWN_LAZYCODEX_BUN_TRUST_PACKAGES = new Set([
   "@ast-grep/cli",
   "@code-yeongyu/comment-checker",
-  "@sisyphuslabs/omo-codex-plugin",
+  "@odinlabs/omo-codex-plugin",
   "lazycodex-ai",
   "oh-my-openagent",
   "oh-my-opencode"

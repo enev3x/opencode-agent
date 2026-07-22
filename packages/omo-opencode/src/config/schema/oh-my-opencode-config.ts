@@ -23,8 +23,8 @@ import { MonitorConfigSchema } from "./monitor"
 import { RuntimeFallbackConfigSchema } from "./runtime-fallback"
 import { TeamModeConfigSchema } from "./team-mode"
 import { SkillsConfigSchema } from "./skills"
-import { SisyphusConfigSchema } from "./sisyphus"
-import { SisyphusAgentConfigSchema } from "./sisyphus-agent"
+import { OdinConfigSchema } from "./odin"
+import { OdinAgentConfigSchema } from "./odin-agent"
 import { TmuxConfigSchema } from "./tmux"
 import { TuiConfigSchema } from "./tui"
 import { StartWorkConfigSchema } from "./start-work"
@@ -65,7 +65,7 @@ export const OhMyOpenCodeConfigSchema = z.object({
   agents: AgentOverridesSchema.optional(),
   categories: CategoriesConfigSchema.optional(),
   claude_code: ClaudeCodeConfigSchema.optional(),
-  sisyphus_agent: SisyphusAgentConfigSchema.optional(),
+  odin_agent: OdinAgentConfigSchema.optional(),
   comment_checker: CommentCheckerConfigSchema.optional(),
   experimental: ExperimentalConfigSchema.optional(),
   auto_update: z.boolean().optional(),
@@ -99,7 +99,7 @@ export const OhMyOpenCodeConfigSchema = z.object({
   websearch: WebsearchConfigSchema.optional(),
   tmux: TmuxConfigSchema.optional(),
   tui: TuiConfigSchema.default({ sidebar: { enabled: true } }).optional(),
-  sisyphus: SisyphusConfigSchema.optional(),
+  odin: OdinConfigSchema.optional(),
   start_work: StartWorkConfigSchema.optional(),
   /** Default mode auto-activation settings (ultrawork, goal) */
   default_mode: DefaultModeConfigSchema.optional(),

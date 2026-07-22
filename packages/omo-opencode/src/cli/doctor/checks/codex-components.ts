@@ -9,9 +9,9 @@ import { gatherCodexSummary, type CodexDoctorDeps } from "./codex"
 export const CODEX_COMPONENTS_CHECK_ID = "codex-components"
 export const CODEX_COMPONENTS_CHECK_NAME = "codex-components"
 
-const PLUGIN_DATA_DIR_NAME = "omo-sisyphuslabs"
+const PLUGIN_DATA_DIR_NAME = "omo-odinlabs"
 const BOOTSTRAP_PENDING_MESSAGE = "bootstrap pending — start a Codex session"
-const REINSTALL_FIX = "Reinstall: npx lazycodex-ai install (or upgrade: codex plugin marketplace upgrade sisyphuslabs)"
+const REINSTALL_FIX = "Reinstall: npx lazycodex-ai install (or upgrade: codex plugin marketplace upgrade odinlabs)"
 
 export interface CodexComponentsDoctorDeps extends CodexDoctorDeps {
   readonly env?: Record<string, string | undefined>

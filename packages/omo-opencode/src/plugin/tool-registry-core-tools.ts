@@ -11,7 +11,7 @@ import { createGoalController, type GoalController } from "../hooks/goal/control
 import { createGoalTools } from "../hooks/goal/tools"
 import * as openclawRuntimeDispatch from "../openclaw/runtime-dispatch"
 import { log } from "../shared"
-import { getSisyphusJuniorModelOverride } from "./tool-registry-team-tools"
+import { getOdinJuniorModelOverride } from "./tool-registry-team-tools"
 import { createNativeSkills, getPluginInputNativeSkills } from "./native-skills"
 import { createSkillContext } from "./skill-context"
 import { createRuntimeSkillsResolver, readRuntimeHostSkills } from "./runtime-skill-resolver"
@@ -35,7 +35,7 @@ export function createCoreTools(args: {
     managers.modelFallbackControllerAccessor,
   )
   const isMultimodalLookerEnabled = !(pluginConfig.disabled_agents ?? []).some(
-    (agent) => agent.toLowerCase() === "multimodal-looker",
+    (agent) => agent.toLowerCase() === "huginn",
   )
   const nativeSkills = getPluginInputNativeSkills(ctx) ?? createNativeSkills({
     client: ctx.client,
@@ -55,7 +55,7 @@ export function createCoreTools(args: {
     userCategories: pluginConfig.categories,
     agentOverrides: pluginConfig.agents,
     gitMasterConfig: pluginConfig.git_master,
-    sisyphusJuniorModel: getSisyphusJuniorModelOverride(pluginConfig.agents?.["sisyphus-junior"]),
+    odinJuniorModel: getOdinJuniorModelOverride(pluginConfig.agents?.["einherjar"]),
     browserProvider: skillContext.browserProvider,
     disabledSkills: skillContext.disabledSkills,
     teamModeEnabled: pluginConfig.team_mode?.enabled ?? false,
@@ -63,7 +63,7 @@ export function createCoreTools(args: {
     availableSkills: skillContext.availableSkills,
     nativeSkills,
     getLoadedSkills,
-    sisyphusAgentConfig: pluginConfig.sisyphus_agent,
+    odinAgentConfig: pluginConfig.odin_agent,
     syncPollTimeoutMs: pluginConfig.background_task?.syncPollTimeoutMs,
     modelFallbackControllerAccessor: managers.modelFallbackControllerAccessor,
     onSyncSessionCreated: async (event) => {

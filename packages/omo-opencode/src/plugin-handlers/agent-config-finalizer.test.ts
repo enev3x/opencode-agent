@@ -9,7 +9,7 @@ import { finalizeAgentConfig } from "./agent-config-finalizer";
 
 function createPluginConfig(): OhMyOpenCodeConfig {
   return {
-    sisyphus_agent: {
+    odin_agent: {
       planner_enabled: false,
     },
   };

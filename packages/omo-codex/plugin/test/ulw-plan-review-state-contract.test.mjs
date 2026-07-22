@@ -12,12 +12,12 @@ const surfaces = [
 		name: "shared OpenCode",
 		skillPath: join(repositoryRoot, "packages", "shared-skills", "skills", "ulw-plan", "SKILL.md"),
 		workflowPath: join(repositoryRoot, "packages", "shared-skills", "skills", "ulw-plan", "references", "full-workflow.md"),
-		independentReviewer: "oracle",
+		independentReviewer: "volva",
 		reviewRoots: {
-			momus: "<literal-canonical-source-workspace-root>",
+			forseti: "<literal-canonical-source-workspace-root>",
 			independent: "<literal-canonical-source-workspace-root>",
 		},
-		runtimeHomes: { momus: null, independent: null },
+		runtimeHomes: { forseti: null, independent: null },
 	},
 	{
 		name: "Codex",
@@ -25,10 +25,10 @@ const surfaces = [
 		workflowPath: join(pluginRoot, "components", "ultrawork", "skills", "ulw-plan", "references", "full-workflow.md"),
 		independentReviewer: "codex-cli:gpt-5.6-sol:xhigh",
 		reviewRoots: {
-			momus: "<literal-canonical-source-workspace-root>",
+			forseti: "<literal-canonical-source-workspace-root>",
 			independent: "<literal-canonical-disposable-review-workspace-root>",
 		},
-		runtimeHomes: { momus: null, independent: "<literal-isolated-codex-home>" },
+		runtimeHomes: { forseti: null, independent: "<literal-isolated-codex-home>" },
 	},
 ];
 
@@ -73,7 +73,7 @@ for (const surface of surfaces) {
 			otherwise: "write .omo/plans/<slug>.md",
 		});
 		assert.equal(contract["pending-action"], contract.pending_action_policy.review_required);
-		assert.deepEqual(Object.keys(contract.review).sort(), ["independent", "momus"]);
+		assert.deepEqual(Object.keys(contract.review).sort(), ["independent", "forseti"]);
 
 		for (const lane of Object.values(contract.review)) {
 			assert.deepEqual(lane, {
@@ -245,7 +245,7 @@ for (const surface of surfaces) {
 		const contract = readJsonContract(workflow, "ulw-plan-review-intake-contract");
 
 		assert.equal(contract.independent_reviewer, surface.independentReviewer);
-		assert.deepEqual(contract.lanes, ["momus", "independent"]);
+		assert.deepEqual(contract.lanes, ["forseti", "independent"]);
 		assert.equal(contract.binding, "substitute_literals_before_dispatch");
 		assert.equal(contract.workspace_root, "<literal-canonical-review-workspace-root>");
 		assert.equal(contract.runtime_home, "<literal-runtime-home-or-null>");

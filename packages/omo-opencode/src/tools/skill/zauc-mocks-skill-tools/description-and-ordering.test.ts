@@ -133,7 +133,7 @@ describe("skill tool - agent-restricted skill visibility in description", () => 
   it("excludes agent-restricted skill from description <available_items>", () => {
     const loadedSkills = [
       createMockSkill("public-skill"),
-      createMockSkill("oracle-only-skill", { agent: "oracle" }),
+      createMockSkill("volva-only-skill", { agent: "volva" }),
     ]
 
     const tool = createSkillTool({
@@ -142,7 +142,7 @@ describe("skill tool - agent-restricted skill visibility in description", () => 
     })
 
     expect(tool.description).toContain("public-skill")
-    expect(tool.description).not.toContain("oracle-only-skill")
+    expect(tool.description).not.toContain("volva-only-skill")
   })
 
   it("includes public skill (no agent field) in description regardless of context", () => {
@@ -157,12 +157,12 @@ describe("skill tool - agent-restricted skill visibility in description", () => 
   })
 
   it("execute still works for agent-restricted skill when called with correct agent context", async () => {
-    const restrictedSkill = createMockSkill("oracle-only-skill", { agent: "oracle" })
+    const restrictedSkill = createMockSkill("volva-only-skill", { agent: "volva" })
     const tool = createSkillTool({ skills: [restrictedSkill] })
-    const oracleContext = { ...mockContext, agent: "oracle" }
+    const volvaContext = { ...mockContext, agent: "volva" }
 
-    const result = await tool.execute({ name: "oracle-only-skill" }, oracleContext)
+    const result = await tool.execute({ name: "volva-only-skill" }, volvaContext)
 
-    expect(result).toContain("oracle-only-skill")
+    expect(result).toContain("volva-only-skill")
   })
 })

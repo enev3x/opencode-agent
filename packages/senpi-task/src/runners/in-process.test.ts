@@ -227,7 +227,7 @@ describe("InProcessRunner", () => {
     })
 
     // when
-    const handle = await runner.start(baseSpec({ agentType: "explore", toolAllowlist: ["bash"] }))
+    const handle = await runner.start(baseSpec({ agentType: "vidar", toolAllowlist: ["bash"] }))
     fake.resolvePrompt()
     await handle.waitForIdle()
 

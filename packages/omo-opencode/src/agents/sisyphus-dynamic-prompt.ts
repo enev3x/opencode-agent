@@ -4,10 +4,10 @@ import type {
   AvailableSkill,
   AvailableTool,
 } from "./dynamic-agent-prompt-builder";
-import { buildSisyphusDynamicPromptContent } from "./sisyphus-dynamic-prompt-builder";
-import { applyGeminiFallbackOverrides } from "./sisyphus-gemini-fallback-overrides";
+import { buildOdinDynamicPromptContent } from "./odin-dynamic-prompt-builder";
+import { applyGeminiFallbackOverrides } from "./odin-gemini-fallback-overrides";
 
-export function buildDynamicSisyphusPrompt(
+export function buildDynamicOdinPrompt(
   model: string,
   availableAgents: AvailableAgent[],
   availableTools: AvailableTool[] = [],
@@ -15,7 +15,7 @@ export function buildDynamicSisyphusPrompt(
   availableCategories: AvailableCategory[] = [],
   useTaskSystem = false,
 ): string {
-  return buildSisyphusDynamicPromptContent(
+  return buildOdinDynamicPromptContent(
     model,
     availableAgents,
     availableTools,
@@ -25,7 +25,7 @@ export function buildDynamicSisyphusPrompt(
   );
 }
 
-export function buildFallbackSisyphusPrompt(
+export function buildFallbackOdinPrompt(
   model: string,
   agents: AvailableAgent[],
   tools: AvailableTool[],
@@ -35,6 +35,6 @@ export function buildFallbackSisyphusPrompt(
 ): string {
   return applyGeminiFallbackOverrides(
     model,
-    buildDynamicSisyphusPrompt(model, agents, tools, skills, categories, useTaskSystem),
+    buildDynamicOdinPrompt(model, agents, tools, skills, categories, useTaskSystem),
   );
 }

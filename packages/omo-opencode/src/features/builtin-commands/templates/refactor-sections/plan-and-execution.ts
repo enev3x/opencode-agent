@@ -125,7 +125,7 @@ If ANY verification fails:
 4. **OPTIONS**:
    - Fix the issue and retry
    - Skip this step (if optional)
-   - Consult oracle agent for help
+   - Consult volva agent for help
    - Ask user for guidance
 
 **NEVER proceed to next step with broken tests.**

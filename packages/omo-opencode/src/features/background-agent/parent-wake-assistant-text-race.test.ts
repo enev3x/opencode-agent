@@ -70,7 +70,7 @@ describe("ParentWakeNotifier — assistant text dispatch race", () => {
     notifier.queuePendingParentWake(
       "parent-stale-then-fresh-text",
       "task complete",
-      { agent: "sisyphus" },
+      { agent: "odin" },
       true,
     )
     const pendingWake = notifier.getPendingParentWakes().get("parent-stale-then-fresh-text")

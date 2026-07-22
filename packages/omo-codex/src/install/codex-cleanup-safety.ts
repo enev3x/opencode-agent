@@ -19,11 +19,11 @@ export function validateManagedCleanupTarget(input: {
   if (target === codexHome) return skipped(input.path, "outside managed Codex cleanup scope")
 
   const exactManagedRoots = new Set([
-    resolve(join(codexHome, "plugins", "cache", "sisyphuslabs")),
-    resolve(join(codexHome, ".tmp", "marketplaces", "sisyphuslabs")),
+    resolve(join(codexHome, "plugins", "cache", "odinlabs")),
+    resolve(join(codexHome, ".tmp", "marketplaces", "odinlabs")),
     resolve(join(codexHome, "runtime", "ast-grep")),
     resolve(join(codexHome, "runtime", "node")),
-    resolve(join(codexHome, "plugins", "data", "omo-sisyphuslabs", "bootstrap")),
+    resolve(join(codexHome, "plugins", "data", "omo-odinlabs", "bootstrap")),
   ])
   if (exactManagedRoots.has(target)) return null
   if (isManagedBootstrapDriftPath(codexHome, target)) return null
@@ -42,7 +42,7 @@ function isManagedBootstrapDriftPath(codexHome: string, target: string): boolean
   if (segments[0] !== "plugins") return false
   if (segments[segments.length - 1] !== "bootstrap") return false
   const ownerName = segments[segments.length - 2]
-  return ownerName !== undefined && ownerName.startsWith("omo") && ownerName.slice("omo".length).includes("sisyphuslabs")
+  return ownerName !== undefined && ownerName.startsWith("omo") && ownerName.slice("omo".length).includes("odinlabs")
 }
 
 function skipped(path: string, reason: SkippedCleanupPath["reason"]): SkippedCleanupPath {

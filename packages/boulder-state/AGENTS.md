@@ -17,12 +17,12 @@ Every `BoulderState` carries `active_work_id` + a `works` map. The root-level fi
 | **Read** (`storage/read-state.ts`) | `readBoulderState`, `getBoulderWorks`, `getActiveWorks`, `getWorkById/ByPlanName/ForSession`, `getWorkResumeOptions`, `getTaskSessionState` |
 | **Write** (`storage/write-state.ts`) | `writeBoulderState`, `clearBoulderState`, `createBoulderState`, `addBoulderWork`, `completeBoulder`, `selectActiveWork`, `generateWorkId` |
 | **Sessions/tasks** (`storage/{session,task}.ts`) | `appendSessionId(ForWork)`, `upsertTaskSessionState(ForWork)`, `startTaskTimer`, `endTaskTimer` |
-| **Plans** (`plan-checklist.ts`, `top-level-task.ts`, `storage/plan-progress.ts`) | `getPlanChecklist`, `parsePlanChecklist`, `readCurrentTopLevelTask`, `findPrometheusPlans`, `getPlanProgress`, `getPlanName` |
+| **Plans** (`plan-checklist.ts`, `top-level-task.ts`, `storage/plan-progress.ts`) | `getPlanChecklist`, `parsePlanChecklist`, `readCurrentTopLevelTask`, `findMimirPlans`, `getPlanProgress`, `getPlanName` |
 | **Paths** (`storage/path.ts`) | `getBoulderFilePath`, `resolveBoulderPlanPath(ForWork)` |
 
 ## CONSUMERS
 
-- **omo-opencode** (`workspace:*`): `features/boulder-state/*` re-exports; hooks `atlas`, `start-work`, `todo-continuation-enforcer`; CLI `boulder` command.
+- **omo-opencode** (`workspace:*`): `features/boulder-state/*` re-exports; hooks `heimdall`, `start-work`, `todo-continuation-enforcer`; CLI `boulder` command.
 - **omo-codex** (`file:` dep): `plugin/components/start-work-continuation/boulder-reader.ts`.
 - **omo-senpi** (`workspace:*`): `src/components/start-work-continuation/boulder-eligibility.ts` reads work state with `senpi:`-prefixed session ids.
 

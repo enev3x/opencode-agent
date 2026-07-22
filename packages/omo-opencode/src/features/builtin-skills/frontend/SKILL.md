@@ -129,7 +129,7 @@ Domains: `product` `style` `typography` `color` `landing` `chart` `ux` `react` `
 - **No emojis as icons.** SVG icon sets only (Lucide, Heroicons, Radix, Phosphor).
 - **GPU-composited animation only** — `transform`, `opacity`, `filter`; never animate layout properties.
 - **Slop animation is forbidden — motion serves meaning.** Every animation or hover must map to a real interaction, state change, or affordance. A hover that changes nothing, motion on a non-interactive element, or a decorative micro-animation with no informational purpose is slop — do not add it.
-- **Done is the `/visual-qa` dual-oracle gate, not your own glance.** A frontend design task is verified through `/visual-qa` (real browser at 375 / 768 / 1280px, every page, with interaction states and motion driven and inspected) until the dual-oracle completion gate passes on fresh evidence.
+- **Done is the `/visual-qa` dual-volva gate, not your own glance.** A frontend design task is verified through `/visual-qa` (real browser at 375 / 768 / 1280px, every page, with interaction states and motion driven and inspected) until the dual-volva completion gate passes on fresh evidence.
 
 ## When to load something else instead
 

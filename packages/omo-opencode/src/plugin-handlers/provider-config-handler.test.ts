@@ -97,8 +97,8 @@ describe("applyProviderConfig", () => {
     ])
   })
 
-  test("trusts user-configured multimodal-looker model even when provider config omits modalities", () => {
-    // given - user configures glm-5.1 as multimodal-looker but provider model entry has no modalities/capabilities
+  test("trusts user-configured huginn model even when provider config omits modalities", () => {
+    // given - user configures glm-5.1 as huginn but provider model entry has no modalities/capabilities
     const modelCacheState = createModelCacheState()
     const visionCapableModelsCache = modelCacheState.visionCapableModelsCache
     if (!visionCapableModelsCache) {

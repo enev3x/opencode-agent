@@ -31,8 +31,8 @@ describe("install-codex CodeGraph MCP policy", () => {
 
     // then
     const configContent = await readFile(join(codexHome, "config.toml"), "utf8")
-    expect(configContent).toMatch(/\[plugins\."omo@sisyphuslabs"\][\s\S]*?enabled = true/)
-    expect(configContent).toMatch(/\[plugins\."omo@sisyphuslabs"\.mcp_servers\.codegraph\][\s\S]*?enabled = false/)
-    expect(configContent).toMatch(/\[plugins\."omo@sisyphuslabs"\.mcp_servers\.context7\][\s\S]*?enabled = true/)
+    expect(configContent).toMatch(/\[plugins\."omo@odinlabs"\][\s\S]*?enabled = true/)
+    expect(configContent).toMatch(/\[plugins\."omo@odinlabs"\.mcp_servers\.codegraph\][\s\S]*?enabled = false/)
+    expect(configContent).toMatch(/\[plugins\."omo@odinlabs"\.mcp_servers\.context7\][\s\S]*?enabled = true/)
   }, { timeout: INSTALL_CODEX_CODEGRAPH_TEST_TIMEOUT_MS })
 })

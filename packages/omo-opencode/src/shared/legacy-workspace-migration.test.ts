@@ -18,11 +18,11 @@ describe("migrateLegacyWorkspaceDirectory", () => {
 
   test("#given legacy workspace with nested state and no target #when migrating #then copies the tree to .omo", () => {
     // given
-    const legacyPlanPath = join(testDirectory, ".sisyphus", "plans", "work.md")
-    const legacyNotepadDirectory = join(testDirectory, ".sisyphus", "notepads", "work")
+    const legacyPlanPath = join(testDirectory, ".odin", "plans", "work.md")
+    const legacyNotepadDirectory = join(testDirectory, ".odin", "notepads", "work")
     const legacyNotepadPath = join(legacyNotepadDirectory, "notes.md")
     mkdirSync(legacyNotepadDirectory, { recursive: true })
-    mkdirSync(join(testDirectory, ".sisyphus", "plans"), { recursive: true })
+    mkdirSync(join(testDirectory, ".odin", "plans"), { recursive: true })
     writeFileSync(legacyPlanPath, "# Plan", "utf-8")
     writeFileSync(legacyNotepadPath, "note", "utf-8")
 
@@ -33,14 +33,14 @@ describe("migrateLegacyWorkspaceDirectory", () => {
     expect(result.migrated).toBe(true)
     expect(readFileSync(join(testDirectory, ".omo", "plans", "work.md"), "utf-8")).toBe("# Plan")
     expect(readFileSync(join(testDirectory, ".omo", "notepads", "work", "notes.md"), "utf-8")).toBe("note")
-    expect(existsSync(join(testDirectory, ".sisyphus", "plans", "work.md"))).toBe(true)
+    expect(existsSync(join(testDirectory, ".odin", "plans", "work.md"))).toBe(true)
   })
 
   test("#given target file already exists #when migrating #then keeps the target content", () => {
     // given
-    const legacyPlanPath = join(testDirectory, ".sisyphus", "plans", "work.md")
+    const legacyPlanPath = join(testDirectory, ".odin", "plans", "work.md")
     const targetPlanPath = join(testDirectory, ".omo", "plans", "work.md")
-    mkdirSync(join(testDirectory, ".sisyphus", "plans"), { recursive: true })
+    mkdirSync(join(testDirectory, ".odin", "plans"), { recursive: true })
     mkdirSync(join(testDirectory, ".omo", "plans"), { recursive: true })
     writeFileSync(legacyPlanPath, "legacy", "utf-8")
     writeFileSync(targetPlanPath, "target", "utf-8")
@@ -56,9 +56,9 @@ describe("migrateLegacyWorkspaceDirectory", () => {
 
   test("#given target has other files #when migrating #then copies only missing legacy files", () => {
     // given
-    const legacyPlanPath = join(testDirectory, ".sisyphus", "plans", "work.md")
+    const legacyPlanPath = join(testDirectory, ".odin", "plans", "work.md")
     const targetNotepadPath = join(testDirectory, ".omo", "notepads", "work", "notes.md")
-    mkdirSync(join(testDirectory, ".sisyphus", "plans"), { recursive: true })
+    mkdirSync(join(testDirectory, ".odin", "plans"), { recursive: true })
     mkdirSync(join(testDirectory, ".omo", "notepads", "work"), { recursive: true })
     writeFileSync(legacyPlanPath, "legacy plan", "utf-8")
     writeFileSync(targetNotepadPath, "existing note", "utf-8")
@@ -75,8 +75,8 @@ describe("migrateLegacyWorkspaceDirectory", () => {
   test("#given legacy workspace contains symlinks #when migrating #then skips symlinks without copying target contents", () => {
     // given
     const externalFilePath = join(testDirectory, "external-secret.md")
-    const legacyLinkPath = join(testDirectory, ".sisyphus", "plans", "linked.md")
-    mkdirSync(join(testDirectory, ".sisyphus", "plans"), { recursive: true })
+    const legacyLinkPath = join(testDirectory, ".odin", "plans", "linked.md")
+    mkdirSync(join(testDirectory, ".odin", "plans"), { recursive: true })
     writeFileSync(externalFilePath, "secret", "utf-8")
     symlinkSync(externalFilePath, legacyLinkPath)
 

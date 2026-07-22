@@ -38,7 +38,7 @@ function createPluginComponentsWithCommand(): PluginComponents {
   return {
     commands: {
       pluginCommand: {
-        agent: "sisyphus",
+        agent: "odin",
         description: "from plugin",
       },
     },
@@ -181,7 +181,7 @@ describe("createConfigHandler formatter pass-through", () => {
     await handler({})
 
     // then
-    expect(observedAgents).toEqual(["sisyphus", "sisyphus"])
+    expect(observedAgents).toEqual(["odin", "odin"])
     expect(loadPluginComponentsSpy).toHaveBeenCalledTimes(2)
   })
 })

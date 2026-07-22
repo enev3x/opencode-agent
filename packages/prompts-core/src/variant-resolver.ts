@@ -18,7 +18,7 @@ export type ResolveVariantInput = {
   readonly variants: VariantTable
 }
 
-const PLANNER_AGENT_NAMES: ReadonlySet<string> = new Set(["prometheus"] as const)
+const PLANNER_AGENT_NAMES: ReadonlySet<string> = new Set(["mimir"] as const)
 
 const MODEL_MATCHERS: Readonly<Record<string, ModelMatcher>> = {
   gpt: isGptModel,

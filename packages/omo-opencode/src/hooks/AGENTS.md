@@ -15,7 +15,7 @@
 | **Session** | `create-session-hooks.ts` | 24 | 24 | OpenCode session lifecycle + chat.params + chat.message |
 | **Tool Guard** | `create-tool-guard-hooks.ts` | 17 | 18 | Pre/post tool execution (+1: `team-tool-gating`) |
 | **Transform** | `create-transform-hooks.ts` | 4 | 6 | `experimental.chat.messages.transform` (+2: `team-mode-status-injector`, `team-mailbox-injector`; `monitor-status-injector` is a further +1 gated on `monitor.enabled`, not team-mode) |
-| **Continuation** | `create-continuation-hooks.ts` | 7 | 7 | Boulder/atlas/compaction/notification |
+| **Continuation** | `create-continuation-hooks.ts` | 7 | 7 | Boulder/heimdall/compaction/notification |
 | **Skill** | `create-skill-hooks.ts` | 2 | 2 | Skill awareness (categorySkillReminder, autoSlashCommand) |
 | **Direct event handlers** | `src/plugin/event.ts` | 0 | +4 | `team-session-events/` sub-files: `team-idle-wake-hint`, `team-lead-orphan-handler`, `team-member-error-handler`, `team-member-status-handler` |
 
@@ -41,14 +41,14 @@ Hook name allowlist for `disabled_hooks`: all configurable hook names enumerated
 | `editErrorRecovery` | tool.execute.after | Retry failed file edits |
 | `delegateTaskRetry` | tool.execute.after | Retry failed task delegations |
 | `startWork` | chat.message | `/start-work` command handler |
-| `prometheusMdOnly` | tool.execute.before | Enforce .md-only writes for Prometheus |
-| `sisyphusJuniorNotepad` | chat.message | Notepad injection for subagents |
+| `mimirMdOnly` | tool.execute.before | Enforce .md-only writes for Mimir |
+| `odinJuniorNotepad` | chat.message | Notepad injection for subagents |
 | `questionLabelTruncator` | tool.execute.before | Truncate long Question tool labels |
 | `taskResumeInfo` | chat.message | Inject task context on resume |
 | `modelFallback` | chat.params | Provider-level proactive model fallback |
-| `noSisyphusGpt` | chat.message | Block Sisyphus from non-GPT providers (with warning toast) |
-| `noHephaestusNonGpt` | chat.message | Block Hephaestus from non-GPT models |
-| `hephaestusAgentsMdInjector` | chat.message | Inject walk-up AGENTS.md context for Hephaestus deep-work sessions |
+| `noOdinGpt` | chat.message | Block Odin from non-GPT providers (with warning toast) |
+| `noThorNonGpt` | chat.message | Block Thor from non-GPT models |
+| `thorAgentsMdInjector` | chat.message | Inject walk-up AGENTS.md context for Thor deep-work sessions |
 | `runtimeFallback` | event | Reactive auto-switch on API provider errors |
 | `legacyPluginToast` | chat.message | Show toast when legacy plugin name detected |
 
@@ -62,7 +62,7 @@ Hook name allowlist for `disabled_hooks`: all configurable hook names enumerated
 | `directoryReadmeInjector` | tool.execute.before | Inject dir-local README.md into context |
 | `emptyTaskResponseDetector` | tool.execute.after | Detect empty task results |
 | `rulesInjector` | tool.execute.before | Conditional rules injection (AGENTS.md, .rules) |
-| `tasksTodowriteDisabler` | tool.execute.before | Disable TodoWrite when Sisyphus task system active |
+| `tasksTodowriteDisabler` | tool.execute.before | Disable TodoWrite when Odin task system active |
 | `writeExistingFileGuard` | tool.execute.before | Require Read before Write/Edit on existing files |
 | `bashFileReadGuard` | tool.execute.before | Guard bash commands that read files (cat/head/tail) |
 | `readImageResizer` | tool.execute.after | Resize large images for context efficiency |
@@ -71,7 +71,7 @@ Hook name allowlist for `disabled_hooks`: all configurable hook names enumerated
 | `hashlineReadEnhancer` | tool.execute.after | Tag every Read output with `LINE#ID` content hashes |
 | `jsonErrorRecovery` | tool.execute.after | Detect JSON parse errors, inject correction reminder |
 | `fsyncSkipWarning` | tool.execute.after | Warn when fsync is skipped for atomic writes |
-| `notepadWriteGuard` | tool.execute.before | Block `Write` to append-only notepad paths (`.omo/notepads`, `.sisyphus/notepads`) |
+| `notepadWriteGuard` | tool.execute.before | Block `Write` to append-only notepad paths (`.omo/notepads`, `.odin/notepads`) |
 | `planFormatValidator` | tool.execute.before | Validate plan/todo checkbox format on `Write`/`Edit` of boulder plans |
 
 ### Tier 3: Transform Hooks (4 base + 1 monitor-gated)
@@ -94,7 +94,7 @@ Hook name allowlist for `disabled_hooks`: all configurable hook names enumerated
 | `todoContinuationEnforcer` | session.idle | **Boulder** -- force continuation on incomplete todos |
 | `unstableAgentBabysitter` | session.idle | Monitor unstable agent behavior |
 | `backgroundNotificationHook` | event | Background task completion notifications |
-| `atlasHook` | event | Master orchestrator for boulder/background sessions |
+| `heimdallHook` | event | Master orchestrator for boulder/background sessions |
 
 ### Tier 5: Skill Hooks (2)
 
@@ -148,6 +148,6 @@ hooks/
 
 - **Tier order matters within a phase:** within Session tier the registration order in `create-session-hooks.ts` determines invocation order -- earlier hooks see un-mutated input, later hooks see accumulated output.
 - **Mock files** (`zauc-mocks-*`, `zauc-sync-mocks`) are NOT hooks. They are placed inside `src/hooks/` purely so `bun:test` discovers them with the hook test fixtures.
-- **`atlasHook` vs `todoContinuationEnforcer`:** atlas handles boulder/ralph/subagent sessions, todoContinuationEnforcer handles the main Sisyphus session. Both fire on `session.idle` but check session type first.
+- **`heimdallHook` vs `todoContinuationEnforcer`:** heimdall handles boulder/ralph/subagent sessions, todoContinuationEnforcer handles the main Odin session. Both fire on `session.idle` but check session type first.
 - **`runtime-fallback` vs `model-fallback`:** runtime-fallback is reactive (after error); model-fallback is proactive (chat.params). They operate independently.
 - **`goal` replaces `ralphLoop` (PR #6184):** `ralphLoop` was removed from `HookNameSchema` and `create-session-hooks.ts`; the `/ralph-loop`, `/ulw-loop`, `/cancel-ralph` builtin commands were removed. The `ralph-loop/` dir + `createRalphLoopHook` factory remain for migration (barrel export kept); `ralph_loop` config is a deprecated passthrough. See [`goal/AGENTS.md`](goal/AGENTS.md).

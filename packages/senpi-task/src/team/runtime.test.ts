@@ -28,7 +28,7 @@ function threeMemberSpec() {
       members: [
         { name: "alpha", kind: "category", category: "quick", prompt: "task alpha" },
         { name: "beta", kind: "category", category: "deep", prompt: "task beta" },
-        { name: "gamma", kind: "subagent_type", subagent_type: "sisyphus", prompt: "task gamma" },
+        { name: "gamma", kind: "subagent_type", subagent_type: "odin", prompt: "task gamma" },
       ],
     },
     "squad",

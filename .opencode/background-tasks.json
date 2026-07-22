@@ -5,7 +5,7 @@
     "parentSessionID": "ses_4f3e8d141ffeyfJ1taVVOdQTzx",
     "parentMessageID": "msg_b0c172ee1001w2B52VSZrP08PJ",
     "description": "Explore opencode in codebase",
-    "agent": "explore",
+    "agent": "vidar",
     "status": "completed",
     "startedAt": "2025-12-11T06:26:57.395Z",
     "completedAt": "2025-12-11T06:27:36.778Z"
@@ -16,7 +16,7 @@
     "parentSessionID": "ses_4f38eefa0ffeKV0pVNnwT37P5L",
     "parentMessageID": "msg_b0c7110d2001TMBlPeEYIrByvs",
     "description": "Test explore agent",
-    "agent": "explore",
+    "agent": "vidar",
     "status": "running",
     "startedAt": "2025-12-11T08:05:07.378Z",
     "progress": {

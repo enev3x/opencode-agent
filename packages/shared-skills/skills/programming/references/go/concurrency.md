@@ -139,7 +139,7 @@ If you have a known long-lived goroutine (a singleton background worker, a metri
 
 ```go
 goleak.VerifyTestMain(m,
-    goleak.IgnoreTopFunction("github.com/prometheus/client_golang/prometheus.(*Registry).Push"),
+    goleak.IgnoreTopFunction("github.com/mimir/client_golang/mimir.(*Registry).Push"),
 )
 ```
 

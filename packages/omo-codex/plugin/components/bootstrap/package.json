@@ -1,5 +1,5 @@
 {
-	"name": "@sisyphuslabs/codex-bootstrap",
+	"name": "@odinlabs/codex-bootstrap",
 	"version": "4.19.1",
 	"description": "Codex SessionStart bootstrap component that provisions LazyCodex runtime dependencies from a detached worker.",
 	"type": "module",

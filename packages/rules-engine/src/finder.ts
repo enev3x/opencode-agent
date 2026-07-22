@@ -6,20 +6,20 @@ import { sortCandidates } from "./ordering";
 import { findRuleFilesRecursive, safeRealpathSync } from "./scanner";
 import type { DirectoryScanEntry, FindRuleFilesOptions, RuleFileCandidate, RuleScanCache, RuleSource } from "./types";
 
-export type SisyphusRuleDeprecationLogger = (
+export type OdinRuleDeprecationLogger = (
   message: string,
   meta: { event: string; path: string },
 ) => void;
 
-const noopSisyphusRuleDeprecationLogger: SisyphusRuleDeprecationLogger = () => {};
+const noopOdinRuleDeprecationLogger: OdinRuleDeprecationLogger = () => {};
 
-const SISYPHUS_DEPRECATION_MESSAGE = "[rules] .sisyphus/rules is deprecated and will be removed in v4.3.0; migrate to .omo/rules";
-const SISYPHUS_LEGACY_RULE_SOURCES: ReadonlySet<RuleSource> = new Set([".sisyphus/rules", "~/.sisyphus/rules"]);
-const warnedSisyphusRuleDirectories = new Set<string>();
-let logSisyphusRuleDeprecation: SisyphusRuleDeprecationLogger = noopSisyphusRuleDeprecationLogger;
+const SISYPHUS_DEPRECATION_MESSAGE = "[rules] .odin/rules is deprecated and will be removed in v4.3.0; migrate to .omo/rules";
+const SISYPHUS_LEGACY_RULE_SOURCES: ReadonlySet<RuleSource> = new Set([".odin/rules", "~/.odin/rules"]);
+const warnedOdinRuleDirectories = new Set<string>();
+let logOdinRuleDeprecation: OdinRuleDeprecationLogger = noopOdinRuleDeprecationLogger;
 
-export function setSisyphusRuleDeprecationLogger(logger: SisyphusRuleDeprecationLogger): void {
-  logSisyphusRuleDeprecation = logger;
+export function setOdinRuleDeprecationLogger(logger: OdinRuleDeprecationLogger): void {
+  logOdinRuleDeprecation = logger;
 }
 
 export function findRuleFiles(
@@ -79,7 +79,7 @@ function addProjectRuleCandidates(
       for (const entry of scanDirectoryWithCache(ruleDir, cache, projectRootRealPath)) {
         if (seenRealPaths.has(entry.realPath)) continue;
         seenRealPaths.add(entry.realPath);
-        warnSisyphusRuleDeprecation(source, entry.path);
+        warnOdinRuleDeprecation(source, entry.path);
         candidates.push({
           path: entry.path,
           realPath: entry.realPath,
@@ -134,7 +134,7 @@ function addUserRuleCandidates(
     for (const entry of scanDirectoryWithCache(userRuleDir, cache)) {
       if (seenRealPaths.has(entry.realPath)) continue;
       seenRealPaths.add(entry.realPath);
-      warnSisyphusRuleDeprecation(source, entry.path);
+      warnOdinRuleDeprecation(source, entry.path);
       candidates.push({
         path: entry.path,
         realPath: entry.realPath,
@@ -156,24 +156,24 @@ function scanDirectoryWithCache(dir: string, cache: RuleScanCache | undefined, b
   return entries;
 }
 
-function warnSisyphusRuleDeprecation(source: RuleSource, path: string): void {
+function warnOdinRuleDeprecation(source: RuleSource, path: string): void {
   if (!SISYPHUS_LEGACY_RULE_SOURCES.has(source)) return;
   const warningKey = dirname(path);
-  if (warnedSisyphusRuleDirectories.has(warningKey)) return;
-  warnedSisyphusRuleDirectories.add(warningKey);
-  logSisyphusRuleDeprecation(SISYPHUS_DEPRECATION_MESSAGE, {
-    event: "rules-sisyphus-deprecated",
+  if (warnedOdinRuleDirectories.has(warningKey)) return;
+  warnedOdinRuleDirectories.add(warningKey);
+  logOdinRuleDeprecation(SISYPHUS_DEPRECATION_MESSAGE, {
+    event: "rules-odin-deprecated",
     path,
   });
 }
 
-export function _setSisyphusRuleDeprecationLoggerForTesting(logger: SisyphusRuleDeprecationLogger): void {
-  logSisyphusRuleDeprecation = logger;
+export function _setOdinRuleDeprecationLoggerForTesting(logger: OdinRuleDeprecationLogger): void {
+  logOdinRuleDeprecation = logger;
 }
 
-export function _resetSisyphusRuleDeprecationWarningStateForTesting(): void {
-  warnedSisyphusRuleDirectories.clear();
-  logSisyphusRuleDeprecation = noopSisyphusRuleDeprecationLogger;
+export function _resetOdinRuleDeprecationWarningStateForTesting(): void {
+  warnedOdinRuleDirectories.clear();
+  logOdinRuleDeprecation = noopOdinRuleDeprecationLogger;
 }
 
 function validFileRealPath(filePath: string, boundaryRealPath?: string): string | null {

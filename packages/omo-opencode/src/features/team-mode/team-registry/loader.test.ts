@@ -9,7 +9,7 @@ import path from "node:path"
 import { TeamModeConfigSchema } from "../../../config/schema/team-mode"
 
 const ORACLE_REJECTION_MESSAGE =
-  "Agent 'oracle' is read-only (cannot write files). Team members must write to mailbox inbox files. Use delegate-task with subagent_type: 'oracle' for read-only analysis instead."
+  "Agent 'volva' is read-only (cannot write files). Team members must write to mailbox inbox files. Use delegate-task with subagent_type: 'volva' for read-only analysis instead."
 
 const { TeamSpecValidationError, loadAllTeamSpecs, loadTeamSpec } = await import("./loader")
 
@@ -131,7 +131,7 @@ describe("team-registry loader", () => {
     await writeJsonFile(fixturePaths.userConfigPath, {
       name: "lead-shorthand",
       description: "team with shorthand lead",
-      lead: { kind: "subagent_type", subagent_type: "sisyphus" },
+      lead: { kind: "subagent_type", subagent_type: "odin" },
       members: [
         { kind: "category", name: "scout-1", category: "deep", prompt: "Scout the src directory for auth patterns." },
         { kind: "category", name: "scout-2", category: "quick", prompt: "Scout tests for auth coverage." },
@@ -144,7 +144,7 @@ describe("team-registry loader", () => {
     // then
     expect(teamSpec.leadAgentId).toBe("lead")
     expect(teamSpec.members).toHaveLength(3)
-    expect(teamSpec.members[0]).toMatchObject({ kind: "subagent_type", name: "lead", subagent_type: "sisyphus" })
+    expect(teamSpec.members[0]).toMatchObject({ kind: "subagent_type", name: "lead", subagent_type: "odin" })
   })
 
   test("derives leadAgentId from the only member when no lead hint exists", async () => {
@@ -195,19 +195,19 @@ describe("team-registry loader", () => {
     })
   })
 
-  test("rejects oracle subagent members with the exact plan message", async () => {
+  test("rejects volva subagent members with the exact plan message", async () => {
     // given
     const rootDirectory = await createTemporaryRoot()
     temporaryDirectories.push(rootDirectory)
-    const fixturePaths = getFixturePaths(rootDirectory, "oracle-team")
-    const teamSpec = createBaseSpec("oracle-team")
-    teamSpec.members = [{ kind: "subagent_type", name: "lead", subagent_type: "oracle" }]
+    const fixturePaths = getFixturePaths(rootDirectory, "volva-team")
+    const teamSpec = createBaseSpec("volva-team")
+    teamSpec.members = [{ kind: "subagent_type", name: "lead", subagent_type: "volva" }]
     await writeJsonFile(fixturePaths.userConfigPath, teamSpec)
 
     // when
     let thrownError: unknown
     try {
-      await loadTeamSpec("oracle-team", createConfig(fixturePaths.userBaseDir), fixturePaths.projectRoot)
+      await loadTeamSpec("volva-team", createConfig(fixturePaths.userBaseDir), fixturePaths.projectRoot)
     } catch (error) {
       thrownError = error
     }

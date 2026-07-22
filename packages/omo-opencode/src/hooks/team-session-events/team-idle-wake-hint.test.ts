@@ -351,7 +351,7 @@ describe("createTeamIdleWakeHint", () => {
     const runtimeState = createRuntimeState(teamRunId)
     const worker = runtimeState.members[0]
     if (!worker) throw new Error("worker member missing from fixture")
-    worker.subagent_type = "atlas"
+    worker.subagent_type = "heimdall"
     worker.model = { providerID: "anthropic", modelID: "claude-opus-4-7", variant: "high" }
     await seedRuntimeState(runtimeState, config)
     await seedUnreadMessage(teamRunId, config, randomUUID(), "hello", 100)
@@ -380,7 +380,7 @@ describe("createTeamIdleWakeHint", () => {
     if (promptInput === undefined) {
       throw new Error("expected wake hint prompt input")
     }
-    expect(promptInput.body.agent).toBe("atlas")
+    expect(promptInput.body.agent).toBe("heimdall")
     expect(promptInput.body.model).toEqual({ providerID: "anthropic", modelID: "claude-opus-4-7" })
     expect(promptInput.body.variant).toBe("high")
   })
@@ -393,7 +393,7 @@ describe("createTeamIdleWakeHint", () => {
     const runtimeState = createRuntimeState(teamRunId)
     const worker = runtimeState.members[0]
     if (!worker) throw new Error("worker member missing from fixture")
-    worker.subagent_type = "Sisyphus-Junior"
+    worker.subagent_type = "Einherjar"
     worker.category = "quick"
     worker.model = {
       providerID: "openai",
@@ -432,7 +432,7 @@ describe("createTeamIdleWakeHint", () => {
     if (promptInput === undefined) {
       throw new Error("expected wake hint prompt input")
     }
-    expect(promptInput.body.agent).toBe("Sisyphus-Junior")
+    expect(promptInput.body.agent).toBe("Einherjar")
     expect(promptInput.body.model).toEqual({ providerID: "openai", modelID: "gpt-5.4" })
     expect(promptInput.body.variant).toBe("medium")
     expect(promptInput.body.temperature).toBe(0.2)
@@ -813,7 +813,7 @@ describe("createTeamIdleWakeHint", () => {
     if (correctWorker === undefined) {
       throw new Error("worker member missing from correct fixture")
     }
-    correctWorker.subagent_type = "atlas"
+    correctWorker.subagent_type = "heimdall"
     await seedRuntimeState(correctRuntimeState, config)
     await seedRuntimeState({
       ...createRuntimeState(wrongTeamRunId),
@@ -861,6 +861,6 @@ describe("createTeamIdleWakeHint", () => {
       throw new Error("expected wake hint prompt input")
     }
     expect(promptInput.body.parts[0]?.text).toContain("2 new team messages")
-    expect(promptInput.body.agent).toBe("atlas")
+    expect(promptInput.body.agent).toBe("heimdall")
   })
 })

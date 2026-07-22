@@ -47,14 +47,14 @@ A senior engineer's command center, glowing in the dark. Surfaces are near-black
 - **Surface hierarchy via luminance, not borders where possible.** `0a0a0a` → `111111` → `1a1a1a` is the depth stack. Borders are the punctuation, not the wall.
 - **Never use pure `#000000`** — `#0a0a0a` or `#08090a` is the floor. Pure black is too harsh and signals "AI dark mode".
 - **Never use pure `#ffffff`** for text — `#ededed` is the ceiling. Pure white screams.
-- **No purple/blue "AI gradient"** decoratively. The `--accent-secondary` purple (`#7c3aed`) exists as a token but should be reserved for genuine semantic moments (Sisyphus / agent identity), not as eye candy on CTAs or backgrounds.
+- **No purple/blue "AI gradient"** decoratively. The `--accent-secondary` purple (`#7c3aed`) exists as a token but should be reserved for genuine semantic moments (Odin / agent identity), not as eye candy on CTAs or backgrounds.
 
 ### Inconsistencies to consolidate (design debt, not this extraction)
 
 The current landing page assigns a distinct accent color _per section_ — purple, orange, pink, fuchsia, teal, indigo, amber, green, blue. Because this PR must preserve the current rendered baseline, these colors remain in component class names for now. Refinement target:
 
 - **Cyan**: Primary CTA, install command, hero, CTA section, default link/hover.
-- **Legacy `--secondary` / future `--accent-secondary` (single muted indigo `#7c3aed`)**: Agent identity (Sisyphus, sub-agents) — when an agent name appears, it gets the secondary accent badge. Not the whole card.
+- **Legacy `--secondary` / future `--accent-secondary` (single muted indigo `#7c3aed`)**: Agent identity (Odin, sub-agents) — when an agent name appears, it gets the secondary accent badge. Not the whole card.
 - **Status colors**: ONLY for actual status (success/warning/error). NOT for decorative section accents.
 - **Everything else**: monochrome (white opacity ladder for surfaces, zinc/neutral for text).
 
@@ -127,7 +127,7 @@ Target for a future visual-refinement PR: 2 chromatic colors total (cyan + indig
 - **No `h-screen`.** Always `min-h-[100dvh]` — current `min-h-screen` and `min-h-[90vh]` should migrate to `dvh` for iOS Safari stability.
 - **No flexbox percentage math.** CSS Grid for multi-column.
 - **Container** wraps every section content. No edge-bleed except hero background image.
-- **3-column equal card grids** for _features_ are banned. The current Reviews and Architecture sections use 3-column — acceptable for testimonial/principle tiles where uniformity is the point. The Hephaestus 5-column step row is also acceptable (sequential numbered steps).
+- **3-column equal card grids** for _features_ are banned. The current Reviews and Architecture sections use 3-column — acceptable for testimonial/principle tiles where uniformity is the point. The Thor 5-column step row is also acceptable (sequential numbered steps).
 
 ## 5. Components
 

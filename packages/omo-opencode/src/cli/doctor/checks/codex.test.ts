@@ -18,9 +18,9 @@ async function createInstalledCodexHome(): Promise<{ readonly codexHome: string;
   const root = await mkdtemp(join(tmpdir(), "omo-codex-doctor-"))
   const codexHome = join(root, ".codex")
   const binDir = join(root, "bin")
-  const pluginRoot = join(codexHome, "plugins", "cache", "sisyphuslabs", "omo", "0.1.0")
+  const pluginRoot = join(codexHome, "plugins", "cache", "odinlabs", "omo", "0.1.0")
   await mkdir(join(pluginRoot, ".codex-plugin"), { recursive: true })
-  await mkdir(join(codexHome, ".tmp", "marketplaces", "sisyphuslabs", "plugins", "omo"), { recursive: true })
+  await mkdir(join(codexHome, ".tmp", "marketplaces", "odinlabs", "plugins", "omo"), { recursive: true })
   await mkdir(join(codexHome, "agents"), { recursive: true })
   await mkdir(binDir, { recursive: true })
   await writeFile(join(pluginRoot, ".codex-plugin", "plugin.json"), JSON.stringify({ name: "omo", version: "4.7.5" }))
@@ -32,10 +32,10 @@ async function createInstalledCodexHome(): Promise<{ readonly codexHome: string;
       "plugins = true",
       "plugin_hooks = true",
       "",
-      "[marketplaces.sisyphuslabs]",
-      `source = "${join(codexHome, "plugins", "cache", "sisyphuslabs")}"`,
+      "[marketplaces.odinlabs]",
+      `source = "${join(codexHome, "plugins", "cache", "odinlabs")}"`,
       "",
-      '[plugins."omo@sisyphuslabs"]',
+      '[plugins."omo@odinlabs"]',
       "enabled = true",
       "",
       "[agents.plan]",
@@ -63,7 +63,7 @@ describe("codex doctor checks", () => {
 
     // then
     expect(summary.codexPath).toBe("/usr/local/bin/codex")
-    expect(summary.marketplaceName).toBe("sisyphuslabs")
+    expect(summary.marketplaceName).toBe("odinlabs")
     expect(summary.pluginName).toBe("omo")
     expect(summary.pluginVersion).toBe("4.7.5")
     expect(summary.pluginVersionStamped).toBe(true)
@@ -108,10 +108,10 @@ describe("codex doctor checks", () => {
         "plugins = true",
         "plugin_hooks = true",
         "",
-        "[marketplaces.sisyphuslabs]",
-        `source = "${join(codexHome, "plugins", "cache", "sisyphuslabs")}"`,
+        "[marketplaces.odinlabs]",
+        `source = "${join(codexHome, "plugins", "cache", "odinlabs")}"`,
         "",
-        '[plugins."omo@sisyphuslabs"]',
+        '[plugins."omo@odinlabs"]',
         "enabled = false",
         "",
         '[plugins."other@example"]',
@@ -141,7 +141,7 @@ describe("codex doctor checks", () => {
         "plugins = true",
         "plugin_hooks = true",
         "",
-        '[plugins."omo@sisyphuslabs"]',
+        '[plugins."omo@odinlabs"]',
         "enabled = true",
       ].join("\n"),
     )
@@ -214,10 +214,10 @@ describe("codex doctor checks", () => {
     // then
     expect(result.status).toBe("pass")
     expect(result.details).toContain("Codex: /usr/local/bin/codex")
-    expect(result.details).toContain("Marketplace: sisyphuslabs")
+    expect(result.details).toContain("Marketplace: odinlabs")
     expect(result.details).toContain("Plugin: omo@4.7.5")
     expect(result.details).toContain("Distribution: lazycodex-ai@4.7.5")
-    expect(result.details).toContain("Enabled plugin: omo@sisyphuslabs")
+    expect(result.details).toContain("Enabled plugin: omo@odinlabs")
     expect(result.details).toContain("Companion plugin: none")
     expect(result.details).toContain("Linked bins: omo, omo-rules")
     expect(result.details).toContain("Agents: plan")
@@ -233,10 +233,10 @@ describe("codex doctor checks", () => {
         "plugins = true",
         "plugin_hooks = true",
         "",
-        "[marketplaces.sisyphuslabs]",
-        `source = "${join(codexHome, "plugins", "cache", "sisyphuslabs")}"`,
+        "[marketplaces.odinlabs]",
+        `source = "${join(codexHome, "plugins", "cache", "odinlabs")}"`,
         "",
-        '[plugins."omo@sisyphuslabs"]',
+        '[plugins."omo@odinlabs"]',
         "enabled = true",
         "",
         '[plugins."codex@openai-codex"]',
@@ -340,6 +340,6 @@ describe("codex doctor checks", () => {
     const content = await readFile(join(codexHome, "config.toml"), "utf8")
 
     // then
-    expect(content).toContain('[plugins."omo@sisyphuslabs"]')
+    expect(content).toContain('[plugins."omo@odinlabs"]')
   })
 })

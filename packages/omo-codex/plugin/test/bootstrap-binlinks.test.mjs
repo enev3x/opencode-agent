@@ -30,7 +30,7 @@ async function withBinLinkFixture(run) {
 		const pluginData = join(root, "plugin-data");
 		await mkdir(codexHome, { recursive: true });
 		await mkdir(pluginData, { recursive: true });
-		await writeFile(join(codexHome, "config.toml"), `[marketplaces.sisyphuslabs]\n${MARKETPLACE_SOURCE_LINE}\n`);
+		await writeFile(join(codexHome, "config.toml"), `[marketplaces.odinlabs]\n${MARKETPLACE_SOURCE_LINE}\n`);
 		await run({ binDir, codexHome, pluginData, root });
 	} finally {
 		await rm(root, { force: true, recursive: true });
@@ -80,7 +80,7 @@ async function writeVersionedRoot(root, version, { withRuntimeCli = false, withU
 	await mkdir(join(componentRoot, "dist"), { recursive: true });
 	await writeFile(
 		join(componentRoot, "package.json"),
-		`${JSON.stringify({ bin: { [COMPONENT_BIN_NAME]: "./dist/cli.js" }, name: "@sisyphuslabs/toolbox" })}\n`,
+		`${JSON.stringify({ bin: { [COMPONENT_BIN_NAME]: "./dist/cli.js" }, name: "@odinlabs/toolbox" })}\n`,
 	);
 	await writeFile(join(componentRoot, "dist", "cli.js"), "#!/usr/bin/env node\nconsole.log('toolbox');\n");
 	if (withUlwLoopAliases) {
@@ -94,7 +94,7 @@ async function writeVersionedRoot(root, version, { withRuntimeCli = false, withU
 					ulw: "./dist/cli.js",
 					"ulw-loop": "./dist/cli.js",
 				},
-				name: "@sisyphuslabs/ulw-loop",
+				name: "@odinlabs/ulw-loop",
 			})}\n`,
 		);
 		await writeFile(join(ulwLoopRoot, "dist", "cli.js"), "#!/usr/bin/env node\nconsole.log('ulw-loop');\n");

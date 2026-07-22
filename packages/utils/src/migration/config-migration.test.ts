@@ -19,7 +19,7 @@ function createWorkdir(): string {
 function createLegacyConfig(): Record<string, unknown> {
   return {
     agents: {
-      prometheus: { model: "anthropic/claude-opus-4-4" },
+      mimir: { model: "anthropic/claude-opus-4-4" },
     },
   }
 }
@@ -45,13 +45,13 @@ describe("migrateConfigFile sidecar write ordering", () => {
     // then
     expect(needsWrite).toBe(true)
     expect(rawConfig._migrations).toBeUndefined()
-    expect((rawConfig.agents as Record<string, Record<string, unknown>>).prometheus.model).toBe(
+    expect((rawConfig.agents as Record<string, Record<string, unknown>>).mimir.model).toBe(
       "anthropic/claude-opus-4-8",
     )
 
     const persistedConfig = JSON.parse(readFileSync(configPath, "utf-8")) as Record<string, unknown>
     expect(persistedConfig._migrations).toBeUndefined()
-    expect((persistedConfig.agents as Record<string, Record<string, unknown>>).prometheus.model).toBe(
+    expect((persistedConfig.agents as Record<string, Record<string, unknown>>).mimir.model).toBe(
       "anthropic/claude-opus-4-8",
     )
 
@@ -86,7 +86,7 @@ describe("migrateConfigFile sidecar write ordering", () => {
     // then
     expect(retriedNeedsWrite).toBe(true)
     expect(retriedConfig._migrations).toBeUndefined()
-    expect((retriedConfig.agents as Record<string, Record<string, unknown>>).prometheus.model).toBe(
+    expect((retriedConfig.agents as Record<string, Record<string, unknown>>).mimir.model).toBe(
       "anthropic/claude-opus-4-8",
     )
     expect(existsSync(getSidecarPath(configPath))).toBe(true)
@@ -107,13 +107,13 @@ describe("migrateConfigFile sidecar write ordering", () => {
     // then
     expect(needsWrite).toBe(true)
     expect(rawConfig._migrations).toEqual([MIGRATION_KEY])
-    expect((rawConfig.agents as Record<string, Record<string, unknown>>).prometheus.model).toBe(
+    expect((rawConfig.agents as Record<string, Record<string, unknown>>).mimir.model).toBe(
       "anthropic/claude-opus-4-8",
     )
 
     const persistedConfig = JSON.parse(readFileSync(configPath, "utf-8")) as Record<string, unknown>
     expect(persistedConfig._migrations).toEqual([MIGRATION_KEY])
-    expect((persistedConfig.agents as Record<string, Record<string, unknown>>).prometheus.model).toBe(
+    expect((persistedConfig.agents as Record<string, Record<string, unknown>>).mimir.model).toBe(
       "anthropic/claude-opus-4-8",
     )
     expect(statSync(getSidecarPath(configPath)).isDirectory()).toBe(true)
@@ -125,7 +125,7 @@ describe("migrateConfigFile sidecar write ordering", () => {
     const configPath = join(workdir, "oh-my-openagent.json")
     const rawConfig: Record<string, unknown> = {
       agents: {
-        oracle: { model: "anthropic/claude-opus-4-6" },
+        volva: { model: "anthropic/claude-opus-4-6" },
       },
       appliedMigrations: ["model-version:anthropic/claude-opus-4-6->anthropic/claude-opus-4-7"],
     }
@@ -138,7 +138,7 @@ describe("migrateConfigFile sidecar write ordering", () => {
     // then
     expect(needsWrite).toBe(true)
     expect(rawConfig.appliedMigrations).toBeUndefined()
-    expect((rawConfig.agents as Record<string, Record<string, unknown>>).oracle.model).toBe(
+    expect((rawConfig.agents as Record<string, Record<string, unknown>>).volva.model).toBe(
       "anthropic/claude-opus-4-6",
     )
 
@@ -183,7 +183,7 @@ describe("migrateConfigFile backup skipping", () => {
     const configPath = join(workdir, "oh-my-opencode.json")
     const rawConfig = {
       agents: {
-        prometheus: { model: "anthropic/claude-opus-4-4" },
+        mimir: { model: "anthropic/claude-opus-4-4" },
       },
     }
 
@@ -229,7 +229,7 @@ describe("migrateConfigFile orphan lsp key", () => {
     const configPath = join(workdir, "oh-my-opencode.json")
     const rawConfig: Record<string, unknown> = {
       agents: {
-        sisyphus: { model: "anthropic/claude-opus-4-7" },
+        odin: { model: "anthropic/claude-opus-4-7" },
       },
     }
     writeFileSync(configPath, JSON.stringify(rawConfig, null, 2) + "\n")
@@ -239,7 +239,7 @@ describe("migrateConfigFile orphan lsp key", () => {
 
     // then - no rewrite triggered by the lsp migrator, agents block untouched
     expect(needsWrite).toBe(false)
-    expect((rawConfig.agents as Record<string, Record<string, unknown>>).sisyphus.model).toBe(
+    expect((rawConfig.agents as Record<string, Record<string, unknown>>).odin.model).toBe(
       "anthropic/claude-opus-4-7",
     )
   })

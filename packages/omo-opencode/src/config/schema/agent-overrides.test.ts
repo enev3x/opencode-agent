@@ -4,7 +4,7 @@ import { AgentOverridesSchema } from "./agent-overrides"
 describe("AgentOverridesSchema", () => {
   test("preserves custom agent keys after parsing", () => {
     const input = {
-      sisyphus: { model: "anthropic/claude-opus-4-6" },
+      odin: { model: "anthropic/claude-opus-4-6" },
       "technical-writer": {
         model: "anthropic/claude-sonnet-4-6",
         temperature: 0.3,
@@ -16,7 +16,7 @@ describe("AgentOverridesSchema", () => {
 
     expect(result.success).toBe(true)
     if (result.success) {
-      expect(result.data.sisyphus).toBeDefined()
+      expect(result.data.odin).toBeDefined()
       expect(result.data["technical-writer"]).toBeDefined()
       expect(result.data["technical-writer"]?.model).toBe("anthropic/claude-sonnet-4-6")
       expect(result.data["technical-writer"]?.temperature).toBe(0.3)

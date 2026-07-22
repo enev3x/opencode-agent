@@ -216,7 +216,7 @@ describe("runCliInstaller", () => {
       installed: [],
       configPath: "/tmp/codex-config.toml",
       codexHome: "/tmp/codex-home",
-      marketplaceName: "sisyphuslabs",
+      marketplaceName: "odinlabs",
       gitBashPath: null,
       projectCleanup: {
         projectRoot: null,
@@ -246,7 +246,7 @@ describe("runCliInstaller", () => {
     const output = mockConsoleLog.mock.calls.map((call) => call.join(" ")).join("\n")
     expect(output).not.toContain("Model Assignment")
     expect(output).not.toContain("OpenAI/ChatGPT")
-    expect(output).not.toContain("Sisyphus agent performs best")
+    expect(output).not.toContain("Odin agent performs best")
 
     detectSpy.mockRestore()
     installedSpy.mockRestore()

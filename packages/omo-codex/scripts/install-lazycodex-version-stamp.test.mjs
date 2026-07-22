@@ -6,7 +6,7 @@ import test from "node:test";
 import { installMarketplaceLocally } from "./install-local.mjs";
 import { makeTempDir, writeJson, writePluginAt } from "./install-test-fixtures.mjs";
 
-test("#given sisyphuslabs lazycodex install #when installing locally #then stamps the distribution version", async () => {
+test("#given odinlabs lazycodex install #when installing locally #then stamps the distribution version", async () => {
 	const repoRoot = await makeTempDir();
 	const codexHome = await makeTempDir();
 	const binDir = await makeTempDir();
@@ -15,7 +15,7 @@ test("#given sisyphuslabs lazycodex install #when installing locally #then stamp
 
 	await writeJson(join(repoRoot, "package.json"), { name: "lazycodex-ai", version: "4.7.6" });
 	await writeJson(join(codexPackageRoot, "marketplace.json"), {
-		name: "sisyphuslabs",
+		name: "odinlabs",
 		plugins: [{ name: "omo", source: "./plugin" }],
 	});
 	await writePluginAt(pluginRoot, "omo", "0.1.0");
@@ -65,7 +65,7 @@ test("#given sisyphuslabs lazycodex install #when installing locally #then stamp
 		log: () => {},
 	});
 
-	const cacheRoot = join(codexHome, "plugins", "cache", "sisyphuslabs", "omo", "4.7.6");
+	const cacheRoot = join(codexHome, "plugins", "cache", "odinlabs", "omo", "4.7.6");
 	assert.equal(result.installed[0].version, "4.7.6");
 	assert.equal(result.installed[0].path, cacheRoot);
 	const manifest = JSON.parse(await readFile(join(cacheRoot, ".codex-plugin", "plugin.json"), "utf8"));

@@ -18,12 +18,12 @@ describe("resolveAgentVariant", () => {
     // given
     const config = {
       agents: {
-        sisyphus: { variant: "low" },
+        odin: { variant: "low" },
       },
     } as OhMyOpenCodeConfig
 
     // when
-    const variant = resolveAgentVariant(config, "sisyphus")
+    const variant = resolveAgentVariant(config, "odin")
 
     // then
     expect(variant).toBe("low")
@@ -33,7 +33,7 @@ describe("resolveAgentVariant", () => {
     // given
     const config = {
       agents: {
-        sisyphus: { category: "ultrabrain" },
+        odin: { category: "ultrabrain" },
       },
       categories: {
         ultrabrain: { model: "openai/gpt-5.5", variant: "xhigh" },
@@ -41,7 +41,7 @@ describe("resolveAgentVariant", () => {
     } as OhMyOpenCodeConfig
 
     // when
-    const variant = resolveAgentVariant(config, "sisyphus")
+    const variant = resolveAgentVariant(config, "odin")
 
     // then
     expect(variant).toBe("xhigh")
@@ -53,13 +53,13 @@ describe("applyAgentVariant", () => {
     // given
     const config = {
       agents: {
-        sisyphus: { variant: "low" },
+        odin: { variant: "low" },
       },
     } as OhMyOpenCodeConfig
     const message: { variant?: string } = {}
 
     // when
-    applyAgentVariant(config, "sisyphus", message)
+    applyAgentVariant(config, "odin", message)
 
     // then
     expect(message.variant).toBe("low")
@@ -69,13 +69,13 @@ describe("applyAgentVariant", () => {
     // given
     const config = {
       agents: {
-        sisyphus: { variant: "low" },
+        odin: { variant: "low" },
       },
     } as OhMyOpenCodeConfig
     const message = { variant: "max" }
 
     // when
-    applyAgentVariant(config, "sisyphus", message)
+    applyAgentVariant(config, "odin", message)
 
     // then
     expect(message.variant).toBe("max")
@@ -84,17 +84,17 @@ describe("applyAgentVariant", () => {
 
 describe("resolveVariantForModel", () => {
   test("returns agent override variant when configured", () => {
-    // given - use a model in sisyphus chain (claude-opus-4-8 has default variant "max")
+    // given - use a model in odin chain (claude-opus-4-8 has default variant "max")
     // to verify override takes precedence over fallback chain
     const config = {
       agents: {
-        sisyphus: { variant: "high" },
+        odin: { variant: "high" },
       },
     } as OhMyOpenCodeConfig
     const model = { providerID: "anthropic", modelID: "claude-opus-4-8" }
 
     // when
-    const variant = resolveVariantForModel(config, "sisyphus", model)
+    const variant = resolveVariantForModel(config, "odin", model)
 
     // then
     expect(variant).toBe("high")
@@ -106,31 +106,31 @@ describe("resolveVariantForModel", () => {
     const model = { providerID: "anthropic", modelID: "claude-opus-4-8" }
 
     // when
-    const variant = resolveVariantForModel(config, "sisyphus", model)
+    const variant = resolveVariantForModel(config, "odin", model)
 
     // then
     expect(variant).toBe("max")
   })
 
-  test("returns medium for Hephaestus's openai gpt-5.6-sol rung", () => {
+  test("returns medium for Thor's openai gpt-5.6-sol rung", () => {
     // given
     const config = {} as OhMyOpenCodeConfig
     const model = { providerID: "openai", modelID: "gpt-5.6-sol" }
 
     // when
-    const variant = resolveVariantForModel(config, "hephaestus", model)
+    const variant = resolveVariantForModel(config, "thor", model)
 
     // then
     expect(variant).toBe("medium")
   })
 
-  test("returns undefined for gpt-5.5 after its sisyphus rung is removed", () => {
+  test("returns undefined for gpt-5.5 after its odin rung is removed", () => {
     // given
     const config = {} as OhMyOpenCodeConfig
     const model = { providerID: "openai", modelID: "gpt-5.5" }
 
     // when
-    const variant = resolveVariantForModel(config, "sisyphus", model)
+    const variant = resolveVariantForModel(config, "odin", model)
 
     // then
     expect(variant).toBeUndefined()
@@ -142,7 +142,7 @@ describe("resolveVariantForModel", () => {
     const model = { providerID: "unknown-provider", modelID: "some-model" }
 
     // when
-    const variant = resolveVariantForModel(config, "sisyphus", model)
+    const variant = resolveVariantForModel(config, "odin", model)
 
     // then
     expect(variant).toBeUndefined()
@@ -166,7 +166,7 @@ describe("resolveVariantForModel", () => {
     const model = { providerID: "zai-coding-plan", modelID: "glm-5" }
 
     // when
-    const variant = resolveVariantForModel(config, "sisyphus", model)
+    const variant = resolveVariantForModel(config, "odin", model)
 
     // then
     expect(variant).toBeUndefined()
@@ -188,25 +188,25 @@ describe("resolveVariantForModel", () => {
     expect(variant).toBe("xhigh")
   })
 
-  test("returns xhigh for oracle's openai GPT-5.6 Sol primary", () => {
+  test("returns xhigh for volva's openai GPT-5.6 Sol primary", () => {
     // given
     const config = {} as OhMyOpenCodeConfig
     const model = { providerID: "openai", modelID: "gpt-5.6-sol" }
 
     // when
-    const variant = resolveVariantForModel(config, "oracle", model)
+    const variant = resolveVariantForModel(config, "volva", model)
 
     // then
     expect(variant).toBe("xhigh")
   })
 
-  test("returns correct variant for oracle agent with anthropic", () => {
+  test("returns correct variant for volva agent with anthropic", () => {
     // given
     const config = {} as OhMyOpenCodeConfig
     const model = { providerID: "anthropic", modelID: "claude-opus-4-8" }
 
     // when
-    const variant = resolveVariantForModel(config, "oracle", model)
+    const variant = resolveVariantForModel(config, "volva", model)
 
     // then
     expect(variant).toBe("max")

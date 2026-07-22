@@ -20,7 +20,7 @@ Harness-neutral logic for walking a file path UP its directory tree, discovering
 ## DEPENDENCIES & CONSUMERS
 
 - **Depends on:** `@oh-my-opencode/rules-engine` only.
-- **Consumed by** (OpenCode edition only; no Codex consumer): `omo-opencode/src/hooks/directory-agents-injector/{finder,injector}.ts` (re-export) and `hooks/hephaestus-agents-md-injector/hook.ts` (`formatAgentsMdContextBlock`).
+- **Consumed by** (OpenCode edition only; no Codex consumer): `omo-opencode/src/hooks/directory-agents-injector/{finder,injector}.ts` (re-export) and `hooks/thor-agents-md-injector/hook.ts` (`formatAgentsMdContextBlock`).
 
 ## NOTES
 

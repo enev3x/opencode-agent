@@ -80,7 +80,7 @@ describe("config check", () => {
         process.env.OPENCODE_CONFIG_DIR = join(testRootDir, "empty-user-config")
         writeFileSync(
           join(projectDir, ".opencode", "oh-my-openagent.json"),
-          JSON.stringify({ agents: { sisyphus: { model: 123 } } }, null, 2) + "\n",
+          JSON.stringify({ agents: { odin: { model: 123 } } }, null, 2) + "\n",
           "utf-8",
         )
         process.chdir(childDir)
@@ -88,7 +88,7 @@ describe("config check", () => {
         const result = await config.checkConfig()
 
         expect(result.status).toBe("fail")
-        expect(result.issues.some((issue) => issue.description.includes("agents.sisyphus.model"))).toBe(true)
+        expect(result.issues.some((issue) => issue.description.includes("agents.odin.model"))).toBe(true)
       } finally {
         process.chdir(originalCwd)
         rmSync(testRootDir, { recursive: true, force: true })
@@ -128,7 +128,7 @@ describe("config check", () => {
 
         writeFileSync(
           join(pluginConfigDir, "oh-my-openagent.json"),
-          JSON.stringify({ agents: { sisyphus: { model: "kiro/claude-opus-4-6" } } }, null, 2) + "\n",
+          JSON.stringify({ agents: { odin: { model: "kiro/claude-opus-4-6" } } }, null, 2) + "\n",
           "utf-8",
         )
         writeFileSync(
@@ -191,7 +191,7 @@ describe("config check", () => {
           join(testConfigDir, "oh-my-openagent.json"),
           JSON.stringify({
             agents: {
-              sisyphus: { reasoningEffort: "max" },
+              odin: { reasoningEffort: "max" },
             },
           }, null, 2) + "\n",
           "utf-8",

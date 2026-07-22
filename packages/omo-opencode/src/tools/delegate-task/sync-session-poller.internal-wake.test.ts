@@ -7,7 +7,7 @@ import type { OpencodeClient, ToolContextWithMetadata } from "./types"
 const toolContext: ToolContextWithMetadata = {
   sessionID: "ses_parent",
   messageID: "msg_parent",
-  agent: "sisyphus",
+  agent: "odin",
   abort: new AbortController().signal,
 }
 
@@ -60,7 +60,7 @@ describe("pollSyncSession internal all-complete wakes", () => {
     // when
     const result = await pollSyncSession(toolContext, client, {
       sessionID: "ses_test",
-      agentToUse: "sisyphus",
+      agentToUse: "odin",
       toastManager: null,
       taskId: undefined,
     }, 50)
@@ -96,7 +96,7 @@ describe("pollSyncSession internal all-complete wakes", () => {
     // when
     const result = await pollSyncSession(toolContext, client, {
       sessionID: "ses_test",
-      agentToUse: "sisyphus",
+      agentToUse: "odin",
       toastManager: null,
       taskId: undefined,
     }, 50)
@@ -126,7 +126,7 @@ describe("pollSyncSession internal all-complete wakes", () => {
     // when
     const result = await pollSyncSession(toolContext, client, {
       sessionID: "ses_test",
-      agentToUse: "sisyphus",
+      agentToUse: "odin",
       toastManager: null,
       taskId: undefined,
     }, 50)
@@ -155,7 +155,7 @@ describe("pollSyncSession internal all-complete wakes", () => {
     // when
     const result = await pollSyncSession(toolContext, client, {
       sessionID: "ses_test",
-      agentToUse: "sisyphus",
+      agentToUse: "odin",
       toastManager: null,
       taskId: undefined,
     }, 50)
@@ -185,7 +185,7 @@ describe("pollSyncSession internal all-complete wakes", () => {
     // when
     const result = await pollSyncSession(toolContext, client, {
       sessionID: "ses_test",
-      agentToUse: "sisyphus",
+      agentToUse: "odin",
       toastManager: null,
       taskId: undefined,
     }, 50)

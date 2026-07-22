@@ -230,7 +230,7 @@ describe("codex-config-toml", () => {
     expect(content).not.toContain("YOUR_API_KEY")
   })
 
-  test("#given sisyphuslabs omo install #when updating config #then enables Context7 plugin mcp policy", async () => {
+  test("#given odinlabs omo install #when updating config #then enables Context7 plugin mcp policy", async () => {
     // given
     const root = await mkdtemp(join(tmpdir(), "omo-codex-config-context7-plugin-policy-"))
     const configPath = join(root, "config.toml")
@@ -239,15 +239,15 @@ describe("codex-config-toml", () => {
     await updateCodexConfig({
       configPath,
       repoRoot: "/repo/packages/omo-codex",
-      marketplaceName: "sisyphuslabs",
-      marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/sisyphuslabs" },
+      marketplaceName: "odinlabs",
+      marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/odinlabs" },
       pluginNames: ["omo"],
     })
 
     // then
     const content = await readFile(configPath, "utf8")
-    expect(content).toContain('[plugins."omo@sisyphuslabs".mcp_servers.context7]')
-    expect(content).toMatch(/\[plugins\."omo@sisyphuslabs"\.mcp_servers\.context7\][\s\S]*?enabled = true/)
+    expect(content).toContain('[plugins."omo@odinlabs".mcp_servers.context7]')
+    expect(content).toMatch(/\[plugins\."omo@odinlabs"\.mcp_servers\.context7\][\s\S]*?enabled = true/)
     expect(content).not.toContain("[mcp_servers.context7]")
     expect(content).not.toContain("@upstash/context7-mcp")
     expect(content).not.toContain("YOUR_API_KEY")
@@ -305,8 +305,8 @@ describe("codex-config-toml", () => {
     await updateCodexConfig({
       configPath,
       repoRoot: "/repo/packages/omo-codex",
-      marketplaceName: "sisyphuslabs",
-      marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/sisyphuslabs" },
+      marketplaceName: "odinlabs",
+      marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/odinlabs" },
       pluginNames: ["omo"],
     })
 
@@ -315,7 +315,7 @@ describe("codex-config-toml", () => {
     expect(content).toContain("[mcp_servers.context7]")
     expect(content).toContain("ctx7sk_live_example")
     expect(content).toContain("replace YOUR_API_KEY in docs only")
-    expect(content).toContain('[plugins."omo@sisyphuslabs".mcp_servers.context7]')
+    expect(content).toContain('[plugins."omo@odinlabs".mcp_servers.context7]')
   })
 
   test("#given stale Context7 placeholder MCP server #when updating config #then removes it for the plugin MCP", async () => {
@@ -337,14 +337,14 @@ describe("codex-config-toml", () => {
     await updateCodexConfig({
       configPath,
       repoRoot: "/repo/packages/omo-codex",
-      marketplaceName: "sisyphuslabs",
-      marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/sisyphuslabs" },
+      marketplaceName: "odinlabs",
+      marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/odinlabs" },
       pluginNames: ["omo"],
     })
 
     // then
     const content = await readFile(configPath, "utf8")
-    expect(content).toContain('[plugins."omo@sisyphuslabs".mcp_servers.context7]')
+    expect(content).toContain('[plugins."omo@odinlabs".mcp_servers.context7]')
     expect(content).not.toContain("[mcp_servers.context7]")
     expect(content).not.toContain("@upstash/context7-mcp")
     expect(content).not.toContain("YOUR_API_KEY")
@@ -588,7 +588,7 @@ describe("codex-config-toml", () => {
         "[agents]",
         "max_threads = 16",
         "",
-        "[agents.explorer]",
+        "[agents.vidarr]",
         'description = "read-only explorer"',
         'config_file = "./agents/explorer.toml"',
         "",
@@ -609,7 +609,7 @@ describe("codex-config-toml", () => {
     const content = await readFile(configPath, "utf8")
     expect(content).toContain("max_threads = 1000")
     expect(content).not.toContain("max_threads = 16")
-    expect(content).toContain("[agents.explorer]")
+    expect(content).toContain("[agents.vidarr]")
     expect(content).toContain('description = "read-only explorer"')
     expect(content).toContain('config_file = "./agents/explorer.toml"')
   })
@@ -653,32 +653,32 @@ describe("codex-config-toml", () => {
     await updateCodexConfig({
       configPath,
       repoRoot: "/repo/packages/omo-codex",
-      marketplaceName: "sisyphuslabs",
+      marketplaceName: "odinlabs",
       marketplaceSource: {
         sourceType: "local",
-        source: "/repo/packages/omo-codex/cache/sisyphuslabs",
+        source: "/repo/packages/omo-codex/cache/odinlabs",
       },
       pluginNames: ["omo"],
-      trustedHookStates: [{ key: "omo@sisyphuslabs:hooks/hooks.json:post_tool_use:0:0", trustedHash: "sha256:abc" }],
+      trustedHookStates: [{ key: "omo@odinlabs:hooks/hooks.json:post_tool_use:0:0", trustedHash: "sha256:abc" }],
       agentConfigs: [
         { name: "explorer", configFile: "./agents/explorer.toml" },
-        { name: "librarian", configFile: "./agents/librarian.toml" },
+        { name: "bragi", configFile: "./agents/bragi.toml" },
         { name: "plan", configFile: "./agents/plan.toml" },
       ],
     })
     await updateCodexConfig({
       configPath,
       repoRoot: "/repo/packages/omo-codex",
-      marketplaceName: "sisyphuslabs",
+      marketplaceName: "odinlabs",
       marketplaceSource: {
         sourceType: "local",
-        source: "/repo/packages/omo-codex/cache/sisyphuslabs",
+        source: "/repo/packages/omo-codex/cache/odinlabs",
       },
       pluginNames: ["omo"],
-      trustedHookStates: [{ key: "omo@sisyphuslabs:hooks/hooks.json:post_tool_use:0:0", trustedHash: "sha256:abc" }],
+      trustedHookStates: [{ key: "omo@odinlabs:hooks/hooks.json:post_tool_use:0:0", trustedHash: "sha256:abc" }],
       agentConfigs: [
         { name: "explorer", configFile: "./agents/explorer.toml" },
-        { name: "librarian", configFile: "./agents/librarian.toml" },
+        { name: "bragi", configFile: "./agents/bragi.toml" },
         { name: "plan", configFile: "./agents/plan.toml" },
       ],
     })
@@ -688,17 +688,17 @@ describe("codex-config-toml", () => {
     expect(content).toContain("[features]")
     expect(content).toContain("plugins = true")
     expect(content).toContain("plugin_hooks = true")
-    expect(content).toContain("[marketplaces.sisyphuslabs]")
+    expect(content).toContain("[marketplaces.odinlabs]")
     expect(content).toContain('source_type = "local"')
-    expect(content).toContain('source = "/repo/packages/omo-codex/cache/sisyphuslabs"')
+    expect(content).toContain('source = "/repo/packages/omo-codex/cache/odinlabs"')
     expect(content).not.toContain('source = "https://github.com/code-yeongyu/lazycodex.git"')
     expect(content).not.toContain('ref = "main"')
-    expect(content).toContain("[plugins.\"omo@sisyphuslabs\"]")
-    expect(content).toContain("[hooks.state.\"omo@sisyphuslabs:hooks/hooks.json:post_tool_use:0:0\"]")
-    expect(content).toContain("[agents.explorer]")
+    expect(content).toContain("[plugins.\"omo@odinlabs\"]")
+    expect(content).toContain("[hooks.state.\"omo@odinlabs:hooks/hooks.json:post_tool_use:0:0\"]")
+    expect(content).toContain("[agents.vidarr]")
     expect(content).toContain('config_file = "./agents/explorer.toml"')
-    expect(content).toContain("[agents.librarian]")
-    expect(content).toContain('config_file = "./agents/librarian.toml"')
+    expect(content).toContain("[agents.bragi]")
+    expect(content).toContain('config_file = "./agents/bragi.toml"')
     expect(content).toContain("[agents.plan]")
     expect(content).toContain('config_file = "./agents/plan.toml"')
     expect(content).not.toContain("[marketplaces.lazycodex]")
@@ -712,7 +712,7 @@ describe("codex-config-toml", () => {
     const root = await mkdtemp(join(tmpdir(), "omo-codex-config-preserve-marketplace-"))
     const configPath = join(root, "config.toml")
     const existingMarketplaceBlock = [
-      "[marketplaces.sisyphuslabs]",
+      "[marketplaces.odinlabs]",
       'last_updated = "2026-06-15T00:00:00Z"',
       'source_type = "git"',
       'source = "https://github.com/code-yeongyu/lazycodex.git"',
@@ -724,7 +724,7 @@ describe("codex-config-toml", () => {
     await updateCodexConfig({
       configPath,
       repoRoot: "/repo/packages/omo-codex",
-      marketplaceName: "sisyphuslabs",
+      marketplaceName: "odinlabs",
       marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex" },
       pluginNames: ["omo"],
       preserveMarketplaceSource: true,
@@ -768,7 +768,7 @@ describe("codex-config-toml", () => {
     await writeFile(
       configPath,
       [
-        "[agents.explorer]",
+        "[agents.vidarr]",
         'description = "existing description"',
         'config_file = "./agents/stale-explorer.toml"',
         "",
@@ -787,7 +787,7 @@ describe("codex-config-toml", () => {
 
     // then
     const content = await readFile(configPath, "utf8")
-    expect(content).toContain("[agents.explorer]")
+    expect(content).toContain("[agents.vidarr]")
     expect(content).toContain('description = "existing description"')
     expect(content).toContain('config_file = "./agents/explorer.toml"')
     expect(content).not.toContain("stale-explorer")

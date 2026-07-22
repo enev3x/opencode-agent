@@ -2,11 +2,11 @@ import { describe, expect, test } from "bun:test"
 
 import { unsafeTestValue } from "../../../../test-support/unsafe-test-value"
 import { collectPendingBuiltinAgents } from "./builtin-agents/general-agents"
-import { createMomusAgent } from "./momus"
+import { createForsetiAgent } from "./forseti"
 
 type AgentSources = Parameters<typeof collectPendingBuiltinAgents>[0]["agentSources"]
 
-describe("Momus GPT-5.6 warm-cache registration", () => {
+describe("Forseti GPT-5.6 warm-cache registration", () => {
   test("registers transformed Vercel terra ahead of Copilot terra", () => {
     // given
     const availableModels = new Set([
@@ -16,7 +16,7 @@ describe("Momus GPT-5.6 warm-cache registration", () => {
 
     // when
     const { pendingAgentConfigs } = collectPendingBuiltinAgents({
-      agentSources: unsafeTestValue<AgentSources>({ momus: createMomusAgent }),
+      agentSources: unsafeTestValue<AgentSources>({ forseti: createForsetiAgent }),
       agentMetadata: {},
       disabledAgents: [],
       agentOverrides: {},
@@ -24,7 +24,7 @@ describe("Momus GPT-5.6 warm-cache registration", () => {
       availableModels,
       isFirstRunNoCache: false,
     })
-    const config = pendingAgentConfigs.get("momus")
+    const config = pendingAgentConfigs.get("forseti")
 
     // then
     expect(config?.model).toBe("vercel/openai/gpt-5.6-terra")

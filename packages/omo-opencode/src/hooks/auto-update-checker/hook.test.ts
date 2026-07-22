@@ -248,10 +248,10 @@ describe("auto-update-checker hook", () => {
     expect(latestVersionCallCount).toBe(0)
   })
 
-  test("passes correct toast message with sisyphus enabled", async () => {
+  test("passes correct toast message with odin enabled", async () => {
     // given
     resetDeferredState()
-    const { hook, mocks } = await createHook({ isSisyphusEnabled: true })
+    const { hook, mocks } = await createHook({ isOdinEnabled: true })
 
     // when
     triggerSessionCreated(hook)
@@ -262,7 +262,7 @@ describe("auto-update-checker hook", () => {
     expect(mocks.showVersionToast).toHaveBeenCalledWith(
       expect.anything(),
       "3.0.0",
-      expect.stringContaining("Sisyphus"),
+      expect.stringContaining("Odin"),
     )
   })
 

@@ -46322,8 +46322,8 @@
         "output": 32768
       }
     },
-    "unbabel/m-prometheus-14b": {
-      "id": "Unbabel/M-Prometheus-14B",
+    "unbabel/m-mimir-14b": {
+      "id": "Unbabel/M-Mimir-14B",
       "reasoning": false,
       "toolCall": false,
       "modalities": {

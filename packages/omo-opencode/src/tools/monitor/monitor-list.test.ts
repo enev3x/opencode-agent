@@ -75,7 +75,7 @@ function createToolContext(sessionID: string): ToolContext {
   return unsafeTestValue<ToolContext>({
     sessionID,
     messageID: "message-1",
-    agent: "sisyphus",
+    agent: "odin",
     directory: "/tmp/project",
     worktree: "/tmp/project",
     abort: new AbortController().signal,

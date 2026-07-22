@@ -47,7 +47,7 @@ function createMockTask(overrides: Partial<BackgroundTask> = {}): BackgroundTask
     id: "test-task-1",
     description: "test task",
     prompt: "test prompt",
-    agent: "sisyphus-junior",
+    agent: "einherjar",
     status: "error",
     parentSessionId: "parent-session-1",
     parentMessageId: "parent-message-1",

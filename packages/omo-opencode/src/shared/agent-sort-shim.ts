@@ -4,8 +4,8 @@
  * OpenCode 1.4.x ignores the agent `order` field (sst/opencode#19127) and
  * sorts the agent list by `agent.name` via Remeda `sortBy(x => x.name, "asc")`
  * at packages/opencode/src/agent/agent.ts. Without intervention, core agents
- * collapse into name order, which can invert the default sisyphus -> hephaestus
- * -> prometheus -> atlas order or a user's configured `agent_order`.
+ * collapse into name order, which can invert the default odin -> thor
+ * -> mimir -> heimdall order or a user's configured `agent_order`.
  *
  * Earlier attempts to bias the sort key with invisible characters (ZWSP,
  * U+2060 WORD JOINER, U+00AD SOFT HYPHEN, ANSI escape) caused visible-gap

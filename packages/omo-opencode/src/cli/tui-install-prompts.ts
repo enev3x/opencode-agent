@@ -89,7 +89,7 @@ export async function promptInstallConfig(
     options: [
       { value: "no", label: "No", hint: `Will use ${ULTIMATE_FALLBACK} as fallback` },
       { value: "yes", label: "Yes (standard)", hint: "Claude Opus 4.5 for orchestration" },
-      { value: "max20", label: "Yes (max20 mode)", hint: "Full power with Claude Sonnet 4.6 for Librarian" },
+      { value: "max20", label: "Yes (max20 mode)", hint: "Full power with Claude Sonnet 4.6 for Bragi" },
     ],
     initialValue: initial.claude,
   })
@@ -98,8 +98,8 @@ export async function promptInstallConfig(
   const openai = await selectOrCancel({
     message: "Do you have an OpenAI/ChatGPT Plus subscription?",
     options: [
-      { value: "no", label: "No", hint: "Oracle will use fallback models" },
-      { value: "yes", label: "Yes", hint: "GPT-5.4 for Oracle (high-IQ debugging)" },
+      { value: "no", label: "No", hint: "Volva will use fallback models" },
+      { value: "yes", label: "Yes", hint: "GPT-5.4 for Volva (high-IQ debugging)" },
     ],
     initialValue: initial.openai,
   })
@@ -139,7 +139,7 @@ export async function promptInstallConfig(
     message: "Do you have a Z.ai Coding Plan subscription?",
     options: [
       { value: "no", label: "No", hint: "Will use other configured providers" },
-      { value: "yes", label: "Yes", hint: "Fallback for Librarian and Multimodal Looker" },
+      { value: "yes", label: "Yes", hint: "Fallback for Bragi and Huginn" },
     ],
     initialValue: initial.zaiCodingPlan,
   })
@@ -149,7 +149,7 @@ export async function promptInstallConfig(
     message: "Do you have a Kimi For Coding subscription?",
     options: [
       { value: "no", label: "No", hint: "Will use other configured providers" },
-      { value: "yes", label: "Yes", hint: "Kimi K2.5 for Sisyphus/Prometheus fallback" },
+      { value: "yes", label: "Yes", hint: "Kimi K2.5 for Odin/Mimir fallback" },
     ],
     initialValue: initial.kimiForCoding,
   })

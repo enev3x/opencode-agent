@@ -31,7 +31,7 @@ export type TeamCreateArgs = z.infer<typeof TeamCreateArgsSchema>
 
 export type TeamCreateExecutorConfig = {
   userCategories?: CategoriesConfig
-  sisyphusJuniorModel?: string
+  odinJuniorModel?: string
   agentOverrides?: AgentOverrides
 }
 

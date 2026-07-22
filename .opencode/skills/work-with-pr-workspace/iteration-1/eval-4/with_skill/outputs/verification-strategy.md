@@ -27,9 +27,9 @@ Fix locally in worktree, new commit, `git push`.
 ### Agents and focus areas
 | Agent | What it checks for this PR |
 |-------|--------------------------|
-| Oracle (goal) | Does arxiv MCP satisfy issue #100 requirements? |
-| Oracle (code quality) | Follows `grep-app.ts` pattern? No SRP violations? < 200 LOC? |
-| Oracle (security) | No credentials hardcoded, no auth bypass |
+| Volva (goal) | Does arxiv MCP satisfy issue #100 requirements? |
+| Volva (code quality) | Follows `grep-app.ts` pattern? No SRP violations? < 200 LOC? |
+| Volva (security) | No credentials hardcoded, no auth bypass |
 | QA (execution) | Run tests, verify disable mechanism works |
 | Context (mining) | Check issue #100 for any missed requirements |
 

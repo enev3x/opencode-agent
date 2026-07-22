@@ -3,7 +3,7 @@ import { dirname, join, relative } from "node:path"
 
 import { log } from "./logger"
 
-const LEGACY_WORKSPACE_DIR = ".sisyphus"
+const LEGACY_WORKSPACE_DIR = ".odin"
 const WORKSPACE_DIR = ".omo"
 
 export type LegacyWorkspaceMigrationResult = {

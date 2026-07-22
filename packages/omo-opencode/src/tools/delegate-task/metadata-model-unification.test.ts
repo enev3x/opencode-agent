@@ -14,7 +14,7 @@ function makeMockCtx(): ToolContextWithMetadata & { captured: CapturedMetadata[]
   return {
     sessionID: "ses_parent",
     messageID: "msg_parent",
-    agent: "sisyphus",
+    agent: "odin",
     abort: new AbortController().signal,
     callID: "call_001",
     metadata: async (input: { title?: string; metadata?: Record<string, unknown> }) => { captured.push(input as CapturedMetadata) },
@@ -25,7 +25,7 @@ function makeMockCtx(): ToolContextWithMetadata & { captured: CapturedMetadata[]
 const parentContext: ParentContext = {
   sessionID: "ses_parent",
   messageID: "msg_parent",
-  agent: "sisyphus",
+  agent: "odin",
   model: MODEL,
 }
 
@@ -51,7 +51,7 @@ describe("metadata model unification", () => {
           client: { session: { create: async () => ({ data: { id: "ses_sync" } }) } },
           directory: "/tmp",
           onSyncSessionCreated: null,
-        }, parentContext, "explore", MODEL, undefined, undefined, undefined, deps)
+        }, parentContext, "vidar", MODEL, undefined, undefined, undefined, deps)
 
         const meta = ctx.captured.find((m: CapturedMetadata) => m.metadata?.sessionId)!
         expect(meta).toBeDefined()
@@ -63,18 +63,18 @@ describe("metadata model unification", () => {
         const ctx = makeMockCtx()
         const args: DelegateTaskArgs = {
           description: "test", prompt: "do it",
-          load_skills: [], run_in_background: true, subagent_type: "explore",
+          load_skills: [], run_in_background: true, subagent_type: "vidar",
         }
 
         await executeBackgroundTask(args, ctx, unsafeTestValue({
           manager: {
             launch: async () => ({
-              id: "bg_1", description: "test", agent: "explore",
+              id: "bg_1", description: "test", agent: "vidar",
               status: "pending", sessionId: "ses_bg", model: MODEL,
             }),
             getTask: () => undefined,
           },
-        }), parentContext, "explore", MODEL, undefined)
+        }), parentContext, "vidar", MODEL, undefined)
 
         const meta = ctx.captured.find((m: CapturedMetadata) => m.metadata?.sessionId)!
         expect(meta).toBeDefined()
@@ -90,7 +90,7 @@ describe("metadata model unification", () => {
         }
 
         const launchedTask = {
-          id: "bg_unstable", description: "test", agent: "explore",
+          id: "bg_unstable", description: "test", agent: "vidar",
           status: "completed", sessionId: "ses_unstable", model: MODEL,
         }
         await executeUnstableAgentTask(
@@ -113,7 +113,7 @@ describe("metadata model unification", () => {
             },
             syncPollTimeoutMs: 100,
           }),
-          parentContext, "explore", MODEL, undefined, "anthropic/claude-sonnet-4-6",
+          parentContext, "vidar", MODEL, undefined, "anthropic/claude-sonnet-4-6",
         )
 
         const meta = ctx.captured.find((m: CapturedMetadata) => m.metadata?.sessionId)!
@@ -132,7 +132,7 @@ describe("metadata model unification", () => {
         await executeBackgroundContinuation(args, ctx, unsafeTestValue({
           manager: {
             resume: async () => ({
-              id: "bg_2", description: "continue", agent: "explore",
+              id: "bg_2", description: "continue", agent: "vidar",
               status: "running", sessionId: "ses_resumed", model: MODEL,
             }),
           },
@@ -160,7 +160,7 @@ describe("metadata model unification", () => {
           client: {
             session: {
               messages: async () => ({
-                data: [{ info: { agent: "explore", model: MODEL, providerID: "anthropic", modelID: "claude-sonnet-4-6" } }],
+                data: [{ info: { agent: "vidar", model: MODEL, providerID: "anthropic", modelID: "claude-sonnet-4-6" } }],
               }),
               prompt: async () => ({}),
             },
@@ -187,14 +187,14 @@ describe("metadata model unification", () => {
         }
         const args: DelegateTaskArgs = {
           description: "test", prompt: "do it",
-          subagent_type: "explore", load_skills: [], run_in_background: false,
+          subagent_type: "vidar", load_skills: [], run_in_background: false,
         }
 
         await executeSyncTask(args, ctx, {
           client: { session: { create: async () => ({ data: { id: "ses_sync" } }) } },
           directory: "/tmp",
           onSyncSessionCreated: null,
-        }, parentContext, "explore", undefined, undefined, undefined, undefined, deps)
+        }, parentContext, "vidar", undefined, undefined, undefined, undefined, deps)
 
         const meta = ctx.captured.find((m: CapturedMetadata) => m.metadata?.sessionId)!
         expect(meta).toBeDefined()
@@ -206,18 +206,18 @@ describe("metadata model unification", () => {
         const ctx = makeMockCtx()
         const args: DelegateTaskArgs = {
           description: "test", prompt: "do it",
-          load_skills: [], run_in_background: true, subagent_type: "explore",
+          load_skills: [], run_in_background: true, subagent_type: "vidar",
         }
 
         await executeBackgroundTask(args, ctx, unsafeTestValue({
           manager: {
             launch: async () => ({
-              id: "bg_1", description: "test", agent: "explore",
+              id: "bg_1", description: "test", agent: "vidar",
               status: "pending", sessionId: "ses_bg",
             }),
             getTask: () => undefined,
           },
-        }), parentContext, "explore", undefined, undefined)
+        }), parentContext, "vidar", undefined, undefined)
 
         const meta = ctx.captured.find((m: CapturedMetadata) => m.metadata?.sessionId)!
         expect(meta).toBeDefined()
@@ -233,7 +233,7 @@ describe("metadata model unification", () => {
         }
 
         const launchedTask = {
-          id: "bg_unstable", description: "test", agent: "explore",
+          id: "bg_unstable", description: "test", agent: "vidar",
           status: "completed", sessionId: "ses_unstable",
         }
 
@@ -257,7 +257,7 @@ describe("metadata model unification", () => {
             },
             syncPollTimeoutMs: 100,
           }),
-          parentContext, "explore", undefined, undefined, "anthropic/claude-sonnet-4-6",
+          parentContext, "vidar", undefined, undefined, "anthropic/claude-sonnet-4-6",
         )
 
         const meta = ctx.captured.find((m: CapturedMetadata) => m.metadata?.sessionId)!
@@ -276,7 +276,7 @@ describe("metadata model unification", () => {
         await executeBackgroundContinuation(args, ctx, unsafeTestValue({
           manager: {
             resume: async () => ({
-              id: "bg_2", description: "continue", agent: "explore",
+              id: "bg_2", description: "continue", agent: "vidar",
               status: "running", sessionId: "ses_resumed",
             }),
           },
@@ -328,20 +328,20 @@ describe("metadata model unification", () => {
       }
       const args: DelegateTaskArgs = {
         description: "test", prompt: "do it",
-        subagent_type: "explore", load_skills: [], run_in_background: false,
+        subagent_type: "vidar", load_skills: [], run_in_background: false,
       }
 
       const parentContextWithoutModel: ParentContext = {
         sessionID: "ses_parent",
         messageID: "msg_parent",
-        agent: "sisyphus",
+        agent: "odin",
       }
 
       await executeSyncTask(args, ctx, {
         client: { session: { create: async () => ({ data: { id: "ses_sync" } }) } },
         directory: "/tmp",
         onSyncSessionCreated: null,
-      }, parentContextWithoutModel, "explore", undefined, undefined, undefined, undefined, deps)
+      }, parentContextWithoutModel, "vidar", undefined, undefined, undefined, undefined, deps)
 
       const meta = ctx.captured.find((m: CapturedMetadata) => m.metadata?.sessionId)!
       expect(meta).toBeDefined()
@@ -369,7 +369,7 @@ describe("metadata model unification", () => {
           client: { session: { create: async () => ({ data: { id: "ses_sync_variant" } }) } },
           directory: "/tmp",
           onSyncSessionCreated: null,
-        }, parentContext, "explore", MODEL_WITH_VARIANT, undefined, undefined, undefined, deps)
+        }, parentContext, "vidar", MODEL_WITH_VARIANT, undefined, undefined, undefined, deps)
 
         const meta = ctx.captured.find((metadataEvent: CapturedMetadata) => metadataEvent.metadata?.sessionId)!
         expect(meta).toBeDefined()
@@ -381,18 +381,18 @@ describe("metadata model unification", () => {
         const ctx = makeMockCtx()
         const args: DelegateTaskArgs = {
           description: "test", prompt: "do it",
-          category: "visual-engineering", load_skills: [], run_in_background: true, subagent_type: "explore",
+          category: "visual-engineering", load_skills: [], run_in_background: true, subagent_type: "vidar",
         }
 
         await executeBackgroundTask(args, ctx, unsafeTestValue({
           manager: {
             launch: async () => ({
-              id: "bg_variant", description: "test", agent: "explore",
+              id: "bg_variant", description: "test", agent: "vidar",
               status: "pending", sessionId: "ses_bg_variant", model: MODEL_WITH_VARIANT,
             }),
             getTask: () => undefined,
           },
-        }), parentContext, "explore", MODEL_WITH_VARIANT, undefined)
+        }), parentContext, "vidar", MODEL_WITH_VARIANT, undefined)
 
         const meta = ctx.captured.find((metadataEvent: CapturedMetadata) => metadataEvent.metadata?.sessionId)!
         expect(meta).toBeDefined()
@@ -408,7 +408,7 @@ describe("metadata model unification", () => {
         }
 
         const launchedTask = {
-          id: "bg_unstable_variant", description: "test", agent: "explore",
+          id: "bg_unstable_variant", description: "test", agent: "vidar",
           status: "completed", sessionId: "ses_unstable_variant", model: MODEL_WITH_VARIANT,
         }
 
@@ -432,7 +432,7 @@ describe("metadata model unification", () => {
             },
             syncPollTimeoutMs: 100,
           }),
-          parentContext, "explore", MODEL_WITH_VARIANT, undefined, "google/gemini-3.1-pro high",
+          parentContext, "vidar", MODEL_WITH_VARIANT, undefined, "google/gemini-3.1-pro high",
         )
 
         const meta = ctx.captured.find((metadataEvent: CapturedMetadata) => metadataEvent.metadata?.sessionId)!
@@ -451,7 +451,7 @@ describe("metadata model unification", () => {
         await executeBackgroundContinuation(args, ctx, unsafeTestValue({
           manager: {
             resume: async () => ({
-              id: "bg_resume_variant", description: "continue", agent: "explore",
+              id: "bg_resume_variant", description: "continue", agent: "vidar",
               status: "running", sessionId: "ses_resumed_variant", model: MODEL_WITH_VARIANT,
             }),
           },
@@ -479,7 +479,7 @@ describe("metadata model unification", () => {
           client: {
             session: {
               messages: async () => ({
-                data: [{ info: { agent: "explore", model: MODEL_WITH_VARIANT, providerID: "google", modelID: "gemini-3.1-pro" } }],
+                data: [{ info: { agent: "vidar", model: MODEL_WITH_VARIANT, providerID: "google", modelID: "gemini-3.1-pro" } }],
               }),
               prompt: async () => ({}),
             },

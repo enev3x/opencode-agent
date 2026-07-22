@@ -34,10 +34,10 @@ export function buildTaskToolDescription(input: DescriptionInput): string {
   CORRECT - using a category:
     task(category="quick", description="Fix type error", prompt="...")
   CORRECT - direct agent with background parallelism:
-    task(subagent_type="oracle", description="Review design", prompt="...", run_in_background=true)
+    task(subagent_type="volva", description="Review design", prompt="...", run_in_background=true)
 
   REQUIRED: provide exactly ONE of:
-  - category: routes through Sisyphus-Junior with the category-optimized model. Available categories:
+  - category: routes through Einherjar with the category-optimized model. Available categories:
 ${renderList(categories)}
   - subagent_type: invoke a specific agent directly. Available agents: ${agentNames}
 

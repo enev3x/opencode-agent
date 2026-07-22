@@ -1,24 +1,24 @@
 import { describe, expect, test } from "bun:test";
-import { createSisyphusAgent } from "./sisyphus";
+import { createOdinAgent } from "./odin";
 
 function permissionValue(
-  permission: ReturnType<typeof createSisyphusAgent>["permission"],
+  permission: ReturnType<typeof createOdinAgent>["permission"],
   key: string,
 ): unknown {
   return Object.entries(permission ?? {}).find(([permissionKey]) => permissionKey === key)?.[1];
 }
 
-describe("createSisyphusAgent", () => {
-  describe("#given any Sisyphus model", () => {
+describe("createOdinAgent", () => {
+  describe("#given any Odin model", () => {
     test("#when creating the agent #then exposes the primary facade contract", () => {
       // given
       const model = "anthropic/claude-sonnet-4-6";
 
       // when
-      const agent = createSisyphusAgent(model);
+      const agent = createOdinAgent(model);
 
       // then
-      expect(createSisyphusAgent.mode).toBe("primary");
+      expect(createOdinAgent.mode).toBe("primary");
       expect(agent.mode).toBe("primary");
       expect(agent.model).toBe(model);
       expect(agent.maxTokens).toBe(64000);
@@ -70,7 +70,7 @@ describe("createSisyphusAgent", () => {
 
       for (const { model, promptAnchors } of cases) {
         // when
-        const agent = createSisyphusAgent(model);
+        const agent = createOdinAgent(model);
 
         // then
         for (const promptAnchor of promptAnchors) {
@@ -85,8 +85,8 @@ describe("createSisyphusAgent", () => {
 
       for (const model of models) {
         // when
-        const taskAgent = createSisyphusAgent(model, undefined, undefined, undefined, undefined, true);
-        const todoAgent = createSisyphusAgent(model, undefined, undefined, undefined, undefined, false);
+        const taskAgent = createOdinAgent(model, undefined, undefined, undefined, undefined, true);
+        const todoAgent = createOdinAgent(model, undefined, undefined, undefined, undefined, false);
 
         // then
         expect(taskAgent.prompt).toContain("task_create");
@@ -102,9 +102,9 @@ describe("createSisyphusAgent", () => {
   describe("#given Kimi K3 vs K2.7 vs K2.6 models", () => {
     test("#when creating agents #then each Kimi generation routes to its own variant", () => {
       // given
-      const k3Agent = createSisyphusAgent("opencode-go/kimi-k3");
-      const k27Agent = createSisyphusAgent("opencode-go/kimi-k2.7");
-      const k26Agent = createSisyphusAgent("opencode-go/kimi-k2.6");
+      const k3Agent = createOdinAgent("opencode-go/kimi-k3");
+      const k27Agent = createOdinAgent("opencode-go/kimi-k2.7");
+      const k26Agent = createOdinAgent("opencode-go/kimi-k2.6");
 
       // then
       expect(k3Agent.prompt).toContain("running on Kimi K3");
@@ -121,14 +121,14 @@ describe("createSisyphusAgent", () => {
     });
   });
 
-  describe("#given GPT-family Sisyphus models", () => {
+  describe("#given GPT-family Odin models", () => {
     test("#when creating agents #then preserves reasoning and leaves apply_patch available", () => {
       // given
       const models = ["openai/gpt-5.5", "openai/gpt-5.4"];
 
       for (const model of models) {
         // when
-        const agent = createSisyphusAgent(model);
+        const agent = createOdinAgent(model);
 
         // then
         expect(agent.reasoningEffort).toBe("medium");
@@ -138,13 +138,13 @@ describe("createSisyphusAgent", () => {
     });
   });
 
-  describe("#given Claude-family Sisyphus models", () => {
+  describe("#given Claude-family Odin models", () => {
     test("#when creating agents #then preserves current thinking config split", () => {
       // given
-      const opus47Agent = createSisyphusAgent("anthropic/claude-opus-4-7");
-      const opus48Agent = createSisyphusAgent("anthropic/claude-opus-4-8");
-      const fable5Agent = createSisyphusAgent("anthropic/claude-fable-5");
-      const sonnetAgent = createSisyphusAgent("anthropic/claude-sonnet-4-6");
+      const opus47Agent = createOdinAgent("anthropic/claude-opus-4-7");
+      const opus48Agent = createOdinAgent("anthropic/claude-opus-4-8");
+      const fable5Agent = createOdinAgent("anthropic/claude-fable-5");
+      const sonnetAgent = createOdinAgent("anthropic/claude-sonnet-4-6");
 
       // then
       expect(opus47Agent.thinking).toBeUndefined();
@@ -157,13 +157,13 @@ describe("createSisyphusAgent", () => {
     });
   });
 
-  describe("#given a GLM Sisyphus model", () => {
+  describe("#given a GLM Odin model", () => {
     test("#when creating the agent #then uses the GLM-native prompt with bare config", () => {
       // given
       const model = "zai/glm-5.2";
 
       // when
-      const agent = createSisyphusAgent(model);
+      const agent = createOdinAgent(model);
 
       // then
       expect(agent.prompt).toContain("running on GLM 5.2");
@@ -179,7 +179,7 @@ describe("createSisyphusAgent", () => {
       const model = "google/gemini-3.1-pro";
 
       // when
-      const agent = createSisyphusAgent(model);
+      const agent = createOdinAgent(model);
       const prompt = agent.prompt ?? "";
 
       // then

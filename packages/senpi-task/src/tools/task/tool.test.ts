@@ -45,7 +45,7 @@ function fakeManager(overrides: Partial<TaskManager>): TaskManager {
 }
 
 function deps(manager: TaskManager): TaskToolDeps {
-  return { manager, omoConfig: OMO_CONFIG, agents: { oracle: { name: "oracle", description: "Deep reasoning" } } }
+  return { manager, omoConfig: OMO_CONFIG, agents: { volva: { name: "volva", description: "Deep reasoning" } } }
 }
 
 function renderedLines(component: unknown, width: number): string[] {
@@ -85,7 +85,7 @@ describe("createTaskTool", () => {
     // then
     expect(tool.description).toContain("release-crew")
     expect(tool.description).toContain("Ships the release train")
-    expect(tool.description).toContain("oracle")
+    expect(tool.description).toContain("volva")
   })
 
   test("#given the assembled tool #when parameters are read #then the shared TypeBox schema leaves prompt/tasks optional (XOR enforced in validateBatchShape)", () => {

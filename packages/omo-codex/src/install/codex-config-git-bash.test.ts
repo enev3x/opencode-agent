@@ -6,20 +6,20 @@ import { describe, expect, test } from "bun:test"
 import { updateCodexConfig } from "./codex-config-toml"
 
 describe("Codex config Git Bash MCP policy", () => {
-  test("#given windows platform with Git Bash enabled #when updating sisyphuslabs plugin config #then enables git_bash plugin mcp policy", async () => {
+  test("#given windows platform with Git Bash enabled #when updating odinlabs plugin config #then enables git_bash plugin mcp policy", async () => {
     // given
     const root = await mkdtemp(join(tmpdir(), "omo-codex-config-git-bash-win32-"))
     const configPath = join(root, "config.toml")
     await writeFile(
       configPath,
       [
-        '[plugins."omo@sisyphuslabs"]',
+        '[plugins."omo@odinlabs"]',
         "enabled = true",
         "",
-        '[plugins."omo@sisyphuslabs".mcp_servers.lsp]',
+        '[plugins."omo@odinlabs".mcp_servers.lsp]',
         "enabled = true",
         "",
-        '[hooks.state."omo@sisyphuslabs:hooks/hooks.json:post_tool_use:0:0"]',
+        '[hooks.state."omo@odinlabs:hooks/hooks.json:post_tool_use:0:0"]',
         'trusted_hash = "sha256:keep"',
         "",
       ].join("\n"),
@@ -29,23 +29,23 @@ describe("Codex config Git Bash MCP policy", () => {
     await updateCodexConfig({
       configPath,
       repoRoot: "/repo/packages/omo-codex",
-      marketplaceName: "sisyphuslabs",
-      marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/sisyphuslabs" },
+      marketplaceName: "odinlabs",
+      marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/odinlabs" },
       pluginNames: ["omo"],
       platform: "win32",
       gitBashEnabled: true,
-      trustedHookStates: [{ key: "omo@sisyphuslabs:hooks/hooks.json:post_tool_use:0:0", trustedHash: "sha256:keep" }],
+      trustedHookStates: [{ key: "omo@odinlabs:hooks/hooks.json:post_tool_use:0:0", trustedHash: "sha256:keep" }],
     })
 
     // then
     const content = await readFile(configPath, "utf8")
-    expect(content).toContain('[plugins."omo@sisyphuslabs".mcp_servers.lsp]')
-    expect(content).toContain('[plugins."omo@sisyphuslabs".mcp_servers.git_bash]')
-    expect(content).toContain("[hooks.state.\"omo@sisyphuslabs:hooks/hooks.json:post_tool_use:0:0\"]")
-    expect(content).toMatch(/\[plugins\."omo@sisyphuslabs"\.mcp_servers\.git_bash\][\s\S]*?enabled = true/)
+    expect(content).toContain('[plugins."omo@odinlabs".mcp_servers.lsp]')
+    expect(content).toContain('[plugins."omo@odinlabs".mcp_servers.git_bash]')
+    expect(content).toContain("[hooks.state.\"omo@odinlabs:hooks/hooks.json:post_tool_use:0:0\"]")
+    expect(content).toMatch(/\[plugins\."omo@odinlabs"\.mcp_servers\.git_bash\][\s\S]*?enabled = true/)
   })
 
-  test("#given windows platform without Git Bash enabled #when updating sisyphuslabs plugin config #then disables git_bash plugin mcp policy", async () => {
+  test("#given windows platform without Git Bash enabled #when updating odinlabs plugin config #then disables git_bash plugin mcp policy", async () => {
     // given
     const root = await mkdtemp(join(tmpdir(), "omo-codex-config-git-bash-win32-disabled-"))
     const configPath = join(root, "config.toml")
@@ -54,8 +54,8 @@ describe("Codex config Git Bash MCP policy", () => {
     await updateCodexConfig({
       configPath,
       repoRoot: "/repo/packages/omo-codex",
-      marketplaceName: "sisyphuslabs",
-      marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/sisyphuslabs" },
+      marketplaceName: "odinlabs",
+      marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/odinlabs" },
       pluginNames: ["omo"],
       platform: "win32",
       gitBashEnabled: false,
@@ -63,11 +63,11 @@ describe("Codex config Git Bash MCP policy", () => {
 
     // then
     const content = await readFile(configPath, "utf8")
-    expect(content).toContain('[plugins."omo@sisyphuslabs".mcp_servers.git_bash]')
-    expect(content).toMatch(/\[plugins\."omo@sisyphuslabs"\.mcp_servers\.git_bash\][\s\S]*?enabled = false/)
+    expect(content).toContain('[plugins."omo@odinlabs".mcp_servers.git_bash]')
+    expect(content).toMatch(/\[plugins\."omo@odinlabs"\.mcp_servers\.git_bash\][\s\S]*?enabled = false/)
   })
 
-  test("#given non-windows platforms #when updating sisyphuslabs plugin config #then disables git_bash plugin mcp policy", async () => {
+  test("#given non-windows platforms #when updating odinlabs plugin config #then disables git_bash plugin mcp policy", async () => {
     for (const platform of ["linux", "darwin"] as const) {
       // given
       const root = await mkdtemp(join(tmpdir(), `omo-codex-config-git-bash-${platform}-`))
@@ -77,24 +77,24 @@ describe("Codex config Git Bash MCP policy", () => {
       await updateCodexConfig({
         configPath,
         repoRoot: "/repo/packages/omo-codex",
-        marketplaceName: "sisyphuslabs",
-        marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/sisyphuslabs" },
+        marketplaceName: "odinlabs",
+        marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/odinlabs" },
         pluginNames: ["omo"],
         platform,
       })
 
       // then
       const content = await readFile(configPath, "utf8")
-      expect(content).toContain('[plugins."omo@sisyphuslabs".mcp_servers.git_bash]')
-      expect(content).toContain('[plugins."omo@sisyphuslabs".mcp_servers.codegraph]')
-      expect(content).toMatch(/\[plugins\."omo@sisyphuslabs"\.mcp_servers\.git_bash\][\s\S]*?enabled = false/)
-      expect(content).toMatch(/\[plugins\."omo@sisyphuslabs"\.mcp_servers\.codegraph\][\s\S]*?enabled = true/)
-      expect(content).toContain('[plugins."omo@sisyphuslabs"]')
+      expect(content).toContain('[plugins."omo@odinlabs".mcp_servers.git_bash]')
+      expect(content).toContain('[plugins."omo@odinlabs".mcp_servers.codegraph]')
+      expect(content).toMatch(/\[plugins\."omo@odinlabs"\.mcp_servers\.git_bash\][\s\S]*?enabled = false/)
+      expect(content).toMatch(/\[plugins\."omo@odinlabs"\.mcp_servers\.codegraph\][\s\S]*?enabled = true/)
+      expect(content).toContain('[plugins."omo@odinlabs"]')
       expect(content).toContain("enabled = true")
     }
   })
 
-  test("#given codegraph MCP is not runnable #when updating sisyphuslabs plugin config #then disables codegraph plugin mcp policy", async () => {
+  test("#given codegraph MCP is not runnable #when updating odinlabs plugin config #then disables codegraph plugin mcp policy", async () => {
     // given
     const root = await mkdtemp(join(tmpdir(), "omo-codex-config-codegraph-disabled-"))
     const configPath = join(root, "config.toml")
@@ -103,8 +103,8 @@ describe("Codex config Git Bash MCP policy", () => {
     await updateCodexConfig({
       configPath,
       repoRoot: "/repo/packages/omo-codex",
-      marketplaceName: "sisyphuslabs",
-      marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/sisyphuslabs" },
+      marketplaceName: "odinlabs",
+      marketplaceSource: { sourceType: "local", source: "/repo/packages/omo-codex/cache/odinlabs" },
       pluginNames: ["omo"],
       platform: "darwin",
       codegraphMcpEnabled: false,
@@ -112,9 +112,9 @@ describe("Codex config Git Bash MCP policy", () => {
 
     // then
     const content = await readFile(configPath, "utf8")
-    const codegraphSection = readSection(content, '[plugins."omo@sisyphuslabs".mcp_servers.codegraph]')
+    const codegraphSection = readSection(content, '[plugins."omo@odinlabs".mcp_servers.codegraph]')
     expect(codegraphSection).toContain("enabled = false")
-    expect(content).toContain('[plugins."omo@sisyphuslabs"]')
+    expect(content).toContain('[plugins."omo@odinlabs"]')
     expect(content).toContain("enabled = true")
   })
 })

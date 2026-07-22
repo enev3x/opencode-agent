@@ -1,62 +1,62 @@
 export const AGENT_NAME_MAP: Record<string, string> = {
-  // Sisyphus variants → "sisyphus"
-  omo: "sisyphus",
-  OmO: "sisyphus",
-  Sisyphus: "sisyphus",
-  "Sisyphus (Ultraworker)": "sisyphus",
-  sisyphus: "sisyphus",
+  // Odin variants → "odin"
+  omo: "odin",
+  OmO: "odin",
+  Odin: "odin",
+  "Odin (Ultraworker)": "odin",
+  odin: "odin",
 
-  // Hephaestus variants → "hephaestus"
-  "Hephaestus (Deep Agent)": "hephaestus",
+  // Thor variants → "thor"
+  "Thor (Deep Agent)": "thor",
 
-  // Prometheus variants → "prometheus"
-  "OmO-Plan": "prometheus",
-  "omo-plan": "prometheus",
-  "Planner-Sisyphus": "prometheus",
-  "planner-sisyphus": "prometheus",
-  "Prometheus - Plan Builder": "prometheus",
-  "Prometheus (Plan Builder)": "prometheus",
-  prometheus: "prometheus",
+  // Mimir variants → "mimir"
+  "OmO-Plan": "mimir",
+  "omo-plan": "mimir",
+  "Planner-Odin": "mimir",
+  "planner-odin": "mimir",
+  "Mimir - Plan Builder": "mimir",
+  "Mimir (Plan Builder)": "mimir",
+  mimir: "mimir",
 
-  // Atlas variants → "atlas"
-  "orchestrator-sisyphus": "atlas",
-  Atlas: "atlas",
-  "Atlas (Plan Executor)": "atlas",
-  atlas: "atlas",
+  // Heimdall variants → "heimdall"
+  "orchestrator-odin": "heimdall",
+  Heimdall: "heimdall",
+  "Heimdall (Plan Executor)": "heimdall",
+  heimdall: "heimdall",
 
-  // Metis variants → "metis"
-  "plan-consultant": "metis",
-  "Metis - Plan Consultant": "metis",
-  "Metis (Plan Consultant)": "metis",
-  metis: "metis",
+  // Urd variants → "urd"
+  "plan-consultant": "urd",
+  "Urd - Plan Consultant": "urd",
+  "Urd (Plan Consultant)": "urd",
+  urd: "urd",
 
-  // Momus variants → "momus"
-  "Momus - Plan Critic": "momus",
-  "Momus (Plan Critic)": "momus",
-  momus: "momus",
+  // Forseti variants → "forseti"
+  "Forseti - Plan Critic": "forseti",
+  "Forseti (Plan Critic)": "forseti",
+  forseti: "forseti",
 
-  // Sisyphus-Junior → "sisyphus-junior"
-  "Sisyphus-Junior": "sisyphus-junior",
-  "sisyphus-junior": "sisyphus-junior",
+  // Einherjar → "einherjar"
+  "Einherjar": "einherjar",
+  "einherjar": "einherjar",
 
   // Already lowercase - passthrough
   build: "build",
-  oracle: "oracle",
-  librarian: "librarian",
-  explore: "explore",
-  "multimodal-looker": "multimodal-looker",
+  volva: "volva",
+  bragi: "bragi",
+  vidar: "vidar",
+  "huginn": "huginn",
 }
 
 export const BUILTIN_AGENT_NAMES = new Set([
-  "sisyphus", // was "Sisyphus"
-  "oracle",
-  "librarian",
-  "explore",
-  "multimodal-looker",
-  "metis", // was "Metis - Plan Consultant"
-  "momus", // was "Momus - Plan Critic"
-  "prometheus", // was "Prometheus - Plan Builder"
-  "atlas", // was "Atlas"
+  "odin", // was "Odin"
+  "volva",
+  "bragi",
+  "vidar",
+  "huginn",
+  "urd", // was "Urd - Plan Consultant"
+  "forseti", // was "Forseti - Plan Critic"
+  "mimir", // was "Mimir - Plan Builder"
+  "heimdall", // was "Heimdall"
   "build",
 ])
 

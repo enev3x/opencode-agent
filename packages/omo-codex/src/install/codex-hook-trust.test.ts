@@ -28,7 +28,7 @@ describe("codex-hook-trust", () => {
 
     // when
     const states = await trustedHookStatesForPlugin({
-      marketplaceName: "sisyphuslabs",
+      marketplaceName: "odinlabs",
       pluginName: "omo",
       pluginRoot,
     })
@@ -71,7 +71,7 @@ describe("codex-hook-trust", () => {
     try {
       // when
       const states = await trustedHookStatesForPlugin({
-        marketplaceName: "sisyphuslabs",
+        marketplaceName: "odinlabs",
         platform: "win32",
         pluginName: "omo",
         pluginRoot,
@@ -80,7 +80,7 @@ describe("codex-hook-trust", () => {
       // then
       expect(states).toEqual([
         {
-          key: "omo@sisyphuslabs:hooks/hooks.json:session_start:0:0",
+          key: "omo@odinlabs:hooks/hooks.json:session_start:0:0",
           trustedHash: "sha256:0109665071b94eed9adbbbb6ac0a736e50accc5ef1c9d19128f14ff653c23e4c",
         },
       ])

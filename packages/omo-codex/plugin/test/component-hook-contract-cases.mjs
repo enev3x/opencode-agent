@@ -19,7 +19,7 @@ export function componentHookContractCases(tempRoot) {
 			assertOutput(stdout) {
 				const output = JSON.parse(stdout);
 				assert.equal(output.hookSpecificOutput.hookEventName, "SessionStart");
-				assert.match(output.hookSpecificOutput.additionalContext, /Hephaestus/);
+				assert.match(output.hookSpecificOutput.additionalContext, /Thor/);
 			},
 		},
 		{

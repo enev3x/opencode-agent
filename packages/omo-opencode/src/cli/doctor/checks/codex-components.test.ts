@@ -49,11 +49,11 @@ async function createInstalledFixture(options: FixtureOptions = {}): Promise<Fix
   const root = await mkdtemp(join(tmpdir(), "omo-codex-components-doctor-"))
   const codexHome = join(root, ".codex")
   const binDir = join(root, "bin")
-  const pluginRoot = join(codexHome, "plugins", "cache", "sisyphuslabs", "omo", PLUGIN_VERSION)
+  const pluginRoot = join(codexHome, "plugins", "cache", "odinlabs", "omo", PLUGIN_VERSION)
   await mkdir(join(pluginRoot, ".codex-plugin"), { recursive: true })
   await mkdir(binDir, { recursive: true })
   await writeFile(join(pluginRoot, ".codex-plugin", "plugin.json"), JSON.stringify({ name: "omo", version: PLUGIN_VERSION }))
-  await writeFile(join(codexHome, "config.toml"), ['[plugins."omo@sisyphuslabs"]', "enabled = true", ""].join("\n"))
+  await writeFile(join(codexHome, "config.toml"), ['[plugins."omo@odinlabs"]', "enabled = true", ""].join("\n"))
 
   await writeBundleFile(
     pluginRoot,
@@ -106,7 +106,7 @@ async function createInstalledFixture(options: FixtureOptions = {}): Promise<Fix
     ? { completedForVersion: PLUGIN_VERSION, lastAttemptAt: 1_770_000_000_000, lastStatus: "success", degraded: [] }
     : options.bootstrapState
   if (bootstrapState !== null) {
-    const statePath = join(codexHome, "plugins", "data", "omo-sisyphuslabs", "bootstrap", "state.json")
+    const statePath = join(codexHome, "plugins", "data", "omo-odinlabs", "bootstrap", "state.json")
     await mkdir(dirname(statePath), { recursive: true })
     await writeFile(statePath, JSON.stringify(bootstrapState))
   }
@@ -319,7 +319,7 @@ describe("codex components doctor check", () => {
   test("#given malformed bootstrap state json #when checking components #then treats bootstrap as pending without crashing", async () => {
     // given
     const fixture = await createInstalledFixture({ bootstrapState: null })
-    const statePath = join(fixture.codexHome, "plugins", "data", "omo-sisyphuslabs", "bootstrap", "state.json")
+    const statePath = join(fixture.codexHome, "plugins", "data", "omo-odinlabs", "bootstrap", "state.json")
     await mkdir(dirname(statePath), { recursive: true })
     await writeFile(statePath, "{not-json")
 

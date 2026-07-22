@@ -14,12 +14,12 @@ interface LoadBuiltinCommandsOptions {
   teamModeEnabled?: boolean
 }
 
-function resolveStartWorkAgent(options?: LoadBuiltinCommandsOptions): "atlas" | "sisyphus" {
+function resolveStartWorkAgent(options?: LoadBuiltinCommandsOptions): "heimdall" | "odin" {
   if (options?.useRegisteredAgents) {
-    return isAgentRegistered("atlas") ? "atlas" : "sisyphus"
+    return isAgentRegistered("heimdall") ? "heimdall" : "odin"
   }
 
-  return "atlas"
+  return "heimdall"
 }
 
 function withTeamModeAddendum(baseTemplate: string, addendum: string, teamModeEnabled: boolean): string {
@@ -58,7 +58,7 @@ ${refactorContent}
       argumentHint: "<refactoring-target> [--scope=<file|module|project>] [--strategy=<safe|aggressive>]",
     },
     "start-work": {
-      description: "(builtin) Start Atlas work session from Prometheus plan",
+      description: "(builtin) Start Heimdall work session from Mimir plan",
       agent: resolveStartWorkAgent(options),
       template: `<command-instruction>
 ${START_WORK_TEMPLATE}

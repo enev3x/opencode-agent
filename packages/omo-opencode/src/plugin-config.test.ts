@@ -132,21 +132,21 @@ describe("mergeConfigs", () => {
     it("should deep merge agents", () => {
       const base = createConfig({
         agents: {
-          oracle: { model: "openai/gpt-5.5" },
+          volva: { model: "openai/gpt-5.5" },
         },
       });
 
       const override = createConfig({
         agents: {
-          oracle: { temperature: 0.5 },
+          volva: { temperature: 0.5 },
           explore: { model: "anthropic/claude-haiku-4-5" },
         },
       });
 
       const result = mergeConfigs(base, override);
 
-      expect(result.agents?.oracle).toMatchObject({ model: "openai/gpt-5.5" });
-      expect(result.agents?.oracle?.temperature).toBe(0.5);
+      expect(result.agents?.volva).toMatchObject({ model: "openai/gpt-5.5" });
+      expect(result.agents?.volva?.temperature).toBe(0.5);
       expect(result.agents?.explore).toMatchObject({ model: "anthropic/claude-haiku-4-5" });
     });
 
@@ -285,8 +285,8 @@ describe("parseConfigPartially", () => {
     it("should return the full config when everything is valid", () => {
       const rawConfig = {
         agents: {
-          oracle: { model: "openai/gpt-5.5" },
-          momus: { model: "openai/gpt-5.4" },
+          volva: { model: "openai/gpt-5.5" },
+          forseti: { model: "openai/gpt-5.4" },
         },
         disabled_hooks: ["comment-checker"],
       };
@@ -294,8 +294,8 @@ describe("parseConfigPartially", () => {
       const result = parseConfigPartially(rawConfig);
 
       expect(result).not.toBeNull();
-      expect(result?.agents?.oracle).toMatchObject({ model: "openai/gpt-5.5" });
-      expect(result?.agents?.momus).toMatchObject({ model: "openai/gpt-5.4" });
+      expect(result?.agents?.volva).toMatchObject({ model: "openai/gpt-5.5" });
+      expect(result?.agents?.forseti).toMatchObject({ model: "openai/gpt-5.4" });
       expect(result?.disabled_hooks).toEqual(["comment-checker"]);
     });
   });
@@ -308,9 +308,9 @@ describe("parseConfigPartially", () => {
     it("should preserve valid agent overrides when another section is invalid", () => {
       const rawConfig = {
         agents: {
-          oracle: { model: "openai/gpt-5.5" },
-          momus: { model: "openai/gpt-5.4" },
-          prometheus: {
+          volva: { model: "openai/gpt-5.5" },
+          forseti: { model: "openai/gpt-5.4" },
+          mimir: {
             permission: {
               edit: { "*": "ask", ".omo/**": "allow" },
             },
@@ -328,17 +328,17 @@ describe("parseConfigPartially", () => {
 
     it("should preserve valid agent_order when another section is invalid", () => {
       const rawConfig = {
-        agent_order: ["hephaestus", "sisyphus", "prometheus", "atlas"],
+        agent_order: ["thor", "odin", "mimir", "heimdall"],
         disabled_skills: [42],
       };
 
       const result = parseConfigPartially(rawConfig);
 
       expect(result?.agent_order).toEqual([
-        "hephaestus",
-        "sisyphus",
-        "prometheus",
-        "atlas",
+        "thor",
+        "odin",
+        "mimir",
+        "heimdall",
       ]);
       expect(result?.disabled_skills).toBeUndefined();
     });
@@ -358,7 +358,7 @@ describe("parseConfigPartially", () => {
     it("should preserve valid agents when a non-agent section is invalid", () => {
       const rawConfig = {
         agents: {
-          oracle: { model: "openai/gpt-5.5" },
+          volva: { model: "openai/gpt-5.5" },
         },
         disabled_hooks: ["not-a-real-hook"],
       };
@@ -366,14 +366,14 @@ describe("parseConfigPartially", () => {
       const result = parseConfigPartially(rawConfig);
 
       expect(result).not.toBeNull();
-      expect(result?.agents?.oracle).toMatchObject({ model: "openai/gpt-5.5" });
+      expect(result?.agents?.volva).toMatchObject({ model: "openai/gpt-5.5" });
       expect(result?.disabled_hooks).toEqual(["not-a-real-hook"]);
     });
 
     it("should skip invalid string-array sections without discarding other salvaged sections", () => {
       const rawConfig = {
         agents: {
-          oracle: { temperature: "not-a-number" },
+          volva: { temperature: "not-a-number" },
         },
         disabled_hooks: ["comment-checker"],
         mcp_env_allowlist: ["USER_TOKEN", 42],
@@ -395,7 +395,7 @@ describe("parseConfigPartially", () => {
 
     it("should return empty object when all sections are invalid", () => {
       const rawConfig = {
-        agents: { oracle: { temperature: "not-a-number" } },
+        agents: { volva: { temperature: "not-a-number" } },
         disabled_hooks: ["not-a-real-hook"],
       };
 
@@ -439,7 +439,7 @@ describe("parseConfigPartially", () => {
     it("should ignore unknown keys and return valid sections", () => {
       const rawConfig = {
         agents: {
-          oracle: { model: "openai/gpt-5.5" },
+          volva: { model: "openai/gpt-5.5" },
         },
         some_future_key: { foo: "bar" },
       };
@@ -447,7 +447,7 @@ describe("parseConfigPartially", () => {
       const result = parseConfigPartially(rawConfig);
 
       expect(result).not.toBeNull();
-      expect(result?.agents?.oracle).toMatchObject({ model: "openai/gpt-5.5" });
+      expect(result?.agents?.volva).toMatchObject({ model: "openai/gpt-5.5" });
       expect((result as Record<string, unknown>)["some_future_key"]).toBeUndefined();
     });
   });
@@ -460,18 +460,18 @@ describe("loadConfigFromPath agent_order warnings", () => {
     tempDirs.push(rootDir)
     const configPath = join(rootDir, "oh-my-openagent.json")
     writeJsonFile(configPath, {
-      agent_order: ["hephaestus", "not-real", "sisyphus", "hephaestus"],
+      agent_order: ["thor", "not-real", "odin", "thor"],
     })
 
     // when
     const result = loadConfigFromPath(configPath, {})
 
     // then
-    expect(result?.agent_order).toEqual(["hephaestus", "not-real", "sisyphus", "hephaestus"])
+    expect(result?.agent_order).toEqual(["thor", "not-real", "odin", "thor"])
     expect(getConfigLoadErrors()).toEqual([
       {
         path: configPath,
-        error: 'agent_order warning - unknown agent names ignored: "not-real"; duplicate agent names ignored: "hephaestus"',
+        error: 'agent_order warning - unknown agent names ignored: "not-real"; duplicate agent names ignored: "thor"',
       },
     ])
   })
@@ -619,21 +619,21 @@ describe("loadPluginConfig", () => {
     tempDirs.push(rootDir)
     mkdirSync(userConfigDir, { recursive: true })
     mkdirSync(projectConfigDir, { recursive: true })
-    writeFileSync(legacyConfigPath, JSON.stringify({ agents: { oracle: { model: "openai/gpt-5.5" } } }))
+    writeFileSync(legacyConfigPath, JSON.stringify({ agents: { volva: { model: "openai/gpt-5.5" } } }))
 
     process.env.OPENCODE_CONFIG_DIR = userConfigDir
 
     // when
     const { loadPluginConfig } = await importFreshPluginConfigModule()
     loadPluginConfig(projectDir, {})
-    writeFileSync(backupConfigPath, JSON.stringify({ agents: { oracle: { model: "openai/gpt-5-nano" } } }))
+    writeFileSync(backupConfigPath, JSON.stringify({ agents: { volva: { model: "openai/gpt-5-nano" } } }))
     const reloadedConfig = loadPluginConfig(projectDir, {})
 
     // then
     expect(existsSync(legacyConfigPath)).toBe(false)
     expect(existsSync(backupConfigPath)).toBe(true)
     expect(readFileSync(canonicalConfigPath, "utf-8")).toContain('"openai/gpt-5.5"')
-    expect(reloadedConfig.agents?.oracle?.model).toBe("openai/gpt-5.5")
+    expect(reloadedConfig.agents?.volva?.model).toBe("openai/gpt-5.5")
   })
 
   it("should still load config from legacy path when migration fails", async () => {
@@ -647,7 +647,7 @@ describe("loadPluginConfig", () => {
     tempDirs.push(rootDir)
     mkdirSync(userConfigDir, { recursive: true })
     mkdirSync(projectConfigDir, { recursive: true })
-    writeFileSync(legacyConfigPath, JSON.stringify({ agents: { oracle: { model: "openai/gpt-5.5" } } }))
+    writeFileSync(legacyConfigPath, JSON.stringify({ agents: { volva: { model: "openai/gpt-5.5" } } }))
 
     // Make the directory read-only so migration write fails
     // (simulates Windows file lock / permission issues)
@@ -670,7 +670,7 @@ describe("loadPluginConfig", () => {
     }
 
     // then - should still load the config from legacy path
-    expect(config.agents?.oracle?.model).toBe("openai/gpt-5.5")
+    expect(config.agents?.volva?.model).toBe("openai/gpt-5.5")
   })
 
   it("should load migrated legacy project config on the first load", async () => {
@@ -685,7 +685,7 @@ describe("loadPluginConfig", () => {
     tempDirs.push(rootDir)
     mkdirSync(userConfigDir, { recursive: true })
     mkdirSync(projectConfigDir, { recursive: true })
-    writeFileSync(legacyConfigPath, JSON.stringify({ agents: { oracle: { model: "openai/gpt-5.5" } } }))
+    writeFileSync(legacyConfigPath, JSON.stringify({ agents: { volva: { model: "openai/gpt-5.5" } } }))
 
     process.env.OPENCODE_CONFIG_DIR = userConfigDir
 
@@ -696,7 +696,7 @@ describe("loadPluginConfig", () => {
     // then
     expect(existsSync(legacyConfigPath)).toBe(false)
     expect(existsSync(canonicalConfigPath)).toBe(true)
-    expect(config.agents?.oracle?.model).toBe("openai/gpt-5.5")
+    expect(config.agents?.volva?.model).toBe("openai/gpt-5.5")
   })
 
   it("does not rewrite explicit user-selected openai/gpt-5.4 models during config load", async () => {
@@ -706,11 +706,11 @@ describe("loadPluginConfig", () => {
     const userConfigPath = join(userConfigDir, "oh-my-openagent.json")
     writeJsonFile(userConfigPath, {
       agents: {
-        sisyphus: {
+        odin: {
           model: "openai/gpt-5.4",
           variant: "xhigh",
         },
-        hephaestus: {
+        thor: {
           model: "openai/gpt-5.4",
           variant: "medium",
         },
@@ -724,8 +724,8 @@ describe("loadPluginConfig", () => {
     const config = loadPluginConfig(projectDir, {})
 
     // then
-    expect(config.agents?.sisyphus?.model).toBe("openai/gpt-5.4")
-    expect(config.agents?.hephaestus?.model).toBe("openai/gpt-5.4")
+    expect(config.agents?.odin?.model).toBe("openai/gpt-5.4")
+    expect(config.agents?.thor?.model).toBe("openai/gpt-5.4")
     expect(readFileSync(userConfigPath, "utf-8")).toContain('"openai/gpt-5.4"')
     expect(existsSync(`${userConfigPath}.migrations.json`)).toBe(false)
   })
@@ -755,7 +755,7 @@ describe("loadPluginConfig", () => {
       join(projectConfigDir, "oh-my-openagent.jsonc"),
       JSON.stringify({
         agents: {
-          hephaestus: { model: "openai/gpt-5.5" },
+          thor: { model: "openai/gpt-5.5" },
         },
       })
     )
@@ -829,7 +829,7 @@ describe("loadPluginConfig", () => {
       })
       writeJsonFile(join(userConfigDir, "oh-my-opencode.json"), {
         agents: {
-          oracle: {
+          volva: {
             model: "openai/gpt-5.4",
           },
         },
@@ -912,19 +912,19 @@ describe("loadPluginConfig", () => {
 
     writeFileSync(
       join(userConfigDir, "oh-my-openagent.jsonc"),
-      JSON.stringify({ agents: { oracle: { model: "user/model" } } })
+      JSON.stringify({ agents: { volva: { model: "user/model" } } })
     )
     writeFileSync(
       join(homeDir, ".opencode", "oh-my-openagent.jsonc"),
-      JSON.stringify({ agents: { oracle: { model: "home/model" } } })
+      JSON.stringify({ agents: { volva: { model: "home/model" } } })
     )
     writeFileSync(
       join(workDir, ".opencode", "oh-my-openagent.jsonc"),
-      JSON.stringify({ agents: { oracle: { model: "work/model" } } })
+      JSON.stringify({ agents: { volva: { model: "work/model" } } })
     )
     writeFileSync(
       join(projectDir, ".opencode", "oh-my-openagent.jsonc"),
-      JSON.stringify({ agents: { oracle: { model: "project/model" } } })
+      JSON.stringify({ agents: { volva: { model: "project/model" } } })
     )
 
     process.env.OPENCODE_CONFIG_DIR = userConfigDir
@@ -935,7 +935,7 @@ describe("loadPluginConfig", () => {
     const config = loadPluginConfig(projectDir, {})
 
     // then
-    expect(config.agents?.oracle?.model).toBe("project/model")
+    expect(config.agents?.volva?.model).toBe("project/model")
   })
 
   it("should load user config from the default global directory even when OPENCODE_CONFIG_DIR is set", async () => {
@@ -952,11 +952,11 @@ describe("loadPluginConfig", () => {
 
     writeFileSync(
       join(defaultGlobalConfigDir, "oh-my-openagent.jsonc"),
-      JSON.stringify({ agents: { oracle: { model: "default/oracle" } } }),
+      JSON.stringify({ agents: { volva: { model: "default/volva" } } }),
     )
     writeFileSync(
       join(customConfigDir, "oh-my-openagent.jsonc"),
-      JSON.stringify({ agents: { hephaestus: { model: "custom/hephaestus" } } }),
+      JSON.stringify({ agents: { thor: { model: "custom/thor" } } }),
     )
 
     process.env.XDG_CONFIG_HOME = join(rootDir, "xdg")
@@ -967,8 +967,8 @@ describe("loadPluginConfig", () => {
     const config = loadPluginConfig(projectDir, {})
 
     // then
-    expect(config.agents?.oracle?.model).toBe("default/oracle")
-    expect(config.agents?.hephaestus?.model).toBe("custom/hephaestus")
+    expect(config.agents?.volva?.model).toBe("default/volva")
+    expect(config.agents?.thor?.model).toBe("custom/thor")
   })
 
   it("should layer ancestor configs so each contributes fields not overridden by closer ones", async () => {
@@ -988,15 +988,15 @@ describe("loadPluginConfig", () => {
     writeFileSync(join(userConfigDir, "oh-my-openagent.jsonc"), "{}")
     writeFileSync(
       join(homeDir, ".opencode", "oh-my-openagent.jsonc"),
-      JSON.stringify({ agents: { oracle: { model: "home/oracle" } } })
+      JSON.stringify({ agents: { volva: { model: "home/volva" } } })
     )
     writeFileSync(
       join(workDir, ".opencode", "oh-my-openagent.jsonc"),
-      JSON.stringify({ agents: { hephaestus: { model: "work/hephaestus" } } })
+      JSON.stringify({ agents: { thor: { model: "work/thor" } } })
     )
     writeFileSync(
       join(projectDir, ".opencode", "oh-my-openagent.jsonc"),
-      JSON.stringify({ agents: { sisyphus: { model: "project/sisyphus" } } })
+      JSON.stringify({ agents: { odin: { model: "project/odin" } } })
     )
 
     process.env.OPENCODE_CONFIG_DIR = userConfigDir
@@ -1007,9 +1007,9 @@ describe("loadPluginConfig", () => {
     const config = loadPluginConfig(projectDir, {})
 
     // then - each level contributes a non-conflicting field
-    expect(config.agents?.oracle?.model).toBe("home/oracle")
-    expect(config.agents?.hephaestus?.model).toBe("work/hephaestus")
-    expect(config.agents?.sisyphus?.model).toBe("project/sisyphus")
+    expect(config.agents?.volva?.model).toBe("home/volva")
+    expect(config.agents?.thor?.model).toBe("work/thor")
+    expect(config.agents?.odin?.model).toBe("project/odin")
   })
 
   it("should preserve mcp_env_allowlist as user-only when ancestors set their own allowlists", async () => {
@@ -1071,11 +1071,11 @@ describe("loadPluginConfig", () => {
     writeFileSync(join(userConfigDir, "oh-my-openagent.jsonc"), "{}")
     writeFileSync(
       join(aboveHomeDir, ".opencode", "oh-my-openagent.jsonc"),
-      JSON.stringify({ agents: { oracle: { model: "above-home/leak" } } })
+      JSON.stringify({ agents: { volva: { model: "above-home/leak" } } })
     )
     writeFileSync(
       join(homeDir, ".opencode", "oh-my-openagent.jsonc"),
-      JSON.stringify({ agents: { hephaestus: { model: "home/wins" } } })
+      JSON.stringify({ agents: { thor: { model: "home/wins" } } })
     )
     writeFileSync(join(projectDir, ".opencode", "oh-my-openagent.jsonc"), "{}")
 
@@ -1087,8 +1087,8 @@ describe("loadPluginConfig", () => {
     const config = loadPluginConfig(projectDir, {})
 
     // then - $HOME's config applies, but the directory above it does NOT
-    expect(config.agents?.hephaestus?.model).toBe("home/wins")
-    expect(config.agents?.oracle).toBeUndefined()
+    expect(config.agents?.thor?.model).toBe("home/wins")
+    expect(config.agents?.volva).toBeUndefined()
   })
 
   it("should not walk above the start directory when start is outside $HOME", async () => {
@@ -1108,11 +1108,11 @@ describe("loadPluginConfig", () => {
     writeFileSync(join(userConfigDir, "oh-my-openagent.jsonc"), "{}")
     writeFileSync(
       join(outsideHomeRoot, ".opencode", "oh-my-openagent.jsonc"),
-      JSON.stringify({ agents: { oracle: { model: "outside-home/leak" } } })
+      JSON.stringify({ agents: { volva: { model: "outside-home/leak" } } })
     )
     writeFileSync(
       join(projectDir, ".opencode", "oh-my-openagent.jsonc"),
-      JSON.stringify({ agents: { hephaestus: { model: "project/wins" } } })
+      JSON.stringify({ agents: { thor: { model: "project/wins" } } })
     )
 
     process.env.OPENCODE_CONFIG_DIR = userConfigDir
@@ -1123,8 +1123,8 @@ describe("loadPluginConfig", () => {
     const config = loadPluginConfig(projectDir, {})
 
     // then - project loads, but the parent above it (outside $HOME) is not walked into
-    expect(config.agents?.hephaestus?.model).toBe("project/wins")
-    expect(config.agents?.oracle).toBeUndefined()
+    expect(config.agents?.thor?.model).toBe("project/wins")
+    expect(config.agents?.volva).toBeUndefined()
   })
 
   it("should merge git_master overrides across ancestors with closer winning", async () => {
@@ -1244,7 +1244,7 @@ describe("loadPluginConfig", () => {
     writeFileSync(join(userConfigDir, "oh-my-openagent.jsonc"), "{}")
     writeFileSync(
       ancestorLegacyPath,
-      JSON.stringify({ agents: { oracle: { model: "ancestor-legacy/model" } } })
+      JSON.stringify({ agents: { volva: { model: "ancestor-legacy/model" } } })
     )
 
     process.env.OPENCODE_CONFIG_DIR = userConfigDir
@@ -1257,7 +1257,7 @@ describe("loadPluginConfig", () => {
     // then
     expect(existsSync(ancestorLegacyPath)).toBe(false)
     expect(existsSync(ancestorCanonicalPath)).toBe(true)
-    expect(config.agents?.oracle?.model).toBe("ancestor-legacy/model")
+    expect(config.agents?.volva?.model).toBe("ancestor-legacy/model")
   })
 
   it("applies disabled_providers to agent and category chains at load time", async () => {
@@ -1271,7 +1271,7 @@ describe("loadPluginConfig", () => {
       JSON.stringify({
         disabled_providers: ["github-copilot", "vercel"],
         agents: {
-          hephaestus: {
+          thor: {
             model: "github-copilot/gpt-5.5",
             fallback_models: [
               "github-copilot/gpt-5.4-mini",
@@ -1280,7 +1280,7 @@ describe("loadPluginConfig", () => {
               "opencode/gpt-5.5",
             ],
           },
-          oracle: {
+          volva: {
             model: "anthropic/claude-opus-4-7",
             fallback_models: [
               "github-copilot/claude-sonnet-4.6",
@@ -1306,21 +1306,21 @@ describe("loadPluginConfig", () => {
     // then - primary models that referenced a disabled provider are
     // substituted from the first allowed chain entry, and every disabled
     // provider has been filtered out of every chain.
-    const hephaestus = config.agents?.hephaestus as
+    const thor = config.agents?.thor as
       | { model?: string; fallback_models?: Array<string | { model: string }> }
       | undefined
-    expect(hephaestus?.model).toBe("openai/gpt-5.5")
-    expect(hephaestus?.fallback_models).toEqual([
+    expect(thor?.model).toBe("openai/gpt-5.5")
+    expect(thor?.fallback_models).toEqual([
       "openai/gpt-5.5",
       "opencode/gpt-5.5",
     ])
 
-    const oracle = config.agents?.oracle as
+    const volva = config.agents?.volva as
       | { model?: string; fallback_models?: Array<string | { model: string }> }
       | undefined
     // Primary is allowed -> untouched. Chain has the disabled entry removed.
-    expect(oracle?.model).toBe("anthropic/claude-opus-4-7")
-    expect(oracle?.fallback_models).toEqual(["opencode-go/glm-5.1"])
+    expect(volva?.model).toBe("anthropic/claude-opus-4-7")
+    expect(volva?.fallback_models).toEqual(["opencode-go/glm-5.1"])
 
     const deep = config.categories?.deep as
       | { model?: string; fallback_models?: Array<string | { model: string }> }
@@ -1340,7 +1340,7 @@ describe("loadPluginConfig", () => {
       join(projectConfigDir, "oh-my-openagent.jsonc"),
       JSON.stringify({
         agents: {
-          hephaestus: {
+          thor: {
             model: "github-copilot/gpt-5.5",
             fallback_models: ["openai/gpt-5.5"],
           },
@@ -1353,8 +1353,8 @@ describe("loadPluginConfig", () => {
     const { loadPluginConfig } = await importFreshPluginConfigModule()
     const config = loadPluginConfig(projectDir, {})
 
-    const hephaestus = config.agents?.hephaestus as { model?: string; fallback_models?: unknown }
-    expect(hephaestus?.model).toBe("github-copilot/gpt-5.5")
-    expect(hephaestus?.fallback_models).toEqual(["openai/gpt-5.5"])
+    const thor = config.agents?.thor as { model?: string; fallback_models?: unknown }
+    expect(thor?.model).toBe("github-copilot/gpt-5.5")
+    expect(thor?.fallback_models).toEqual(["openai/gpt-5.5"])
   })
 })

@@ -15,7 +15,7 @@ describe("start-work hook platform session ids", () => {
 
   function createStartWorkPrompt(): string {
     return `<command-instruction>
-You are starting an Atlas work session.
+You are starting an Heimdall work session.
 </command-instruction>
 
 <session-context></session-context>`
@@ -86,10 +86,10 @@ You are starting an Atlas work session.
 })
 
 describe("start-work template label matches the activated agent (#5499)", () => {
-  test("#given /start-work activates Atlas #when reading the shipped template header #then it announces an Atlas work session, not Sisyphus", () => {
-    // /start-work activates the atlas agent (see createStartWorkHook), so the
-    // shipped template header must not announce a stale 'Sisyphus work session' (#5499).
-    expect(START_WORK_TEMPLATE).toContain("You are starting an Atlas work session.")
-    expect(START_WORK_TEMPLATE).not.toContain("Sisyphus work session")
+  test("#given /start-work activates Heimdall #when reading the shipped template header #then it announces an Heimdall work session, not Odin", () => {
+    // /start-work activates the heimdall agent (see createStartWorkHook), so the
+    // shipped template header must not announce a stale 'Odin work session' (#5499).
+    expect(START_WORK_TEMPLATE).toContain("You are starting an Heimdall work session.")
+    expect(START_WORK_TEMPLATE).not.toContain("Odin work session")
   })
 })

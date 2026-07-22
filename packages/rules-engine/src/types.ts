@@ -27,11 +27,11 @@ export type RuleSource =
   | ".cursor/rules"
   | ".github/instructions"
   | ".github/copilot-instructions.md"
-  | ".sisyphus/rules"
+  | ".odin/rules"
   | "~/.omo/rules"
   | "~/.opencode/rules"
   | "~/.claude/rules"
-  | "~/.sisyphus/rules";
+  | "~/.odin/rules";
 
 export interface MatchResult {
   readonly applies: boolean;

@@ -5,12 +5,12 @@ import { isTaskSystemEnabled } from "../shared";
 type AgentWithPermission = { permission?: Record<string, unknown> };
 
 const TASK_DENIED_SUBAGENT_KEYS = [
-  "librarian",
-  "explore",
-  "oracle",
-  "multimodal-looker",
-  "metis",
-  "momus",
+  "bragi",
+  "vidar",
+  "volva",
+  "huginn",
+  "urd",
+  "forseti",
 ] as const;
 
 function getConfigQuestionPermission(): string | null {
@@ -87,18 +87,18 @@ export function applyToolConfig(params: {
     denyTaskForAgent(params.agentResult, agentKey, params.pluginConfig);
   }
 
-  const librarian = agentByKey(params.agentResult, "librarian", params.pluginConfig);
-  if (librarian) {
-    librarian.permission = { ...librarian.permission, "grep_app_*": "allow" };
+  const bragi = agentByKey(params.agentResult, "bragi", params.pluginConfig);
+  if (bragi) {
+    bragi.permission = { ...bragi.permission, "grep_app_*": "allow" };
   }
-  const looker = agentByKey(params.agentResult, "multimodal-looker", params.pluginConfig);
+  const looker = agentByKey(params.agentResult, "huginn", params.pluginConfig);
   if (looker) {
     looker.permission = { ...looker.permission, task: "deny", look_at: "deny" };
   }
-  const atlas = agentByKey(params.agentResult, "atlas", params.pluginConfig);
-  if (atlas) {
-    atlas.permission = {
-      ...atlas.permission,
+  const heimdall = agentByKey(params.agentResult, "heimdall", params.pluginConfig);
+  if (heimdall) {
+    heimdall.permission = {
+      ...heimdall.permission,
       task: "allow",
       call_omo_agent: "deny",
       "task_*": "allow",
@@ -106,10 +106,10 @@ export function applyToolConfig(params: {
       ...denyTodoTools,
     };
   }
-  const sisyphus = agentByKey(params.agentResult, "sisyphus", params.pluginConfig);
-  if (sisyphus) {
-    sisyphus.permission = {
-      ...sisyphus.permission,
+  const odin = agentByKey(params.agentResult, "odin", params.pluginConfig);
+  if (odin) {
+    odin.permission = {
+      ...odin.permission,
       call_omo_agent: "deny",
       task: "allow",
       question: questionPermission,
@@ -118,10 +118,10 @@ export function applyToolConfig(params: {
       ...denyTodoTools,
     };
   }
-  const hephaestus = agentByKey(params.agentResult, "hephaestus", params.pluginConfig);
-  if (hephaestus) {
-    hephaestus.permission = {
-      ...hephaestus.permission,
+  const thor = agentByKey(params.agentResult, "thor", params.pluginConfig);
+  if (thor) {
+    thor.permission = {
+      ...thor.permission,
       call_omo_agent: "deny",
       task: "allow",
       question: questionPermission,
@@ -129,10 +129,10 @@ export function applyToolConfig(params: {
       ...denyTodoTools,
     };
   }
-  const prometheus = agentByKey(params.agentResult, "prometheus", params.pluginConfig);
-  if (prometheus) {
-    prometheus.permission = {
-      ...prometheus.permission,
+  const mimir = agentByKey(params.agentResult, "mimir", params.pluginConfig);
+  if (mimir) {
+    mimir.permission = {
+      ...mimir.permission,
       call_omo_agent: "deny",
       task: "allow",
       question: questionPermission,
@@ -143,7 +143,7 @@ export function applyToolConfig(params: {
       interactive_bash: "deny",
     };
   }
-  const junior = agentByKey(params.agentResult, "sisyphus-junior", params.pluginConfig);
+  const junior = agentByKey(params.agentResult, "einherjar", params.pluginConfig);
   if (junior) {
     junior.permission = {
       ...junior.permission,

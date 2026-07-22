@@ -6,7 +6,7 @@ import { join } from "node:path";
 import { afterEach, describe, expect, it } from "bun:test";
 
 import { clearProjectRootCache, findRuleFiles } from "./index";
-import { _resetSisyphusRuleDeprecationWarningStateForTesting } from "./finder";
+import { _resetOdinRuleDeprecationWarningStateForTesting } from "./finder";
 
 let testRoot: string | null = null;
 
@@ -17,7 +17,7 @@ function createTestRoot(name: string): string {
 }
 
 afterEach(() => {
-  _resetSisyphusRuleDeprecationWarningStateForTesting();
+  _resetOdinRuleDeprecationWarningStateForTesting();
   if (testRoot) {
     rmSync(testRoot, { recursive: true, force: true });
     testRoot = null;

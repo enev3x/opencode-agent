@@ -60,8 +60,8 @@ This skill may include examples copied from the OpenCode harness. In Senpi, do n
 
 | OpenCode example | Senpi tool to use |
 | --- | --- |
-| \`call_omo_agent(subagent_type="explore", ...)\` | \`task\` tool with category/agent matching \`.omo/omo.json\` (e.g. \`agent: "scout"\`) |
-| \`call_omo_agent(subagent_type="librarian", ...)\` | \`task\` tool with category/agent matching \`.omo/omo.json\` (e.g. \`agent: "librarian"\`) |
+| \`call_omo_agent(subagent_type="vidar", ...)\` | \`task\` tool with category/agent matching \`.omo/omo.json\` (e.g. \`agent: "scout"\`) |
+| \`call_omo_agent(subagent_type="bragi", ...)\` | \`task\` tool with category/agent matching \`.omo/omo.json\` (e.g. \`agent: "bragi"\`) |
 | \`task(...)\` | \`task\` tool |
 | \`background_output(task_id="...")\` | \`task_output\` tool with the task id |
 | \`team_*(...)\` | Lead team tools (\`team_create\`, \`task_create\`, \`team_wait\`, ...); members poll with \`task_send\` / \`team_wait\` |

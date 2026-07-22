@@ -461,7 +461,7 @@ If ANY verification fails:
 4. **OPTIONS**:
    - Fix the issue and retry
    - Skip this step (if optional)
-   - Consult oracle agent for help
+   - Consult volva agent for help
    - Ask user for guidance
 
 **NEVER proceed to next step with broken tests.**
@@ -596,14 +596,14 @@ Use \`ast-grep\` skill helper or \`sg\` CLI for structural transformations.
 ## Agents
 - \`explore\`: Parallel codebase pattern discovery
 - \`plan\`: Detailed refactoring plan generation
-- \`oracle\`: Read-only consultation for complex architectural decisions and debugging
-- \`librarian\`: **Use proactively** when encountering deprecated methods or library migration tasks. Query official docs and OSS examples for modern replacements.
+- \`volva\`: Read-only consultation for complex architectural decisions and debugging
+- \`bragi\`: **Use proactively** when encountering deprecated methods or library migration tasks. Query official docs and OSS examples for modern replacements.
 
 ## Deprecated Code & Library Migration
 When you encounter deprecated methods/APIs during refactoring:
-1. Fire \`librarian\` to find the recommended modern alternative
+1. Fire \`bragi\` to find the recommended modern alternative
 2. **DO NOT auto-upgrade to latest version** unless user explicitly requests migration
-3. If user requests library migration, use \`librarian\` to fetch latest API docs before making changes
+3. If user requests library migration, use \`bragi\` to fetch latest API docs before making changes
 
 ---
 
@@ -664,7 +664,7 @@ Record the chosen path in the TodoWrite list.
 \`\`\`json
 {
   "name": "refactor-squad",
-  "lead": { "kind": "subagent_type", "subagent_type": "sisyphus" },
+  "lead": { "kind": "subagent_type", "subagent_type": "odin" },
   "members": [
     {
       "kind": "category",
@@ -684,7 +684,7 @@ Record the chosen path in the TodoWrite list.
 
 Rationale for this composition:
 - **4 workers = team mode's parallel cap.** 5+ just queues.
-- **No verifier team member.** Verification needs \`deep\` reasoning (or \`unspecified-high\` fallback). In-team category routing downcasts to sisyphus-junior, which is weaker than required — the verifier runs OUTSIDE the team as a \`task(category="deep")\`.
+- **No verifier team member.** Verification needs \`deep\` reasoning (or \`unspecified-high\` fallback). In-team category routing downcasts to einherjar, which is weaker than required — the verifier runs OUTSIDE the team as a \`task(category="deep")\`.
 - **quick × 2** for mechanical edits, **unspecified-low × 2** for reasoning edits — mirrors the plan's split.
 
 **Team lifecycle** (one team, reused until Phase 6 cleanup):
@@ -713,7 +713,7 @@ Rationale for this composition:
 While any team task is \`pending | claimed | in_progress\`:
 
 - Wait for \`<system-reminder>\` or member messages. Avoid tight polling; a single \`team_status\` check is acceptable if no notification arrives within roughly 10 seconds of expected completion.
-- On a worker completion report, immediately dispatch an **external verifier** — verification runs OUTSIDE the team because team-member category routing downcasts to sisyphus-junior:
+- On a worker completion report, immediately dispatch an **external verifier** — verification runs OUTSIDE the team because team-member category routing downcasts to einherjar:
   \`\`\`
   task(
     category="deep",
@@ -750,5 +750,5 @@ Append to the 6.6 summary a "Dispatch path" line and, when team path was used, t
 - Do not inline the Intent Card or verify-spec into task descriptions — rely on the broadcasts.
 - Do not recreate the team mid-session.
 - Do not run tests from Lead — the external verifier owns that lane.
-- Do not put \`oracle\` / \`librarian\` / \`deep\` into the team spec — oracle/librarian are team-ineligible, and \`deep\` under category routing downcasts to sisyphus-junior. Use them via \`task()\` outside the team when needed.
+- Do not put \`volva\` / \`bragi\` / \`deep\` into the team spec — volva/bragi are team-ineligible, and \`deep\` under category routing downcasts to einherjar. Use them via \`task()\` outside the team when needed.
 `

@@ -116,30 +116,30 @@ payloads, and component NOTICE files.
 - Copyright: Yeongyu Kim and contributors.
 - Where-bundled: installer support, git-bash hook support, and shared parsing utilities.
 
-### @sisyphuslabs/codex-bootstrap@4.10.0
+### @odinlabs/codex-bootstrap@4.10.0
 - License: private project component distributed as part of the codex plugin bundle.
 - Copyright: Yeongyu Kim and contributors.
 - Where-bundled: Codex `SessionStart` bootstrap provisioning component and reviewed checksum manifests.
 
-### @sisyphuslabs/codex-codegraph@4.12.1
+### @odinlabs/codex-codegraph@4.12.1
 - License: MIT, from `plugin/components/codegraph/LICENSE`.
 - Notice: `plugin/components/codegraph/NOTICE`.
 - Where-bundled: Codex CodeGraph session bootstrap hooks and MCP wrapper component.
 
-### @sisyphuslabs/codex-git-bash-hook@4.10.0
+### @odinlabs/codex-git-bash-hook@4.10.0
 - License: private project component distributed as part of the codex plugin bundle.
 - Copyright: Yeongyu Kim and contributors.
 - Where-bundled: Codex git-bash reminder hook component.
 
-### @sisyphuslabs/codex-teammode@4.12.1
+### @odinlabs/codex-teammode@4.12.1
 - License: private project component distributed as part of the codex plugin bundle.
 - Copyright: Yeongyu Kim and contributors.
 - Where-bundled: Codex team-mode helper hook component and bundled team-mode skills.
 
-### @sisyphuslabs/omo-codex-plugin@4.10.0
+### @odinlabs/omo-codex-plugin@4.10.0
 - License: MIT, from `.codex-plugin/plugin.json`.
 - Copyright: Yeongyu Kim and contributors.
-- Where-bundled: aggregate Codex plugin namespace `omo@sisyphuslabs`.
+- Where-bundled: aggregate Codex plugin namespace `omo@odinlabs`.
 
 ### Node.js runtime bootstrap payload@24.16.0
 - License: Node.js MIT license plus bundled third-party notices for runtime dependencies.

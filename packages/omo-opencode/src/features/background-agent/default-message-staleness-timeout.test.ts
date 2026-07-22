@@ -13,7 +13,7 @@ function createRunningTask(startedAt: Date): BackgroundTask {
     parentMessageId: "msg-1",
     description: "test",
     prompt: "test",
-    agent: "explore",
+    agent: "vidar",
     status: "running",
     startedAt,
     progress: undefined,

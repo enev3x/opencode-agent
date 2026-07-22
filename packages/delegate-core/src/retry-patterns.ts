@@ -21,12 +21,12 @@ export const DELEGATE_TASK_ERROR_PATTERNS: readonly DelegateTaskErrorPattern[] =
     pattern: "category OR subagent_type",
     errorType: "mutual_exclusion",
     fixHint:
-      "Provide ONLY one of: category (e.g., 'general', 'quick') OR subagent_type (e.g., 'oracle', 'explore')",
+      "Provide ONLY one of: category (e.g., 'general', 'quick') OR subagent_type (e.g., 'volva', 'vidar')",
   },
   {
     pattern: "Must provide either category or subagent_type",
     errorType: "missing_category_or_agent",
-    fixHint: "Add either category='general' OR subagent_type='explore'",
+    fixHint: "Add either category='general' OR subagent_type='vidar'",
   },
   {
     pattern: "Unknown category",
@@ -47,7 +47,7 @@ export const DELEGATE_TASK_ERROR_PATTERNS: readonly DelegateTaskErrorPattern[] =
     pattern: "Cannot call primary agent",
     errorType: "primary_agent",
     fixHint:
-      "Primary agents cannot be called via task. Use a subagent like 'explore', 'oracle', or 'librarian'",
+      "Primary agents cannot be called via task. Use a subagent like 'vidar', 'volva', or 'bragi'",
   },
   {
     pattern: "Skills not found",

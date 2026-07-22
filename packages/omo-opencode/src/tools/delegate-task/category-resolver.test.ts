@@ -34,7 +34,7 @@ describe("resolveCategoryExecution", () => {
 		manager: unsafeTestValue({}),
 		directory: "/tmp/test",
 		userCategories: {},
-		sisyphusJuniorModel: undefined,
+		odinJuniorModel: undefined,
 	})
 
 	test("returns unpinned resolution when category cache is not ready on first run", async () => {
@@ -489,7 +489,7 @@ describe("resolveCategoryExecution", () => {
 		expect(result.fallbackChain).toBeUndefined()
 	})
 
-	test("does not inherit hardcoded fallbackChain when sisyphus-junior model override is set [regression #2941]", async () => {
+	test("does not inherit hardcoded fallbackChain when einherjar model override is set [regression #2941]", async () => {
 		//#given
 		const args = {
 			category: "quick",
@@ -501,7 +501,7 @@ describe("resolveCategoryExecution", () => {
 			enableSkillTools: false,
 		}
 		const executorCtx = createMockExecutorContext()
-		executorCtx.sisyphusJuniorModel = "anthropic/claude-sonnet-4-6"
+		executorCtx.odinJuniorModel = "anthropic/claude-sonnet-4-6"
 
 		//#when
 		const result = await resolveCategoryExecution(args, executorCtx, undefined, "anthropic/claude-sonnet-4-6")

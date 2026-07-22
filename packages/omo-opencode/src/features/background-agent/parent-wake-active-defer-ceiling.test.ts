@@ -102,7 +102,7 @@ function createNotifier(args: {
 }
 
 function queueAgedWake(notifier: ParentWakeNotifier): void {
-  notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "sisyphus" }, true)
+  notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "odin" }, true)
   const wake = notifier.getPendingParentWakes().get("parent-1")
   if (!wake) {
     throw new Error("expected pending wake")
@@ -152,7 +152,7 @@ describe("parent wake active defer ceiling", () => {
       sessionStatuses,
       messagesProvider: () => BLOCKED_MESSAGES,
     })
-    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       // when
@@ -191,7 +191,7 @@ describe("parent wake active defer ceiling", () => {
       messagesProvider: () => SAFE_MESSAGES,
       parentActivityWindowMs: 180_000,
     })
-    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake("parent-1", FINAL_WAKE, { agent: "odin" }, true)
     notifier.recordParentSessionActivity("parent-1")
 
     try {

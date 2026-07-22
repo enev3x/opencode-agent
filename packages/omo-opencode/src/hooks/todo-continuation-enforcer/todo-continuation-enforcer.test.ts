@@ -1194,13 +1194,13 @@ describe("todo-continuation-enforcer", () => {
   }, { timeout: 15000 })
 
   test("should accept skipAgents option without error", async () => {
-    // given - session with skipAgents configured for Prometheus
-    const sessionID = "main-prometheus-option"
+    // given - session with skipAgents configured for Mimir
+    const sessionID = "main-mimir-option"
     setMainSession(sessionID)
 
     // when - create hook with skipAgents option (should not throw)
     const hook = createTodoContinuationEnforcer(createMockPluginInput(), {
-      skipAgents: ["Prometheus (Planner)", "custom-agent"],
+      skipAgents: ["Mimir (Planner)", "custom-agent"],
     })
 
     // then - handler works without error
@@ -1710,8 +1710,8 @@ describe("todo-continuation-enforcer", () => {
 
     // OpenCode returns assistant messages with flat modelID/providerID, not nested model object
     const mockMessagesWithAssistant = [
-      { info: { id: "msg-1", role: "user", agent: "sisyphus", model: { providerID: "openai", modelID: "gpt-5.4" } } },
-      { info: { id: "msg-2", role: "assistant", finish: "stop", agent: "sisyphus", modelID: "gpt-5.4", providerID: "openai" } },
+      { info: { id: "msg-1", role: "user", agent: "odin", model: { providerID: "openai", modelID: "gpt-5.4" } } },
+      { info: { id: "msg-2", role: "assistant", finish: "stop", agent: "odin", modelID: "gpt-5.4", providerID: "openai" } },
     ]
 
     const mockInput = {
@@ -1768,8 +1768,8 @@ describe("todo-continuation-enforcer", () => {
     setMainSession(sessionID)
 
     const mockMessagesWithCompaction = [
-      { info: { id: "msg-1", role: "user", agent: "sisyphus", model: { providerID: "anthropic", modelID: "claude-sonnet-4-6" } } },
-      { info: { id: "msg-2", role: "assistant", finish: "stop", agent: "sisyphus", modelID: "claude-sonnet-4-6", providerID: "anthropic" } },
+      { info: { id: "msg-1", role: "user", agent: "odin", model: { providerID: "anthropic", modelID: "claude-sonnet-4-6" } } },
+      { info: { id: "msg-2", role: "assistant", finish: "stop", agent: "odin", modelID: "claude-sonnet-4-6", providerID: "anthropic" } },
       { info: { id: "msg-3", role: "assistant", finish: "stop", agent: "compaction", modelID: "claude-sonnet-4-6", providerID: "anthropic" } },
     ]
 
@@ -1875,9 +1875,9 @@ describe("todo-continuation-enforcer", () => {
     setMainSession(sessionID)
 
     const mockMessagesWithCompactionMarker = [
-      { info: { id: "msg-1", role: "assistant", finish: "stop", agent: "sisyphus", modelID: "claude-sonnet-4-6", providerID: "anthropic" } },
+      { info: { id: "msg-1", role: "assistant", finish: "stop", agent: "odin", modelID: "claude-sonnet-4-6", providerID: "anthropic" } },
       {
-        info: { id: "msg-2", role: "user", agent: "atlas", model: { providerID: "openai", modelID: "gpt-5.4" } },
+        info: { id: "msg-2", role: "user", agent: "heimdall", model: { providerID: "openai", modelID: "gpt-5.4" } },
         parts: [{ type: "compaction" }],
       },
     ]
@@ -1925,14 +1925,14 @@ describe("todo-continuation-enforcer", () => {
     expect(promptCalls).toHaveLength(0)
   })
 
-  test("should skip injection when prometheus agent is after compaction", async () => {
-    // given - prometheus session that was compacted
-    const sessionID = "main-prometheus-compacted"
+  test("should skip injection when mimir agent is after compaction", async () => {
+    // given - mimir session that was compacted
+    const sessionID = "main-mimir-compacted"
     setMainSession(sessionID)
 
-    const mockMessagesPrometheusCompacted = [
-      { info: { id: "msg-1", role: "user", agent: "prometheus" } },
-      { info: { id: "msg-2", role: "assistant", finish: "stop", agent: "prometheus" } },
+    const mockMessagesMimirCompacted = [
+      { info: { id: "msg-1", role: "user", agent: "mimir" } },
+      { info: { id: "msg-2", role: "assistant", finish: "stop", agent: "mimir" } },
       { info: { id: "msg-3", role: "assistant", finish: "stop", agent: "compaction" } },
     ]
 
@@ -1942,7 +1942,7 @@ describe("todo-continuation-enforcer", () => {
           todo: async () => ({
             data: [{ id: "1", content: "Task 1", status: "pending", priority: "high" }],
           }),
-           messages: async () => ({ data: mockMessagesPrometheusCompacted }),
+           messages: async () => ({ data: mockMessagesMimirCompacted }),
            prompt: async (opts: PromptRequestOptions) => {
              promptCalls.push({
                sessionID: opts.path.id,
@@ -1976,7 +1976,7 @@ describe("todo-continuation-enforcer", () => {
 
      await fakeTimers.advanceBy(3000)
 
-     // then - no continuation (prometheus found after filtering compaction, prometheus is in skipAgents)
+     // then - no continuation (mimir found after filtering compaction, mimir is in skipAgents)
     expect(promptCalls).toHaveLength(0)
   })
 

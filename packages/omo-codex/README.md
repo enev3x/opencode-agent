@@ -10,7 +10,7 @@ Codex harness adapter for **oh-my-openagent**. Brings the OMO experience (rules 
 | `marketplace.json` | Codex marketplace manifest. Identifies `omo` as the single installable plugin. |
 | `scripts/` | Node ESM build scripts for Codex cache installation and marketplace config updates. |
 | `src/` | TypeScript runtime: installer + telemetry consumed by the omodex CLI. |
-| `MARKETPLACE.md` | Native Codex marketplace notes for `sisyphuslabs` / `omo`. |
+| `MARKETPLACE.md` | Native Codex marketplace notes for `odinlabs` / `omo`. |
 
 ## Components Vendored
 
@@ -35,9 +35,9 @@ npx lazycodex-ai install --no-tui --codex-autonomous
 
 To install **both** the Ultimate edition (OpenCode plugin) and the Light edition (this package) at once, use `--platform=both`.
 
-The installer copies the built plugin into `~/.codex/plugins/cache/sisyphuslabs/omo/<version>/`, writes the local marketplace snapshot under `~/.codex/.tmp/marketplaces/sisyphuslabs/plugins/omo/`, copies bundled agent TOMLs into `~/.codex/agents/`, enables `omo@sisyphuslabs` in `~/.codex/config.toml`, writes the valid `[features.multi_agent_v2]` limit table without enabling MultiAgentV2, and registers the `sisyphuslabs` marketplace from the local built cache. If an older config used `[features] multi_agent_v2 = false`, the installer preserves that explicit disable as table-form `enabled = false`. `lazycodex-ai` is the npm/bin alias and `lazycodex` is the marketplace repository; the marketplace identity remains `sisyphuslabs`.
+The installer copies the built plugin into `~/.codex/plugins/cache/odinlabs/omo/<version>/`, writes the local marketplace snapshot under `~/.codex/.tmp/marketplaces/odinlabs/plugins/omo/`, copies bundled agent TOMLs into `~/.codex/agents/`, enables `omo@odinlabs` in `~/.codex/config.toml`, writes the valid `[features.multi_agent_v2]` limit table without enabling MultiAgentV2, and registers the `odinlabs` marketplace from the local built cache. If an older config used `[features] multi_agent_v2 = false`, the installer preserves that explicit disable as table-form `enabled = false`. `lazycodex-ai` is the npm/bin alias and `lazycodex` is the marketplace repository; the marketplace identity remains `odinlabs`.
 
-To remove managed Codex Light state, run `npx lazycodex-ai uninstall`. The backward-compatible alias is `npx lazycodex-ai cleanup`. Uninstall removes managed `sisyphuslabs` cache/marketplace directories, strips OMO marketplace/plugin/hook-state config blocks with a backup, removes managed agent TOML files from `~/.codex/agents/`, and repairs the known project-local legacy `.codex/config.toml` conflict while leaving project-owned `.codex` files in place.
+To remove managed Codex Light state, run `npx lazycodex-ai uninstall`. The backward-compatible alias is `npx lazycodex-ai cleanup`. Uninstall removes managed `odinlabs` cache/marketplace directories, strips OMO marketplace/plugin/hook-state config blocks with a backup, removes managed agent TOML files from `~/.codex/agents/`, and repairs the known project-local legacy `.codex/config.toml` conflict while leaving project-owned `.codex` files in place.
 
 ### Local dev install (dogfood the source build)
 
@@ -49,11 +49,11 @@ bun run script/install-codex-dev.ts --version=dev-$(git rev-parse --short HEAD) 
 bun run script/install-codex-dev.ts --no-uninstall   # skip the uninstall step
 ```
 
-This sets `LAZYCODEX_DEV_VERSION` (default `dev`), which threads through `resolveLazyCodexPluginVersion` so the plugin version stamp becomes that value everywhere it appears: the cache dir (`~/.codex/plugins/cache/sisyphuslabs/omo/dev/`), `.codex-plugin/plugin.json`, the stamped `package.json`, and — most visibly — the hook status prefix Codex prints every turn (`(OmO dev) ...`). `omo get-local-version` renders a `[DEV]` badge and skips the npm update check for any non-semver stamp. A plain `LAZYCODEX_DEV_VERSION`-less `lazycodex install` is unchanged. This writes to your REAL `~/.codex`; for isolated QA use the throwaway-`CODEX_HOME` flow instead.
+This sets `LAZYCODEX_DEV_VERSION` (default `dev`), which threads through `resolveLazyCodexPluginVersion` so the plugin version stamp becomes that value everywhere it appears: the cache dir (`~/.codex/plugins/cache/odinlabs/omo/dev/`), `.codex-plugin/plugin.json`, the stamped `package.json`, and — most visibly — the hook status prefix Codex prints every turn (`(OmO dev) ...`). `omo get-local-version` renders a `[DEV]` badge and skips the npm update check for any non-semver stamp. A plain `LAZYCODEX_DEV_VERSION`-less `lazycodex install` is unchanged. This writes to your REAL `~/.codex`; for isolated QA use the throwaway-`CODEX_HOME` flow instead.
 
 
-The Codex plugin bundle includes Context7 as a default MCP in its `.mcp.json`, using the hosted `https://mcp.context7.com/mcp` endpoint. The installer enables the `omo@sisyphuslabs` plugin MCP policy for Context7 while leaving any existing user-level `[mcp_servers.context7]` block untouched.
-The same plugin-scoped MCP manifest also bundles `grep_app`, `git_bash`, `lsp`, and `codegraph`. The ast-grep capability ships as the `ast-grep` skill and provisions `sg` into the Codex runtime. `git_bash` is enabled only on Windows by default. `codegraph` is enabled only when the installer can resolve a supported local Node runtime for CodeGraph; unsupported runtimes disable that MCP policy while keeping `omo@sisyphuslabs` enabled.
+The Codex plugin bundle includes Context7 as a default MCP in its `.mcp.json`, using the hosted `https://mcp.context7.com/mcp` endpoint. The installer enables the `omo@odinlabs` plugin MCP policy for Context7 while leaving any existing user-level `[mcp_servers.context7]` block untouched.
+The same plugin-scoped MCP manifest also bundles `grep_app`, `git_bash`, `lsp`, and `codegraph`. The ast-grep capability ships as the `ast-grep` skill and provisions `sg` into the Codex runtime. `git_bash` is enabled only on Windows by default. `codegraph` is enabled only when the installer can resolve a supported local Node runtime for CodeGraph; unsupported runtimes disable that MCP policy while keeping `omo@odinlabs` enabled.
 
 ### CodeGraph exclusions
 
@@ -128,12 +128,12 @@ The installer does not write a global Codex shell config. On Windows it enables 
 
 To install both editions in one command, use `--platform=both`.
 
-### Subagent service tier (explorer/librarian)
+### Subagent service tier (explorer/bragi)
 
-The bundled `explorer` and `librarian` agent TOMLs ship with `service_tier = "fast"` so recon subagents run on the cheaper Fast tier by default. To opt out, edit the tier in your installed agent files and the installer will preserve your choice across every reinstall and bootstrap:
+The bundled `explorer` and `bragi` agent TOMLs ship with `service_tier = "fast"` so recon subagents run on the cheaper Fast tier by default. To opt out, edit the tier in your installed agent files and the installer will preserve your choice across every reinstall and bootstrap:
 
 ```toml
-# ~/.codex/agents/explorer.toml (and librarian.toml)
+# ~/.codex/agents/explorer.toml (and bragi.toml)
 service_tier = "standard"   # use the default/parent tier instead of Fast
 ```
 
@@ -170,7 +170,7 @@ See [Codex Light telemetry](../../docs/reference/codex-telemetry.md) and the [Pr
 
 ## Component Sources
 
-The bundled component implementations come from the Sisyphus Labs Codex plugin family:
+The bundled component implementations come from the Odin Labs Codex plugin family:
 
 - [code-yeongyu/codex-rules](https://github.com/code-yeongyu/codex-rules)
 - [code-yeongyu/codex-comment-checker](https://github.com/code-yeongyu/codex-comment-checker)

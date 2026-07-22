@@ -1,6 +1,6 @@
 import type { OmoConfigSource } from "@oh-my-opencode/omo-config-core"
 
-// Fixed, tested warning text (Metis #17): when a project carries BOTH an opencode-family config and
+// Fixed, tested warning text (Urd #17): when a project carries BOTH an opencode-family config and
 // an omo.json with categories/agents, senpi reads omo.json ONLY. Emitted once on the first
 // session_start through the captured UI, with a logger fallback when headless.
 export const DUAL_CONFIG_WARNING =

@@ -7,5 +7,5 @@ export * from "./hook-config-handler";
 export * from "./command-config-handler";
 export * from "./plugin-components-loader";
 export * from "./category-config-resolver";
-export * from "./prometheus-agent-config-builder";
+export * from "./mimir-agent-config-builder";
 export * from "./agent-priority-order";

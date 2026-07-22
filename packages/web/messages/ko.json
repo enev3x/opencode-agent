@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Oh My OpenAgent",
-    "description": "최고의 Agent Harness. Sisyphus를 만나보세요: 당신처럼 코딩하는 완벽한 Agent."
+    "description": "최고의 Agent Harness. Odin를 만나보세요: 당신처럼 코딩하는 완벽한 Agent."
   },
   "nav": {
     "brand": "Oh My OpenAgent",
@@ -60,7 +60,7 @@
       "deepResearch": "심층 리서치",
       "selfCorrection": "자기 수정 루프",
       "parallelAgents": "병렬 에이전트",
-      "terminalTitle": "sisyphus — -zsh — 80x24",
+      "terminalTitle": "odin — -zsh — 80x24",
       "terminalInput": "ulw add authentication to the API",
       "steps": {
         "scanning": "코드베이스 스캔 중...",
@@ -72,17 +72,17 @@
       },
       "tagline": "개입 제로. 완전 자율. 오직 결과뿐."
     },
-    "sisyphus": {
+    "odin": {
       "badge": "메인 오케스트레이터",
-      "title": "Sisyphus",
+      "title": "Odin",
       "headline": "잠들지 않는 CTO",
-      "description": "영원히 바위를 굴리는 신화 속 인물처럼, Sisyphus는 멈추지 않습니다. 숨겨진 요구사항을 파악하고, 코드베이스 성숙도에 맞춰 전문가들에게 작업을 위임합니다. 중단되었나요? Boulder 시스템이 정확히 그 지점에서 다시 시작합니다.",
+      "description": "영원히 바위를 굴리는 신화 속 인물처럼, Odin는 멈추지 않습니다. 숨겨진 요구사항을 파악하고, 코드베이스 성숙도에 맞춰 전문가들에게 작업을 위임합니다. 중단되었나요? Boulder 시스템이 정확히 그 지점에서 다시 시작합니다.",
       "phases": {
         "intent": {
           "title": "의도 파악",
           "description": "입력한 텍스트가 아닌, 진짜 의도를 읽어냅니다"
         },
-        "explore": {
+        "vidar": {
           "title": "코드베이스 진단",
           "description": "코드 한 줄 건드리기 전에 아키텍처부터 파악합니다"
         },
@@ -99,24 +99,24 @@
       "boulderDescription": "모든 작업은 boulder.json에 기록됩니다. 정전? 시스템 크래시? 상관없습니다. 멈춘 그 자리에서 즉시 재개하세요.",
       "model": "Claude Opus 4.7 Max"
     },
-    "prometheusAtlas": {
+    "mimirHeimdall": {
       "badge": "오케스트레이션 워크플로우",
       "title": "생각하고, 행동하라",
       "headline": "계획과 실행은 엄연히 다른 영역입니다",
-      "prometheus": {
-        "name": "Prometheus",
+      "mimir": {
+        "name": "Mimir",
         "role": "Strategic Planner",
         "model": "Claude Opus 4.7 Max",
-        "description": "설계자입니다. 당신과 인터뷰하고, 코드베이스를 탐색하여 상세한 작전 계획을 짭니다. 코드는 절대 쓰지 않습니다. Metis와 Momus를 통해 품질을 검증합니다.",
+        "description": "설계자입니다. 당신과 인터뷰하고, 코드베이스를 탐색하여 상세한 작전 계획을 짭니다. 코드는 절대 쓰지 않습니다. Urd와 Forseti를 통해 품질을 검증합니다.",
         "features": [
           "지능형 인터뷰 모드",
           "다중 에이전트 코드베이스 탐색",
-          "Metis를 통한 갭 분석",
-          "Momus의 무자비한 검토"
+          "Urd를 통한 갭 분석",
+          "Forseti의 무자비한 검토"
         ]
       },
-      "atlas": {
-        "name": "Atlas",
+      "heimdall": {
+        "name": "Heimdall",
         "role": "마스터 실행가",
         "model": "Claude Sonnet 4.6",
         "description": "건설자입니다. 검증된 계획을 바탕으로 category+skills 시스템을 통해 전문 에이전트에게 작업을 위임합니다. 작업 간 학습 내용을 축적하며, 하위 에이전트를 맹신하지 않고 독립적으로 검증합니다.",
@@ -127,30 +127,30 @@
           "독립적 결과 검증"
         ]
       },
-      "metis": {
-        "name": "Metis",
+      "urd": {
+        "name": "Urd",
         "description": "버그가 되기 전, 모호함을 잡아냅니다."
       },
-      "momus": {
-        "name": "Momus",
+      "forseti": {
+        "name": "Forseti",
         "description": "계획이 완벽할 때만 OK 사인을 보냅니다."
       },
       "workflow": {
-        "step1": "Prometheus에게 작업을 설명하세요",
-        "step2": "Metis가 빈틈을 분석합니다",
-        "step3": "Momus가 철저하게 검증합니다",
-        "step4": "Atlas가 전문가에게 위임합니다",
+        "step1": "Mimir에게 작업을 설명하세요",
+        "step2": "Urd가 빈틈을 분석합니다",
+        "step3": "Forseti가 철저하게 검증합니다",
+        "step4": "Heimdall가 전문가에게 위임합니다",
         "step5": "모든 단계에서 독립 검증 수행"
       },
       "whyItWorks": "기획자는 코드를 짜지 않고, 실행자는 검증된 계획만 따릅니다. 지능은 개별 에이전트가 아닌 시스템 전체에 있습니다."
     },
-    "hephaestus": {
+    "thor": {
       "badge": "심층 작업자",
-      "title": "Hephaestus",
+      "title": "Thor",
       "headline": "방법이 아닌, 목표를 주세요",
       "description": "그리스 대장장이 신의 이름을 땄습니다. 체계적이고, 철저하며, 집요합니다. 코드를 쓰기 전 2-5개의 Explore 에이전트를 동시에 띄웁니다. 심층 아키텍처 추론, 복잡한 디버깅, 다중 도메인 통합에 최적화되어 있습니다.",
       "loop": {
-        "explore": "EXPLORE — 지형 파악",
+        "vidar": "EXPLORE — 지형 파악",
         "plan": "PLAN — 경로 설계",
         "decide": "DECIDE — 방향 결정",
         "execute": "EXECUTE — 정밀 구축",
@@ -199,50 +199,50 @@
     "agents": {
       "title": "특화 에이전트",
       "subtitle": "각 태스크에 최적화된 프롬프트와 툴셋으로 무장한 8개 전문 에이전트. 필요에 따라 동적으로 에이전트를 조립하는 시스템까지.",
-      "oracle": {
-        "name": "Oracle",
+      "volva": {
+        "name": "Volva",
         "role": "Architecture Consultant",
         "model": "GPT 5.5 High",
         "description": "복잡한 디버깅과 아키텍처 결정. 길이 보이지 않을 때."
       },
-      "librarian": {
-        "name": "Librarian",
+      "bragi": {
+        "name": "Bragi",
         "role": "Docs & Code Search",
         "model": "GPT 5.4 Mini Fast",
         "description": "실제 GitHub 예제와 공식 문서를 찾습니다. 증거 기반, 퍼머링크 제공."
       },
-      "explore": {
+      "vidar": {
         "name": "Explore",
         "role": "Codebase Grep",
         "model": "GPT 5.4 Mini Fast",
         "description": "초고속 코드베이스 검색. 저렴하고 빠르며, 항상 백그라운드에서 실행."
       },
-      "metis": {
-        "name": "Metis",
+      "urd": {
+        "name": "Urd",
         "role": "Plan Consultant",
         "model": "Claude Sonnet 4.6",
         "description": "계획의 모호함이 프로덕션 버그로 이어지기 전에 차단합니다."
       },
-      "momus": {
-        "name": "Momus",
+      "forseti": {
+        "name": "Forseti",
         "role": "Plan Reviewer",
         "model": "GPT 5.6 Sol xHigh",
         "description": "무자비한 검증. 계획이 완벽하지 않으면 승인하지 않습니다."
       },
-      "atlas": {
-        "name": "Atlas",
+      "heimdall": {
+        "name": "Heimdall",
         "role": "병렬 태스크 실행가",
         "model": "Claude Sonnet 4.6",
         "description": "의존성 추적과 함께 다단계 계획을 오케스트레이션. 전문가에게 위임하고 독립적으로 검증합니다."
       },
-      "sisyphusJunior": {
-        "name": "Sisyphus-Junior",
+      "odinJunior": {
+        "name": "Einherjar",
         "role": "집중 태스크 실행가",
         "model": "카테고리별",
-        "description": "Sisyphus와 동일한 규율, 위임 없이. 증거 기반 QA로 단일 태스크를 끝까지 실행합니다."
+        "description": "Odin와 동일한 규율, 위임 없이. 증거 기반 QA로 단일 태스크를 끝까지 실행합니다."
       },
       "multimodalLooker": {
-        "name": "Multimodal-Looker",
+        "name": "Huginn",
         "role": "미디어 분석",
         "model": "GPT 5.5 Medium",
         "description": "PDF, 이미지, 다이어그램에서 정보를 추출. 전체 읽기 없이 빠르게 요약을 뽑아냅니다."
@@ -290,7 +290,7 @@
         "author": "Arthur Guiot"
       },
       "review2": {
-        "text": "If Claude Code does in 7 days what a human does in 3 months, Sisyphus does it in 1 hour.",
+        "text": "If Claude Code does in 7 days what a human does in 3 months, Odin does it in 1 hour.",
         "author": "B, Quant Researcher"
       },
       "review3": {
@@ -382,14 +382,14 @@
         },
         "footer": "제로 개입. 완전한 자율성. 오직 결과만."
       },
-      "prometheus": {
+      "mimir": {
         "badge": "방식 2",
-        "title": "Prometheus + Atlas",
+        "title": "Mimir + Heimdall",
         "subtitle": "전략적 통제를 원할 때.",
-        "prometheusTitle": "Prometheus",
-        "prometheusDescription": "인터뷰를 진행하고, 컨텍스트를 조사하며, 상세한 YAML 계획을 생성합니다.",
-        "atlasTitle": "Atlas",
-        "atlasDescription": "계획을 실행하고, 하위 Agent에 위임하고, 웨이브를 관리하며, 진행 상황을 추적합니다.",
+        "mimirTitle": "Mimir",
+        "mimirDescription": "인터뷰를 진행하고, 컨텍스트를 조사하며, 상세한 YAML 계획을 생성합니다.",
+        "heimdallTitle": "Heimdall",
+        "heimdallDescription": "계획을 실행하고, 하위 Agent에 위임하고, 웨이브를 관리하며, 진행 상황을 추적합니다.",
         "footer": "당신이 설계합니다. Agent가 실행합니다. 완전한 투명성."
       }
     },
@@ -410,16 +410,16 @@
     "coreLoop": {
       "title": "핵심 루프",
       "features": {
-        "prometheus": {
-          "feature": "Prometheus",
+        "mimir": {
+          "feature": "Mimir",
           "purpose": "지능형 인터뷰로 의도 추출"
         },
-        "metis": {
-          "feature": "Metis",
+        "urd": {
+          "feature": "Urd",
           "purpose": "버그가 되기 전에 모호함 포착"
         },
-        "momus": {
-          "feature": "Momus",
+        "forseti": {
+          "feature": "Forseti",
           "purpose": "실행 전 계획의 완성도 검증"
         },
         "orchestrator": {

@@ -84,7 +84,7 @@ describe("createMessageUpdateHandler subagent quota abort", () => {
   it("#given a subagent session hits a quota error with no fallback configured #when the assistant error event fires #then the subagent session is aborted so the parent tool call can resolve", async () => {
     // given
     const { createMessageUpdateHandler } = await importFreshMessageUpdateHandlerModule()
-    const sessionID = "session-momus-subagent"
+    const sessionID = "session-forseti-subagent"
     subagentSessions.add(sessionID)
     const abortCalls: Array<{ sessionID: string; source: string }> = []
     const deps = createDeps()

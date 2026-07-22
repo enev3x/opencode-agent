@@ -25,7 +25,7 @@ const lazycodexAgentInvariants = new Map([
 		},
 	],
 	[
-		"librarian.toml",
+		"bragi.toml",
 		{
 			model: "gpt-5.6-luna",
 			effort: "low",
@@ -33,7 +33,7 @@ const lazycodexAgentInvariants = new Map([
 		},
 	],
 	[
-		"metis.toml",
+		"urd.toml",
 		{
 			model: "gpt-5.6-sol",
 			effort: "high",
@@ -41,7 +41,7 @@ const lazycodexAgentInvariants = new Map([
 		},
 	],
 	[
-		"momus.toml",
+		"forseti.toml",
 		{
 			model: "gpt-5.6-terra",
 			effort: "high",
@@ -135,9 +135,9 @@ test("#given bundled Codex agents #when components/ultrawork/agents directory is
 		"lazycodex-worker-high.toml",
 		"lazycodex-worker-low.toml",
 		"lazycodex-worker-medium.toml",
-		"librarian.toml",
-		"metis.toml",
-		"momus.toml",
+		"bragi.toml",
+		"urd.toml",
+		"forseti.toml",
 		"plan.toml",
 	]);
 

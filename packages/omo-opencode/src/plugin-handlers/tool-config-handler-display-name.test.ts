@@ -11,7 +11,7 @@ function createDisplayNameParams(displayName: string): {
 		config: { tools: {}, permission: {} },
 		pluginConfig: {
 			agents: {
-				prometheus: { displayName },
+				mimir: { displayName },
 			},
 		} as OhMyOpenCodeConfig,
 		agentResult: {
@@ -21,9 +21,9 @@ function createDisplayNameParams(displayName: string): {
 }
 
 describe("applyToolConfig with custom display names", () => {
-	it("#given prometheus has custom displayName #when tool config applies #then bash remains denied", () => {
+	it("#given mimir has custom displayName #when tool config applies #then bash remains denied", () => {
 		// given
-		const displayName = "Prometheus Custom Planner";
+		const displayName = "Mimir Custom Planner";
 		const params = createDisplayNameParams(displayName);
 
 		// when

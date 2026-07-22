@@ -100,7 +100,7 @@ export function migrateConfigFile(
   }
 
   if (copy.omo_agent) {
-    copy.sisyphus_agent = copy.omo_agent
+    copy.odin_agent = copy.omo_agent
     delete copy.omo_agent
     needsWrite = true
   }

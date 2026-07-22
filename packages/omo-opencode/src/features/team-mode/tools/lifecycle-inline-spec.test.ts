@@ -111,10 +111,10 @@ describe("createTeamCreateTool inline_spec normalization", () => {
     const teamCreateTool = createTeamCreateToolForTest(createTeamCreateTool, config)
     const inlineSpec = {
       name: "alpha-team",
-      lead: { kind: "subagent_type", subagent_type: "sisyphus" },
+      lead: { kind: "subagent_type", subagent_type: "odin" },
       members: [
         { kind: "category", category: "quick", prompt: "Quick scout the workspace for entrypoints." },
-        { kind: "subagent_type", subagent_type: "atlas" },
+        { kind: "subagent_type", subagent_type: "heimdall" },
       ],
     }
 
@@ -126,13 +126,13 @@ describe("createTeamCreateTool inline_spec normalization", () => {
     expect(firstCall?.[0]).toMatchObject({
       leadAgentId: "lead",
       members: [
-        { name: "lead", kind: "subagent_type", subagent_type: "sisyphus" },
+        { name: "lead", kind: "subagent_type", subagent_type: "odin" },
         { name: "quick-1", kind: "category", category: "quick" },
-        { name: "atlas-1", kind: "subagent_type", subagent_type: "atlas" },
+        { name: "heimdall-1", kind: "subagent_type", subagent_type: "heimdall" },
       ],
     })
     expect(firstCall?.[1]).toBe("lead-session")
-    expect(result.runtimeState.members.map((member: { name: string }) => member.name)).toEqual(["lead", "quick-1", "atlas-1"])
+    expect(result.runtimeState.members.map((member: { name: string }) => member.name)).toEqual(["lead", "quick-1", "heimdall-1"])
   })
 
   test("exposes inline_spec object shape in the tool schema", async () => {
@@ -163,7 +163,7 @@ describe("createTeamCreateTool inline_spec normalization", () => {
     const teamCreateTool = createTeamCreateToolForTest(createTeamCreateTool, config)
     const inlineSpec = JSON.stringify({
       name: "ccapi-explorers-v2",
-      lead: { kind: "subagent_type", subagent_type: "sisyphus" },
+      lead: { kind: "subagent_type", subagent_type: "odin" },
       members: [
         { kind: "category", category: "quick", prompt: "Quick scout: survey ccapi workspace structure." },
         { kind: "category", category: "deep", prompt: "Deep dive ccapi-cf." },
@@ -210,7 +210,7 @@ describe("createTeamCreateTool inline_spec normalization", () => {
     }
 
     // when
-    await teamCreateTool.execute({ inline_spec: inlineSpec }, createToolContext("lead-session", "Sisyphus"))
+    await teamCreateTool.execute({ inline_spec: inlineSpec }, createToolContext("lead-session", "Odin"))
     const firstCall = createTeamRunMock.mock.calls[0]
 
     // then
@@ -234,7 +234,7 @@ describe("createTeamCreateTool inline_spec normalization", () => {
     // when
     let errorMessage = ""
     try {
-      await teamCreateTool.execute({}, createToolContext("lead-session", "Sisyphus"))
+      await teamCreateTool.execute({}, createToolContext("lead-session", "Odin"))
     } catch (error) {
       errorMessage = error instanceof Error ? error.message : String(error)
     }
@@ -253,7 +253,7 @@ describe("createTeamCreateTool inline_spec normalization", () => {
     // when
     let errorMessage = ""
     try {
-      await teamCreateTool.execute({ inline_spec: { name: "project-analysis-team" } }, createToolContext("lead-session", "Sisyphus"))
+      await teamCreateTool.execute({ inline_spec: { name: "project-analysis-team" } }, createToolContext("lead-session", "Odin"))
     } catch (error) {
       errorMessage = error instanceof Error ? error.message : String(error)
     }
@@ -278,7 +278,7 @@ describe("createTeamCreateTool inline_spec normalization", () => {
     }
 
     // when
-    await teamCreateTool.execute({ inline_spec: inlineSpec }, createToolContext("lead-session", "Sisyphus"))
+    await teamCreateTool.execute({ inline_spec: inlineSpec }, createToolContext("lead-session", "Odin"))
     const firstCall = createTeamRunMock.mock.calls[0]
 
     // then
@@ -309,14 +309,14 @@ describe("createTeamCreateTool inline_spec normalization", () => {
         },
         {
           name: "code-validator",
-          subagent_type: "atlas",
+          subagent_type: "heimdall",
           permission: { write: false },
         },
       ],
     }
 
     // when
-    await teamCreateTool.execute({ inline_spec: inlineSpec }, createToolContext("lead-session", "Sisyphus"))
+    await teamCreateTool.execute({ inline_spec: inlineSpec }, createToolContext("lead-session", "Odin"))
     const spec = createTeamRunMock.mock.calls[0]?.[0]
 
     // then
@@ -325,7 +325,7 @@ describe("createTeamCreateTool inline_spec normalization", () => {
       members: [
         { name: "lead", kind: "subagent_type" },
         { name: "docs-validator", kind: "category", category: "quick" },
-        { name: "code-validator", kind: "subagent_type", subagent_type: "atlas" },
+        { name: "code-validator", kind: "subagent_type", subagent_type: "heimdall" },
       ],
     })
     expect(JSON.stringify(spec?.members)).not.toContain("permission")
@@ -346,7 +346,7 @@ describe("createTeamCreateTool inline_spec normalization", () => {
     }
 
     // when
-    await teamCreateTool.execute({ inline_spec: inlineSpec }, createToolContext("lead-session", "Sisyphus"))
+    await teamCreateTool.execute({ inline_spec: inlineSpec }, createToolContext("lead-session", "Odin"))
     const spec = createTeamRunMock.mock.calls[0]?.[0]
 
     // then
@@ -387,7 +387,7 @@ describe("createTeamCreateTool inline_spec normalization", () => {
     }
 
     // when
-    await teamCreateTool.execute(rawArgs, createToolContext("lead-session", "Sisyphus"))
+    await teamCreateTool.execute(rawArgs, createToolContext("lead-session", "Odin"))
     const firstCall = createTeamRunMock.mock.calls[0]
 
     // then the empty-string optionals are treated as absent and the all-empty lead is dropped
@@ -435,7 +435,7 @@ describe("createTeamCreateTool inline_spec normalization", () => {
     }
 
     // when
-    await teamCreateTool.execute({ inline_spec: inlineSpec }, createToolContext("lead-session", "Sisyphus"))
+    await teamCreateTool.execute({ inline_spec: inlineSpec }, createToolContext("lead-session", "Odin"))
     const firstCall = createTeamRunMock.mock.calls[0]
 
     // then

@@ -104,18 +104,18 @@ test("#given local marketplace #when installing #then copies versioned plugins a
 	assert.match(config, /\[marketplaces\.debug-marketplace\]/);
 	assert.match(config, /\[plugins\."alpha@debug-marketplace"\]\nenabled = true/);
 	assert.match(config, /\[agents\.explorer\]\nconfig_file = "\.\/agents\/explorer\.toml"/);
-	assert.match(config, /\[agents\.librarian\]\nconfig_file = "\.\/agents\/librarian\.toml"/);
+	assert.match(config, /\[agents\.bragi\]\nconfig_file = "\.\/agents\/bragi\.toml"/);
 	assert.match(config, /\[agents\.plan\]\nconfig_file = "\.\/agents\/plan\.toml"/);
 	assert.doesNotMatch(config, /stale@debug-marketplace/);
 });
 
-test("#given sisyphuslabs marketplace #when installing #then registers the local built marketplace cache", async () => {
+test("#given odinlabs marketplace #when installing #then registers the local built marketplace cache", async () => {
 	const repoRoot = await makeTempDir();
 	const codexHome = await makeTempDir();
 	const codexPackageRoot = join(repoRoot, "packages", "omo-codex");
 
 	await writeJson(join(codexPackageRoot, "marketplace.json"), {
-		name: "sisyphuslabs",
+		name: "odinlabs",
 		plugins: [{ name: "omo", source: "./plugins/omo" }],
 	});
 	await writePluginAt(join(codexPackageRoot, "plugin"), "omo", "0.1.0");
@@ -147,17 +147,17 @@ test("#given sisyphuslabs marketplace #when installing #then registers the local
 	await installMarketplaceLocally({ repoRoot, codexHome, runCommand: async () => {}, log: () => {} });
 
 	const config = await readFile(join(codexHome, "config.toml"), "utf8");
-	assert.match(config, /\[marketplaces\.sisyphuslabs\]/);
-	assert.match(config, /\[plugins\."omo@sisyphuslabs"\]\nenabled = true/);
+	assert.match(config, /\[marketplaces\.odinlabs\]/);
+	assert.match(config, /\[plugins\."omo@odinlabs"\]\nenabled = true/);
 	assert.doesNotMatch(config, new RegExp(legacyCodexPluginMarketplace));
 	const marketplace = JSON.parse(
-		await readFile(join(codexHome, "plugins", "cache", "sisyphuslabs", ".agents", "plugins", "marketplace.json"), "utf8"),
+		await readFile(join(codexHome, "plugins", "cache", "odinlabs", ".agents", "plugins", "marketplace.json"), "utf8"),
 	);
 	assert.deepEqual(marketplace.plugins, [{ name: "omo", source: { source: "local", path: "./omo/0.1.0" } }]);
-	const cachedMcp = JSON.parse(await readFile(join(codexHome, "plugins", "cache", "sisyphuslabs", "omo", "0.1.0", ".mcp.json"), "utf8"));
+	const cachedMcp = JSON.parse(await readFile(join(codexHome, "plugins", "cache", "odinlabs", "omo", "0.1.0", ".mcp.json"), "utf8"));
 	assert.equal(cachedMcp.mcpServers.lsp.args[0], join(repoRoot, "packages", "lsp-tools-mcp", "dist", "cli.js"));
 	assert.equal((await stat(cachedMcp.mcpServers.lsp.args[0])).isFile(), true);
-	const snapshotPluginRoot = join(codexHome, ".tmp", "marketplaces", "sisyphuslabs", "plugins", "omo");
+	const snapshotPluginRoot = join(codexHome, ".tmp", "marketplaces", "odinlabs", "plugins", "omo");
 	const snapshotMcp = JSON.parse(await readFile(join(snapshotPluginRoot, ".mcp.json"), "utf8"));
 	assert.equal(snapshotMcp.mcpServers.lsp.args[0], join(repoRoot, "packages", "lsp-tools-mcp", "dist", "cli.js"));
 	assert.equal((await stat(snapshotMcp.mcpServers.lsp.args[0])).isFile(), true);

@@ -55,7 +55,7 @@ describe("BackgroundManager circuit breaker", () => {
         parentMessageId: "msg-1",
         description: "Looping task",
         prompt: "loop",
-        agent: "explore",
+        agent: "vidar",
         status: "running",
         startedAt: new Date(Date.now() - 60_000),
         progress: {
@@ -93,7 +93,7 @@ describe("BackgroundManager circuit breaker", () => {
         parentMessageId: "msg-1",
         description: "Healthy task",
         prompt: "work",
-        agent: "explore",
+        agent: "vidar",
         status: "running",
         startedAt: new Date(Date.now() - 60_000),
         progress: {
@@ -143,7 +143,7 @@ describe("BackgroundManager circuit breaker", () => {
         parentMessageId: "msg-1",
         description: "Backstop task",
         prompt: "work",
-        agent: "explore",
+        agent: "vidar",
         status: "running",
         startedAt: new Date(Date.now() - 60_000),
         progress: {
@@ -182,7 +182,7 @@ describe("BackgroundManager circuit breaker", () => {
         parentMessageId: "msg-1",
         description: "Dedupe task",
         prompt: "work",
-        agent: "explore",
+        agent: "vidar",
         status: "running",
         startedAt: new Date(Date.now() - 60_000),
         progress: {
@@ -229,7 +229,7 @@ describe("BackgroundManager circuit breaker", () => {
         parentMessageId: "msg-1",
         description: "Reading different files",
         prompt: "work",
-        agent: "explore",
+        agent: "vidar",
         status: "running",
         startedAt: new Date(Date.now() - 60_000),
         progress: {
@@ -274,7 +274,7 @@ describe("BackgroundManager circuit breaker", () => {
         parentMessageId: "msg-1",
         description: "Reading same file repeatedly",
         prompt: "work",
-        agent: "explore",
+        agent: "vidar",
         status: "running",
         startedAt: new Date(Date.now() - 60_000),
         progress: {
@@ -326,7 +326,7 @@ describe("BackgroundManager circuit breaker", () => {
         parentMessageId: "msg-1",
         description: "Duplicate tool_use blocks",
         prompt: "work",
-        agent: "explore",
+        agent: "vidar",
         status: "running",
         startedAt: new Date(Date.now() - 60_000),
         progress: {
@@ -370,7 +370,7 @@ describe("BackgroundManager circuit breaker", () => {
         parentMessageId: "msg-1",
         description: "state.input precedence",
         prompt: "work",
-        agent: "explore",
+        agent: "vidar",
         status: "running",
         startedAt: new Date(Date.now() - 60_000),
         progress: {
@@ -421,7 +421,7 @@ describe("BackgroundManager circuit breaker", () => {
         parentMessageId: "msg-1",
         description: "Disabled circuit breaker task",
         prompt: "work",
-        agent: "explore",
+        agent: "vidar",
         status: "running",
         startedAt: new Date(Date.now() - 60_000),
         progress: {
@@ -464,7 +464,7 @@ describe("BackgroundManager circuit breaker", () => {
         parentMessageId: "msg-1",
         description: "Backstop task with disabled circuit breaker",
         prompt: "work",
-        agent: "explore",
+        agent: "vidar",
         status: "running",
         startedAt: new Date(Date.now() - 60_000),
         progress: {

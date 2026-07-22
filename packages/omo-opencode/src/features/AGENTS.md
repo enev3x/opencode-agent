@@ -28,7 +28,7 @@ Standalone feature modules wired into `plugin/` layer. Each is self-contained wi
 | **run-continuation-state** | LOW | no | Persistent state for `oh-my-opencode run` continuation across invocations |
 | **opencode-runtime-skills** | LOW–MED | no | Runtime security-skill source — `selectRuntimeSecuritySkills()` + `createRuntimeSkillSourceServer()` serve security skills to sessions at runtime |
 | **claude-code-command-loader** | LOW | no | Load `/commands` from `.opencode/commands/` and Claude Code plugins |
-| **claude-tasks** | MEDIUM | yes | Sisyphus task schema + atomic file storage + OpenCode todo API sync |
+| **claude-tasks** | MEDIUM | yes | Odin task schema + atomic file storage + OpenCode todo API sync |
 | **task-toast-manager** | MEDIUM | no | Task progress notifications |
 | **claude-code-session-state** | LOW | no | Subagent session state tracking |
 
@@ -56,7 +56,7 @@ Parallel multi-agent coordination, OFF by default. Harness-neutral domain primit
 - `team-layout-tmux/` — optional tmux pane visualization
 - `tools/` — 12 `team_*` tool implementations
 
-Eligible members: sisyphus, atlas, sisyphus-junior, hephaestus only. See [`team-mode/AGENTS.md`](team-mode/AGENTS.md).
+Eligible members: odin, heimdall, einherjar, thor only. See [`team-mode/AGENTS.md`](team-mode/AGENTS.md).
 
 ### opencode-skill-loader (~2.8k LOC)
 

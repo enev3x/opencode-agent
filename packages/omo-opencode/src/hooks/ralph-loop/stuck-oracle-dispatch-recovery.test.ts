@@ -49,7 +49,7 @@ function createPluginInput(promptCalls: string[]): PluginInput {
 				showToast: async () => ({}),
 			},
 		},
-		directory: "/tmp/ralph-loop-stuck-oracle-test",
+		directory: "/tmp/ralph-loop-stuck-volva-test",
 	})
 }
 
@@ -74,12 +74,12 @@ async function runPendingVerification(state: RalphLoopState, loopState: LoopStat
 		matchesParentSession: true,
 		matchesVerificationSession: false,
 		loopState,
-		directory: "/tmp/ralph-loop-stuck-oracle-test",
+		directory: "/tmp/ralph-loop-stuck-volva-test",
 		apiTimeoutMs: 100,
 	})
 }
 
-describe("ralph-loop stuck oracle dispatch recovery", () => {
+describe("ralph-loop stuck volva dispatch recovery", () => {
 	const realDateNow = Date.now
 
 	beforeEach(() => {

@@ -4,13 +4,13 @@ import type {
   AvailableSkill,
   AvailableTool,
 } from "./dynamic-agent-prompt-builder";
-import { renderExecutionSections } from "./sisyphus-dynamic-prompt-execution";
-import { renderExplorationSection } from "./sisyphus-dynamic-prompt-exploration";
-import { renderRoleAndIntentSections } from "./sisyphus-dynamic-prompt-role";
-import { buildSisyphusDynamicPromptSections } from "./sisyphus-dynamic-prompt-sections";
-import { renderToneAndConstraintsSection } from "./sisyphus-dynamic-prompt-style";
+import { renderExecutionSections } from "./odin-dynamic-prompt-execution";
+import { renderExplorationSection } from "./odin-dynamic-prompt-exploration";
+import { renderRoleAndIntentSections } from "./odin-dynamic-prompt-role";
+import { buildOdinDynamicPromptSections } from "./odin-dynamic-prompt-sections";
+import { renderToneAndConstraintsSection } from "./odin-dynamic-prompt-style";
 
-export function buildSisyphusDynamicPromptContent(
+export function buildOdinDynamicPromptContent(
   model: string,
   availableAgents: AvailableAgent[],
   availableTools: AvailableTool[],
@@ -18,7 +18,7 @@ export function buildSisyphusDynamicPromptContent(
   availableCategories: AvailableCategory[],
   useTaskSystem: boolean,
 ): string {
-  const sections = buildSisyphusDynamicPromptSections(
+  const sections = buildOdinDynamicPromptSections(
     model,
     availableAgents,
     availableTools,

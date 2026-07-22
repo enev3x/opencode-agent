@@ -17,7 +17,7 @@
    ```
    The installer reads `CODEX_HOME` (and `OMO_CODEX_PROJECT` for project scope), so an isolated home keeps the real `~/.codex/{config.toml,plugins,agents}` UNTOUCHED.
 2. **RUN THE CODEX GATE:** `bun run test:codex` (installer + config migration + plugin component suite; the canonical Codex compatibility gate, ubuntu/macos/windows in CI).
-3. **DRIVE CODEX UNDER tmux** in that isolated `CODEX_HOME`: confirm the plugin loads, `omo@sisyphuslabs` is enabled in the sandbox `config.toml`, and the hooks actually fire (`SessionStart` / `UserPromptSubmit` / `PreToolUse` / `PostToolUse` / `PostCompact` / `Stop` / `SubagentStop`). **CONFIRM YOUR REAL `~/.codex/config.toml` WAS NOT TOUCHED.**
+3. **DRIVE CODEX UNDER tmux** in that isolated `CODEX_HOME`: confirm the plugin loads, `omo@odinlabs` is enabled in the sandbox `config.toml`, and the hooks actually fire (`SessionStart` / `UserPromptSubmit` / `PreToolUse` / `PostToolUse` / `PostCompact` / `Stop` / `SubagentStop`). **CONFIRM YOUR REAL `~/.codex/config.toml` WAS NOT TOUCHED.**
 
 **RECORD THE EVIDENCE UNDER `.omo/evidence/<YYYYMMDD>-<short-slug>/`** (one organized subfolder per change): WHY THERE IS NO REGRESSION (the isolated-install transcript, before/after of the real `~/.codex` proving it is untouched, exact commands and output) and PROOF THAT EVERY INTENDED CHANGE LANDED (the new behavior observed inside the isolated Codex). See the root [`AGENTS.md`](../../AGENTS.md) "STOP. QA IS MANDATORY" section for the full cross-harness mandate.
 
@@ -30,17 +30,17 @@
 
 ## OVERVIEW
 
-`@oh-my-opencode/omo-codex` (private, v4.18.2): the Codex harness adapter = the **Light Edition** (omo for the OpenAI Codex CLI). Vendors a Codex plugin namespace `omo` + a TypeScript installer + telemetry. Public distribution = the live `lazycodex-ai` npm package/bin alias. `lazycodex` remains a root bin alias and the [`code-yeongyu/lazycodex`](https://github.com/code-yeongyu/lazycodex) repository identity, but is not an npm package. Codex marketplace identity = `sisyphuslabs` / plugin `omo` (`omo@sisyphuslabs`). Full identity + the publish/deploy pipeline live in the root [`AGENTS.md`](../../AGENTS.md) "CODEX LIGHT EDITION" section.
+`@oh-my-opencode/omo-codex` (private, v4.18.2): the Codex harness adapter = the **Light Edition** (omo for the OpenAI Codex CLI). Vendors a Codex plugin namespace `omo` + a TypeScript installer + telemetry. Public distribution = the live `lazycodex-ai` npm package/bin alias. `lazycodex` remains a root bin alias and the [`code-yeongyu/lazycodex`](https://github.com/code-yeongyu/lazycodex) repository identity, but is not an npm package. Codex marketplace identity = `odinlabs` / plugin `omo` (`omo@odinlabs`). Full identity + the publish/deploy pipeline live in the root [`AGENTS.md`](../../AGENTS.md) "CODEX LIGHT EDITION" section.
 
 ## LAYOUT
 
 | Path | Purpose |
 |------|---------|
 | `package.json` | `@oh-my-opencode/omo-codex` (private). Deps: `@oh-my-opencode/utils`. Scripts: `typecheck`, `test`, `build:plugin`, `sync:skills`. |
-| `marketplace.json` | Codex marketplace manifest. Declares marketplace `sisyphuslabs`, single installable plugin `omo`. |
-| `MARKETPLACE.md` | Native Codex marketplace notes for `sisyphuslabs` / `omo`. |
+| `marketplace.json` | Codex marketplace manifest. Declares marketplace `odinlabs`, single installable plugin `omo`. |
+| `MARKETPLACE.md` | Native Codex marketplace notes for `odinlabs` / `omo`. |
 | `index.d.ts` | Type barrel re-exporting `src/`. |
-| `plugin/` | Vendored Codex plugin namespace `omo`; pkg `@sisyphuslabs/omo-codex-plugin` (dep `@oh-my-opencode/shared-skills`). Holds `.codex-plugin/plugin.json` (brandColor `#7C3AED`), `hooks/hooks.json` (aggregate event wiring), `components/` (11 workspaces + bootstrap + test-support + lcx), generated aggregate `skills/` (gitignored, built by sync-skills), `.mcp.json`. |
+| `plugin/` | Vendored Codex plugin namespace `omo`; pkg `@odinlabs/omo-codex-plugin` (dep `@oh-my-opencode/shared-skills`). Holds `.codex-plugin/plugin.json` (brandColor `#7C3AED`), `hooks/hooks.json` (aggregate event wiring), `components/` (11 workspaces + bootstrap + test-support + lcx), generated aggregate `skills/` (gitignored, built by sync-skills), `.mcp.json`. |
 | `scripts/` | Generated/bundled Node ESM install entrypoints and parity tests. Published paths such as `scripts/install-local.mjs` stay stable while source lives in `src/install/`. |
 | `src/` | TypeScript runtime consumed by the CLI: `install/` (Codex cache install, config mutation, agent links, local marketplace snapshot, cleanup, routing) + `telemetry/`. |
 | `tsconfig.json` | Bun-targeted strict config; included in root `typecheck:packages`. |
@@ -55,11 +55,11 @@ Per `plugin/package.json` `workspaces[]`: `codegraph`, `comment-checker`, `git-b
 
 ## INSTALL (mechanics)
 
-Source entry: `src/install/install-codex.ts` plus `src/install/install-local-cli.ts`; generated Node entrypoints live at `packages/omo-codex/scripts/install*.mjs` for stable published paths. Targets: plugin cache `~/.codex/plugins/cache/sisyphuslabs/omo/<version>/`; local marketplace snapshot under `~/.codex/.tmp/marketplaces/sisyphuslabs/plugins/omo/`; durable agent TOML copies under `~/.codex/agents/`; enables `omo@sisyphuslabs` in `~/.codex/config.toml`; component CLIs into `~/.local/bin`. Windows: Git Bash preflight discovers `OMO_CODEX_GIT_BASH_PATH`, standard Git for Windows locations, then PATH; if missing, it prints manual install guidance and stops without running `winget`. Non-Windows keeps the `git_bash` MCP manifest bundled but writes `enabled = false`.
+Source entry: `src/install/install-codex.ts` plus `src/install/install-local-cli.ts`; generated Node entrypoints live at `packages/omo-codex/scripts/install*.mjs` for stable published paths. Targets: plugin cache `~/.codex/plugins/cache/odinlabs/omo/<version>/`; local marketplace snapshot under `~/.codex/.tmp/marketplaces/odinlabs/plugins/omo/`; durable agent TOML copies under `~/.codex/agents/`; enables `omo@odinlabs` in `~/.codex/config.toml`; component CLIs into `~/.local/bin`. Windows: Git Bash preflight discovers `OMO_CODEX_GIT_BASH_PATH`, standard Git for Windows locations, then PATH; if missing, it prints manual install guidance and stops without running `winget`. Non-Windows keeps the `git_bash` MCP manifest bundled but writes `enabled = false`.
 
 ## CONFIG MIGRATION (SessionStart)
 
-The plugin `SessionStart` hook (matcher `^startup$`) runs `plugin/scripts/auto-update.mjs` → `migrateCodexConfig()` over `~/.codex/config.toml` + any project `.codex/config.toml`, before the update throttle. Healthy marketplace-managed installs still skip npx self-update and point users at `codex plugin marketplace upgrade sisyphuslabs`; stale local marketplace cache/bin state is the exception, and starts the npx installer as a local repair when the cached marketplace manifest or managed component bins point at missing OMO payloads. Beyond syncing the managed reasoning profile from `plugin/model-catalog.json`, it runs a **model-aware** MultiAgentV2 guard via `forceDisableMultiAgentV2()` (`plugin/scripts/migrate-codex-config/multi-agent-v2-guard.mjs`):
+The plugin `SessionStart` hook (matcher `^startup$`) runs `plugin/scripts/auto-update.mjs` → `migrateCodexConfig()` over `~/.codex/config.toml` + any project `.codex/config.toml`, before the update throttle. Healthy marketplace-managed installs still skip npx self-update and point users at `codex plugin marketplace upgrade odinlabs`; stale local marketplace cache/bin state is the exception, and starts the npx installer as a local repair when the cached marketplace manifest or managed component bins point at missing OMO payloads. Beyond syncing the managed reasoning profile from `plugin/model-catalog.json`, it runs a **model-aware** MultiAgentV2 guard via `forceDisableMultiAgentV2()` (`plugin/scripts/migrate-codex-config/multi-agent-v2-guard.mjs`):
 
 - If the selected root `model` (or SessionStart hook `model`, which wins when present) resolves to `multi_agent_version: "v2"` in `CODEX_HOME/models_cache.json` (GPT-5.6 terra/sol family), or the catalog is unavailable but the effective session model is `gpt-5.6*` (`prefersMultiAgentV2()`), the guard **clears** managed `enabled = false` / `#26753` comments **and** any `hide_spawn_agent_metadata = false` (written by OMO installers <= 4.15.x; it re-adds agent_type/model properties to spawn_agent and mismatches the reserved schema, 400 on codex-cli 0.144.1), leaving V2 unset so Codex can follow the reserved `collaboration.spawn_agent` schema (lazycodex#118 / oh-my-openagent#6002). On that same V2-preferred signal `ensureSubagentConcurrencyLimit()` also removes `agents.max_threads` (invalid while V2 is active) while still ensuring `max_concurrent_threads_per_session` (preserves an existing value, otherwise defaults to 16).
 - On the SessionStart hook CLI path, if the active session model cannot be read from stdin, the guard **skips** force-disable instead of assuming the config.toml default (so `codex -m gpt-5.6-terra` cannot be broken by a stale default model line).
@@ -78,8 +78,8 @@ Event `omo_codex_daily_active`, at most once per UTC day per machine. Two source
 
 ## NOTES
 
-- `@sisyphuslabs/omo-codex-plugin` (the shipped Codex plugin bundle) is distinct from `@oh-my-opencode/omo-codex` (this adapter package).
-- Codex marketplace name is `sisyphuslabs`, never `lazycodex`.
+- `@odinlabs/omo-codex-plugin` (the shipped Codex plugin bundle) is distinct from `@oh-my-opencode/omo-codex` (this adapter package).
+- Codex marketplace name is `odinlabs`, never `lazycodex`.
 - `@oh-my-opencode/omo-codex` is private (not published to npm on its own); its assets ship via the root `package.json` `files` array.
 - `bunfig.toml` excludes `packages/omo-codex/plugin/**` from the root `bun test`; the plugin carries its own `node --test` suite. Full Codex suite: `bun run test:codex`.
 - Per-component detail lives in `plugin/components/*/AGENTS.md`; do not duplicate it here.

@@ -30,11 +30,11 @@ bun run build                                  # Build succeeds
 
 | Agent | Role | Focus Areas |
 |-------|------|-------------|
-| Oracle (goal) | Verify fix addresses false positive issue | Config schema matches PR description, exclude_patterns flows correctly |
-| Oracle (code quality) | Code quality check | Factory pattern consistency, no catch-all files, <200 LOC |
-| Oracle (security) | Security review | Regex patterns are user-supplied - verify no ReDoS risk from config |
-| Hephaestus (QA) | Hands-on execution | Run tests, verify mock binary tests actually exercise the exclude flow |
-| Hephaestus (context) | Context mining | Check git history for related changes, verify no conflicting PRs |
+| Volva (goal) | Verify fix addresses false positive issue | Config schema matches PR description, exclude_patterns flows correctly |
+| Volva (code quality) | Code quality check | Factory pattern consistency, no catch-all files, <200 LOC |
+| Volva (security) | Security review | Regex patterns are user-supplied - verify no ReDoS risk from config |
+| Thor (QA) | Hands-on execution | Run tests, verify mock binary tests actually exercise the exclude flow |
+| Thor (context) | Context mining | Check git history for related changes, verify no conflicting PRs |
 
 ### Potential review-work flags
 1. **ReDoS concern**: User-supplied regex patterns in `exclude_patterns` could theoretically cause ReDoS in the Go binary. Mitigation: the patterns are passed as CLI args, Go's `regexp` package is RE2-based (linear time guarantee).
@@ -42,8 +42,8 @@ bun run build                                  # Build succeeds
 3. **Go binary dependency**: The `--exclude-pattern` flag must exist in the Go binary for this to work. If the binary doesn't support it yet, the patterns are silently ignored (binary treats unknown flags differently).
 
 ### Failure handling
-- If any Oracle flags issues: address feedback, push new commit, re-run review-work
-- If Hephaestus QA finds test gaps: add missing tests, push, re-verify
+- If any Volva flags issues: address feedback, push new commit, re-run review-work
+- If Thor QA finds test gaps: add missing tests, push, re-verify
 
 ## Gate C: Cubic (`cubic-dev-ai[bot]`)
 

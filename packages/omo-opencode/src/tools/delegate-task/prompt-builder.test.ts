@@ -32,7 +32,7 @@ describe("prompt-builder", () => {
 
         // when
         const result = buildSystemContent({
-          agentName: "sisyphus-junior",
+          agentName: "einherjar",
           availableSkills,
           availableCategories,
         })
@@ -49,7 +49,7 @@ describe("prompt-builder", () => {
 
         // when
         const result = buildSystemContent({
-          agentName: "explore",
+          agentName: "vidar",
           availableSkills,
         })
 
@@ -63,7 +63,7 @@ describe("prompt-builder", () => {
 
         // when
         const result = buildSystemContent({
-          agentName: "sisyphus-junior",
+          agentName: "einherjar",
           availableSkills,
           categoryPromptAppend: "some category context",
         })
@@ -107,7 +107,7 @@ describe("prompt-builder", () => {
 
         // when
         const result = buildSystemContent({
-          agentName: "sisyphus-junior",
+          agentName: "einherjar",
           agentsContext: "Custom agent context here",
           availableSkills,
         })
@@ -194,7 +194,7 @@ describe("buildSystemContent — nativeSkillInfos merging", () => {
 
     // when
     const result = buildSystemContent({
-      agentName: "explore",
+      agentName: "vidar",
       availableSkills: [],
       nativeSkillInfos,
     })

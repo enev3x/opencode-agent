@@ -57,7 +57,7 @@ describe("keyword-detector ultrawork routing", () => {
     }
 
     // when
-    await hook["chat.message"]({ sessionID: "main-session", agent: "sisyphus" }, output)
+    await hook["chat.message"]({ sessionID: "main-session", agent: "odin" }, output)
 
     // then
     expect(startLoopCalls).toHaveLength(0)
@@ -77,7 +77,7 @@ describe("keyword-detector ultrawork routing", () => {
     }
 
     // when
-    await hook["chat.message"]({ sessionID: "main-session", agent: "sisyphus" }, output)
+    await hook["chat.message"]({ sessionID: "main-session", agent: "odin" }, output)
 
     // then
     expect(startLoopCalls).toHaveLength(0)
@@ -97,7 +97,7 @@ describe("keyword-detector ultrawork routing", () => {
     }
 
     // when
-    await hook["chat.message"]({ sessionID: "main-session", agent: "sisyphus" }, output)
+    await hook["chat.message"]({ sessionID: "main-session", agent: "odin" }, output)
 
     // then
     expect(startLoopCalls).toHaveLength(0)
@@ -116,7 +116,7 @@ describe("keyword-detector ultrawork routing", () => {
     }
 
     // when
-    await hook["chat.message"]({ sessionID: "main-session", agent: "sisyphus" }, output)
+    await hook["chat.message"]({ sessionID: "main-session", agent: "odin" }, output)
 
     // then
     expect(startLoopCalls).toHaveLength(0)
@@ -135,7 +135,7 @@ describe("keyword-detector ultrawork routing", () => {
     }
 
     // when
-    await hook["chat.message"]({ sessionID: "main-session", agent: "sisyphus" }, output)
+    await hook["chat.message"]({ sessionID: "main-session", agent: "odin" }, output)
 
     // then
     expect(startLoopCalls).toHaveLength(0)
@@ -153,7 +153,7 @@ describe("keyword-detector ultrawork routing", () => {
     }
 
     // when
-    await hook["chat.message"]({ sessionID: "main-session", agent: "prometheus" }, output)
+    await hook["chat.message"]({ sessionID: "main-session", agent: "mimir" }, output)
 
     // then
     expect(startLoopCalls).toHaveLength(0)
@@ -187,7 +187,7 @@ describe("keyword-detector ultrawork routing", () => {
     }
 
     // when
-    await hook["chat.message"]({ sessionID: "main-session", agent: "sisyphus" }, output)
+    await hook["chat.message"]({ sessionID: "main-session", agent: "odin" }, output)
 
     // then
     const text = output.parts.find((p) => p.type === "text")?.text
@@ -207,7 +207,7 @@ describe("keyword-detector ultrawork routing", () => {
     }
 
     // when
-    await hook["chat.message"]({ sessionID: "any-session", agent: "sisyphus" }, output)
+    await hook["chat.message"]({ sessionID: "any-session", agent: "odin" }, output)
 
     // then
     expect(startLoopCalls).toHaveLength(0)
@@ -230,7 +230,7 @@ The system mentions ulw mode in passing.
     }
 
     // when
-    await hook["chat.message"]({ sessionID: "main-session", agent: "sisyphus" }, output)
+    await hook["chat.message"]({ sessionID: "main-session", agent: "odin" }, output)
 
     // then
     expect(startLoopCalls).toHaveLength(0)
@@ -248,7 +248,7 @@ The system mentions ulw mode in passing.
     }
 
     // when
-    await hook["chat.message"]({ sessionID: "main-session", agent: "sisyphus" }, output)
+    await hook["chat.message"]({ sessionID: "main-session", agent: "odin" }, output)
 
     // then
     const text = output.parts.find((p) => p.type === "text")?.text

@@ -6,10 +6,10 @@ This command includes examples for the OpenCode harness. In Codex, do not call O
 
 | OpenCode example | Codex tool to use |
 | --- | --- |
-| \`call_omo_agent(subagent_type="explore", ...)\` | \`multi_agent_v1.spawn_agent({"message":"TASK: act as an explorer. ...","agent_type":"explorer","fork_context":false})\` |
-| \`call_omo_agent(subagent_type="librarian", ...)\` | \`multi_agent_v1.spawn_agent({"message":"TASK: act as a librarian. ...","agent_type":"librarian","fork_context":false})\` |
+| \`call_omo_agent(subagent_type="vidar", ...)\` | \`multi_agent_v1.spawn_agent({"message":"TASK: act as an explorer. ...","agent_type":"explorer","fork_context":false})\` |
+| \`call_omo_agent(subagent_type="bragi", ...)\` | \`multi_agent_v1.spawn_agent({"message":"TASK: act as a bragi. ...","agent_type":"bragi","fork_context":false})\` |
 | \`task(subagent_type="plan", ...)\` | \`multi_agent_v1.spawn_agent({"message":"TASK: act as a planning agent. ...","agent_type":"plan","fork_context":false})\` |
-| \`task(subagent_type="oracle", ...)\` | \`multi_agent_v1.spawn_agent({"message":"TASK: act as a rigorous reviewer. ...","agent_type":"lazycodex-gate-reviewer","fork_context":false})\` |
+| \`task(subagent_type="volva", ...)\` | \`multi_agent_v1.spawn_agent({"message":"TASK: act as a rigorous reviewer. ...","agent_type":"lazycodex-gate-reviewer","fork_context":false})\` |
 | \`task(category="...", ...)\` | \`multi_agent_v1.spawn_agent({"message":"TASK: act as an implementation or QA worker. ...","fork_context":false})\` |
 | \`background_output(task_id="...")\` | \`multi_agent_v1.wait_agent(...)\` for mailbox signals |
 | \`team_*(...)\` | Use Codex native subagents via \`multi_agent_v1.spawn_agent\` and \`multi_agent_v1.wait_agent\`; use \`multi_agent_v1.send_input\` and \`multi_agent_v1.close_agent\` only when exposed in the active tools list |
@@ -133,7 +133,7 @@ Team mode is enabled for this session. The rules below **override Phase 2-4** of
 \`\`\`json
 {
   "name": "slop-squad",
-  "lead": { "kind": "subagent_type", "subagent_type": "sisyphus" },
+  "lead": { "kind": "subagent_type", "subagent_type": "odin" },
   "members": [
     {
       "kind": "category",
@@ -153,7 +153,7 @@ Team mode is enabled for this session. The rules below **override Phase 2-4** of
 
 Rationale for this composition:
 - **4 workers = team mode's parallel cap.** A fifth member just queues.
-- **Reviewer is NOT a team member** — review demands stronger reasoning than category routing provides (team category members are downcast to sisyphus-junior). The reviewer runs OUTSIDE the team as a \`deep\` task; see Phase 3.
+- **Reviewer is NOT a team member** — review demands stronger reasoning than category routing provides (team category members are downcast to einherjar). The reviewer runs OUTSIDE the team as a \`deep\` task; see Phase 3.
 - **quick × 3** absorbs the mass of per-file slop removal. **unspecified-low × 1** is the rework lane for fixes triggered by reviewer findings.
 
 **Team lifecycle** (create once, reuse until Phase 5 cleanup):
@@ -177,7 +177,7 @@ While any team task is \`pending | claimed | in_progress\`:
 - Wait for \`<system-reminder>\` or member messages. Do NOT tight-poll \`team_status\`; the runtime notifies on state changes. A single \`team_status\` check is acceptable if no notification arrives within roughly 10 seconds of expected completion.
 - On each worker completion report:
   - Log the report to the pending final summary (no blocking).
-  - Immediately dispatch an **external reviewer** — review runs OUTSIDE the team because team-member category routing downcasts to sisyphus-junior:
+  - Immediately dispatch an **external reviewer** — review runs OUTSIDE the team because team-member category routing downcasts to einherjar:
     \`\`\`
     task(
       category="deep",
@@ -212,5 +212,5 @@ The \`~/.omo/teams/slop-squad/config.json\` declaration file stays on disk; it i
 - Lead never edits files directly — orchestrate only. If editing is needed, it goes into a team task.
 - Do not inline the full slop-criteria into every task description; rely on the Phase 2 broadcast.
 - Do not call \`team_create\` again mid-session. One team per resolution.
-- Do not put \`oracle\` / \`librarian\` into the team spec — they are team-ineligible; call them via \`task()\` outside the team when needed.
+- Do not put \`volva\` / \`bragi\` into the team spec — they are team-ineligible; call them via \`task()\` outside the team when needed.
 `

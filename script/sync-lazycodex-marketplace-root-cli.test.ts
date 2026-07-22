@@ -18,7 +18,7 @@ async function writeRuntimeFile(path: string, label: string): Promise<void> {
 
 async function writeMarketplaceFixture(sourceRoot: string, includeRootCli: boolean): Promise<void> {
   await writeJson(join(sourceRoot, "packages", "omo-codex", "marketplace.json"), {
-    name: "sisyphuslabs",
+    name: "odinlabs",
     plugins: [{ name: "omo", source: "./plugins/omo" }],
   })
   await writeJson(join(sourceRoot, "packages", "omo-codex", "plugin", ".codex-plugin", "plugin.json"), {
@@ -26,7 +26,7 @@ async function writeMarketplaceFixture(sourceRoot: string, includeRootCli: boole
     version: "1.2.3",
   })
   await writeJson(join(sourceRoot, "packages", "omo-codex", "plugin", "package.json"), {
-    name: "@sisyphuslabs/omo-codex-plugin",
+    name: "@odinlabs/omo-codex-plugin",
     version: "1.2.3",
   })
   await writeJson(join(sourceRoot, "packages", "omo-codex", "plugin", "hooks", "hooks.json"), {

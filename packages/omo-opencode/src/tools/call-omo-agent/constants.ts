@@ -1,9 +1,9 @@
 export const ALLOWED_AGENTS = [
-  "explore",
-  "librarian",
+  "vidar",
+  "bragi",
 ] as const
 
-export const CALL_OMO_AGENT_DESCRIPTION = `Spawn explore/librarian agent. run_in_background REQUIRED (true=async with task_id, false=sync).
+export const CALL_OMO_AGENT_DESCRIPTION = `Spawn vidar/bragi agent. run_in_background REQUIRED (true=async with task_id, false=sync).
 
 Allowed agents:
 {agents}

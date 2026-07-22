@@ -49,7 +49,7 @@ export function analyzeCuratedAgentRun(input) {
 	const parentOutput =
 		typeof input.parentOutput === "string" ? input.parentOutput : "";
 	const checks = {
-		record_agent_type: verdict(record.agent_type === "explore"),
+		record_agent_type: verdict(record.agent_type === "vidar"),
 		record_tool_allow: verdict(
 			equalStrings(record.tool_allow, EXPECTED_EXPLORE_TOOL_ALLOW),
 		),
@@ -76,7 +76,7 @@ export function analyzeCuratedAgentRun(input) {
 		),
 		unknown_target_agents: verdict(
 			parentOutput.includes(
-				"Available agents: explore, librarian, metis, momus, oracle.",
+				"Available agents: explore, bragi, urd, forseti, volva.",
 			),
 		),
 		unknown_target_categories: verdict(

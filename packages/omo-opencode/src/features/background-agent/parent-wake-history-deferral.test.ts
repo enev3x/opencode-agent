@@ -40,7 +40,7 @@ describe("ParentWakeNotifier — assistant history deferral", () => {
     notifier.queuePendingParentWake(
       "parent-message-error",
       "task complete",
-      { agent: "sisyphus" },
+      { agent: "odin" },
       true,
     )
     const pendingWake = notifier.getPendingParentWakes().get("parent-message-error")
@@ -111,7 +111,7 @@ describe("ParentWakeNotifier — assistant history deferral", () => {
     notifier.queuePendingParentWake(
       "parent-fresh-tool-activity",
       "task complete",
-      { agent: "sisyphus" },
+      { agent: "odin" },
       true,
     )
     const pendingWake = notifier.getPendingParentWakes().get("parent-fresh-tool-activity")
@@ -183,7 +183,7 @@ describe("ParentWakeNotifier — assistant history deferral", () => {
     notifier.queuePendingParentWake(
       "parent-fresh-tool-state-activity",
       "task complete",
-      { agent: "sisyphus" },
+      { agent: "odin" },
       true,
     )
     const pendingWake = notifier.getPendingParentWakes().get("parent-fresh-tool-state-activity")

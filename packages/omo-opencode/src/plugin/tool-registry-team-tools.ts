@@ -4,7 +4,7 @@ import type { Managers } from "../create-managers"
 import type { PluginContext } from "./types"
 import type { ToolRegistryFactories } from "./tool-registry-factories"
 
-export function getSisyphusJuniorModelOverride(agentOverride?: { model?: string }): string | undefined {
+export function getOdinJuniorModelOverride(agentOverride?: { model?: string }): string | undefined {
   return agentOverride?.model
 }
 
@@ -25,7 +25,7 @@ export function createTeamModeToolsRecord(args: {
       managers.tmuxSessionManager,
       {
         userCategories: pluginConfig.categories,
-        sisyphusJuniorModel: getSisyphusJuniorModelOverride(pluginConfig.agents?.["sisyphus-junior"]),
+        odinJuniorModel: getOdinJuniorModelOverride(pluginConfig.agents?.["einherjar"]),
         agentOverrides: pluginConfig.agents,
       },
     ),

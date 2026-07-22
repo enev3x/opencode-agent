@@ -36,7 +36,7 @@ function writeOmoJson(cwd: string, config: unknown): void {
 }
 
 // The rendered "Available agents: a, b, c" fragment of the task tool description. The example line
-// quoting subagent_type="oracle" must never leak into this extraction, so the marker anchors it.
+// quoting subagent_type="volva" must never leak into this extraction, so the marker anchors it.
 function advertisedAgentNames(engine: TaskEngine): string {
   const description = buildTaskToolDescription({ omoConfig: engine.omoConfig, agents: engine.agents })
   const marker = "Available agents: "
@@ -53,9 +53,9 @@ describe("task engine builtin agent overlay", () => {
     const engine = composeIn(tempProject())
 
     // then
-    expect(Object.keys(engine.agents).sort()).toEqual(["explore", "librarian", "metis", "momus", "oracle"])
-    expect(engine.agents["explore"]?.prompt).toContain("codebase search specialist")
-    expect(engine.agents["explore"]?.executionMode).toBe("in-process")
+    expect(Object.keys(engine.agents).sort()).toEqual(["vidar", "bragi", "urd", "forseti", "volva"])
+    expect(engine.agents["vidar"]?.prompt).toContain("codebase search specialist")
+    expect(engine.agents["vidar"]?.executionMode).toBe("in-process")
   })
 
   test("#given an omo.json model override for a builtin agent #when the engine resolves agents #then the model wins and the builtin prompt and allowlist survive", () => {
@@ -67,9 +67,9 @@ describe("task engine builtin agent overlay", () => {
     const engine = composeIn(cwd)
 
     // then
-    const explore = engine.agents["explore"]
+    const explore = engine.agents["vidar"]
     expect(explore?.model).toBe("acme/custom-1")
-    expect(explore?.prompt).toBe(BUILTIN_AGENTS["explore"]?.prompt)
+    expect(explore?.prompt).toBe(BUILTIN_AGENTS["vidar"]?.prompt)
     expect(explore?.tools).toHaveLength(9)
   })
 
@@ -82,7 +82,7 @@ describe("task engine builtin agent overlay", () => {
     const engine = composeIn(cwd)
 
     // then
-    expect(Object.keys(engine.agents).sort()).toEqual(["explore", "librarian", "metis", "momus", "oracle", "scout"])
+    expect(Object.keys(engine.agents).sort()).toEqual(["vidar", "bragi", "urd", "forseti", "volva", "scout"])
     expect(engine.agents["scout"]?.prompt).toBe("Scout the repo.")
   })
 
@@ -95,7 +95,7 @@ describe("task engine builtin agent overlay", () => {
     const engine = composeIn(cwd)
 
     // then
-    expect(engine.agents["explore"]?.executionMode).toBe("in-process")
+    expect(engine.agents["vidar"]?.executionMode).toBe("in-process")
   })
 
   test("#given a process-mode user agent #when the engine resolves agents #then its execution mode remains configurable", () => {
@@ -117,19 +117,19 @@ describe("task engine builtin agent overlay", () => {
     const engine = composeIn(tempProject())
 
     // when / then
-    expect(advertisedAgentNames(engine)).toBe("explore, librarian, metis, momus, oracle")
+    expect(advertisedAgentNames(engine)).toBe("explore, bragi, urd, forseti, volva")
   })
 
-  test("#given agents.oracle.disable in omo.json #when the description renders #then oracle is hidden and the other four stay listed", () => {
+  test("#given agents.volva.disable in omo.json #when the description renders #then volva is hidden and the other four stay listed", () => {
     // given
     const cwd = tempProject()
-    writeOmoJson(cwd, { agents: { oracle: { disable: true } } })
+    writeOmoJson(cwd, { agents: { volva: { disable: true } } })
 
     // when
     const engine = composeIn(cwd)
 
     // then
-    expect(engine.agents["oracle"]?.disable).toBe(true)
-    expect(advertisedAgentNames(engine)).toBe("explore, librarian, metis, momus")
+    expect(engine.agents["volva"]?.disable).toBe(true)
+    expect(advertisedAgentNames(engine)).toBe("explore, bragi, urd, forseti")
   })
 })

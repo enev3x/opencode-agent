@@ -7,11 +7,11 @@ import { log } from "../../shared/logger"
 import { applyEnvironmentContext } from "./environment-context"
 import { applyOverrides } from "./agent-overrides"
 import { applyModelResolution, getFirstFallbackModel } from "./model-resolution"
-import { createSisyphusAgent } from "../sisyphus"
+import { createOdinAgent } from "../odin"
 import { applyFrontierToolSchemaPermission } from "../frontier-tool-schema-guard"
-import { setSisyphusRuntimePromptContext } from "../sisyphus-runtime-prompt-reconciler"
+import { setOdinRuntimePromptContext } from "../odin-runtime-prompt-reconciler"
 
-export function maybeCreateSisyphusConfig(input: {
+export function maybeCreateOdinConfig(input: {
   disabledAgents: string[]
   agentOverrides: AgentOverrides
   uiSelectedModel?: string
@@ -43,45 +43,45 @@ export function maybeCreateSisyphusConfig(input: {
     disableOmoEnv = false,
   } = input
 
-  const sisyphusOverride = agentOverrides["sisyphus"]
-  const sisyphusRequirement = AGENT_MODEL_REQUIREMENTS["sisyphus"]
-  const hasSisyphusExplicitConfig = sisyphusOverride !== undefined
-  const meetsSisyphusAnyModelRequirement =
-    !sisyphusRequirement?.requiresAnyModel ||
-    hasSisyphusExplicitConfig ||
+  const odinOverride = agentOverrides["odin"]
+  const odinRequirement = AGENT_MODEL_REQUIREMENTS["odin"]
+  const hasOdinExplicitConfig = odinOverride !== undefined
+  const meetsOdinAnyModelRequirement =
+    !odinRequirement?.requiresAnyModel ||
+    hasOdinExplicitConfig ||
     isFirstRunNoCache ||
-    isAnyFallbackModelAvailable(sisyphusRequirement.fallbackChain, availableModels)
+    isAnyFallbackModelAvailable(odinRequirement.fallbackChain, availableModels)
 
-  if (!disabledAgents.includes("sisyphus") && !meetsSisyphusAnyModelRequirement) {
+  if (!disabledAgents.includes("odin") && !meetsOdinAnyModelRequirement) {
     log("[agent-registration] Agent skipped: no model in fallback chain is available", {
-      agent: "sisyphus",
+      agent: "odin",
     })
   }
-  if (disabledAgents.includes("sisyphus") || !meetsSisyphusAnyModelRequirement) return undefined
+  if (disabledAgents.includes("odin") || !meetsOdinAnyModelRequirement) return undefined
 
-  let sisyphusResolution = applyModelResolution({
-    uiSelectedModel: sisyphusOverride?.model !== undefined ? undefined : uiSelectedModel,
-    userModel: sisyphusOverride?.model,
-    requirement: sisyphusRequirement,
+  let odinResolution = applyModelResolution({
+    uiSelectedModel: odinOverride?.model !== undefined ? undefined : uiSelectedModel,
+    userModel: odinOverride?.model,
+    requirement: odinRequirement,
     availableModels,
     systemDefaultModel,
   })
 
-  if (isFirstRunNoCache && !sisyphusOverride?.model && !uiSelectedModel) {
-    sisyphusResolution = getFirstFallbackModel(sisyphusRequirement)
+  if (isFirstRunNoCache && !odinOverride?.model && !uiSelectedModel) {
+    odinResolution = getFirstFallbackModel(odinRequirement)
   }
 
-  if (!sisyphusResolution) {
+  if (!odinResolution) {
     log("[agent-registration] Agent skipped: model resolution returned no result", {
-      agent: "sisyphus",
-      configuredModel: sisyphusOverride?.model,
+      agent: "odin",
+      configuredModel: odinOverride?.model,
     })
     return undefined
   }
-  const { model: sisyphusModel, variant: sisyphusResolvedVariant } = sisyphusResolution
+  const { model: odinModel, variant: odinResolvedVariant } = odinResolution
 
-  let sisyphusConfig = createSisyphusAgent(
-    sisyphusModel,
+  let odinConfig = createOdinAgent(
+    odinModel,
     availableAgents,
     undefined,
     availableSkills,
@@ -89,32 +89,32 @@ export function maybeCreateSisyphusConfig(input: {
     useTaskSystem
   )
 
-  if (sisyphusResolvedVariant) {
-    sisyphusConfig = { ...sisyphusConfig, variant: sisyphusResolvedVariant }
+  if (odinResolvedVariant) {
+    odinConfig = { ...odinConfig, variant: odinResolvedVariant }
   }
 
-  sisyphusConfig = applyOverrides(sisyphusConfig, sisyphusOverride, mergedCategories, directory)
+  odinConfig = applyOverrides(odinConfig, odinOverride, mergedCategories, directory)
 
-  const resolvedModel = sisyphusConfig.model ?? ""
-  sisyphusConfig.permission = applyFrontierToolSchemaPermission(
-    sisyphusConfig.permission,
+  const resolvedModel = odinConfig.model ?? ""
+  odinConfig.permission = applyFrontierToolSchemaPermission(
+    odinConfig.permission,
     resolvedModel,
-    sisyphusOverride?.permission,
-    (sisyphusOverride as { tools?: Record<string, boolean> } | undefined)?.tools
+    odinOverride?.permission,
+    (odinOverride as { tools?: Record<string, boolean> } | undefined)?.tools
   )
 
-  sisyphusConfig = applyEnvironmentContext(sisyphusConfig, directory, {
+  odinConfig = applyEnvironmentContext(odinConfig, directory, {
     disableOmoEnv,
   })
 
   // The body above is baked from the *configured* model. If the user switches to
   // a different model family in the TUI, the system-transform hook rebuilds the
   // prompt for the runtime model using this captured pipeline (issue #5297/#5316).
-  setSisyphusRuntimePromptContext({
-    configuredModel: sisyphusModel,
-    bakedPrompt: sisyphusConfig.prompt ?? "",
+  setOdinRuntimePromptContext({
+    configuredModel: odinModel,
+    bakedPrompt: odinConfig.prompt ?? "",
     rebuildPromptForModel: (runtimeModel: string): string => {
-      let rebuilt = createSisyphusAgent(
+      let rebuilt = createOdinAgent(
         runtimeModel,
         availableAgents,
         undefined,
@@ -122,11 +122,11 @@ export function maybeCreateSisyphusConfig(input: {
         availableCategories,
         useTaskSystem
       )
-      rebuilt = applyOverrides(rebuilt, sisyphusOverride, mergedCategories, directory)
+      rebuilt = applyOverrides(rebuilt, odinOverride, mergedCategories, directory)
       rebuilt = applyEnvironmentContext(rebuilt, directory, { disableOmoEnv })
       return rebuilt.prompt ?? ""
     },
   })
 
-  return sisyphusConfig
+  return odinConfig
 }

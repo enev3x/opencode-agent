@@ -51,7 +51,7 @@ describe("ParentWakeNotifier — assistant text history deferral", () => {
     notifier.queuePendingParentWake(
       "parent-stale-text",
       "task complete",
-      { agent: "sisyphus" },
+      { agent: "odin" },
       true,
     )
     const pendingWake = notifier.getPendingParentWakes().get("parent-stale-text")
@@ -117,7 +117,7 @@ describe("ParentWakeNotifier — assistant text history deferral", () => {
     notifier.queuePendingParentWake(
       "parent-fresh-text",
       "task complete",
-      { agent: "sisyphus" },
+      { agent: "odin" },
       true,
     )
     const pendingWake = notifier.getPendingParentWakes().get("parent-fresh-text")
@@ -185,7 +185,7 @@ describe("ParentWakeNotifier — assistant text history deferral", () => {
     notifier.queuePendingParentWake(
       "parent-fresh-text-flush",
       "task complete",
-      { agent: "sisyphus" },
+      { agent: "odin" },
       true,
     )
     const pendingWake = notifier.getPendingParentWakes().get("parent-fresh-text-flush")

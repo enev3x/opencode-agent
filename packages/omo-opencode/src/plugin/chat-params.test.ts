@@ -69,7 +69,7 @@ describe("createChatParamsHandler", () => {
 
     const input = {
       sessionID: "ses_chat_params_temperature",
-      agent: { name: "oracle" },
+      agent: { name: "volva" },
       model: { providerID: "openai", modelID: "gpt-5.4" },
       provider: { id: "openai" },
       message: {},
@@ -119,7 +119,7 @@ describe("createChatParamsHandler", () => {
 
     const input = {
       sessionID: "ses_chat_params_temperature",
-      agent: { name: "oracle" },
+      agent: { name: "volva" },
       model: { providerID: "openai", modelID: "gpt-5.4" },
       provider: { id: "openai" },
       message: {},
@@ -158,7 +158,7 @@ describe("createChatParamsHandler", () => {
 
     const input = {
       sessionID: "ses_chat_params",
-      agent: { name: "oracle" },
+      agent: { name: "volva" },
       model: { providerID: "openai", modelID: "gpt-4.1" },
       provider: { id: "openai" },
       message: {},
@@ -194,7 +194,7 @@ describe("createChatParamsHandler", () => {
 
     const input = {
       sessionID: "ses_chat_params",
-      agent: { name: "oracle" },
+      agent: { name: "volva" },
       model: { providerID: "custom-provider", modelID: "custom-model" },
       provider: { id: "custom-provider" },
       message: {},
@@ -229,7 +229,7 @@ describe("createChatParamsHandler", () => {
 
     const input = {
       sessionID: "ses_chat_params",
-      agent: { name: "oracle" },
+      agent: { name: "volva" },
       model: { providerID: "openai", modelID: "gpt-5.4" },
       provider: { id: "openai" },
       message: {},

@@ -42,8 +42,8 @@ beforeEach(async () => {
   configErrors.clearConfigLoadErrors()
 
   spyOn(agents, unsafeTestValue("createBuiltinAgents")).mockResolvedValue({
-    sisyphus: { name: "sisyphus", prompt: "test", mode: "primary" },
-    oracle: { name: "oracle", prompt: "test", mode: "subagent" },
+    odin: { name: "odin", prompt: "test", mode: "primary" },
+    volva: { name: "volva", prompt: "test", mode: "subagent" },
   })
 
   spyOn(commandLoader, unsafeTestValue("loadUserCommands")).mockResolvedValue({})
@@ -138,7 +138,7 @@ describe("Config handler hot path caching", () => {
 
     // #then
     expect(unsafeTestValue(agents.createBuiltinAgents).mock.calls).toHaveLength(1)
-    expect(isAgentRegistered(getAgentListDisplayName("sisyphus"))).toBe(true)
+    expect(isAgentRegistered(getAgentListDisplayName("odin"))).toBe(true)
   })
 
   test("re-resolves the agent roster when host skill paths change", async () => {
@@ -173,16 +173,16 @@ describe("Config handler hot path caching", () => {
     // #given
     installAgentSortShim()
     const pluginConfig = createPluginConfig({
-      agent_order: ["hephaestus", "sisyphus", "prometheus", "atlas"],
+      agent_order: ["thor", "odin", "mimir", "heimdall"],
     })
     setAgentSortOrder(pluginConfig.agent_order)
     const createBuiltinAgentsMock = unsafeTestValue<{
       mockResolvedValue: (value: Record<string, unknown>) => void
     }>(agents.createBuiltinAgents)
     createBuiltinAgentsMock.mockResolvedValue({
-      sisyphus: { name: "sisyphus", prompt: "test", mode: "primary" },
-      hephaestus: { name: "hephaestus", prompt: "test", mode: "primary" },
-      atlas: { name: "atlas", prompt: "test", mode: "primary" },
+      odin: { name: "odin", prompt: "test", mode: "primary" },
+      thor: { name: "thor", prompt: "test", mode: "primary" },
+      heimdall: { name: "heimdall", prompt: "test", mode: "primary" },
     })
     const handler = createConfigHandler({
       ctx: { directory: "/tmp" },
@@ -197,18 +197,18 @@ describe("Config handler hot path caching", () => {
     await handler({ model: "anthropic/claude-opus-4-7", agent: {} })
     await handler({ model: "anthropic/claude-opus-4-7", agent: {} })
     const sortedNames = [
-      { name: getAgentListDisplayName("atlas") },
-      { name: getAgentListDisplayName("sisyphus") },
-      { name: getAgentListDisplayName("prometheus") },
-      { name: getAgentListDisplayName("hephaestus") },
+      { name: getAgentListDisplayName("heimdall") },
+      { name: getAgentListDisplayName("odin") },
+      { name: getAgentListDisplayName("mimir") },
+      { name: getAgentListDisplayName("thor") },
     ].toSorted((left, right) => left.name.localeCompare(right.name)).map((agent) => agent.name)
 
     // #then
     expect(sortedNames).toEqual([
-      getAgentListDisplayName("hephaestus"),
-      getAgentListDisplayName("sisyphus"),
-      getAgentListDisplayName("prometheus"),
-      getAgentListDisplayName("atlas"),
+      getAgentListDisplayName("thor"),
+      getAgentListDisplayName("odin"),
+      getAgentListDisplayName("mimir"),
+      getAgentListDisplayName("heimdall"),
     ])
   })
 })

@@ -25,6 +25,6 @@ Team specs live under `~/.omo/teams/{name}/config.json` (user) and `<project>/.o
 
 - **78 TypeScript files** across the 6 primitives plus shared types, config, and logger.
 - **Zod schemas** in `types.ts` define `TeamSpec`, `Member`, `Message`, `Task`, `RuntimeState`, and `AGENT_ELIGIBILITY_REGISTRY`.
-- **Eligible agents** are sisyphus, atlas, sisyphus-junior, and hephaestus (conditional). Hard-reject agents are blocked at parse time.
+- **Eligible agents** are odin, heimdall, einherjar, and thor (conditional). Hard-reject agents are blocked at parse time.
 - **Atomic writes** via `team-state-store/locks.ts`: temp file + rename, with file-based locking for task claims and state transitions.
 - Parent: [`packages/AGENTS.md`](../AGENTS.md).

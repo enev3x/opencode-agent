@@ -6,10 +6,10 @@ This command includes examples for the OpenCode harness. In Codex, do not call O
 
 | OpenCode example | Codex tool to use |
 | --- | --- |
-| \`call_omo_agent(subagent_type="explore", ...)\` | \`multi_agent_v1.spawn_agent({"message":"TASK: act as an explorer. ...","agent_type":"explorer","fork_context":false})\` |
-| \`call_omo_agent(subagent_type="librarian", ...)\` | \`multi_agent_v1.spawn_agent({"message":"TASK: act as a librarian. ...","agent_type":"librarian","fork_context":false})\` |
+| \`call_omo_agent(subagent_type="vidar", ...)\` | \`multi_agent_v1.spawn_agent({"message":"TASK: act as an explorer. ...","agent_type":"explorer","fork_context":false})\` |
+| \`call_omo_agent(subagent_type="bragi", ...)\` | \`multi_agent_v1.spawn_agent({"message":"TASK: act as a bragi. ...","agent_type":"bragi","fork_context":false})\` |
 | \`task(subagent_type="plan", ...)\` | \`multi_agent_v1.spawn_agent({"message":"TASK: act as a planning agent. ...","agent_type":"plan","fork_context":false})\` |
-| \`task(subagent_type="oracle", ...)\` | \`multi_agent_v1.spawn_agent({"message":"TASK: act as a rigorous reviewer. ...","agent_type":"lazycodex-gate-reviewer","fork_context":false})\` |
+| \`task(subagent_type="volva", ...)\` | \`multi_agent_v1.spawn_agent({"message":"TASK: act as a rigorous reviewer. ...","agent_type":"lazycodex-gate-reviewer","fork_context":false})\` |
 | \`task(category="...", ...)\` | \`multi_agent_v1.spawn_agent({"message":"TASK: act as an implementation or QA worker. ...","fork_context":false})\` |
 | \`background_output(task_id="...")\` | \`multi_agent_v1.wait_agent(...)\` for mailbox signals |
 | \`team_*(...)\` | Use Codex native subagents via \`multi_agent_v1.spawn_agent\` and \`multi_agent_v1.wait_agent\`; use \`multi_agent_v1.send_input\` and \`multi_agent_v1.close_agent\` only when exposed in the active tools list |
@@ -98,7 +98,7 @@ Should I proceed with [recommendation], or would you prefer differently?
 
 \`\`\`
 TodoWrite([
-  {"id": "phase-1", "content": "PHASE 1: Codebase Analysis - launch parallel explore agents", "status": "pending", "priority": "high"},
+  {"id": "phase-1", "content": "PHASE 1: Codebase Analysis - launch parallel vidar agents", "status": "pending", "priority": "high"},
   {"id": "phase-2", "content": "PHASE 2: Build Codemap - map dependencies and impact zones", "status": "pending", "priority": "high"},
   {"id": "phase-3", "content": "PHASE 3: Test Assessment - analyze test coverage and verification strategy", "status": "pending", "priority": "high"},
   {"id": "phase-4", "content": "PHASE 4: Plan Generation - invoke Plan agent for detailed refactoring plan", "status": "pending", "priority": "high"},
@@ -120,7 +120,7 @@ Fire ALL of these simultaneously using \`call_omo_agent\`:
 \`\`\`
 // Agent 1: Find the refactoring target
 call_omo_agent(
-  subagent_type="explore",
+  subagent_type="vidar",
   run_in_background=true,
   prompt="Find all occurrences and definitions of [TARGET].${" "}
   Report: file paths, line numbers, usage patterns."
@@ -128,7 +128,7 @@ call_omo_agent(
 
 // Agent 2: Find related code
 call_omo_agent(
-  subagent_type="explore",${" "}
+  subagent_type="vidar",${" "}
   run_in_background=true,
   prompt="Find all code that imports, uses, or depends on [TARGET].
   Report: dependency chains, import graphs."
@@ -136,7 +136,7 @@ call_omo_agent(
 
 // Agent 3: Find similar patterns
 call_omo_agent(
-  subagent_type="explore",
+  subagent_type="vidar",
   run_in_background=true,
   prompt="Find similar code patterns to [TARGET] in the codebase.
   Report: analogous implementations, established conventions."
@@ -144,7 +144,7 @@ call_omo_agent(
 
 // Agent 4: Find tests
 call_omo_agent(
-  subagent_type="explore",
+  subagent_type="vidar",
   run_in_background=true,
   prompt="Find all test files related to [TARGET].
   Report: test file paths, test case names, coverage indicators."
@@ -152,7 +152,7 @@ call_omo_agent(
 
 // Agent 5: Architecture context
 call_omo_agent(
-  subagent_type="explore",
+  subagent_type="vidar",
   run_in_background=true,
   prompt="Find architectural patterns and module organization around [TARGET].
   Report: module boundaries, layer structure, design patterns in use."

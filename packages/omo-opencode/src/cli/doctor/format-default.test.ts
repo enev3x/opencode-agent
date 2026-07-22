@@ -86,7 +86,7 @@ describe("formatDefault", () => {
       codexPath: "/usr/local/bin/codex",
       codexSource: "cli",
       codexAppId: null,
-      marketplaceName: "sisyphuslabs",
+      marketplaceName: "odinlabs",
       pluginName: "omo",
       pluginVersion: "4.7.5",
       pluginVersionStamped: true,

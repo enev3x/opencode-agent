@@ -20,7 +20,7 @@ describe("codex cache path helpers", () => {
     const cacheRoot = resolveCodexPluginCacheRoot(codexHome)
 
     // then
-    expect(cacheRoot).toBe(join(codexHome, "plugins", "cache", "sisyphuslabs", "omo"))
+    expect(cacheRoot).toBe(join(codexHome, "plugins", "cache", "odinlabs", "omo"))
   })
 
   test("resolves cached component CLI paths under a plugin version root", () => {
@@ -37,8 +37,8 @@ describe("codex cache path helpers", () => {
   test("selects the newest cached component CLI from an OMO cache tree", () => {
     // given
     const root = join(tmpdir(), `omo-codex-cache-newest-${randomUUID()}`)
-    const oldCli = join(root, "plugins", "cache", "sisyphuslabs", "omo", "0.1.0", "components", "ulw-loop", "dist", "cli.js")
-    const newCli = join(root, "plugins", "cache", "sisyphuslabs", "omo", "0.2.0", "components", "ulw-loop", "dist", "cli.js")
+    const oldCli = join(root, "plugins", "cache", "odinlabs", "omo", "0.1.0", "components", "ulw-loop", "dist", "cli.js")
+    const newCli = join(root, "plugins", "cache", "odinlabs", "omo", "0.2.0", "components", "ulw-loop", "dist", "cli.js")
     mkdirSync(dirname(oldCli), { recursive: true })
     mkdirSync(dirname(newCli), { recursive: true })
     writeFileSync(oldCli, "#!/usr/bin/env node\n")

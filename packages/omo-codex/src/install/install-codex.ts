@@ -85,7 +85,7 @@ export async function runCodexInstaller(options: CodexInstallOptions = {}): Prom
       sourcePath,
       version,
     })
-    if (marketplace.name === "sisyphuslabs" && plugin.name === "omo") {
+    if (marketplace.name === "odinlabs" && plugin.name === "omo") {
       await stampLazyCodexPluginVersion({ pluginRoot: plugin.path, version })
       await writeLazyCodexInstallSnapshot({ pluginRoot: plugin.path, distributionManifest })
       await removeGitBashHooksOffWindows({ platform, pluginRoot: plugin.path })
@@ -95,7 +95,7 @@ export async function runCodexInstaller(options: CodexInstallOptions = {}): Prom
     for (const link of links) {
       log(`Linked ${link.name} -> ${link.target}`)
     }
-    if (marketplace.name === "sisyphuslabs" && plugin.name === "omo") {
+    if (marketplace.name === "odinlabs" && plugin.name === "omo") {
       const runtimeLink = await linkRootRuntimeBin({ binDir, codexHome, repoRoot, platform })
       if (runtimeLink !== null) log(`Linked ${runtimeLink.name} -> ${runtimeLink.target}`)
       else
@@ -235,7 +235,7 @@ async function agentSourceRootsForInstall(input: {
   readonly installed: readonly InstalledPlugin[]
   readonly pluginSources: readonly MarketplaceSnapshotPluginSource[]
 }): Promise<ReadonlyMap<string, string>> {
-  if (input.marketplace.name !== "sisyphuslabs") {
+  if (input.marketplace.name !== "odinlabs") {
     return new Map(input.installed.map((plugin) => [plugin.name, plugin.path]))
   }
   const snapshotPlugins = await writeInstalledMarketplaceSnapshot({
@@ -247,7 +247,7 @@ async function agentSourceRootsForInstall(input: {
 }
 
 function legacyCacheMarketplaces(marketplaceName: string): readonly string[] {
-  return marketplaceName === "sisyphuslabs" ? SISYPHUS_LEGACY_CACHE_MARKETPLACES : []
+  return marketplaceName === "odinlabs" ? SISYPHUS_LEGACY_CACHE_MARKETPLACES : []
 }
 
 export function findRepoRootFromImporter(importerDir: string): string {

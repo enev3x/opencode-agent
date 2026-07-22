@@ -31,7 +31,7 @@ describe("normalizeSenpiTeamSpec", () => {
 
   test("#given a name-less omo.json team value #when normalized #then it takes the record key as its name", () => {
     // given
-    const rawSpec = { members: [{ kind: "subagent_type", subagent_type: "sisyphus" }] }
+    const rawSpec = { members: [{ kind: "subagent_type", subagent_type: "odin" }] }
 
     // when
     const spec = normalizeSenpiTeamSpec(rawSpec, "solo-team")
@@ -43,7 +43,7 @@ describe("normalizeSenpiTeamSpec", () => {
 
   test("#given a spec that already carries its own name #when normalized #then the explicit name is preserved", () => {
     // given
-    const rawSpec = { name: "explicit-name", members: [{ kind: "subagent_type", subagent_type: "atlas" }] }
+    const rawSpec = { name: "explicit-name", members: [{ kind: "subagent_type", subagent_type: "heimdall" }] }
 
     // when
     const spec = normalizeSenpiTeamSpec(rawSpec, "record-key")
@@ -55,7 +55,7 @@ describe("normalizeSenpiTeamSpec", () => {
   test("#given a raw.lead field on the input #when normalized #then it is rejected with a typed diagnostic and zero members survive", () => {
     // given
     const rawSpec = {
-      lead: { kind: "subagent_type", subagent_type: "sisyphus" },
+      lead: { kind: "subagent_type", subagent_type: "odin" },
       members: [{ kind: "category", category: "quick", prompt: "work" }],
     }
 
@@ -78,7 +78,7 @@ describe("normalizeSenpiTeamSpec", () => {
     // given
     const rawSpec = {
       members: [
-        { kind: "subagent_type", subagent_type: "sisyphus", name: "lead" },
+        { kind: "subagent_type", subagent_type: "odin", name: "lead" },
         { kind: "category", category: "quick", prompt: "work" },
       ],
     }
@@ -105,7 +105,7 @@ describe("normalizeSenpiTeamSpec", () => {
     // when
     let caught: unknown
     try {
-      normalizeSenpiTeamSpec(rawSpec, "with-caller-lead", { callerTeamLead: { agentTypeId: "sisyphus" } })
+      normalizeSenpiTeamSpec(rawSpec, "with-caller-lead", { callerTeamLead: { agentTypeId: "odin" } })
     } catch (error) {
       caught = error
     }

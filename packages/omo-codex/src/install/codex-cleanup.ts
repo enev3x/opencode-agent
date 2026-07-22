@@ -77,21 +77,21 @@ export type { SkippedCleanupPath } from "./codex-cleanup-safety"
 
 function managedGlobalStatePaths(codexHome: string): readonly string[] {
   return [
-    join(codexHome, "plugins", "cache", "sisyphuslabs"),
-    join(codexHome, ".tmp", "marketplaces", "sisyphuslabs"),
+    join(codexHome, "plugins", "cache", "odinlabs"),
+    join(codexHome, ".tmp", "marketplaces", "odinlabs"),
     // Deletion-safety invariant: runtime/ast-grep and runtime/node are the
     // only managed runtime subtrees - never remove `runtime/` wholesale.
     join(codexHome, "runtime", "ast-grep"),
     join(codexHome, "runtime", "node"),
     // codex core-plugins store convention: plugins/data/<plugin>-<marketplace>/
-    join(codexHome, "plugins", "data", "omo-sisyphuslabs", "bootstrap"),
+    join(codexHome, "plugins", "data", "omo-odinlabs", "bootstrap"),
   ]
 }
 
 const BOOTSTRAP_DATA_GLOB_MAX_DEPTH = 5
 
 // Defensive fallback for plugin-data layout drift, mirroring the glob
-// `<codexHome>/plugins/**/omo*sisyphuslabs*/bootstrap`; symlinks are never
+// `<codexHome>/plugins/**/omo*odinlabs*/bootstrap`; symlinks are never
 // followed and non-matching (non-omo) plugin data is never touched.
 async function collectBootstrapDataDirsByGlob(codexHome: string): Promise<readonly string[]> {
   const results: string[] = []
@@ -116,7 +116,7 @@ async function walkForManagedBootstrapDirs(directory: string, depth: number, res
 }
 
 function isManagedBootstrapOwnerName(name: string): boolean {
-  return name.startsWith("omo") && name.slice("omo".length).includes("sisyphuslabs")
+  return name.startsWith("omo") && name.slice("omo".length).includes("odinlabs")
 }
 
 export interface RemoveManagedPathSeams {
@@ -173,9 +173,9 @@ function isExpectedRuntimePruneFailure(error: unknown): boolean {
 
 async function collectInstalledAgentPaths(codexHome: string, configPath: string): Promise<readonly string[]> {
   const manifestPaths: string[] = [
-    join(codexHome, ".tmp", "marketplaces", "sisyphuslabs", "plugins", "omo", INSTALLED_AGENTS_MANIFEST),
+    join(codexHome, ".tmp", "marketplaces", "odinlabs", "plugins", "omo", INSTALLED_AGENTS_MANIFEST),
   ]
-  const versionRoot = join(codexHome, "plugins", "cache", "sisyphuslabs", "omo")
+  const versionRoot = join(codexHome, "plugins", "cache", "odinlabs", "omo")
   if (await exists(versionRoot)) {
     const entries = await readdir(versionRoot, { withFileTypes: true })
     for (const entry of entries) {

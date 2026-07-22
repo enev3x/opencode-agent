@@ -93,7 +93,7 @@ test("#given marketplace install and hanging npm latest lookup #when running che
 	assert.ok(Date.now() - startedAt < 2_000);
 	assert.equal(result.notices.length, 1);
 	assert.match(result.notices[0], /No newer LazyCodex version was confirmed/);
-	assert.match(result.notices[0], /codex plugin marketplace upgrade sisyphuslabs/);
+	assert.match(result.notices[0], /codex plugin marketplace upgrade odinlabs/);
 });
 
 test("#given stale marketplace cache repair #when formatting notice #then notice explains repair without leaking paths or commands", () => {

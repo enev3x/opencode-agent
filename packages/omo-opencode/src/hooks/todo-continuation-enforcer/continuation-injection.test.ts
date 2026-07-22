@@ -41,14 +41,14 @@ describe("injectContinuation", () => {
       ctx: ctx as never,
       sessionID: "ses_display_name_agent",
       resolvedInfo: {
-        agent: "Sisyphus - ultraworker",
+        agent: "Odin - ultraworker",
         model: { providerID: "anthropic", modelID: "claude-sonnet-4-20250514" },
       },
       sessionStateStore: sessionStateStore as never,
     })
 
     // then
-    expect(capturedAgent).toBe("Sisyphus - ultraworker")
+    expect(capturedAgent).toBe("Odin - ultraworker")
   })
 
   test("#given resolved agent name still carries a ZWSP sort prefix #when continuation is injected #then promptAsync receives the agent name without the ZWSP prefix", async () => {
@@ -79,14 +79,14 @@ describe("injectContinuation", () => {
       ctx: ctx as never,
       sessionID: "ses_zwsp_agent",
       resolvedInfo: {
-        agent: "\u200B\u200BSisyphus - ultraworker",
+        agent: "\u200B\u200BOdin - ultraworker",
         model: { providerID: "anthropic", modelID: "claude-sonnet-4-20250514" },
       },
       sessionStateStore: sessionStateStore as never,
     })
 
     // then
-    expect(capturedAgent).toBe("Sisyphus - ultraworker")
+    expect(capturedAgent).toBe("Odin - ultraworker")
     expect(capturedAgent).not.toContain("\u200B")
   })
 
@@ -135,7 +135,7 @@ describe("injectContinuation", () => {
       ctx: ctx as never,
       sessionID: "ses_continuation_tools",
       resolvedInfo: {
-        agent: "Hephaestus",
+        agent: "Thor",
         model: { providerID: "openai", modelID: "gpt-5.5" },
         tools: { question: "deny", bash: "allow" },
       },
@@ -223,7 +223,7 @@ describe("injectContinuation", () => {
       ctx: ctx as never,
       sessionID: "ses_continuation_variant",
       resolvedInfo: {
-        agent: "Hephaestus",
+        agent: "Thor",
         model,
       },
       sessionStateStore: sessionStateStore as never,
@@ -280,7 +280,7 @@ describe("injectContinuation", () => {
       ctx: ctx as never,
       sessionID,
       resolvedInfo: {
-        agent: "Sisyphus - ultraworker",
+        agent: "Odin - ultraworker",
         model: { providerID: "anthropic", modelID: "claude-sonnet-4-20250514" },
       },
       sessionStateStore: sessionStateStore as never,
@@ -324,7 +324,7 @@ describe("injectContinuation", () => {
       ctx: ctx as never,
       sessionID: "ses_continuation_eof",
       resolvedInfo: {
-        agent: "Sisyphus - ultraworker",
+        agent: "Odin - ultraworker",
         model: { providerID: "anthropic", modelID: "claude-sonnet-4-20250514" },
       },
       sessionStateStore: sessionStateStore as never,

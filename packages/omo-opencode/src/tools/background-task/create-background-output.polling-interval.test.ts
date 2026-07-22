@@ -8,7 +8,7 @@ import type { BackgroundOutputClient, BackgroundOutputManager } from "./clients"
 const mockContext = unsafeTestValue<Parameters<ReturnType<typeof createBackgroundOutput>["execute"]>[1]>({
   sessionID: "ses_parent",
   messageID: "msg_parent",
-  agent: "sisyphus",
+  agent: "odin",
   abort: new AbortController().signal,
 })
 
@@ -20,7 +20,7 @@ function createTask(): BackgroundTask {
     parentMessageId: "msg_parent",
     description: "fast poll",
     prompt: "run",
-    agent: "sisyphus-junior",
+    agent: "einherjar",
     status: "running",
   }
 }

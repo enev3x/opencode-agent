@@ -81,9 +81,9 @@ export function createToolExecuteBeforeHandler(args: {
     await hooks.tasksTodowriteDisabler?.["tool.execute.before"]?.(input, output)
       await hooks.webfetchRedirectGuard?.["tool.execute.before"]?.(input, output)
       await hooks.fsyncSkipWarning?.["tool.execute.before"]?.(input, output)
-      await hooks.prometheusMdOnly?.["tool.execute.before"]?.(input, output)
-    await hooks.sisyphusJuniorNotepad?.["tool.execute.before"]?.(input, output)
-    await hooks.atlasHook?.["tool.execute.before"]?.(input, output)
+      await hooks.mimirMdOnly?.["tool.execute.before"]?.(input, output)
+    await hooks.odinJuniorNotepad?.["tool.execute.before"]?.(input, output)
+    await hooks.heimdallHook?.["tool.execute.before"]?.(input, output)
     await hooks.compactionTodoPreserver?.["tool.execute.before"]?.(input, output)
     await hooks.teamToolGating?.["tool.execute.before"]?.(input, output)
 
@@ -112,7 +112,7 @@ export function createToolExecuteBeforeHandler(args: {
       const taskId = typeof output.args.task_id === "string" ? output.args.task_id : undefined
 
       if (category) {
-        replaceToolArgs(output, { subagent_type: "sisyphus-junior" })
+        replaceToolArgs(output, { subagent_type: "einherjar" })
       } else if (!subagentType && taskId) {
         const resolvedAgent = await resolveSessionAgent(ctx.client, taskId)
         replaceToolArgs(output, { subagent_type: resolvedAgent ?? "continue" })

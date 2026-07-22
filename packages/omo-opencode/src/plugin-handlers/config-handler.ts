@@ -24,7 +24,7 @@ function collectTrustedVisionCapableModels(
   pluginConfig: OhMyOpenCodeConfig,
 ): string[] {
   const trusted: string[] = []
-  const multimodalLookerOverride = pluginConfig.agents?.["multimodal-looker"]
+  const multimodalLookerOverride = pluginConfig.agents?.["huginn"]
   const configuredModel = multimodalLookerOverride?.model
   if (typeof configuredModel === "string" && configuredModel.includes("/")) {
     trusted.push(configuredModel)

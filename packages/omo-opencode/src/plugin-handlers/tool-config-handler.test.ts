@@ -67,11 +67,11 @@ describe("applyToolConfig", () => {
       })
 
       it.each([
-        "atlas",
-        "sisyphus",
-        "hephaestus",
-        "prometheus",
-        "sisyphus-junior",
+        "heimdall",
+        "odin",
+        "thor",
+        "mimir",
+        "einherjar",
       ])("#then should deny todo tools for %s agent", (agentName) => {
         const params = createParams({
           taskSystem: true,
@@ -112,7 +112,7 @@ describe("applyToolConfig", () => {
     })
 
     describe("#when config explicitly denies question permission", () => {
-      it.each(["sisyphus", "hephaestus", "prometheus"])(
+      it.each(["odin", "thor", "mimir"])(
         "#then should deny question for %s even without CLI_RUN_MODE",
         (agentName) => {
           process.env.OPENCODE_CONFIG_CONTENT = JSON.stringify({
@@ -132,7 +132,7 @@ describe("applyToolConfig", () => {
     })
 
     describe("#when config does not deny question permission", () => {
-      it.each(["sisyphus", "hephaestus", "prometheus"])(
+      it.each(["odin", "thor", "mimir"])(
         "#then should allow question for %s in interactive mode",
         (agentName) => {
           process.env.OPENCODE_CONFIG_CONTENT = JSON.stringify({
@@ -159,14 +159,14 @@ describe("applyToolConfig", () => {
         })
         process.env.OPENCODE_CONFIG_CONTENT = "{"
         delete process.env.OPENCODE_CLI_RUN_MODE
-        const params = createParams({ agents: ["sisyphus"] })
+        const params = createParams({ agents: ["odin"] })
 
         try {
           // when
           applyToolConfig(params)
 
           // then
-          const agent = params.agentResult.sisyphus as {
+          const agent = params.agentResult.odin as {
             permission: Record<string, unknown>
           }
           expect(agent.permission.question).toBe("allow")
@@ -177,7 +177,7 @@ describe("applyToolConfig", () => {
     })
 
     describe("#when CLI_RUN_MODE is true and config does not deny", () => {
-      it.each(["sisyphus", "hephaestus", "prometheus"])(
+      it.each(["odin", "thor", "mimir"])(
         "#then should deny question for %s via CLI_RUN_MODE",
         (agentName) => {
           process.env.OPENCODE_CONFIG_CONTENT = JSON.stringify({
@@ -197,7 +197,7 @@ describe("applyToolConfig", () => {
     })
 
     describe("#when config deny overrides CLI_RUN_MODE allow", () => {
-      it.each(["sisyphus", "hephaestus", "prometheus"])(
+      it.each(["odin", "thor", "mimir"])(
         "#then should deny question for %s when config says deny regardless of CLI_RUN_MODE",
         (agentName) => {
           process.env.OPENCODE_CONFIG_CONTENT = JSON.stringify({
@@ -220,11 +220,11 @@ describe("applyToolConfig", () => {
   describe("#given task_system is disabled", () => {
     describe("#when applying tool config", () => {
       it.each([
-        "atlas",
-        "sisyphus",
-        "hephaestus",
-        "prometheus",
-        "sisyphus-junior",
+        "heimdall",
+        "odin",
+        "thor",
+        "mimir",
+        "einherjar",
       ])("#then should NOT deny todo tools for %s agent", (agentName) => {
         const params = createParams({
           taskSystem: false,
@@ -255,11 +255,11 @@ describe("applyToolConfig", () => {
       })
 
       it.each([
-        "atlas",
-        "sisyphus",
-        "hephaestus",
-        "prometheus",
-        "sisyphus-junior",
+        "heimdall",
+        "odin",
+        "thor",
+        "mimir",
+        "einherjar",
       ])("#then should NOT deny todo tools for %s agent by default", (agentName) => {
         const params = createParams({
           agents: [agentName],
@@ -277,13 +277,13 @@ describe("applyToolConfig", () => {
   })
 
   describe("#given agentResult uses clean display keys", () => {
-    it("#then should still resolve atlas permissions through the display key", () => {
-      const atlasKey = getAgentDisplayName("atlas")
-      const params = createParams({ agents: [atlasKey] })
+    it("#then should still resolve heimdall permissions through the display key", () => {
+      const heimdallKey = getAgentDisplayName("heimdall")
+      const params = createParams({ agents: [heimdallKey] })
 
       applyToolConfig(params)
 
-      const agent = params.agentResult[atlasKey] as {
+      const agent = params.agentResult[heimdallKey] as {
         permission: Record<string, unknown>
       }
       expect(agent.permission.task).toBe("allow")
@@ -291,27 +291,27 @@ describe("applyToolConfig", () => {
       expect(agent.permission.teammate).toBe("allow")
     })
 
-    it("#then should allow teammate for hephaestus", () => {
+    it("#then should allow teammate for thor", () => {
       // given
-      const params = createParams({ agents: ["hephaestus"] })
+      const params = createParams({ agents: ["thor"] })
 
       // when
       applyToolConfig(params)
 
       // then
-      const agent = params.agentResult.hephaestus as {
+      const agent = params.agentResult.thor as {
         permission: Record<string, unknown>
       }
       expect(agent.permission.teammate).toBe("allow")
     })
   })
 
-  describe("#given sisyphus-junior with permission.task=deny from factory", () => {
+  describe("#given einherjar with permission.task=deny from factory", () => {
     describe("#when applyToolConfig runs", () => {
       it("#then should NOT clobber task:deny to allow (sub-bug of #5193)", () => {
-        // given a sisyphus-junior agent with permission.task === "deny" (factory output)
-        const params = createParams({ agents: ["sisyphus-junior"] });
-        (params.agentResult["sisyphus-junior"] as { permission: Record<string, unknown> }).permission = {
+        // given a einherjar agent with permission.task === "deny" (factory output)
+        const params = createParams({ agents: ["einherjar"] });
+        (params.agentResult["einherjar"] as { permission: Record<string, unknown> }).permission = {
           task: "deny",
         };
 
@@ -319,16 +319,16 @@ describe("applyToolConfig", () => {
         applyToolConfig(params);
 
         // then task remains "deny" (NOT overwritten to "allow")
-        const junior = params.agentResult["sisyphus-junior"] as {
+        const junior = params.agentResult["einherjar"] as {
           permission: Record<string, unknown>;
         };
         expect(junior.permission.task).toBe("deny");
       });
 
-      it("#then should still add task_*:allow and teammate:allow to sisyphus-junior", () => {
+      it("#then should still add task_*:allow and teammate:allow to einherjar", () => {
         // given
-        const params = createParams({ agents: ["sisyphus-junior"] });
-        (params.agentResult["sisyphus-junior"] as { permission: Record<string, unknown> }).permission = {
+        const params = createParams({ agents: ["einherjar"] });
+        (params.agentResult["einherjar"] as { permission: Record<string, unknown> }).permission = {
           task: "deny",
         };
 
@@ -336,7 +336,7 @@ describe("applyToolConfig", () => {
         applyToolConfig(params);
 
         // then
-        const junior = params.agentResult["sisyphus-junior"] as {
+        const junior = params.agentResult["einherjar"] as {
           permission: Record<string, unknown>;
         };
         expect(junior.permission["task_*"]).toBe("allow");
@@ -370,7 +370,7 @@ describe("applyToolConfig", () => {
     })
 
     describe("#when question is in disabled_tools", () => {
-      it.each(["sisyphus", "hephaestus", "prometheus"])(
+      it.each(["odin", "thor", "mimir"])(
         "#then should deny question for %s agent",
         (agentName) => {
           const params = createParams({
@@ -389,7 +389,7 @@ describe("applyToolConfig", () => {
     })
 
     describe("#when question is in disabled_tools alongside other tools", () => {
-      it.each(["sisyphus", "hephaestus", "prometheus"])(
+      it.each(["odin", "thor", "mimir"])(
         "#then should deny question for %s agent",
         (agentName) => {
           const params = createParams({
@@ -408,7 +408,7 @@ describe("applyToolConfig", () => {
     })
 
     describe("#when disabled_tools does not include question", () => {
-      it.each(["sisyphus", "hephaestus", "prometheus"])(
+      it.each(["odin", "thor", "mimir"])(
         "#then should allow question for %s agent",
         (agentName) => {
           const params = createParams({

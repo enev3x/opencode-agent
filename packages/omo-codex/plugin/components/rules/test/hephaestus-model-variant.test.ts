@@ -6,8 +6,8 @@ import { afterEach, describe, expect, it } from "vitest";
 import { type CodexSessionStartInput, runSessionStartHook } from "../src/codex-hook.js";
 import { findPluginBundledCandidates } from "@oh-my-opencode/rules-engine/engine";
 
-const GPT_55_VARIANT_PATH = "bundled-rules/hephaestus/gpt-5.5.md";
-const GPT_56_VARIANT_PATH = "bundled-rules/hephaestus/gpt-5.6.md";
+const GPT_55_VARIANT_PATH = "bundled-rules/thor/gpt-5.5.md";
+const GPT_56_VARIANT_PATH = "bundled-rules/thor/gpt-5.6.md";
 const BUNDLED_ONLY_ENV = {
 	CODEX_RULES_ENABLED_SOURCES: "plugin-bundled",
 };
@@ -24,8 +24,8 @@ afterEach(() => {
 function makeProject(): { readonly root: string; readonly pluginData: string } {
 	originalPluginRoot = process.env["PLUGIN_ROOT"];
 	process.env["PLUGIN_ROOT"] = process.cwd();
-	const root = mkdtempSync(join(tmpdir(), "codex-rules-hephaestus-variant-project-"));
-	const pluginData = mkdtempSync(join(tmpdir(), "codex-rules-hephaestus-variant-data-"));
+	const root = mkdtempSync(join(tmpdir(), "codex-rules-thor-variant-project-"));
+	const pluginData = mkdtempSync(join(tmpdir(), "codex-rules-thor-variant-data-"));
 	tempDirectories.push(root, pluginData);
 	writeFileSync(join(root, "package.json"), JSON.stringify({ name: "fixture" }));
 	return { root, pluginData };
@@ -51,7 +51,7 @@ function restoreEnv(name: string, value: string | undefined): void {
 	process.env[name] = value;
 }
 
-describe("Hephaestus bundled rule model variants", () => {
+describe("Thor bundled rule model variants", () => {
 	it("#given packaged bundled rules #when discovering with a gpt-5.5 model #then only the gpt-5.5 variant is included", () => {
 		const candidates = findPluginBundledCandidates({ pluginRoot: process.cwd(), model: "gpt-5.5" });
 		const paths = candidates.map((candidate) => candidate.relativePath);

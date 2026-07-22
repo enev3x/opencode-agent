@@ -76,7 +76,7 @@ describe("process sweep family matrix", () => {
 
   it("#given a windows process table spanning every family #when classifying #then windows shapes are selected per family", () => {
     // given
-    const winRoot = "C:\\Users\\runner\\.codex\\plugins\\cache\\sisyphuslabs\\omo\\4.15.1"
+    const winRoot = "C:\\Users\\runner\\.codex\\plugins\\cache\\odinlabs\\omo\\4.15.1"
     const table: readonly ProcessInfo[] = [
       { command: "codex.exe app-server", pid: 200, ppid: 4 },
       { command: `node ${winRoot}\\components\\codegraph\\dist\\serve.js`, pid: 311, ppid: 1 },

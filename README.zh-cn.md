@@ -26,15 +26,15 @@
 
 > [!NOTE]
 >
-> [![Sisyphus Labs - Meet Dori. Not a demo. Subscribes to everything.](./.github/assets/sisyphuslabs.png?v=4)](https://sisyphuslabs.ai)
-> > **OmO 由上述的 Jobdori 进行维护。认识你专属的 Jobdori — Dori。<br />[在此处](https://sisyphuslabs.ai)加入等待名单。**
+> [![Odin Labs - Meet Dori. Not a demo. Subscribes to everything.](./.github/assets/odinlabs.png?v=4)](https://odinlabs.ai)
+> > **OmO 由上述的 Jobdori 进行维护。认识你专属的 Jobdori — Dori。<br />[在此处](https://odinlabs.ai)加入等待名单。**
 
 > [!TIP]
 > 加入我们！
 >
 > | [<img alt="Discord link" src="https://img.shields.io/discord/1452487457085063218?color=5865F2&label=discord&labelColor=black&logo=discord&logoColor=white&style=flat-square" width="156px" />](https://discord.gg/PUwSMR9XNk) | 加入我们的 [Discord 社区](https://discord.gg/PUwSMR9XNk)，与贡献者及其他 `oh-my-openagent` 用户交流。 |
 > | :-----| :----- |
-> | [<img alt="X link" src="https://img.shields.io/badge/Follow-%40justsisyphus-00CED1?style=flat-square&logo=x&labelColor=black" width="156px" />](https://x.com/justsisyphus) | 关于 `oh-my-openagent` 的更新过去发布在我的 X 账号上。<br /> 因为账号被意外停用，现在由 [@justsisyphus](https://x.com/justsisyphus) 代为发布更新。 |
+> | [<img alt="X link" src="https://img.shields.io/badge/Follow-%40justodin-00CED1?style=flat-square&logo=x&labelColor=black" width="156px" />](https://x.com/justodin) | 关于 `oh-my-openagent` 的更新过去发布在我的 X 账号上。<br /> 因为账号被意外停用，现在由 [@justodin](https://x.com/justodin) 代为发布更新。 |
 > | [<img alt="GitHub Follow" src="https://img.shields.io/github/followers/code-yeongyu?style=flat-square&logo=github&labelColor=black&color=24292f" width="156px" />](https://github.com/code-yeongyu) | 在 GitHub 上关注 [@code-yeongyu](https://github.com/code-yeongyu) 获取更多项目信息。 |
 
 <!-- <CENTERED SECTION FOR GITHUB DISPLAY> -->
@@ -79,7 +79,7 @@
 
 > "因为它，我取消了 Cursor 的订阅。令人震撼的事在开源社区发生了。" - [Arthur Guiot](https://x.com/arthur_guiot/status/2008736347092382053?s=20)
 
-> "如果人类需要 3 个月完成的事情 Claude Code 需要 7 天，那么 Sisyphus 只需要 1 小时。它会一直工作直到任务完成。它是一个极度自律的智能体。" <br/>- B, 量化研究员
+> "如果人类需要 3 个月完成的事情 Claude Code 需要 7 天，那么 Odin 只需要 1 小时。它会一直工作直到任务完成。它是一个极度自律的智能体。" <br/>- B, 量化研究员
 
 > "用 Oh My Opencode 一天之内解决了 8000 个 eslint 警告。" <br/>- [Jacob Ferrari](https://x.com/jacobferrari_/status/2003258761952289061)
 
@@ -170,7 +170,7 @@ Read this and tell me why it's not just another boilerplate: https://raw.githubu
 
 |       | 特性                                                            | Editions | 功能说明                                                                                                                                                                        |
 | :---: | :-------------------------------------------------------------- | :------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-|   🤖   | **自律军团 (Discipline Agents)**                                | Ultimate | Sisyphus 负责调度 Hephaestus、Oracle、Librarian 和 Explore。一支完整的 AI 开发团队并行工作。                                                                                    |
+|   🤖   | **自律军团 (Discipline Agents)**                                | Ultimate | Odin 负责调度 Thor、Volva、Bragi 和 Explore。一支完整的 AI 开发团队并行工作。                                                                                    |
 |   🧩   | **Codex CLI Light Edition**                                      | Light    | 在 OpenAI Codex CLI 中运行的 omo 的 8 个可移植组件 (rules, comment-checker, git-bash, LSP, ultrawork, ulw-loop, start-work continuation, telemetry)。安装: `npx lazycodex-ai install`。                    |
 |   👥   | **Team Mode** (v4.0, 选择性启用)                                 | Ultimate | 领导 Agent + 最多 8 个并行成员，实时 tmux 可视化，专用 `team_*` 工具家族。驱动 `hyperplan`(5 个敌对评论者) 和 `security-research`(3 个猎手 + 2 个 PoC 工程师)。[文档 →](docs/guide/team-mode.md) |
 |   ⚡   | **`ultrawork` / `ulw`**                                         | Both     | 一键触发，所有智能体(Ultimate)或 Codex `ultrawork` 组件(Light)出动。任务完成前绝不罢休。                                                                                          |
@@ -187,7 +187,7 @@ Read this and tell me why it's not just another boilerplate: https://raw.githubu
 |   🖥️   | **Tmux 集成**                                                   | Ultimate | 完整的交互式终端支持。跑 REPL、用调试器、用 TUI 工具，全都在实时会话中完成。                                                                                                    |
 |   🔌   | **Claude Code 兼容**                                            | Ultimate | 你现有的 Hooks、命令、技能、MCP 和插件？全都能无缝迁移过来。(Codex 拥有其自己的原生插件系统。)                                                                                   |
 |   🎯   | **技能内嵌 MCP**                                                | Ultimate | 技能自带其所需的 MCP 服务器。按需开启，不会撑爆你的上下文窗口。                                                                                                                 |
-|   📋   | **Prometheus 规划师**                                           | Ultimate | 动手写代码前，先通过访谈模式做好战略规划。                                                                                                                                      |
+|   📋   | **Mimir 规划师**                                           | Ultimate | 动手写代码前，先通过访谈模式做好战略规划。                                                                                                                                      |
 |   🔍   | **`/init-deep`**                                                | Ultimate | 在整个项目目录层级中自动生成 `AGENTS.md`。不仅省 Token，还能大幅提升 Agent 理解力。                                                                                             |
 
 > **Editions 图例。** **Ultimate** = 仅 OpenCode (`bunx oh-my-openagent install`)。**Light** = 仅 Codex CLI (`bunx oh-my-openagent install --platform=codex`)。**Both** = 两个版本均提供 (内部实现可能略有不同)。
@@ -195,19 +195,19 @@ Read this and tell me why it's not just another boilerplate: https://raw.githubu
 ### 自律军团 (Discipline Agents)
 
 <table><tr>
-<td align="center"><img src=".github/assets/sisyphus.png" height="300" /></td>
-<td align="center"><img src=".github/assets/hephaestus.png" height="300" /></td>
+<td align="center"><img src=".github/assets/odin.png" height="300" /></td>
+<td align="center"><img src=".github/assets/thor.png" height="300" /></td>
 </tr></table>
 
-**Sisyphus** (`claude-opus-4-8` / **`kimi-k3`** / **`glm-5`**) 是你的主指挥官。他负责制定计划、分配任务给专家团队，并以极其激进的并行策略推动任务直至完成。他从不半途而废。Claude Opus 4.8 和 Kimi K3 是推荐默认值。
+**Odin** (`claude-opus-4-8` / **`kimi-k3`** / **`glm-5`**) 是你的主指挥官。他负责制定计划、分配任务给专家团队，并以极其激进的并行策略推动任务直至完成。他从不半途而废。Claude Opus 4.8 和 Kimi K3 是推荐默认值。
 
-**Hephaestus** (仅通过 OpenAI、GitHub Copilot、Vercel 或 OpenCode 使用 medium effort 的 `gpt-5.6-sol`) 是你的自主深度工作者。你只需要给他目标，不要给他具体做法。他会自动探索代码库模式，从头到尾独立执行任务，绝不会中途要你当保姆。*名副其实的正牌工匠。*
+**Thor** (仅通过 OpenAI、GitHub Copilot、Vercel 或 OpenCode 使用 medium effort 的 `gpt-5.6-sol`) 是你的自主深度工作者。你只需要给他目标，不要给他具体做法。他会自动探索代码库模式，从头到尾独立执行任务，绝不会中途要你当保姆。*名副其实的正牌工匠。*
 
-**Prometheus** (`claude-opus-4-8` / **`gpt-5.6-sol`** / **`glm-5.2`**) 是你的战略规划师。他通过访谈模式，在动一行代码之前，先通过提问确定范围并构建详尽的执行计划。
+**Mimir** (`claude-opus-4-8` / **`gpt-5.6-sol`** / **`glm-5.2`**) 是你的战略规划师。他通过访谈模式，在动一行代码之前，先通过提问确定范围并构建详尽的执行计划。
 
 每一个 Agent 都针对其底层模型的特点进行了专门调优。你无需手动来回切换模型。[阅读背景设定了解更多 →](docs/guide/overview.md)
 
-> Anthropic [因为我们屏蔽了 OpenCode](https://x.com/thdxr/status/2010149530486911014)。这就是为什么我们将 Hephaestus 命名为"正牌工匠 (The Legitimate Craftsman)"。这是一个故意的讽刺。
+> Anthropic [因为我们屏蔽了 OpenCode](https://x.com/thdxr/status/2010149530486911014)。这就是为什么我们将 Thor 命名为"正牌工匠 (The Legitimate Craftsman)"。这是一个故意的讽刺。
 >
 > 我们在 Opus 或 Kimi K3 上运行得最好，但仅仅使用 Kimi K3 + GPT-5.6 Sol 就足以碾压原版的 Claude Code。完全不需要配置。
 
@@ -237,7 +237,7 @@ Read this and tell me why it's not just another boilerplate: https://raw.githubu
 
 ### 智能体调度机制
 
-当 Sisyphus 把任务分配给子智能体时，他选择的不是具体的模型，而是 **类别 (Category)**。系统会自动将类别映射到最合适的模型：
+当 Odin 把任务分配给子智能体时，他选择的不是具体的模型，而是 **类别 (Category)**。系统会自动将类别映射到最合适的模型：
 
 | 类别                 | 作用领域               |
 | :------------------- | :--------------------- |
@@ -304,11 +304,11 @@ project/
 
 Agent 会自动顺藤摸瓜加载对应的 Context，免去了你所有的手动喂喂喂的麻烦。
 
-### 让 Agent 动手前先过脑子：Prometheus
+### 让 Agent 动手前先过脑子：Mimir
 
 碰到了硬骨头？千万不要扔个 Prompt 就双手合十祈祷。
 
-输入 `/start-work`，召唤 Prometheus 出场。**他会像一个真实的主管那样去采访你**，主动深挖需求、指出模糊地带，并在改动哪怕一行代码之前产出经过严密论证的计划。你的 Agent 终于知道了自己在干嘛。
+输入 `/start-work`，召唤 Mimir 出场。**他会像一个真实的主管那样去采访你**，主动深挖需求、指出模糊地带，并在改动哪怕一行代码之前产出经过严密论证的计划。你的 Agent 终于知道了自己在干嘛。
 
 ### 技能系统 (Skills)
 
@@ -365,10 +365,10 @@ Agent 会自动顺藤摸瓜加载对应的 Context，免去了你所有的手动
 4. **移除 omo-codex（Codex CLI Light 版本）**
 
    ```bash
-   rm -rf ~/.codex/plugins/cache/sisyphuslabs
+   rm -rf ~/.codex/plugins/cache/odinlabs
    ```
 
-   然后打开 `~/.codex/config.toml`，删除 `[marketplaces.sisyphuslabs]`、`[plugins."omo@sisyphuslabs"]` 以及所有 `[hooks.state."omo@sisyphuslabs:..."]` 区块。
+   然后打开 `~/.codex/config.toml`，删除 `[marketplaces.odinlabs]`、`[plugins."omo@odinlabs"]` 以及所有 `[hooks.state."omo@odinlabs:..."]` 区块。
 
 ## Features
 
@@ -377,7 +377,7 @@ Agent 会自动顺藤摸瓜加载对应的 Context，免去了你所有的手动
 完整内容请见 [Features Documentation](docs/reference/features.md)。
 
 **简要概览：**
-- **Agents**: Sisyphus（主 Agent）、Prometheus（规划师）、Oracle（架构/调试）、Librarian（文档/代码检索）、Explore（快速 grep）、Multimodal Looker
+- **Agents**: Odin（主 Agent）、Mimir（规划师）、Volva（架构/调试）、Bragi（文档/代码检索）、Explore（快速 grep）、Huginn
 - **后台 Agents**: 像真正的开发团队那样并行跑多个 Agent
 - **LSP & AST 工具**: 重构、重命名、诊断、AST 感知的代码检索
 - **基于哈希的编辑工具**: `LINE#ID` 引用在应用每次修改前都会验证内容。外科手术级编辑，零陈旧行错误
@@ -403,7 +403,7 @@ Agent 会自动顺藤摸瓜加载对应的 Context，免去了你所有的手动
 - **JSONC 支持**: 支持注释和尾逗号
 - **Agents**: 可对任意 Agent 覆盖模型、temperature、prompts 和权限
 - **内置技能**: `playwright`（浏览器自动化）、`git-master`（原子提交）
-- **Sisyphus Agent**: 主调度器，搭配 Prometheus（规划师）和 Metis（计划顾问）
+- **Odin Agent**: 主调度器，搭配 Mimir（规划师）和 Urd（计划顾问）
 - **后台任务**: 按 provider/model 配置并发上限
 - **类别**: 按领域的任务委托（`visual`、`business-logic`、自定义）
 - **Hooks**: 54+ 内置生命周期 Hook（启用 Team Mode 时为 61 个），都可以通过 `disabled_hooks` 控制

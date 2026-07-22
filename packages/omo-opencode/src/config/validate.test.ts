@@ -106,13 +106,13 @@ describe("validatePluginConfig", () => {
       const child = join(project, "child", "deep")
       mkdirSync(child, { recursive: true })
       writeJson(join(project, ".opencode", "oh-my-openagent.json"), {
-        agents: { sisyphus: { model: 123 } },
+        agents: { odin: { model: 123 } },
       })
 
       const result = validatePluginConfig(child)
 
       expect(result.valid).toBe(false)
-      expect(result.messages.some((message: string) => message.includes("agents.sisyphus.model"))).toBe(true)
+      expect(result.messages.some((message: string) => message.includes("agents.odin.model"))).toBe(true)
     })
   })
 
@@ -174,7 +174,7 @@ describe("validatePluginConfig", () => {
     withIsolatedConfig("partial", (root) => {
       const project = join(root, "project")
       writeJson(join(project, ".opencode", "oh-my-openagent.json"), {
-        agents: { sisyphus: { model: 123 } },
+        agents: { odin: { model: 123 } },
         tui: { sidebar: { enabled: false } },
       })
 
@@ -182,7 +182,7 @@ describe("validatePluginConfig", () => {
 
       expect(result.valid).toBe(false)
       expect(result.config.tui?.sidebar.enabled).toBe(false)
-      expect(result.messages.some((message: string) => message.includes("agents.sisyphus.model"))).toBe(true)
+      expect(result.messages.some((message: string) => message.includes("agents.odin.model"))).toBe(true)
     })
   })
 
@@ -192,7 +192,7 @@ describe("validatePluginConfig", () => {
       writeJson(join(project, ".opencode", "oh-my-openagent.json"), {
         disabled_providers: ["blocked"],
         agents: {
-          sisyphus: {
+          odin: {
             model: "blocked/primary",
             fallback_models: ["allowed/fallback"],
           },
@@ -202,8 +202,8 @@ describe("validatePluginConfig", () => {
       const readonlyResult = validatePluginConfig(project)
       const runtimeConfig = loadPluginConfig(project, {})
 
-      expect(readonlyResult.config.agents?.sisyphus?.model).toBe("allowed/fallback")
-      expect(readonlyResult.config.agents?.sisyphus?.model).toBe(runtimeConfig.agents?.sisyphus?.model)
+      expect(readonlyResult.config.agents?.odin?.model).toBe("allowed/fallback")
+      expect(readonlyResult.config.agents?.odin?.model).toBe(runtimeConfig.agents?.odin?.model)
     })
   })
 

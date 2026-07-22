@@ -24,7 +24,7 @@ function createMockSpinner(): ReturnType<typeof p.spinner> {
 }
 
 const codexResult: CodexInstallResult = {
-  marketplaceName: "sisyphuslabs",
+  marketplaceName: "odinlabs",
   installed: [],
   configPath: "/tmp/codex/config.toml",
   codexHome: "/tmp/codex",

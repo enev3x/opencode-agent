@@ -19,7 +19,7 @@ function userMessage(input: {
     sessionID: input.sessionID,
     role: "user",
     time: { created: 1 },
-    agent: "sisyphus",
+    agent: "odin",
     model: { providerID: input.providerID, modelID: input.modelID },
   }
 }
@@ -164,7 +164,7 @@ describe("messages transform assistant prefill alias repair", () => {
       expect(messages.at(-1)?.info, scenario.name).toMatchObject({
         role: "user",
         sessionID: `ses_${scenario.providerID}`,
-        agent: "sisyphus",
+        agent: "odin",
         model: { providerID: scenario.providerID, modelID: scenario.modelID },
       })
       expect(messages.at(-1)?.parts[0], scenario.name).toMatchObject({

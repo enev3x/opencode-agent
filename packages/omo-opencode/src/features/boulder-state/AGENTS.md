@@ -4,7 +4,7 @@
 
 ## OVERVIEW
 
-10 files (~1k LOC excl. tests). Tracks Sisyphus's "boulder" — the active work plan being rolled across sessions, worktrees, and subagent task delegations. Named after the Sisyphus myth: the boulder must keep rolling until the plan is complete.
+10 files (~1k LOC excl. tests). Tracks Odin's "boulder" — the active work plan being rolled across sessions, worktrees, and subagent task delegations. Named after the Odin myth: the boulder must keep rolling until the plan is complete.
 
 Inspected interactively via `bunx oh-my-opencode boulder` (see [`src/cli/boulder/`](../../cli/boulder)).
 
@@ -23,7 +23,7 @@ interface BoulderState {
   session_ids: string[]                          // every session that has rolled the boulder
   session_origins?: Record<string, "direct" | "appended">
   plan_name: string                              // filename of active_plan
-  agent?: string                                 // resume agent (atlas | sisyphus | ...)
+  agent?: string                                 // resume agent (heimdall | odin | ...)
   worktree_path?: string                         // git worktree root
   task_sessions?: Record<string, TaskSessionState>  // reusable subagent sessions per top-level task
 }
@@ -45,9 +45,9 @@ interface BoulderState {
 ```
 session.startWork(plan)
   → BoulderState created with active_plan, started_at, plan_name
-  → atlas-hook reads BoulderState + `task_sessions` on session.idle (boulder continuation + subagent resume)
+  → heimdall-hook reads BoulderState + `task_sessions` on session.idle (boulder continuation + subagent resume)
 session.idle (incomplete plan)
-  → todoContinuationEnforcer + atlasHook inspect state
+  → todoContinuationEnforcer + heimdallHook inspect state
   → Inject CONTINUATION_PROMPT or BOULDER_COMPLETE_PROMPT
 session.completed
   → BoulderState status="completed", ended_at, elapsed_ms recorded
@@ -58,7 +58,7 @@ session.completed
 | Where | What |
 |-------|------|
 | [`src/cli/boulder/`](../../cli/boulder) | CLI inspector formats this state |
-| [`src/hooks/atlas/`](../../hooks/atlas) | Reads work state + `task_sessions` (subagent resume); drives boulder-complete and parallel-delegation prompts |
+| [`src/hooks/heimdall/`](../../hooks/heimdall) | Reads work state + `task_sessions` (subagent resume); drives boulder-complete and parallel-delegation prompts |
 | [`src/hooks/start-work/`](../../hooks/start-work) | Creates the BoulderState on `/start-work` invocation |
 | [`src/hooks/todo-continuation-enforcer/`](../../hooks/todo-continuation-enforcer) | Session-idle continuation when boulder incomplete |
 

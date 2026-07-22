@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Oh My OpenAgent",
-    "description": "The Best Agent Harness. Meet Sisyphus: The Batteries-Included Agent that codes like you."
+    "description": "The Best Agent Harness. Meet Odin: The Batteries-Included Agent that codes like you."
   },
   "nav": {
     "brand": "Oh My OpenAgent",
@@ -60,7 +60,7 @@
       "deepResearch": "Deep Research",
       "selfCorrection": "Self-Correction",
       "parallelAgents": "Parallel Agents",
-      "terminalTitle": "sisyphus — -zsh — 80x24",
+      "terminalTitle": "odin — -zsh — 80x24",
       "terminalInput": "ulw add authentication to the API",
       "steps": {
         "scanning": "Scanning codebase...",
@@ -72,17 +72,17 @@
       },
       "tagline": "Zero intervention. Full autonomy. Just results."
     },
-    "sisyphus": {
+    "odin": {
       "badge": "Primary Orchestrator",
-      "title": "Sisyphus",
+      "title": "Odin",
       "headline": "The CTO Who Never Sleeps",
-      "description": "Named after the mythological figure rolling his boulder uphill forever. Sisyphus parses implicit requirements, adapts to your codebase's maturity, and delegates to specialists. Interrupted? The boulder system resumes exactly where you left off.",
+      "description": "Named after the mythological figure rolling his boulder uphill forever. Odin parses implicit requirements, adapts to your codebase's maturity, and delegates to specialists. Interrupted? The boulder system resumes exactly where you left off.",
       "phases": {
         "intent": {
           "title": "Intent Gate",
           "description": "Parses what you meant, not just what you typed"
         },
-        "explore": {
+        "vidar": {
           "title": "Codebase Assessment",
           "description": "Maps your architecture before touching a line"
         },
@@ -99,24 +99,24 @@
       "boulderDescription": "Active work tracked in boulder.json. Power outage? System crash? Doesn't matter. Pick up exactly where you stopped.",
       "model": "Claude Opus 4.7 Max"
     },
-    "prometheusAtlas": {
+    "mimirHeimdall": {
       "badge": "Orchestration Workflow",
       "title": "Think, Then Act",
       "headline": "Planning and Execution Are Different Jobs",
-      "prometheus": {
-        "name": "Prometheus",
+      "mimir": {
+        "name": "Mimir",
         "role": "Strategic Planner",
         "model": "Claude Opus 4.7 Max",
-        "description": "The architect. Interviews you, explores your codebase, and creates detailed battle plans. Never writes code. Uses Metis and Momus as quality gates.",
+        "description": "The architect. Interviews you, explores your codebase, and creates detailed battle plans. Never writes code. Uses Urd and Forseti as quality gates.",
         "features": [
           "Intelligent interview mode",
           "Multi-agent codebase exploration",
-          "Gap analysis with Metis",
-          "Ruthless review with Momus"
+          "Gap analysis with Urd",
+          "Ruthless review with Forseti"
         ]
       },
-      "atlas": {
-        "name": "Atlas",
+      "heimdall": {
+        "name": "Heimdall",
         "role": "Master Executor",
         "model": "Claude Sonnet 4.6",
         "description": "The builder. Reads verified plans, delegates to specialized agents via category+skills system. Tracks learnings across tasks. Verifies independently — never trusts subagent claims.",
@@ -127,30 +127,30 @@
           "Independent result verification"
         ]
       },
-      "metis": {
-        "name": "Metis",
+      "urd": {
+        "name": "Urd",
         "description": "Catches ambiguities before they become bugs."
       },
-      "momus": {
-        "name": "Momus",
+      "forseti": {
+        "name": "Forseti",
         "description": "Only says OKAY when the plan is actually perfect."
       },
       "workflow": {
-        "step1": "Describe your work to Prometheus",
-        "step2": "Metis analyzes for gaps",
-        "step3": "Momus validates ruthlessly",
-        "step4": "Atlas delegates to specialists",
+        "step1": "Describe your work to Mimir",
+        "step2": "Urd analyzes for gaps",
+        "step3": "Forseti validates ruthlessly",
+        "step4": "Heimdall delegates to specialists",
         "step5": "Independent verification on everything"
       },
       "whyItWorks": "The planner doesn't code. The executor follows verified plans. Intelligence lives in the system, not individual agents."
     },
-    "hephaestus": {
+    "thor": {
       "badge": "Deep Worker",
-      "title": "Hephaestus",
+      "title": "Thor",
       "headline": "Give Him a Goal, Not a Recipe",
       "description": "Named after the Greek god of the forge. Methodical, thorough, obsessive. Fires 2-5 parallel explore agents before writing any code. Built for deep architectural reasoning, complex debugging, and cross-domain synthesis.",
       "loop": {
-        "explore": "EXPLORE — Map the terrain",
+        "vidar": "EXPLORE — Map the terrain",
         "plan": "PLAN — Chart the course",
         "decide": "DECIDE — Commit to the path",
         "execute": "EXECUTE — Build with precision",
@@ -199,50 +199,50 @@
     "agents": {
       "title": "Specialized Agents",
       "subtitle": "Eight built-in agents for common workflows. Plus a dynamic system that assembles custom agents on demand.",
-      "oracle": {
-        "name": "Oracle",
+      "volva": {
+        "name": "Volva",
         "role": "Architecture Consultant",
         "model": "GPT 5.5 High",
         "description": "Complex debugging and architectural decisions. When the path forward isn't obvious."
       },
-      "librarian": {
-        "name": "Librarian",
+      "bragi": {
+        "name": "Bragi",
         "role": "Docs & Code Search",
         "model": "GPT 5.4 Mini Fast",
         "description": "Finds real GitHub examples and official docs. Evidence-based, with permalinks."
       },
-      "explore": {
+      "vidar": {
         "name": "Explore",
         "role": "Codebase Grep",
         "model": "GPT 5.4 Mini Fast",
         "description": "Blazing fast codebase search. Cheap, parallel, always background."
       },
-      "metis": {
-        "name": "Metis",
+      "urd": {
+        "name": "Urd",
         "role": "Plan Consultant",
         "model": "Claude Sonnet 4.6",
         "description": "Catches ambiguities in plans before they become production bugs."
       },
-      "momus": {
-        "name": "Momus",
+      "forseti": {
+        "name": "Forseti",
         "role": "Plan Reviewer",
         "model": "GPT 5.6 Sol xHigh",
         "description": "Ruthless validation. Only approves when the plan is bulletproof."
       },
-      "atlas": {
-        "name": "Atlas",
+      "heimdall": {
+        "name": "Heimdall",
         "role": "Parallel Task Executor",
         "model": "Claude Sonnet 4.6",
         "description": "Orchestrates multi-step plans with dependency tracking. Delegates to specialists and verifies independently."
       },
-      "sisyphusJunior": {
-        "name": "Sisyphus-Junior",
+      "odinJunior": {
+        "name": "Einherjar",
         "role": "Focused Task Executor",
         "model": "Per-category",
-        "description": "Same discipline as Sisyphus, no delegation. Executes single tasks end-to-end with evidence-bound QA."
+        "description": "Same discipline as Odin, no delegation. Executes single tasks end-to-end with evidence-bound QA."
       },
       "multimodalLooker": {
-        "name": "Multimodal-Looker",
+        "name": "Huginn",
         "role": "Media Analysis",
         "model": "GPT 5.5 Medium",
         "description": "Extracts information from PDFs, images, and diagrams. Quick summary extraction without full reads."
@@ -290,7 +290,7 @@
         "author": "Arthur Guiot"
       },
       "review2": {
-        "text": "If Claude Code does in 7 days what a human does in 3 months, Sisyphus does it in 1 hour.",
+        "text": "If Claude Code does in 7 days what a human does in 3 months, Odin does it in 1 hour.",
         "author": "B, Quant Researcher"
       },
       "review3": {
@@ -382,14 +382,14 @@
         },
         "footer": "Zero intervention. Full autonomy. Just results."
       },
-      "prometheus": {
+      "mimir": {
         "badge": "Approach 2",
-        "title": "Prometheus + Atlas",
+        "title": "Mimir + Heimdall",
         "subtitle": "When you want strategic control.",
-        "prometheusTitle": "Prometheus",
-        "prometheusDescription": "Conducts interview, researches context, and generates a detailed YAML plan.",
-        "atlasTitle": "Atlas",
-        "atlasDescription": "Executes the plan, delegates to sub-agents, manages waves, and tracks progress.",
+        "mimirTitle": "Mimir",
+        "mimirDescription": "Conducts interview, researches context, and generates a detailed YAML plan.",
+        "heimdallTitle": "Heimdall",
+        "heimdallDescription": "Executes the plan, delegates to sub-agents, manages waves, and tracks progress.",
         "footer": "You architect. Agents execute. Full transparency."
       }
     },
@@ -410,16 +410,16 @@
     "coreLoop": {
       "title": "The Core Loop",
       "features": {
-        "prometheus": {
-          "feature": "Prometheus",
+        "mimir": {
+          "feature": "Mimir",
           "purpose": "Extract intent through intelligent interview"
         },
-        "metis": {
-          "feature": "Metis",
+        "urd": {
+          "feature": "Urd",
           "purpose": "Catch ambiguities before they become bugs"
         },
-        "momus": {
-          "feature": "Momus",
+        "forseti": {
+          "feature": "Forseti",
           "purpose": "Verify plans are complete before execution"
         },
         "orchestrator": {

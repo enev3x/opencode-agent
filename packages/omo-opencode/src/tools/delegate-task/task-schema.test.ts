@@ -43,9 +43,9 @@ function createDelegateTask(...args: Parameters<typeof import("./tools").createD
 		//#then
 		expect(description).toContain("subagent_type: Use specific agent directly")
 		expect(description).toContain("task_id: Continuation session id")
-		expect(description).not.toContain("sisyphus")
-		expect(description).not.toContain("hephaestus")
-		expect(description).not.toContain("prometheus")
+		expect(description).not.toContain("odin")
+		expect(description).not.toContain("thor")
+		expect(description).not.toContain("mimir")
 	})
 
 	test("#given task schema #when describing async mode #then it names background task ids explicitly", () => {

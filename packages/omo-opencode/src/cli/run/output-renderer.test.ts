@@ -27,10 +27,10 @@ afterEach(() => {
 describe("renderAgentHeader", () => {
   it("preserves CJK agent display names in stdout output", () => {
     const output = captureStdout(() => {
-      renderAgentHeader("Sisyphus - 主脑", "zhipu/glm-5.1", "xhigh", {})
+      renderAgentHeader("Odin - 主脑", "zhipu/glm-5.1", "xhigh", {})
     })
 
-    expect(output).toContain("Sisyphus - 主脑")
+    expect(output).toContain("Odin - 主脑")
     expect(output).toContain("zhipu/glm-5.1")
   })
 

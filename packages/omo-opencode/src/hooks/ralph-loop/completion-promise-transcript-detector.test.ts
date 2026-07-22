@@ -79,13 +79,13 @@ describe("detectCompletionInTranscript", () => {
 			expect(detected).toBe(false)
 		})
 
-		test("#when oracle tool output contains VERIFIED promise #then should detect verification completion", () => {
+		test("#when volva tool output contains VERIFIED promise #then should detect verification completion", () => {
 			// #given
 			const transcriptPath = createTranscriptFile([
 				JSON.stringify({
 					type: "tool_result",
 					timestamp: "2026-03-28T10:01:00.000Z",
-					tool_output: "Task completed.\n\nAgent: oracle\n\n<promise>VERIFIED</promise>\n\n<task_metadata>\nsession_id: ses_oracle_123\n</task_metadata>",
+					tool_output: "Task completed.\n\nAgent: volva\n\n<promise>VERIFIED</promise>\n\n<task_metadata>\nsession_id: ses_volva_123\n</task_metadata>",
 				}),
 			])
 

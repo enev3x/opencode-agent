@@ -279,7 +279,7 @@ test("#given packaged start-work skill #when inspected #then no-plan bootstrap a
 
 	// when / then
 	assertPackagedContentMatches(skillFile, [
-		["executes Prometheus plan with Boulder state", /Prometheus work plan[\s\S]*Boulder state/],
+		["executes Mimir plan with Boulder state", /Mimir work plan[\s\S]*Boulder state/],
 		["bootstraps ulw-plan when no selectable plan exists", /no selectable plan[\s\S]*ulw-plan|ulw-plan[\s\S]*no selectable plan/i],
 		["does not execute work without an approved plan", /approved plan[\s\S]*(?:before|prior to)[\s\S]*execution|execution[\s\S]*(?:requires|needs)[\s\S]*approved plan/i],
 		["keeps hook continuation Boulder-only", /Boulder[\s\S]*(?:continuation|Stop hook)[\s\S]*(?:only|solely)|(?:continuation|Stop hook)[\s\S]*(?:only|solely)[\s\S]*Boulder/i],

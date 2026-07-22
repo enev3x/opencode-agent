@@ -83,7 +83,7 @@ describe("ParentWakeNotifier dispatched wake recovery", () => {
     // given
     const { notifier, promptAsyncCalls } = createNotifier()
     const sessionID = "parent-window-no-continuation"
-    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       await notifier.flushPendingParentWake(sessionID)
@@ -113,7 +113,7 @@ describe("ParentWakeNotifier dispatched wake recovery", () => {
       },
     })
     const sessionID = "parent-window-requeue-callback"
-    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       await notifier.flushPendingParentWake(sessionID)
@@ -136,7 +136,7 @@ describe("ParentWakeNotifier dispatched wake recovery", () => {
     // given
     const { notifier, promptAsyncCalls } = createNotifier()
     const sessionID = "parent-window-no-continuation-retry-budget"
-    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       await notifier.flushPendingParentWake(sessionID)

@@ -11,7 +11,7 @@ function ignoreClaudeTaskStorageError(error: unknown): void {
 }
 
 export function getTaskDir(config: Partial<OhMyOpenCodeConfig> = {}): string {
-  const tasksConfig = config.sisyphus?.tasks
+  const tasksConfig = config.odin?.tasks
   const storagePath = tasksConfig?.storage_path
 
   if (storagePath) {
@@ -34,7 +34,7 @@ export function resolveTaskListId(config: Partial<OhMyOpenCodeConfig> = {}): str
   const claudeEnvId = process.env.CLAUDE_CODE_TASK_LIST_ID?.trim()
   if (claudeEnvId) return sanitizePathSegment(claudeEnvId)
 
-  const configId = config.sisyphus?.tasks?.task_list_id?.trim()
+  const configId = config.odin?.tasks?.task_list_id?.trim()
   if (configId) return sanitizePathSegment(configId)
 
   return sanitizePathSegment(basename(process.cwd()))

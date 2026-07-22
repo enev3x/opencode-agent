@@ -6,13 +6,13 @@ import { resolveModelWithFallback } from "./model-resolver"
 describe("GitHub Copilot GPT-5.6 resolution", () => {
   const selectionCases = [
     {
-      name: "hephaestus",
-      requirement: AGENT_MODEL_REQUIREMENTS.hephaestus,
+      name: "thor",
+      requirement: AGENT_MODEL_REQUIREMENTS.thor,
       expectedModel: "github-copilot/gpt-5.6-sol",
     },
     {
-      name: "momus",
-      requirement: AGENT_MODEL_REQUIREMENTS.momus,
+      name: "forseti",
+      requirement: AGENT_MODEL_REQUIREMENTS.forseti,
       expectedModel: "github-copilot/gpt-5.6-terra",
     },
     {
@@ -35,7 +35,7 @@ describe("GitHub Copilot GPT-5.6 resolution", () => {
   for (const { name, requirement, expectedModel } of selectionCases) {
     test(`${name} selects its Copilot GPT-5.6 model with its configured variant`, () => {
       // given
-      const expectedVariant = name === "hephaestus" ? "medium" : "high"
+      const expectedVariant = name === "thor" ? "medium" : "high"
       const availableModels = new Set([expectedModel, "github-copilot/gpt-5.5"])
 
       // when
@@ -60,7 +60,7 @@ describe("GitHub Copilot GPT-5.6 resolution", () => {
 
     // when
     const result = resolveModelWithFallback({
-      fallbackChain: AGENT_MODEL_REQUIREMENTS.momus.fallbackChain,
+      fallbackChain: AGENT_MODEL_REQUIREMENTS.forseti.fallbackChain,
       availableModels,
       systemDefaultModel: "system/default",
     })
@@ -82,7 +82,7 @@ describe("GitHub Copilot GPT-5.6 resolution", () => {
 
     // when
     const result = resolveModelWithFallback({
-      fallbackChain: AGENT_MODEL_REQUIREMENTS.momus.fallbackChain,
+      fallbackChain: AGENT_MODEL_REQUIREMENTS.forseti.fallbackChain,
       availableModels,
       systemDefaultModel: "system/default",
     })
@@ -114,13 +114,13 @@ describe("GitHub Copilot GPT-5.6 resolution", () => {
     expect(copilotXhighEntries).toEqual([])
   })
 
-  test("momus uses high for its Copilot Sol fallback when Terra is unavailable", () => {
+  test("forseti uses high for its Copilot Sol fallback when Terra is unavailable", () => {
     // given
     const availableModels = new Set(["github-copilot/gpt-5.6-sol"])
 
     // when
     const result = resolveModelWithFallback({
-      fallbackChain: AGENT_MODEL_REQUIREMENTS.momus.fallbackChain,
+      fallbackChain: AGENT_MODEL_REQUIREMENTS.forseti.fallbackChain,
       availableModels,
       systemDefaultModel: "system/default",
     })
@@ -134,8 +134,8 @@ describe("GitHub Copilot GPT-5.6 resolution", () => {
   })
 
   const fallbackCases = [
-    { name: "hephaestus", requirement: AGENT_MODEL_REQUIREMENTS.hephaestus },
-    { name: "momus", requirement: AGENT_MODEL_REQUIREMENTS.momus },
+    { name: "thor", requirement: AGENT_MODEL_REQUIREMENTS.thor },
+    { name: "forseti", requirement: AGENT_MODEL_REQUIREMENTS.forseti },
     { name: "deep", requirement: CATEGORY_MODEL_REQUIREMENTS.deep },
   ] as const
 

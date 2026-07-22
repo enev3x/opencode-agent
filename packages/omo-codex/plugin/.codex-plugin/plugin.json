@@ -7,8 +7,8 @@
 		"email": "yeongyu@users.noreply.github.com",
 		"url": "https://github.com/code-yeongyu"
 	},
-	"homepage": "https://github.com/sisyphuslabs/omo",
-	"repository": "https://github.com/sisyphuslabs/omo",
+	"homepage": "https://github.com/odinlabs/omo",
+	"repository": "https://github.com/odinlabs/omo",
 	"license": "MIT",
 	"keywords": [
 		"codex",
@@ -58,9 +58,9 @@
 			"Workflow",
 			"Context Injection"
 		],
-		"websiteURL": "https://github.com/sisyphuslabs/omo",
-		"privacyPolicyURL": "https://github.com/sisyphuslabs/omo#privacy",
-		"termsOfServiceURL": "https://github.com/sisyphuslabs/omo#license",
+		"websiteURL": "https://github.com/odinlabs/omo",
+		"privacyPolicyURL": "https://github.com/odinlabs/omo#privacy",
+		"termsOfServiceURL": "https://github.com/odinlabs/omo#license",
 		"defaultPrompt": [
 			"Use OMO LSP diagnostics on this workspace.",
 			"Show which OMO rules matched this file.",

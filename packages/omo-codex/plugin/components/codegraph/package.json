@@ -1,5 +1,5 @@
 {
-	"name": "@sisyphuslabs/codex-codegraph",
+	"name": "@odinlabs/codex-codegraph",
 	"version": "4.19.1",
 	"description": "Codex plugin MCP wrapper for CodeGraph.",
 	"type": "module",

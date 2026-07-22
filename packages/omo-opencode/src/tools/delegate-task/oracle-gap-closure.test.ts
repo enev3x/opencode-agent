@@ -24,7 +24,7 @@ function makeMockCtx(): ToolContextWithMetadata & {
   return {
     sessionID: "ses_parent",
     messageID: "msg_parent",
-    agent: "sisyphus",
+    agent: "odin",
     abort: new AbortController().signal,
     callID: "call_001",
     metadata: async (input) => {
@@ -37,11 +37,11 @@ function makeMockCtx(): ToolContextWithMetadata & {
 const parentContext: ParentContext = {
   sessionID: "ses_parent",
   messageID: "msg_parent",
-  agent: "sisyphus",
+  agent: "odin",
   model: MODEL,
 }
 
-describe("delegate-task Oracle gap closure", () => {
+describe("delegate-task Volva gap closure", () => {
   beforeEach(() => {
     mock.restore()
     clearRequireCache("./tools")
@@ -68,7 +68,7 @@ describe("delegate-task Oracle gap closure", () => {
     await executeSyncContinuation(args, ctx, {
       client: {
         session: {
-          messages: async () => ({ data: [{ info: { agent: "explore", model: MODEL, variant: "max" } }] }),
+          messages: async () => ({ data: [{ info: { agent: "vidar", model: MODEL, variant: "max" } }] }),
           prompt: async () => ({}),
           promptAsync: async () => ({}),
         },
@@ -99,7 +99,7 @@ describe("delegate-task Oracle gap closure", () => {
     const result = await executeSyncContinuation(args, makeMockCtx(), {
       client: {
         session: {
-          messages: async () => ({ data: [{ info: { agent: "explore", model: MODEL } }] }),
+          messages: async () => ({ data: [{ info: { agent: "vidar", model: MODEL } }] }),
           prompt: async () => ({}),
           promptAsync: async () => ({}),
         },
@@ -131,7 +131,7 @@ describe("delegate-task Oracle gap closure", () => {
         resume: async () => ({
           id: "bg_category",
           description: "existing",
-          agent: "explore",
+          agent: "vidar",
           status: "running",
           sessionId: "ses_bg_category",
           category: "deep",
@@ -163,7 +163,7 @@ describe("delegate-task Oracle gap closure", () => {
         resume: async () => ({
           id: "bg_title",
           description: "old desc",
-          agent: "explore",
+          agent: "vidar",
           status: "running",
           sessionId: "ses_bg_title",
           model: MODEL,
@@ -191,7 +191,7 @@ describe("delegate-task Oracle gap closure", () => {
     }, makeMockCtx(), {
       client: {
         session: {
-          messages: async () => ({ data: [{ info: { agent: "explore", model: MODEL } }] }),
+          messages: async () => ({ data: [{ info: { agent: "vidar", model: MODEL } }] }),
           prompt: async (input: { body?: { system?: string } }) => {
             promptCalls.push(input)
             return {}
@@ -225,7 +225,7 @@ describe("delegate-task Oracle gap closure", () => {
           return {
             id: "bg_skills",
             description: "existing",
-            agent: "explore",
+            agent: "vidar",
             status: "running",
             sessionId: "ses_bg_skills",
             model: MODEL,

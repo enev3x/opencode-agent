@@ -4,7 +4,7 @@ import { formatStaticBlock } from "./formatter.js";
 import type { LoadedRule, MatchReason, RuleSource } from "./types.js";
 
 describe("engine formatStaticBlock", () => {
-	it("#given a project rule under a hephaestus directory #when formatting under a 200 byte budget #then it keeps normal order and truncates the body", () => {
+	it("#given a project rule under a thor directory #when formatting under a 200 byte budget #then it keeps normal order and truncates the body", () => {
 		// given
 		const tailMarker = "PROJECT_HEPHAESTUS_TAIL_SENTINEL";
 		const alphaRule = loadedRule({
@@ -12,24 +12,24 @@ describe("engine formatStaticBlock", () => {
 			relativePath: ".omo/rules/alpha.md",
 			body: "Alpha guidance.",
 		});
-		const projectHephaestusRule = loadedRule({
-			path: "/repo/.omo/rules/hephaestus/large.md",
-			relativePath: ".omo/rules/hephaestus/large.md",
-			body: `Project Hephaestus rule ${"H".repeat(600)} ${tailMarker}`,
+		const projectThorRule = loadedRule({
+			path: "/repo/.omo/rules/thor/large.md",
+			relativePath: ".omo/rules/thor/large.md",
+			body: `Project Thor rule ${"H".repeat(600)} ${tailMarker}`,
 		});
 
 		// when
-		const block = formatStaticBlock([alphaRule, projectHephaestusRule], {
+		const block = formatStaticBlock([alphaRule, projectThorRule], {
 			maxRuleChars: 120,
 			maxResultChars: 200,
 		});
 
 		// then
 		expect(block).toContain("Alpha guidance.");
-		expect(block).toContain("Project Hephaestus rule");
-		expect(block.indexOf("Alpha guidance.") < block.indexOf("Project Hephaestus rule")).toBe(true);
+		expect(block).toContain("Project Thor rule");
+		expect(block.indexOf("Alpha guidance.") < block.indexOf("Project Thor rule")).toBe(true);
 		expect(block).not.toContain(tailMarker);
-		expect(block).toContain("[Truncated. Full: .omo/rules/hephaestus/large.md]");
+		expect(block).toContain("[Truncated. Full: .omo/rules/thor/large.md]");
 	});
 });
 

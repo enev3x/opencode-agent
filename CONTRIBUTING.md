@@ -172,7 +172,7 @@ oh-my-opencode/
 │   │   └── src/
 │   │       ├── index.ts         # Thin wrapper default-exporting PluginModule via createPluginModule()
 │   │       ├── plugin-config.ts # JSONC multi-level config (Zod v4)
-│   │       ├── agents/          # agent factories (Sisyphus, Hephaestus, Oracle, ...)
+│   │       ├── agents/          # agent factories (Odin, Thor, Volva, ...)
 │   │       ├── hooks/           # lifecycle hooks, 5-tier composition (see AGENTS.md for current counts)
 │   │       ├── tools/           # native tool dirs, config-gated (LSP via MCP, ast-grep via skill)
 │   │       ├── mcp/             # built-in MCPs: remote (websearch, context7, grep_app) + local stdio (lsp, codegraph)
@@ -271,7 +271,7 @@ Tests are co-located as `*.test.ts` files and follow a given/when/then style.
 4. Add the factory to the `agentSources` record in `packages/omo-opencode/src/agents/builtin-agents.ts`
 5. Add the new name to the `BuiltinAgentName` union in `packages/omo-opencode/src/agents/types.ts` AND to `BuiltinAgentNameSchema` (plus `OverridableAgentNameSchema` if it should be user-overridable) in `packages/omo-opencode/src/config/schema/agent-names.ts`. The schema enum is what `build:schema` emits, so updating only `types.ts` will not change the published JSON schema.
 6. Run `bun run build:schema` to regenerate the JSON schema
-7. Special agents (Sisyphus, Hephaestus, Atlas, Prometheus) have dedicated wiring under `packages/omo-opencode/src/agents/builtin-agents/`; a plain subagent only needs the `agentSources` entry from step 4
+7. Special agents (Odin, Thor, Heimdall, Mimir) have dedicated wiring under `packages/omo-opencode/src/agents/builtin-agents/`; a plain subagent only needs the `agentSources` entry from step 4
 
 ```typescript
 // packages/omo-opencode/src/agents/my-agent.ts

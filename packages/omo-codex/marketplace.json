@@ -1,7 +1,7 @@
 {
-	"name": "sisyphuslabs",
+	"name": "odinlabs",
 	"interface": {
-		"displayName": "Sisyphus Labs"
+		"displayName": "Odin Labs"
 	},
 	"plugins": [
 		{

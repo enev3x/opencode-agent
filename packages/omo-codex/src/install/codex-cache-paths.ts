@@ -1,7 +1,7 @@
 import { existsSync, readdirSync } from "node:fs"
 import { isAbsolute, join, relative, resolve } from "node:path"
 
-const DEFAULT_CODEX_MARKETPLACE_NAME = "sisyphuslabs"
+const DEFAULT_CODEX_MARKETPLACE_NAME = "odinlabs"
 const DEFAULT_CODEX_PLUGIN_NAME = "omo"
 
 type CodexCacheIdentity = {

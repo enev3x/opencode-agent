@@ -59,8 +59,8 @@ describe("resolveVariant", () => {
     expect(resolveVariant({ modelID: "glm-5-1", variants })).toBe("glm")
   })
 
-  test("#given Prometheus agent #then planner overrides model variant", () => {
-    expect(resolveVariant({ agentName: "prometheus", modelID: "gpt-5-5", variants })).toBe(
+  test("#given Mimir agent #then planner overrides model variant", () => {
+    expect(resolveVariant({ agentName: "mimir", modelID: "gpt-5-5", variants })).toBe(
       "planner"
     )
   })

@@ -70,8 +70,8 @@ describe("ParentWakeNotifier final notification merge", () => {
     // given
     const { notifier, promptAsyncCalls } = createNotifier()
     const sessionID = "parent-final-supersedes-progress"
-    notifier.queuePendingParentWake(sessionID, PROGRESS_WAKE, { agent: "sisyphus" }, false)
-    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake(sessionID, PROGRESS_WAKE, { agent: "odin" }, false)
+    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       // when
@@ -94,8 +94,8 @@ describe("ParentWakeNotifier final notification merge", () => {
     // given
     const { notifier, promptAsyncCalls } = createNotifier()
     const sessionID = "parent-final-duplicate-collapse"
-    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "sisyphus" }, true)
-    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "odin" }, true)
+    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       // when
@@ -116,12 +116,12 @@ describe("ParentWakeNotifier final notification merge", () => {
     // given
     const { notifier, promptAsyncCalls } = createNotifier()
     const sessionID = "parent-final-requeue-duplicate-collapse"
-    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       await notifier.flushPendingParentWake(sessionID)
       expect(promptAsyncCalls).toHaveLength(1)
-      notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "sisyphus" }, true)
+      notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "odin" }, true)
 
       // when
       const requeued = await notifier.requeueDispatchedParentWake(sessionID, "test failure")

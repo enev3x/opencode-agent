@@ -111,10 +111,10 @@ None or list
 - **Reason**: Reason for recommendation
 </output-format>
 
-<oracle-safety-review>
-## Oracle Deployment Safety Review (Only when user explicitly requests)
+<volva-safety-review>
+## Volva Deployment Safety Review (Only when user explicitly requests)
 
-**Trigger keywords**: "safe to deploy", "can I deploy", "is it safe", "review", "check", "oracle"
+**Trigger keywords**: "safe to deploy", "can I deploy", "is it safe", "review", "check", "volva"
 
 When user includes any of the above keywords in their request:
 
@@ -123,11 +123,11 @@ When user includes any of the above keywords in their request:
 bun run typecheck
 bun test
 ```
-- On failure → Report "❌ Cannot deploy" immediately without invoking Oracle
+- On failure → Report "❌ Cannot deploy" immediately without invoking Volva
 
-### 2. Oracle Invocation Prompt
+### 2. Volva Invocation Prompt
 
-Collect the following information and pass to Oracle:
+Collect the following information and pass to Volva:
 
 ```
 ## Deployment Safety Review Request
@@ -155,9 +155,9 @@ If there are risks, explain with specific scenarios.
 Suggest keywords to monitor after deployment if any.
 ```
 
-### 3. Output Format After Oracle Response
+### 3. Output Format After Volva Response
 
-## 🔍 Oracle Deployment Safety Review Result
+## 🔍 Volva Deployment Safety Review Result
 
 ### Verdict: ✅ SAFE / ⚠️ CAUTION / ❌ UNSAFE
 
@@ -173,5 +173,5 @@ Suggest keywords to monitor after deployment if any.
 - ...
 
 ### Conclusion
-{Oracle's final judgment}
-</oracle-safety-review>
+{Volva's final judgment}
+</volva-safety-review>

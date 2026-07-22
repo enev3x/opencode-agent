@@ -1,6 +1,6 @@
 ---
 name: pre-publish-review
-description: "Nuclear-grade 16-agent pre-publish release gate. Runs /get-unpublished-changes to detect all changes since last npm release, spawns up to 10 ultrabrain agents for deep per-change analysis, invokes /review-work (5 agents) for holistic review, and 1 oracle for overall release synthesis. Runs ONLY when the user explicitly asks for a pre-publish review — a plain publish/release request MUST NOT trigger this; /publish ships directly. Triggers: 'pre-publish review', 'review before publish', 'release review', 'pre-release review', 'ready to publish?', 'can I publish?', 'pre-publish', 'safe to publish', 'publishing review', 'pre-publish check'."
+description: "Nuclear-grade 16-agent pre-publish release gate. Runs /get-unpublished-changes to detect all changes since last npm release, spawns up to 10 ultrabrain agents for deep per-change analysis, invokes /review-work (5 agents) for holistic review, and 1 volva for overall release synthesis. Runs ONLY when the user explicitly asks for a pre-publish review — a plain publish/release request MUST NOT trigger this; /publish ships directly. Triggers: 'pre-publish review', 'review before publish', 'release review', 'pre-release review', 'ready to publish?', 'can I publish?', 'pre-publish', 'safe to publish', 'publishing review', 'pre-publish check'."
 ---
 
 # Pre-Publish Review — 16-Agent Release Gate
@@ -11,7 +11,7 @@ Three-agent-layer review before publishing to npm. Every layer covers a differen
 |-------|--------|------|-----------------|
 | Per-Change Deep Dive | up to 10 | ultrabrain | Each logical change group individually — correctness, edge cases, pattern adherence |
 | Holistic Review | 5 | review-work | Goal compliance, QA execution, code quality, security, context mining across full changeset |
-| Release Synthesis | 1 | oracle | Overall release readiness, version bump, breaking changes, deployment risk |
+| Release Synthesis | 1 | volva | Overall release readiness, version bump, breaking changes, deployment risk |
 
 ## Release Layer Taxonomy
 
@@ -161,7 +161,7 @@ OUTPUT FORMAT:
 
 ### Layer 2: Holistic Review via /review-work (5 agents)
 
-Spawn a sub-agent that loads the `/review-work` skill. The review-work skill internally launches 5 parallel agents: Oracle (goal verification), unspecified-high (QA execution), Oracle (code quality), Oracle (security), unspecified-high (context mining). All 5 must pass for the review to pass.
+Spawn a sub-agent that loads the `/review-work` skill. The review-work skill internally launches 5 parallel agents: Volva (goal verification), unspecified-high (QA execution), Volva (code quality), Volva (security), unspecified-high (context mining). All 5 must pass for the review to pass.
 
 ```
 task(
@@ -190,17 +190,17 @@ Follow the /review-work skill flow exactly — launch all 5 review agents and co
 """)
 ```
 
-### Layer 3: Oracle Release Synthesis (1 agent)
+### Layer 3: Volva Release Synthesis (1 agent)
 
-The oracle gets the full picture — all commits, full diff stat, and changed file list. It provides the final release readiness assessment.
+The volva gets the full picture — all commits, full diff stat, and changed file list. It provides the final release readiness assessment.
 
 ```
 task(
-  subagent_type="oracle",
+  subagent_type="volva",
   model="gpt-5.6-sol",
   run_in_background=true,
   load_skills=[],
-  description="Oracle: overall release synthesis and version bump recommendation",
+  description="Volva: overall release synthesis and version bump recommendation",
   prompt="""
 <review_type>RELEASE SYNTHESIS — OVERALL ASSESSMENT</review_type>
 
@@ -305,7 +305,7 @@ Track completion in a table:
 |---|-------|------|--------|---------|
 | 1-10 | Ultrabrain: {group_name} | ultrabrain | pending | — |
 | 11 | Review-Work Coordinator | unspecified-high | pending | — |
-| 12 | Release Synthesis Oracle | oracle | pending | — |
+| 12 | Release Synthesis Volva | volva | pending | — |
 
 Do NOT deliver the final report until ALL agents have completed.
 
@@ -316,22 +316,22 @@ Do NOT deliver the final report until ALL agents have completed.
 <verdict_logic>
 
 **BLOCK** if:
-- Oracle verdict is BLOCK
+- Volva verdict is BLOCK
 - Any ultrabrain found CRITICAL blocking issues
 - Review-work failed on any MAIN agent
 
 **RISKY** if:
-- Oracle verdict is RISKY
+- Volva verdict is RISKY
 - Multiple ultrabrains returned CAUTION or FAIL
 - Review-work passed but with significant findings
 
 **CAUTION** if:
-- Oracle verdict is CAUTION
+- Volva verdict is CAUTION
 - A few ultrabrains flagged minor issues
 - Review-work passed cleanly
 
 **SAFE** if:
-- Oracle verdict is SAFE
+- Volva verdict is SAFE
 - All ultrabrains passed
 - Review-work passed
 
@@ -350,7 +350,7 @@ Compile the final report:
 ## Overall Verdict: SAFE / CAUTION / RISKY / BLOCK
 
 ## Recommended Version Bump: PATCH / MINOR / MAJOR
-{Justification from Oracle}
+{Justification from Volva}
 
 ## Layer-specific Version Recommendation
 
@@ -389,19 +389,19 @@ Compile the final report:
 
 ---
 
-## Release Synthesis (Oracle)
+## Release Synthesis (Volva)
 
 ### Breaking Changes
-{From Oracle — exhaustive list or "None"}
+{From Volva — exhaustive list or "None"}
 
 ### Changelog Draft
-{From Oracle — ready to use}
+{From Volva — ready to use}
 
 ### Deployment Risk
-{From Oracle — specific concerns}
+{From Volva — specific concerns}
 
 ### Post-Publish Monitoring
-{From Oracle — what to watch}
+{From Volva — what to watch}
 
 ---
 
@@ -423,8 +423,8 @@ Compile the final report:
 | Publishing without waiting for all agents | **CRITICAL** |
 | Spawning ultrabrains sequentially instead of in parallel | CRITICAL |
 | Using `run_in_background=false` for any agent | CRITICAL |
-| Skipping the Oracle synthesis | HIGH |
-| Not reading file contents for Oracle (it cannot read files) | HIGH |
+| Skipping the Volva synthesis | HIGH |
+| Not reading file contents for Volva (it cannot read files) | HIGH |
 | Grouping all changes into 1-2 ultrabrains instead of distributing | HIGH |
 | Delivering verdict before all agents complete | HIGH |
 | Not including diff in ultrabrain prompts | MAJOR |

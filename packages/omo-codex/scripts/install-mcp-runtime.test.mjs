@@ -49,7 +49,7 @@ test("#given external MCP package runtime #when installing cached plugin #then r
 
 	const result = await installCachedPlugin({
 		codexHome,
-		marketplaceName: "sisyphuslabs",
+		marketplaceName: "odinlabs",
 		name: "omo",
 		runCommand: async () => {},
 		sourcePath: sourceRoot,
@@ -92,7 +92,7 @@ test("#given plugin-local MCP runtime #when installing cached plugin #then manif
 
 	const result = await installCachedPlugin({
 		codexHome,
-		marketplaceName: "sisyphuslabs",
+		marketplaceName: "odinlabs",
 		name: "omo",
 		runCommand: async () => {},
 		sourcePath: sourceRoot,
@@ -127,7 +127,7 @@ test("#given CodeGraph MCP runtime in plugin cache #when installing cached plugi
 
 	const result = await installCachedPlugin({
 		codexHome,
-		marketplaceName: "sisyphuslabs",
+		marketplaceName: "odinlabs",
 		name: "omo",
 		runCommand: async () => {},
 		sourcePath: sourceRoot,
@@ -169,7 +169,7 @@ test("#given external MCP package not in the generated bundled runtime set #when
 
 	const result = await installCachedPlugin({
 		codexHome,
-		marketplaceName: "sisyphuslabs",
+		marketplaceName: "odinlabs",
 		name: "omo",
 		runCommand: async () => {},
 		sourcePath: sourceRoot,
@@ -208,7 +208,7 @@ test("#given packaged bundled MCP runtime has only dist files #when installing c
 	// when
 	const result = await installCachedPlugin({
 		codexHome,
-		marketplaceName: "sisyphuslabs",
+		marketplaceName: "odinlabs",
 		name: "omo",
 		runCommand: async () => {},
 		sourcePath: sourceRoot,

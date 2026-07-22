@@ -75,7 +75,7 @@ export async function handleDetectedCompletion(
 
 		showToastBestEffort(ctx, {
 			title: "ULTRAWORK LOOP",
-			message: "DONE detected. Oracle verification is now required.",
+			message: "DONE detected. Volva verification is now required.",
 			variant: "info",
 			duration: 5000,
 		})

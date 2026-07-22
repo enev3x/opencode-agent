@@ -121,7 +121,7 @@ describe("ralph-loop catch fallbacks", () => {
 		const result = await handleFailedVerification(ctx, {
 			state: createState({
 				verification_pending: true,
-				verification_session_id: "ses_oracle",
+				verification_session_id: "ses_volva",
 			}),
 			directory: "/tmp",
 			apiTimeoutMs: 100,
@@ -191,7 +191,7 @@ describe("ralph-loop catch fallbacks", () => {
 				clearVerificationState: () => createState(),
 				incrementIteration: () => createState({ iteration: 2 }),
 				clear: () => true,
-				setVerificationSessionID: () => createState({ verification_session_id: "ses_oracle" }),
+				setVerificationSessionID: () => createState({ verification_session_id: "ses_volva" }),
 			},
 			directory: "/tmp",
 			apiTimeoutMs: 100,
@@ -213,10 +213,10 @@ describe("ralph-loop catch fallbacks", () => {
 							parts: [{
 								type: "text",
 								text: [
-									"Agent: Oracle",
+									"Agent: Volva",
 									`<promise>${ULTRAWORK_VERIFICATION_PROMISE}</promise>`,
 									"<task_metadata>",
-									"session_id: ses_oracle",
+									"session_id: ses_volva",
 									"</task_metadata>",
 								].join("\n"),
 							}],
@@ -248,7 +248,7 @@ describe("ralph-loop catch fallbacks", () => {
 					cleared = true
 					return true
 				},
-				setVerificationSessionID: () => createState({ verification_session_id: "ses_oracle" }),
+				setVerificationSessionID: () => createState({ verification_session_id: "ses_volva" }),
 			},
 			directory: "/tmp",
 			apiTimeoutMs: 100,

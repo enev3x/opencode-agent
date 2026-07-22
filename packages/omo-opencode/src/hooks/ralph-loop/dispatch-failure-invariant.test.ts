@@ -189,7 +189,7 @@ describe("ralph-loop dispatch failure invariants", () => {
 	test("#given verification-failure path #when promptAsync throws #then iteration not advanced", async () => {
 		// given
 		const parentTranscriptPath = join(testDirectory, "transcript-parent.jsonl")
-		const oracleTranscriptPath = join(testDirectory, "transcript-oracle.jsonl")
+		const volvaTranscriptPath = join(testDirectory, "transcript-volva.jsonl")
 		const hook = createRalphLoopHook({
 			directory: testDirectory,
 			project: testDirectory,
@@ -224,7 +224,7 @@ describe("ralph-loop dispatch failure invariants", () => {
 			},
 		} as never, {
 			idleSettleMs: 0,
-			getTranscriptPath: (sessionID): string => sessionID === "ses-oracle" ? oracleTranscriptPath : parentTranscriptPath,
+			getTranscriptPath: (sessionID): string => sessionID === "ses-volva" ? volvaTranscriptPath : parentTranscriptPath,
 		})
 
 		hook.startLoop("session-123", "Build API", { ultrawork: true })
@@ -232,23 +232,23 @@ describe("ralph-loop dispatch failure invariants", () => {
 			...requireState(hook.getState()),
 			iteration: 2,
 			verification_pending: true,
-			verification_session_id: "ses-oracle",
+			verification_session_id: "ses-volva",
 			completion_promise: ULTRAWORK_VERIFICATION_PROMISE,
 			initial_completion_promise: "DONE",
 		})
 		writeState(testDirectory, {
 			...requireState(hook.getState()),
-			verification_session_id: "ses-oracle",
+			verification_session_id: "ses-volva",
 		})
 		writeFileSync(
-			oracleTranscriptPath,
+			volvaTranscriptPath,
 			`${JSON.stringify({ type: "tool_result", timestamp: new Date().toISOString(), tool_output: { output: "verification failed" } })}\n`,
 		)
 
 		const preRestartIteration = hook.getState()?.iteration
 
 		// when
-		await hook.event({ event: { type: "session.idle", properties: { sessionID: "ses-oracle" } } })
+		await hook.event({ event: { type: "session.idle", properties: { sessionID: "ses-volva" } } })
 
 		// then
 		expect(preRestartIteration).toBe(2)
@@ -259,7 +259,7 @@ describe("ralph-loop dispatch failure invariants", () => {
 	test("#given verification-failure path #when promptAsync resolves SDK error #then continuation toast is not shown", async () => {
 		// given
 		const parentTranscriptPath = join(testDirectory, "transcript-parent.jsonl")
-		const oracleTranscriptPath = join(testDirectory, "transcript-oracle.jsonl")
+		const volvaTranscriptPath = join(testDirectory, "transcript-volva.jsonl")
 		const hook = createRalphLoopHook({
 			directory: testDirectory,
 			project: testDirectory,
@@ -297,7 +297,7 @@ describe("ralph-loop dispatch failure invariants", () => {
 			},
 		} as never, {
 			idleSettleMs: 0,
-			getTranscriptPath: (sessionID): string => sessionID === "ses-oracle" ? oracleTranscriptPath : parentTranscriptPath,
+			getTranscriptPath: (sessionID): string => sessionID === "ses-volva" ? volvaTranscriptPath : parentTranscriptPath,
 		})
 
 		hook.startLoop("session-123", "Build API", { ultrawork: true })
@@ -305,17 +305,17 @@ describe("ralph-loop dispatch failure invariants", () => {
 			...requireState(hook.getState()),
 			iteration: 2,
 			verification_pending: true,
-			verification_session_id: "ses-oracle",
+			verification_session_id: "ses-volva",
 			completion_promise: ULTRAWORK_VERIFICATION_PROMISE,
 			initial_completion_promise: "DONE",
 		})
 		writeFileSync(
-			oracleTranscriptPath,
+			volvaTranscriptPath,
 			`${JSON.stringify({ type: "tool_result", timestamp: new Date().toISOString(), tool_output: { output: "verification failed" } })}\n`,
 		)
 
 		// when
-		await hook.event({ event: { type: "session.idle", properties: { sessionID: "ses-oracle" } } })
+		await hook.event({ event: { type: "session.idle", properties: { sessionID: "ses-volva" } } })
 
 		// then
 		expect(hook.getState()).toBeNull()
@@ -477,7 +477,7 @@ describe("ralph-loop dispatch failure invariants", () => {
 				session_id: "session-123",
 				completion_promise: ULTRAWORK_VERIFICATION_PROMISE,
 				verification_pending: true,
-				verification_session_id: "ses-oracle",
+				verification_session_id: "ses-volva",
 			},
 			directory: testDirectory,
 			apiTimeoutMs: 5000,
@@ -543,7 +543,7 @@ describe("ralph-loop dispatch failure invariants", () => {
 				session_id: "session-123",
 				completion_promise: ULTRAWORK_VERIFICATION_PROMISE,
 				verification_pending: true,
-				verification_session_id: "ses-oracle",
+				verification_session_id: "ses-volva",
 			},
 			directory: testDirectory,
 			apiTimeoutMs: 5000,
@@ -610,7 +610,7 @@ describe("ralph-loop dispatch failure invariants", () => {
 				session_id: "session-123",
 				completion_promise: ULTRAWORK_VERIFICATION_PROMISE,
 				verification_pending: true,
-				verification_session_id: "ses-oracle",
+				verification_session_id: "ses-volva",
 			},
 			directory: testDirectory,
 			apiTimeoutMs: 5000,
@@ -627,7 +627,7 @@ describe("ralph-loop dispatch failure invariants", () => {
 		).toBe(true)
 	})
 
-	test("#given ultrawork completion path #when verification prompt resolves SDK error #then oracle-required toast is not shown", async () => {
+	test("#given ultrawork completion path #when verification prompt resolves SDK error #then volva-required toast is not shown", async () => {
 		// given
 		let cleared = false
 		const loopState = {

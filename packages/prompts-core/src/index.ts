@@ -11,8 +11,8 @@ export type {
   SyncRuntimeInjection,
   VariantTable,
 } from "./types"
-export { atlasPromptVariants } from "./atlas-prompts"
-export { prometheusPromptVariants } from "./prometheus-prompts"
+export { heimdallPromptVariants } from "./heimdall-prompts"
+export { mimirPromptVariants } from "./mimir-prompts"
 export {
   CODEX_ULTRAWORK_PROMPT,
   ULTRAWORK_DEFAULT_PROMPT,

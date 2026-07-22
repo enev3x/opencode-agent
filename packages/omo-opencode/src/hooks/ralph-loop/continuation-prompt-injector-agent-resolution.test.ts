@@ -17,14 +17,14 @@ describe("ralph-loop continuation prompt agent resolution", () => {
     _resetForTesting()
   })
 
-  test("#given OpenCode registered Atlas under legacy display name #when inherited agent is config key #then prompt uses registered name", async () => {
+  test("#given OpenCode registered Heimdall under legacy display name #when inherited agent is config key #then prompt uses registered name", async () => {
     // given
-    registerAgentName("Atlas (Plan Executor)")
+    registerAgentName("Heimdall (Plan Executor)")
     let capturedAgent: string | undefined
     const ctx = unsafeTestValue<PluginInput>({
       client: {
         session: {
-          messages: async () => ({ data: [{ info: { agent: "atlas" } }] }),
+          messages: async () => ({ data: [{ info: { agent: "heimdall" } }] }),
           promptAsync: async (input: { readonly body: { readonly agent?: string } }) => {
             capturedAgent = input.body.agent
             return {}
@@ -35,13 +35,13 @@ describe("ralph-loop continuation prompt agent resolution", () => {
 
     // when
     await injectContinuationPrompt(ctx, {
-      sessionID: "ses_ralph_registered_atlas",
+      sessionID: "ses_ralph_registered_heimdall",
       prompt: "continue",
       directory: "/tmp/test",
       apiTimeoutMs: 50,
     })
 
     // then
-    expect(capturedAgent).toBe("Atlas (Plan Executor)")
+    expect(capturedAgent).toBe("Heimdall (Plan Executor)")
   })
 })

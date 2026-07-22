@@ -610,7 +610,7 @@ describe("#given process cleanup registration", () => {
     })
 
     test("#given a non-stdio ECONNRESET (mid-stream provider socket reset) OUTSIDE shutdown window #then it is NOT harmless and must log", () => {
-      // Regression guard for the sisyphus-bot review of PR #4355: a real
+      // Regression guard for the odin-bot review of PR #4355: a real
       // network bug surfacing as ECONNRESET during normal runtime must remain
       // visible to operators. Only shutdown-time bursts are silenced.
       const reset = Object.assign(new Error("connection reset"), { code: "ECONNRESET" })

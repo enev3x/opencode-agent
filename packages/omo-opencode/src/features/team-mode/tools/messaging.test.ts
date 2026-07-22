@@ -141,9 +141,9 @@ async function createTeamFixture() {
         createdAt: Date.now(),
         leadAgentId: "team-lead",
         members: [
-          { kind: "subagent_type", name: "team-lead", subagent_type: "sisyphus-junior", backendType: "in-process", isActive: true },
-          { kind: "subagent_type", name: "m1", subagent_type: "sisyphus-junior", backendType: "in-process", isActive: true },
-          { kind: "subagent_type", name: "m2", subagent_type: "sisyphus-junior", backendType: "in-process", isActive: true },
+          { kind: "subagent_type", name: "team-lead", subagent_type: "einherjar", backendType: "in-process", isActive: true },
+          { kind: "subagent_type", name: "m1", subagent_type: "einherjar", backendType: "in-process", isActive: true },
+          { kind: "subagent_type", name: "m2", subagent_type: "einherjar", backendType: "in-process", isActive: true },
         ],
       },
     leadSessionId,
@@ -510,7 +510,7 @@ describe("createTeamSendMessageTool", () => {
     const state = await loadState(fixture.teamRunId, fixture.config)
     const memberTwo = state.members.find((member) => member.name === "m2")
     if (!memberTwo) throw new Error("m2 runtime member missing")
-    memberTwo.subagent_type = "atlas"
+    memberTwo.subagent_type = "heimdall"
     memberTwo.model = { providerID: "anthropic", modelID: "claude-opus-4-7", variant: "high" }
     await saveState(state, fixture.config)
 
@@ -527,20 +527,20 @@ describe("createTeamSendMessageTool", () => {
     // then
     expect(calls).toHaveLength(1)
     expect(calls[0].sessionId).toBe(fixture.memberTwoSessionId)
-    expect(calls[0].agent).toBe("atlas")
+    expect(calls[0].agent).toBe("heimdall")
     expect(calls[0].model).toEqual({ providerID: "anthropic", modelID: "claude-opus-4-7" })
     expect(calls[0].variant).toBe("high")
   })
 
   test("live delivery uses the registered agent alias when the runtime stores a config-key agent name", async () => {
     // given
-    registerAgentName("\u200B\u200B\u200B\u200BAtlas - Plan Executor")
+    registerAgentName("\u200B\u200B\u200B\u200BHeimdall - Plan Executor")
     const fixture = await createTeamFixture()
     const { loadRuntimeState: loadState, saveRuntimeState: saveState } = await import("../team-state-store/store")
     const state = await loadState(fixture.teamRunId, fixture.config)
     const memberTwo = state.members.find((member) => member.name === "m2")
     if (!memberTwo) throw new Error("m2 runtime member missing")
-    memberTwo.subagent_type = "atlas"
+    memberTwo.subagent_type = "heimdall"
     await saveState(state, fixture.config)
 
     const { client, calls } = createRecordingClient()
@@ -555,7 +555,7 @@ describe("createTeamSendMessageTool", () => {
 
     // then
     expect(calls).toHaveLength(1)
-    expect(calls[0]?.agent).toBe("\u200B\u200B\u200B\u200BAtlas - Plan Executor")
+    expect(calls[0]?.agent).toBe("\u200B\u200B\u200B\u200BHeimdall - Plan Executor")
   })
 
   test("live delivery reapplies category routing and advanced model params for category members", async () => {
@@ -565,7 +565,7 @@ describe("createTeamSendMessageTool", () => {
     const state = await loadState(fixture.teamRunId, fixture.config)
     const memberTwo = state.members.find((member) => member.name === "m2")
     if (!memberTwo) throw new Error("m2 runtime member missing")
-    memberTwo.subagent_type = "Sisyphus-Junior"
+    memberTwo.subagent_type = "Einherjar"
     memberTwo.category = "quick"
     memberTwo.model = {
       providerID: "openai",
@@ -591,7 +591,7 @@ describe("createTeamSendMessageTool", () => {
 
     // then
     expect(calls).toHaveLength(1)
-    expect(calls[0].agent).toBe("Sisyphus-Junior")
+    expect(calls[0].agent).toBe("Einherjar")
     expect(calls[0].model).toEqual({ providerID: "openai", modelID: "gpt-5.4" })
     expect(calls[0].variant).toBe("medium")
     expect(SessionCategoryRegistry.get(fixture.memberTwoSessionId)).toBe("quick")

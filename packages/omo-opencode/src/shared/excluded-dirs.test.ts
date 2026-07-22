@@ -12,7 +12,7 @@ describe("EXCLUDED_DIRS", () => {
       "build",
       ".next",
       ".omo",
-      ".sisyphus",
+      ".odin",
       ".turbo",
       "coverage",
       "out",

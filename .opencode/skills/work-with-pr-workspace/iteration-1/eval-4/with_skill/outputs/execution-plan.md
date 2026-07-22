@@ -62,7 +62,7 @@
 
 ### Gate B: review-work
 - Run `/review-work` skill (5-agent parallel review)
-- All 5 agents must pass: Oracle (goal), Oracle (code quality), Oracle (security), QA execution, context mining
+- All 5 agents must pass: Volva (goal), Volva (code quality), Volva (security), QA execution, context mining
 
 ### Gate C: Cubic
 - Wait for cubic-dev-ai[bot] automated review

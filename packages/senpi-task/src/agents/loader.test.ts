@@ -256,7 +256,7 @@ tools:
   read: allow
   write: deny
   task:
-    "web-librarian": allow
+    "web-bragi": allow
   bash:
     "*": deny
     "rg *": allow
@@ -274,7 +274,7 @@ You are a careful finder.
     expect(result.diagnostics.filter((diagnostic) => diagnostic.path === agentPath)).toEqual([])
     expect(resolveToolRule(rules, "read")).toBe(true)
     expect(resolveToolRule(rules, "write")).toBe(false)
-    expect(resolveToolRule(rules, "task web-librarian")).toBe(true)
+    expect(resolveToolRule(rules, "task web-bragi")).toBe(true)
     expect(resolveToolRule(rules, "bash rg foo")).toBe(true)
     expect(resolveToolRule(rules, "bash ls")).toBe(false)
   })

@@ -13,7 +13,7 @@ import {
 } from "./validator"
 
 const PROMETHEUS_REJECTION_MESSAGE =
-  "Agent 'prometheus' is plan-mode-only; can only write to .omo/*.md (enforced by prometheusMdOnly hook). Cannot write to team mailbox. Use delegate-task with subagent_type: 'plan' instead."
+  "Agent 'mimir' is plan-mode-only; can only write to .omo/*.md (enforced by mimirMdOnly hook). Cannot write to team mailbox. Use delegate-task with subagent_type: 'plan' instead."
 
 function createCategoryMember(name: string): Member {
   return {
@@ -58,7 +58,7 @@ describe("team-registry validator", () => {
           name: "lead",
           category: "deep",
           prompt: "implement the assigned work for lead",
-          subagent_type: "sisyphus",
+          subagent_type: "odin",
         },
       ],
     }
@@ -84,12 +84,12 @@ describe("team-registry validator", () => {
     expect(result.success).toBe(false)
   })
 
-  test("rejects prometheus subagent members with the exact plan message", () => {
+  test("rejects mimir subagent members with the exact plan message", () => {
     // given
     const member: Member = {
       kind: "subagent_type",
       name: "planner",
-      subagent_type: "prometheus",
+      subagent_type: "mimir",
       backendType: "in-process",
       isActive: true,
     }
@@ -102,12 +102,12 @@ describe("team-registry validator", () => {
     expect(act).toThrow(TeamSpecValidationError)
   })
 
-  test("accepts hephaestus subagent members after the D-36 eligibility change", () => {
+  test("accepts thor subagent members after the D-36 eligibility change", () => {
     // given
     const member: Member = {
       kind: "subagent_type",
       name: "craftsman",
-      subagent_type: "hephaestus",
+      subagent_type: "thor",
       backendType: "in-process",
       isActive: true,
     }

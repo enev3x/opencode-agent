@@ -2,7 +2,7 @@ import type { Hooks } from "@opencode-ai/plugin"
 import { normalize, sep } from "path"
 
 const NOTEPAD_ROOTS = [
-  normalize(".sisyphus/notepads"),
+  normalize(".odin/notepads"),
   normalize(".omo/notepads"),
 ] as const
 

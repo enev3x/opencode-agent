@@ -52,7 +52,7 @@ describe("generateModelConfig", () => {
           (entry.variant === "max" || entry.variant === "xhigh")
       )
       expect(unsupportedEntries).toEqual([])
-      expect(result.agents?.momus).toEqual({
+      expect(result.agents?.forseti).toEqual({
         model: "github-copilot/gpt-5.6-terra",
         variant: "high",
         fallback_models: [
@@ -77,27 +77,27 @@ describe("generateModelConfig", () => {
       expect(result.categories?.["unspecified-low"]?.model).toBe("github-copilot/gpt-5.6-luna")
       expect(result.categories?.["unspecified-low"]?.variant).toBe("high")
     })
-    test("omits librarian when only ZAI is available", () => {
+    test("omits bragi when only ZAI is available", () => {
       // #given only ZAI is available
       const config = createConfig({ hasZaiCodingPlan: true })
 
       // #when generateModelConfig is called
       const result = generateModelConfig(config)
 
-      // #then librarian should not use a stale ZAI special case
-      expect(result.agents?.librarian).toBeUndefined()
+      // #then bragi should not use a stale ZAI special case
+      expect(result.agents?.bragi).toBeUndefined()
       expect(JSON.stringify(result)).not.toContain("zai-coding-plan/glm-4.7")
     })
 
-    test("omits librarian when only ZAI is available with isMax20 flag", () => {
+    test("omits bragi when only ZAI is available with isMax20 flag", () => {
       // #given ZAI is available with Max 20 plan
       const config = createConfig({ hasZaiCodingPlan: true, isMax20: true })
 
       // #when generateModelConfig is called
       const result = generateModelConfig(config)
 
-      // #then librarian should not use a stale ZAI special case
-      expect(result.agents?.librarian).toBeUndefined()
+      // #then bragi should not use a stale ZAI special case
+      expect(result.agents?.bragi).toBeUndefined()
       expect(JSON.stringify(result)).not.toContain("zai-coding-plan/glm-4.7")
     })
 
@@ -109,15 +109,15 @@ describe("generateModelConfig", () => {
       const result = generateModelConfig(config)
 
       // #then Bailian is limited to compatible utility routes
-      expect(result.agents?.librarian?.model).toBe("bailian-coding-plan/qwen3.5-plus")
+      expect(result.agents?.bragi?.model).toBe("bailian-coding-plan/qwen3.5-plus")
       expect(result.agents?.explore?.model).toBe("bailian-coding-plan/qwen3.5-plus")
-      expect(result.agents?.hephaestus).toBeUndefined()
+      expect(result.agents?.thor).toBeUndefined()
     })
   })
 
   describe("mixed provider scenarios", () => {
 
-    test("librarian skips deprecated OpenCode Zen models when OpenCode Zen and ZAI are both available", () => {
+    test("bragi skips deprecated OpenCode Zen models when OpenCode Zen and ZAI are both available", () => {
       // #given the Discord-reported non-TUI provider selection
       const config = createConfig({
         hasOpencodeZen: true,
@@ -127,8 +127,8 @@ describe("generateModelConfig", () => {
       // #when generateModelConfig is called
       const result = generateModelConfig(config)
 
-      // #then librarian should not route through stale Zen or ZAI special cases
-      expect(result.agents?.librarian).toBeUndefined()
+      // #then bragi should not route through stale Zen or ZAI special cases
+      expect(result.agents?.bragi).toBeUndefined()
       expect(JSON.stringify(result)).not.toContain("zai-coding-plan/glm-4.7")
       expect(JSON.stringify(result)).not.toContain("opencode/claude-haiku-4-5")
       expect(JSON.stringify(result)).not.toContain("opencode/gpt-5.4-nano")
@@ -136,7 +136,7 @@ describe("generateModelConfig", () => {
 
   })
 
-  describe("explore agent special cases", () => {
+  describe("vidar agent special cases", () => {
     test("explore uses gpt-5-nano when only Gemini available (no Claude)", () => {
       // #given only Gemini is available (no Claude)
       const config = createConfig({ hasGemini: true })
@@ -194,8 +194,8 @@ describe("generateModelConfig", () => {
     })
   })
 
-  describe("Sisyphus agent special cases", () => {
-    test("Sisyphus is created when at least one fallback provider is available (Claude)", () => {
+  describe("Odin agent special cases", () => {
+    test("Odin is created when at least one fallback provider is available (Claude)", () => {
       // #given
       const config = createConfig({ hasClaude: true, isMax20: true })
 
@@ -203,10 +203,10 @@ describe("generateModelConfig", () => {
       const result = generateModelConfig(config)
 
       // #then
-      expect(result.agents?.sisyphus?.model).toBe("anthropic/claude-opus-4-8")
+      expect(result.agents?.odin?.model).toBe("anthropic/claude-opus-4-8")
     })
 
-    test("Sisyphus is created when multiple fallback providers are available", () => {
+    test("Odin is created when multiple fallback providers are available", () => {
       // #given
       const config = createConfig({
         hasClaude: true,
@@ -220,10 +220,10 @@ describe("generateModelConfig", () => {
       const result = generateModelConfig(config)
 
       // #then
-      expect(result.agents?.sisyphus?.model).toBe("anthropic/claude-opus-4-8")
+      expect(result.agents?.odin?.model).toBe("anthropic/claude-opus-4-8")
     })
 
-    test("Sisyphus resolves to gpt-5.6-sol medium when only OpenAI is available", () => {
+    test("Odin resolves to gpt-5.6-sol medium when only OpenAI is available", () => {
       // given
       const config = createConfig({ hasOpenAI: true })
 
@@ -231,7 +231,7 @@ describe("generateModelConfig", () => {
       const result = generateModelConfig(config)
 
       // then
-      expect(result.agents?.sisyphus).toEqual({
+      expect(result.agents?.odin).toEqual({
         model: "openai/gpt-5.6-sol",
         variant: "medium",
       })
@@ -239,7 +239,7 @@ describe("generateModelConfig", () => {
   })
 
   describe("OpenAI fallback coverage", () => {
-    test("Atlas resolves to gpt-5.6-sol medium when only OpenAI is available", () => {
+    test("Heimdall resolves to gpt-5.6-sol medium when only OpenAI is available", () => {
       // given
       const config = createConfig({ hasOpenAI: true })
 
@@ -247,13 +247,13 @@ describe("generateModelConfig", () => {
       const result = generateModelConfig(config)
 
       // then
-      expect(result.agents?.atlas).toEqual({
+      expect(result.agents?.heimdall).toEqual({
         model: "openai/gpt-5.6-sol",
         variant: "medium",
       })
     })
 
-    test("Metis resolves to OpenAI when only OpenAI is available", () => {
+    test("Urd resolves to OpenAI when only OpenAI is available", () => {
       // #given
       const config = createConfig({ hasOpenAI: true })
 
@@ -261,11 +261,11 @@ describe("generateModelConfig", () => {
       const result = generateModelConfig(config)
 
       // #then
-      expect(result.agents?.metis?.model).toBe("openai/gpt-5.6-sol")
-      expect(result.agents?.metis?.variant).toBe("medium")
+      expect(result.agents?.urd?.model).toBe("openai/gpt-5.6-sol")
+      expect(result.agents?.urd?.variant).toBe("medium")
     })
 
-    test("Sisyphus-Junior resolves to gpt-5.6-sol medium when only OpenAI is available", () => {
+    test("Einherjar resolves to gpt-5.6-sol medium when only OpenAI is available", () => {
       // given
       const config = createConfig({ hasOpenAI: true })
 
@@ -273,15 +273,15 @@ describe("generateModelConfig", () => {
       const result = generateModelConfig(config)
 
       // then
-      expect(result.agents?.["sisyphus-junior"]).toEqual({
+      expect(result.agents?.["einherjar"]).toEqual({
         model: "openai/gpt-5.6-sol",
         variant: "medium",
       })
     })
   })
 
-  describe("Momus agent model resolution", () => {
-    test("Momus resolves to gpt-5.6-terra high when OpenAI is available", () => {
+  describe("Forseti agent model resolution", () => {
+    test("Forseti resolves to gpt-5.6-terra high when OpenAI is available", () => {
       // #given
       const config = createConfig({ hasOpenAI: true })
 
@@ -289,9 +289,9 @@ describe("generateModelConfig", () => {
       const result = generateModelConfig(config)
 
       // #then
-      expect(result.agents?.momus?.model).toBe("openai/gpt-5.6-terra")
-      expect(result.agents?.momus?.variant).toBe("high")
-      expect(result.agents?.momus?.fallback_models?.[0]).toEqual({
+      expect(result.agents?.forseti?.model).toBe("openai/gpt-5.6-terra")
+      expect(result.agents?.forseti?.variant).toBe("high")
+      expect(result.agents?.forseti?.fallback_models?.[0]).toEqual({
         model: "openai/gpt-5.6-sol",
         variant: "xhigh",
       })

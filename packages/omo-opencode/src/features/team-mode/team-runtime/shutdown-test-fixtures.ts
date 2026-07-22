@@ -28,7 +28,7 @@ export function createSpec(worktreeRoot: string): TeamSpec {
     createdAt: Date.now(),
     leadAgentId: "lead",
     members: [
-      { kind: "subagent_type", name: "lead", subagent_type: "sisyphus", backendType: "in-process", isActive: true },
+      { kind: "subagent_type", name: "lead", subagent_type: "odin", backendType: "in-process", isActive: true },
       {
         kind: "category",
         name: "member-a",

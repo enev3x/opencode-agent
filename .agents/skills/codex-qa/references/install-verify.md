@@ -20,24 +20,24 @@ node packages/omo-codex/scripts/install-local.mjs install
 Source: `packages/omo-codex/src/install/install-codex.ts`.
 
 1. Builds + copies the plugin to
-   `$CODEX_HOME/plugins/cache/sisyphuslabs/omo/<version>/` (then `npm ci --omit=dev`).
+   `$CODEX_HOME/plugins/cache/odinlabs/omo/<version>/` (then `npm ci --omit=dev`).
 2. Links component bins into `$CODEX_HOME/bin/omo-*` (8: comment-checker,
    git-bash-hook, lsp, rules, start-work-continuation, telemetry, ultrawork,
    ulw-loop).
 3. Links agent TOMLs into `$CODEX_HOME/agents/*.toml`.
-4. Writes a marketplace snapshot under `$CODEX_HOME/.tmp/marketplaces/sisyphuslabs/`.
-5. Edits `$CODEX_HOME/config.toml`: enables `[plugins."omo@sisyphuslabs"]`,
-   the `[marketplaces.sisyphuslabs]` local source, `[features]`
+4. Writes a marketplace snapshot under `$CODEX_HOME/.tmp/marketplaces/odinlabs/`.
+5. Edits `$CODEX_HOME/config.toml`: enables `[plugins."omo@odinlabs"]`,
+   the `[marketplaces.odinlabs]` local source, `[features]`
    (plugins/plugin_hooks/multi_agent/child_agents_md), and one
-   `[hooks.state."omo@sisyphuslabs:hooks/hooks.json:<event>:i:j"] trusted_hash`
+   `[hooks.state."omo@odinlabs:hooks/hooks.json:<event>:i:j"] trusted_hash`
    per hook (so Codex trusts them — no `--dangerously-bypass-hook-trust` needed
    for the app-server turn).
 
 ## Assertions (what install-verify.sh checks)
 
 ```bash
-ls "$CODEX_HOME"/plugins/cache/sisyphuslabs/omo/*/                 # cache present
-grep -A2 '\[plugins."omo@sisyphuslabs"\]' "$CODEX_HOME/config.toml" | grep 'enabled = true'
+ls "$CODEX_HOME"/plugins/cache/odinlabs/omo/*/                 # cache present
+grep -A2 '\[plugins."omo@odinlabs"\]' "$CODEX_HOME/config.toml" | grep 'enabled = true'
 ls "$CODEX_HOME"/bin/omo-*                                          # component bins
 ls "$CODEX_HOME"/agents/*.toml                                      # agent links
 ```

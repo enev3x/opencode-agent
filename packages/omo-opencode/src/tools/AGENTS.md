@@ -15,7 +15,7 @@ Tools registered via [`createToolRegistry()`](../plugin/tool-registry.ts) in `sr
 | **Search** (2) | `grep`, `glob` |
 | **Sessions** (4) | `session_list`, `session_read`, `session_search`, `session_info` |
 | **Background tasks** (2) | `background_output`, `background_cancel` |
-| **Delegation** (2) | `task` (delegate, full skill+category support), `call_omo_agent` (named agent only: explore, librarian) |
+| **Delegation** (2) | `task` (delegate, full skill+category support), `call_omo_agent` (named agent only: explore, bragi) |
 | **Skills/MCP** (2) | `skill` (load skill or invoke command), `skill_mcp` (call skill-embedded MCP tool/resource/prompt) |
 
 > LSP tools are provided by the built-in `lsp` MCP (Tier-1 stdio), backed by `packages/lsp-tools-mcp/`. AST-aware code search and rewrite is available through the `ast-grep` skill using `sg`.
@@ -24,7 +24,7 @@ Tools registered via [`createToolRegistry()`](../plugin/tool-registry.ts) in `sr
 
 | Tool(s) | Gate | Source |
 |---------|------|--------|
-| `look_at` | not in `disabled_agents` for `multimodal-looker` | `look-at/` |
+| `look_at` | not in `disabled_agents` for `huginn` | `look-at/` |
 | `interactive_bash` | `isInteractiveBashEnabled(config)` (tmux config) | `interactive-bash/` |
 | `task_create`, `task_get`, `task_list`, `task_update` | `experimental.task_system` | `task/` |
 | `edit` (hashline-edit) | `hashline_edit: true` | `hashline-edit/` |
@@ -69,7 +69,7 @@ User-defined categories declared in `categories: { ... }` config override and ex
 ```
 tools/
 ├── background-task/      # background_output, background_cancel (LLM interface; engine in features/background-agent)
-├── call-omo-agent/       # call_omo_agent (explore + librarian only)
+├── call-omo-agent/       # call_omo_agent (explore + bragi only)
 ├── delegate-task/        # task — full delegation with categories + skills
 ├── glob/                 # glob (60s timeout, 100 file limit)
 ├── grep/                 # grep (60s timeout, 10MB limit)
@@ -80,7 +80,7 @@ tools/
 ├── skill/                # skill — load skill or run command
 ├── skill-mcp/            # skill_mcp — call skill-embedded MCP servers
 ├── slashcommand/         # discoverCommandsSync — feeds skill tool with /-command list
-├── task/                 # 4 task_* tools (Sisyphus task system)
+├── task/                 # 4 task_* tools (Odin task system)
 └── index.ts              # barrel exports
 ```
 

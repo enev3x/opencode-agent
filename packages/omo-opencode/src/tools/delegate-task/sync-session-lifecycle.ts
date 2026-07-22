@@ -30,7 +30,7 @@ export async function registerSyncSessionSideEffects(input: {
     : undefined
   registerDelegatedChildSessionBootstrap({
     sessionID: input.sessionID,
-    promptText: buildTaskPrompt(input.args.prompt, input.agentToUse, input.executorCtx.sisyphusAgentConfig?.tdd),
+    promptText: buildTaskPrompt(input.args.prompt, input.agentToUse, input.executorCtx.odinAgentConfig?.tdd),
     fallbackChain: input.fallbackChain,
     category: input.args.category,
     system: input.systemContent,

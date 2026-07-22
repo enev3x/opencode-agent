@@ -23,7 +23,7 @@ function shouldUseHiddenPlanAgent(
   requestedAgent: string,
   serverPrimaryAgent: AgentInfo | undefined,
   serverMatchedAgent: AgentInfo | undefined,
-  sisyphusAgentConfig: ExecutorContext["sisyphusAgentConfig"],
+  odinAgentConfig: ExecutorContext["odinAgentConfig"],
   hasDemotedPlan: boolean,
 ): boolean {
   if (serverPrimaryAgent) {
@@ -42,8 +42,8 @@ function shouldUseHiddenPlanAgent(
     return false
   }
 
-  return sisyphusAgentConfig?.planner_enabled !== false
-    && sisyphusAgentConfig?.replace_plan !== false
+  return odinAgentConfig?.planner_enabled !== false
+    && odinAgentConfig?.replace_plan !== false
 }
 
 export async function resolveSubagentAgentMatch(
@@ -65,7 +65,7 @@ export async function resolveSubagentAgentMatch(
     requestedAgent,
     serverPrimaryAgent,
     serverMatchedAgent,
-    executorCtx.sisyphusAgentConfig,
+    executorCtx.odinAgentConfig,
     hasDemotedPlan,
   )
 

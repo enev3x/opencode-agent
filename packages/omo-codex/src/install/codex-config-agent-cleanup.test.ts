@@ -15,11 +15,11 @@ describe("codex config managed agent cleanup", () => {
     await writeFile(
       configPath,
       [
-        "[agents.explorer]",
+        "[agents.vidarr]",
         'config_file = "./agents/old-explorer.toml"',
         "",
-        "[agents.metis]",
-        'config_file = "./agents/metis.toml"',
+        "[agents.urd]",
+        'config_file = "./agents/urd.toml"',
         "",
         "[agents.user_custom]",
         'config_file = "./agents/user-custom.toml"',
@@ -31,7 +31,7 @@ describe("codex config managed agent cleanup", () => {
     await updateCodexConfig({
       configPath,
       repoRoot: "/repo/packages/omo-codex",
-      marketplaceName: "sisyphuslabs",
+      marketplaceName: "odinlabs",
       marketplaceSource: {
         sourceType: "git",
         source: "https://github.com/code-yeongyu/lazycodex.git",
@@ -43,10 +43,10 @@ describe("codex config managed agent cleanup", () => {
 
     // then
     const content = await readFile(configPath, "utf8")
-    expect(content).toContain("[agents.explorer]")
+    expect(content).toContain("[agents.vidarr]")
     expect(content).toContain('config_file = "./agents/explorer.toml"')
-    expect(content).not.toContain("[agents.metis]")
-    expect(content).not.toContain('config_file = "./agents/metis.toml"')
+    expect(content).not.toContain("[agents.urd]")
+    expect(content).not.toContain('config_file = "./agents/urd.toml"')
     expect(content).toContain("[agents.user_custom]")
     expect(content).toContain('config_file = "./agents/user-custom.toml"')
   })

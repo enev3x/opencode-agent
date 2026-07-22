@@ -1,4 +1,4 @@
-# Code Changes: Fix Atlas Hook Crash on Missing worktree_path
+# Code Changes: Fix Heimdall Hook Crash on Missing worktree_path
 
 ## Change 1: Harden `readBoulderState()` validation
 
@@ -66,7 +66,7 @@ export function readBoulderState(directory: string): BoulderState | null {
 
 ## Change 2: Add try/catch in setTimeout retry callback
 
-**File:** `src/hooks/atlas/idle-event.ts`
+**File:** `src/hooks/heimdall/idle-event.ts`
 
 ### Before (lines 62-88):
 ```typescript
@@ -253,7 +253,7 @@ test("should handle undefined planPath without crashing", () => {
 })
 ```
 
-### File: `src/hooks/atlas/index.test.ts` (additions to session.idle section)
+### File: `src/hooks/heimdall/index.test.ts` (additions to session.idle section)
 
 ```typescript
 test("should handle boulder state without worktree_path gracefully", async () => {
@@ -271,7 +271,7 @@ test("should handle boulder state without worktree_path gracefully", async () =>
   writeBoulderState(TEST_DIR, state)
 
   const mockInput = createMockPluginInput()
-  const hook = createAtlasHook(mockInput)
+  const hook = createHeimdallHook(mockInput)
 
   // when
   await hook.handler({
@@ -303,7 +303,7 @@ test("should include worktree context when worktree_path is present in boulder s
   writeBoulderState(TEST_DIR, state)
 
   const mockInput = createMockPluginInput()
-  const hook = createAtlasHook(mockInput)
+  const hook = createHeimdallHook(mockInput)
 
   // when
   await hook.handler({
@@ -327,8 +327,8 @@ test("should include worktree context when worktree_path is present in boulder s
 | File | Change | Lines Modified |
 |------|--------|---------------|
 | `src/features/boulder-state/storage.ts` | Validate required fields + sanitize worktree_path + guard getPlanProgress | ~8 lines added |
-| `src/hooks/atlas/idle-event.ts` | try/catch around setTimeout async callback | ~4 lines added |
+| `src/hooks/heimdall/idle-event.ts` | try/catch around setTimeout async callback | ~4 lines added |
 | `src/features/boulder-state/storage.test.ts` | 5 new tests for validation | ~60 lines added |
-| `src/hooks/atlas/index.test.ts` | 2 new tests for worktree_path handling | ~50 lines added |
+| `src/hooks/heimdall/index.test.ts` | 2 new tests for worktree_path handling | ~50 lines added |
 
 Total: ~4 production lines changed, ~8 defensive lines added, ~110 test lines added.

@@ -86,11 +86,11 @@ bun run build
 
 ### Gate B: review-work (5 agents)
 - Run `/review-work` skill which launches 5 parallel background sub-agents:
-  1. Oracle — goal/constraint verification
-  2. Oracle — code quality
-  3. Oracle — security
-  4. Hephaestus — hands-on QA execution
-  5. Hephaestus — context mining from GitHub/git
+  1. Volva — goal/constraint verification
+  2. Volva — code quality
+  3. Volva — security
+  4. Thor — hands-on QA execution
+  5. Thor — context mining from GitHub/git
 - All 5 must pass. If any fails, fix and re-push.
 
 ### Gate C: Cubic (cubic-dev-ai[bot])

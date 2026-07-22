@@ -14,7 +14,7 @@ const PERMISSIONS_KEY_PATTERN = /approval_policy|sandbox_mode|network_access/;
 const PLUGIN_VERSION = "9.9.9";
 
 const BUNDLED_EXPLORER_TOML = 'description = "Explorer agent"\nmodel_reasoning_effort = "medium"\n';
-const BUNDLED_METIS_TOML = 'description = "Metis agent"\nmodel_reasoning_effort = "high"\n';
+const BUNDLED_METIS_TOML = 'description = "Urd agent"\nmodel_reasoning_effort = "high"\n';
 
 async function withSetupFixture(run) {
 	const root = await mkdtemp(join(tmpdir(), "omo-bootstrap-setup-"));
@@ -60,8 +60,8 @@ async function withSetupFixture(run) {
 			`${JSON.stringify({ mcpServers: { git_bash: { args: ["serve"], command: "node", env: {} } } }, null, "\t")}\n`,
 		);
 		await writeFile(join(pluginRoot, "components", "ultrawork", "agents", "explorer.toml"), BUNDLED_EXPLORER_TOML);
-		await writeFile(join(pluginRoot, "components", "ultrawork", "agents", "metis.toml"), BUNDLED_METIS_TOML);
-		await writeFile(join(codexHome, "config.toml"), `[marketplaces.sisyphuslabs]\n${MARKETPLACE_SOURCE_LINE}\n`);
+		await writeFile(join(pluginRoot, "components", "ultrawork", "agents", "urd.toml"), BUNDLED_METIS_TOML);
+		await writeFile(join(codexHome, "config.toml"), `[marketplaces.odinlabs]\n${MARKETPLACE_SOURCE_LINE}\n`);
 		await run({ codexHome, pluginData, pluginRoot, root });
 	} finally {
 		await rm(root, { force: true, recursive: true });
@@ -89,27 +89,27 @@ test("#given a marketplace-flow CODEX_HOME #when the worker setup runs #then con
 
 		assert.deepEqual(outcome.degraded, []);
 		const config = await readConfig(fixture);
-		assert.match(config, /\[plugins\."omo@sisyphuslabs"\]\nenabled = true/);
-		assert.match(config, /\[plugins\."omo@sisyphuslabs"\.mcp_servers\.context7\]\nenabled = true/);
-		assert.match(config, /\[plugins\."omo@sisyphuslabs"\.mcp_servers\.git_bash\]\nenabled = false/);
+		assert.match(config, /\[plugins\."omo@odinlabs"\]\nenabled = true/);
+		assert.match(config, /\[plugins\."omo@odinlabs"\.mcp_servers\.context7\]\nenabled = true/);
+		assert.match(config, /\[plugins\."omo@odinlabs"\.mcp_servers\.git_bash\]\nenabled = false/);
 		assert.match(
 			config,
-			/\[hooks\.state\."omo@sisyphuslabs:hooks\/hooks\.json:session_start:0:0"\]\ntrusted_hash = "sha256:[0-9a-f]{64}"/,
+			/\[hooks\.state\."omo@odinlabs:hooks\/hooks\.json:session_start:0:0"\]\ntrusted_hash = "sha256:[0-9a-f]{64}"/,
 		);
 		assert.match(config, /\[agents\.explorer\]\nconfig_file = "\.\/agents\/explorer\.toml"/);
-		assert.match(config, /\[agents\.metis\]\nconfig_file = "\.\/agents\/metis\.toml"/);
+		assert.match(config, /\[agents\.urd\]\nconfig_file = "\.\/agents\/urd\.toml"/);
 		assert.doesNotMatch(config, PERMISSIONS_KEY_PATTERN);
 		assert.equal(await readFile(join(fixture.codexHome, "agents", "explorer.toml"), "utf8"), BUNDLED_EXPLORER_TOML);
-		assert.equal(await readFile(join(fixture.codexHome, "agents", "metis.toml"), "utf8"), BUNDLED_METIS_TOML);
+		assert.equal(await readFile(join(fixture.codexHome, "agents", "urd.toml"), "utf8"), BUNDLED_METIS_TOML);
 	});
 });
 
-test("#given an existing git marketplace source #when the worker setup runs #then the [marketplaces.sisyphuslabs] block stays byte-identical", async () => {
+test("#given an existing git marketplace source #when the worker setup runs #then the [marketplaces.odinlabs] block stays byte-identical", async () => {
 	await withSetupFixture(async (fixture) => {
 		await runWorkerSetup(setupOptions(fixture));
 
 		const config = await readConfig(fixture);
-		assert.ok(config.includes(`[marketplaces.sisyphuslabs]\n${MARKETPLACE_SOURCE_LINE}`), "git source line must stay verbatim");
+		assert.ok(config.includes(`[marketplaces.odinlabs]\n${MARKETPLACE_SOURCE_LINE}`), "git source line must stay verbatim");
 		assert.doesNotMatch(config, /source_type/);
 		assert.doesNotMatch(config, /last_updated/);
 	});
@@ -132,7 +132,7 @@ test("#given a config.toml that already declares [agents.explorer] at a differen
 		const orcaMirrorPath = "/orca-mirrored-home/.codex/agents/explorer.toml";
 		await writeFile(
 			join(fixture.codexHome, "config.toml"),
-			`[marketplaces.sisyphuslabs]\n${MARKETPLACE_SOURCE_LINE}\n\n[agents.explorer]\nconfig_file = "${orcaMirrorPath}"\n`,
+			`[marketplaces.odinlabs]\n${MARKETPLACE_SOURCE_LINE}\n\n[agents.explorer]\nconfig_file = "${orcaMirrorPath}"\n`,
 		);
 
 		const outcome = await runWorkerSetup(setupOptions(fixture));
@@ -148,7 +148,7 @@ test("#given a config.toml that already declares [agents.explorer] at a differen
 			!config.includes('config_file = "./agents/explorer.toml"'),
 			"no colliding ./agents registration for the mirrored role",
 		);
-		assert.match(config, /\[agents\.metis\]\nconfig_file = "\.\/agents\/metis\.toml"/);
+		assert.match(config, /\[agents\.urd\]\nconfig_file = "\.\/agents\/urd\.toml"/);
 		assert.equal(
 			await readFile(join(fixture.codexHome, "agents", "explorer.toml"), "utf8"),
 			BUNDLED_EXPLORER_TOML,
@@ -164,7 +164,7 @@ test("#given a config.toml with no pre-existing agent entries #when the worker s
 		assert.deepEqual(outcome.degraded, []);
 		const config = await readConfig(fixture);
 		assert.match(config, /\[agents\.explorer\]\nconfig_file = "\.\/agents\/explorer\.toml"/);
-		assert.match(config, /\[agents\.metis\]\nconfig_file = "\.\/agents\/metis\.toml"/);
+		assert.match(config, /\[agents\.urd\]\nconfig_file = "\.\/agents\/urd\.toml"/);
 	});
 });
 
@@ -258,8 +258,8 @@ test("#given win32 without Git Bash #when the worker setup runs #then it degrade
 		const gitBashEntries = outcome.degraded.filter((entry) => entry.component === "git-bash");
 		assert.equal(gitBashEntries.length, 1);
 		const config = await readConfig(fixture);
-		assert.match(config, /\[plugins\."omo@sisyphuslabs"\.mcp_servers\.git_bash\]\nenabled = false/);
-		assert.match(config, /\[plugins\."omo@sisyphuslabs"\]\nenabled = true/, "setup must continue past a missing Git Bash");
+		assert.match(config, /\[plugins\."omo@odinlabs"\.mcp_servers\.git_bash\]\nenabled = false/);
+		assert.match(config, /\[plugins\."omo@odinlabs"\]\nenabled = true/, "setup must continue past a missing Git Bash");
 	});
 });
 
@@ -276,7 +276,7 @@ test("#given win32 with Git Bash and OMO_CODEX_GIT_BASH_PATH #when the worker se
 
 		assert.deepEqual(outcome.degraded, []);
 		const config = await readConfig(fixture);
-		assert.match(config, /\[plugins\."omo@sisyphuslabs"\.mcp_servers\.git_bash\]\nenabled = true/);
+		assert.match(config, /\[plugins\."omo@odinlabs"\.mcp_servers\.git_bash\]\nenabled = true/);
 		const manifest = JSON.parse(await readFile(join(fixture.pluginRoot, ".mcp.json"), "utf8"));
 		assert.equal(manifest.mcpServers.git_bash.env.OMO_CODEX_GIT_BASH_PATH, bashPath);
 	});
@@ -309,7 +309,7 @@ test("#given the default worker step list #when the worker runs end to end #then
 		assert.equal(state.completedForVersion, PLUGIN_VERSION);
 		assert.equal(state.lastStatus, "success");
 		const config = await readConfig(fixture);
-		assert.match(config, /\[plugins\."omo@sisyphuslabs"\]\nenabled = true/);
-		assert.ok(config.includes(`[marketplaces.sisyphuslabs]\n${MARKETPLACE_SOURCE_LINE}`));
+		assert.match(config, /\[plugins\."omo@odinlabs"\]\nenabled = true/);
+		assert.ok(config.includes(`[marketplaces.odinlabs]\n${MARKETPLACE_SOURCE_LINE}`));
 	});
 });

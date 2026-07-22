@@ -39,7 +39,7 @@ function createToolContext(sessionID = CALLING_SESSION_ID): ToolContext {
   return {
     sessionID,
     messageID: "msg_monitor_output",
-    agent: "sisyphus",
+    agent: "odin",
     directory: TEST_DIRECTORY,
     worktree: TEST_DIRECTORY,
     abort: new AbortController().signal,

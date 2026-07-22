@@ -30,7 +30,7 @@ async function seedRuntimeState(baseDir: string, teamName: string, leadSessionId
       createdAt: Date.now(),
       leadAgentId: "lead",
       members: [
-        { kind: "subagent_type", name: "lead", subagent_type: "sisyphus", backendType: "in-process", isActive: true, color: "red" },
+        { kind: "subagent_type", name: "lead", subagent_type: "odin", backendType: "in-process", isActive: true, color: "red" },
         ...memberSessionIds.map((sessionID, index) => ({
           kind: "category" as const,
           name: `member-${index + 1}`,

@@ -79,7 +79,7 @@ describe("unstable-agent-babysitter hook", () => {
     const ctx = createMockPluginInput({
       messagesBySession: {
         "main-1": [
-          { info: { agent: "sisyphus", model: { providerID: "openai", modelID: "gpt-4" } } },
+          { info: { agent: "odin", model: { providerID: "openai", modelID: "gpt-4" } } },
         ],
         "bg-1": [
           { info: { role: "assistant" }, parts: [{ type: "thinking", thinking: "deep thought" }] },
@@ -114,7 +114,7 @@ describe("unstable-agent-babysitter hook", () => {
     const ctx = createMockPluginInput({
       messagesBySession: {
         "main-1": [
-          { info: { agent: "sisyphus", model: { providerID: "openai", modelID: "gpt-4" } } },
+          { info: { agent: "odin", model: { providerID: "openai", modelID: "gpt-4" } } },
         ],
         "bg-1": [
           { info: { role: "assistant" }, parts: [{ type: "thinking", thinking: "deep thought" }] },
@@ -148,7 +148,7 @@ describe("unstable-agent-babysitter hook", () => {
     const ctx = createMockPluginInput({
       messagesBySession: {
         "main-1": [
-          { info: { agent: "sisyphus", model: { providerID: "openai", modelID: "gpt-4" } } },
+          { info: { agent: "odin", model: { providerID: "openai", modelID: "gpt-4" } } },
         ],
         "bg-1": [
           { info: { role: "assistant" }, parts: [{ type: "thinking", thinking: "minimax thought" }] },
@@ -236,7 +236,7 @@ describe("unstable-agent-babysitter hook", () => {
     const ctx = createMockPluginInput({
       messagesBySession: {
         "main-1": [
-          { info: { agent: "sisyphus", model: { providerID: "openai", modelID: "gpt-4" } } },
+          { info: { agent: "odin", model: { providerID: "openai", modelID: "gpt-4" } } },
         ],
         "bg-1": [
           { info: { role: "assistant" }, parts: [{ type: "thinking", thinking: "deep thought" }] },
@@ -274,7 +274,7 @@ describe("unstable-agent-babysitter hook", () => {
     const ctx = createMockPluginInput({
       messagesBySession: {
         "main-1": [
-          { info: { agent: "sisyphus", model: { providerID: "openai", modelID: "gpt-4" } } },
+          { info: { agent: "odin", model: { providerID: "openai", modelID: "gpt-4" } } },
         ],
         "bg-1": [
           { info: { role: "assistant" }, parts: [{ type: "thinking", thinking: "deep thought" }] },
@@ -313,7 +313,7 @@ describe("unstable-agent-babysitter hook", () => {
     const ctx = createMockPluginInput({
       messagesBySession: {
         "main-1": [
-          { info: { agent: "sisyphus", model: mainModel } },
+          { info: { agent: "odin", model: mainModel } },
         ],
         "bg-1": [
           { info: { role: "assistant" }, parts: [{ type: "thinking", thinking: "deep thought" }] },
@@ -393,7 +393,7 @@ describe("unstable-agent-babysitter hook", () => {
       messagesBySession: {
         "main-1": [
           { info: { role: "user", time: { created: Date.now() - 1_500 } } },
-          { info: { role: "assistant", time: { created: Date.now() - 500 }, agent: "sisyphus", finish: "stop" } },
+          { info: { role: "assistant", time: { created: Date.now() - 500 }, agent: "odin", finish: "stop" } },
         ],
         "bg-1": [
           { info: { role: "assistant" }, parts: [{ type: "thinking", thinking: "deep thought" }] },
@@ -435,7 +435,7 @@ describe("unstable-agent-babysitter hook", () => {
       messagesBySession: {
         "main-1": [
           { info: { role: "user", time: { created: Date.now() - 1_500 } } },
-          { info: { role: "assistant", time: { created: Date.now() - 500 }, agent: "sisyphus" } },
+          { info: { role: "assistant", time: { created: Date.now() - 500 }, agent: "odin" } },
         ],
         "bg-1": [
           { info: { role: "assistant" }, parts: [{ type: "thinking", thinking: "deep thought" }] },
@@ -621,7 +621,7 @@ describe("unstable-agent-babysitter hook", () => {
       messagesBySession: { "main-1": [], "bg-1": [] },
       promptCalls,
     })
-    const backgroundManager = createBackgroundManager([createTask({ agent: "sisyphus" })])
+    const backgroundManager = createBackgroundManager([createTask({ agent: "odin" })])
     const hook = createUnstableAgentBabysitterHook(ctx, {
       backgroundManager,
       config: { timeout_ms: 120000 },
@@ -633,8 +633,8 @@ describe("unstable-agent-babysitter hook", () => {
     // then
     const payload = promptCalls[0]?.input as { body?: { parts?: Array<{ text?: string }> } } | undefined
     const text = payload?.body?.parts?.[0]?.text ?? ""
-    expect(text).toContain("Agent: Sisyphus - ultraworker")
-    expect(text).not.toContain("Agent: sisyphus")
+    expect(text).toContain("Agent: Odin - ultraworker")
+    expect(text).not.toContain("Agent: odin")
   })
 
   test("#given unstable task agent is a legacy display name #when babysitter builds a reminder #then the reminder uses the current display name", async () => {
@@ -645,7 +645,7 @@ describe("unstable-agent-babysitter hook", () => {
       messagesBySession: { "main-1": [], "bg-1": [] },
       promptCalls,
     })
-    const backgroundManager = createBackgroundManager([createTask({ agent: "Sisyphus (Ultraworker)" })])
+    const backgroundManager = createBackgroundManager([createTask({ agent: "Odin (Ultraworker)" })])
     const hook = createUnstableAgentBabysitterHook(ctx, {
       backgroundManager,
       config: { timeout_ms: 120000 },
@@ -657,7 +657,7 @@ describe("unstable-agent-babysitter hook", () => {
     // then
     const payload = promptCalls[0]?.input as { body?: { parts?: Array<{ text?: string }> } } | undefined
     const text = payload?.body?.parts?.[0]?.text ?? ""
-    expect(text).toContain("Agent: Sisyphus - ultraworker")
-    expect(text).not.toContain("Agent: Sisyphus (Ultraworker)")
+    expect(text).toContain("Agent: Odin - ultraworker")
+    expect(text).not.toContain("Agent: Odin (Ultraworker)")
   })
 })

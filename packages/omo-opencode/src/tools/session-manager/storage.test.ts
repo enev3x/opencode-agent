@@ -261,7 +261,7 @@ describe("session-manager storage", () => {
       JSON.stringify({
         id: "msg_002",
         role: "assistant",
-        agent: "oracle",
+        agent: "volva",
         time: { created: now },
       })
     )
@@ -274,7 +274,7 @@ describe("session-manager storage", () => {
     expect(info?.id).toBe(sessionID)
     expect(info?.message_count).toBe(2)
     expect(info?.agents_used).toContain("build")
-    expect(info?.agents_used).toContain("oracle")
+    expect(info?.agents_used).toContain("volva")
   })
 
   test("getSessionInfo uses SDK session messages on sqlite backend", async () => {
@@ -289,7 +289,7 @@ describe("session-manager storage", () => {
               info: {
                 id: "msg_sqlite_1",
                 role: "user",
-                agent: "atlas",
+                agent: "heimdall",
                 time: { created: now - 5000, updated: now - 5000 },
               },
               parts: [],
@@ -298,7 +298,7 @@ describe("session-manager storage", () => {
               info: {
                 id: "msg_sqlite_2",
                 role: "assistant",
-                agent: "prometheus",
+                agent: "mimir",
                 time: { created: now, updated: now },
               },
               parts: [],
@@ -314,8 +314,8 @@ describe("session-manager storage", () => {
     expect(info).not.toBeNull()
     expect(info?.id).toBe("ses_sqlite")
     expect(info?.message_count).toBe(2)
-    expect(info?.agents_used).toContain("atlas")
-    expect(info?.agents_used).toContain("prometheus")
+    expect(info?.agents_used).toContain("heimdall")
+    expect(info?.agents_used).toContain("mimir")
   })
 })
 
@@ -564,7 +564,7 @@ describe("session-manager storage - SDK path (beta mode)", () => {
         parts: [{ id: "part_1", type: "text", text: "Hello" }],
       },
       {
-        info: { id: "msg_2", role: "assistant", agent: "oracle", time: { created: 2000 } },
+        info: { id: "msg_2", role: "assistant", agent: "volva", time: { created: 2000 } },
         parts: [{ id: "part_2", type: "text", text: "Hi there" }],
       },
     ]

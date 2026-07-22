@@ -60,7 +60,7 @@ describe("TaskRecordStore", () => {
       parent_session_id: "parent-session",
       root_session_id: "root-session",
       depth: 2,
-      agent_type: "sisyphus",
+      agent_type: "odin",
       execution_mode: "background",
       model: "gpt-5.2",
       tool_allow: ["read", "bash"],

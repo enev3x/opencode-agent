@@ -25,7 +25,7 @@ describe("rules-engine package consumption", () => {
 		const pluginRoot = mkdtempSync(join(tmpdir(), "codex-rules-engine-consumption-"));
 		tempDirectories.push(pluginRoot);
 		mkdirSync(join(pluginRoot, "bundled-rules"), { recursive: true });
-		writeFileSync(join(pluginRoot, "bundled-rules", "hephaestus.md"), "---\nalwaysApply: true\n---\nBundled\n");
+		writeFileSync(join(pluginRoot, "bundled-rules", "thor.md"), "---\nalwaysApply: true\n---\nBundled\n");
 		writeFileSync(
 			join(pluginRoot, "bundled-rules", "windows-git-bash.md"),
 			"---\nalwaysApply: true\n---\nWindows only\n",
@@ -38,10 +38,10 @@ describe("rules-engine package consumption", () => {
 		// then
 		expect(SOURCE_PRIORITY.get("plugin-bundled")).toBe(200);
 		expect(nonWindowsCandidates.map((candidate) => candidate.relativePath)).toEqual([
-			"bundled-rules/hephaestus.md",
+			"bundled-rules/thor.md",
 		]);
 		expect(windowsCandidates.map((candidate) => candidate.relativePath)).toEqual([
-			"bundled-rules/hephaestus.md",
+			"bundled-rules/thor.md",
 			"bundled-rules/windows-git-bash.md",
 		]);
 	});

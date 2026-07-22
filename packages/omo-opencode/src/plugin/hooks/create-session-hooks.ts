@@ -19,11 +19,11 @@ import {
   createDelegateTaskRetryHook,
   createTaskResumeInfoHook,
   createStartWorkHook,
-  createPrometheusMdOnlyHook,
-  createSisyphusJuniorNotepadHook,
-  createNoSisyphusGptHook,
-  createNoHephaestusNonGptHook,
-  createHephaestusAgentsMdInjectorHook,
+  createMimirMdOnlyHook,
+  createOdinJuniorNotepadHook,
+  createNoOdinGptHook,
+  createNoThorNonGptHook,
+  createThorAgentsMdInjectorHook,
   createQuestionLabelTruncatorHook,
   createPreemptiveCompactionHook,
   createRuntimeFallbackHook,
@@ -56,11 +56,11 @@ export type SessionHooks = {
   editErrorRecovery: ReturnType<typeof createEditErrorRecoveryHook> | null
   delegateTaskRetry: ReturnType<typeof createDelegateTaskRetryHook> | null
   startWork: ReturnType<typeof createStartWorkHook> | null
-  prometheusMdOnly: ReturnType<typeof createPrometheusMdOnlyHook> | null
-  sisyphusJuniorNotepad: ReturnType<typeof createSisyphusJuniorNotepadHook> | null
-  noSisyphusGpt: ReturnType<typeof createNoSisyphusGptHook> | null
-  noHephaestusNonGpt: ReturnType<typeof createNoHephaestusNonGptHook> | null
-  hephaestusAgentsMdInjector: ReturnType<typeof createHephaestusAgentsMdInjectorHook> | null
+  mimirMdOnly: ReturnType<typeof createMimirMdOnlyHook> | null
+  odinJuniorNotepad: ReturnType<typeof createOdinJuniorNotepadHook> | null
+  noOdinGpt: ReturnType<typeof createNoOdinGptHook> | null
+  noThorNonGpt: ReturnType<typeof createNoThorNonGptHook> | null
+  thorAgentsMdInjector: ReturnType<typeof createThorAgentsMdInjectorHook> | null
   questionLabelTruncator: ReturnType<typeof createQuestionLabelTruncatorHook> | null
   taskResumeInfo: ReturnType<typeof createTaskResumeInfoHook> | null
   runtimeFallback: ReturnType<typeof createRuntimeFallbackHook> | null
@@ -137,7 +137,7 @@ export function createSessionHooks(args: {
     ? safeHook("auto-update-checker", () =>
         createAutoUpdateCheckerHook(ctx, {
           showStartupToast: isHookEnabled("startup-toast"),
-          isSisyphusEnabled: pluginConfig.sisyphus_agent?.disabled !== true,
+          isOdinEnabled: pluginConfig.odin_agent?.disabled !== true,
           autoUpdate: pluginConfig.auto_update ?? true,
           modelCapabilities: pluginConfig.model_capabilities,
         }))
@@ -187,28 +187,28 @@ export function createSessionHooks(args: {
     ? safeHook("start-work", () => createStartWorkHook(ctx))
     : null
 
-  const prometheusMdOnly = isHookEnabled("prometheus-md-only")
-    ? safeHook("prometheus-md-only", () => createPrometheusMdOnlyHook(ctx))
+  const mimirMdOnly = isHookEnabled("mimir-md-only")
+    ? safeHook("mimir-md-only", () => createMimirMdOnlyHook(ctx))
     : null
 
-  const sisyphusJuniorNotepad = isHookEnabled("sisyphus-junior-notepad")
-    ? safeHook("sisyphus-junior-notepad", () => createSisyphusJuniorNotepadHook(ctx))
+  const odinJuniorNotepad = isHookEnabled("einherjar-notepad")
+    ? safeHook("einherjar-notepad", () => createOdinJuniorNotepadHook(ctx))
     : null
 
-  const noSisyphusGpt = isHookEnabled("no-sisyphus-gpt")
-    ? safeHook("no-sisyphus-gpt", () => createNoSisyphusGptHook(ctx))
+  const noOdinGpt = isHookEnabled("no-odin-gpt")
+    ? safeHook("no-odin-gpt", () => createNoOdinGptHook(ctx))
     : null
 
-  const noHephaestusNonGpt = isHookEnabled("no-hephaestus-non-gpt")
-    ? safeHook("no-hephaestus-non-gpt", () =>
-      createNoHephaestusNonGptHook(ctx, {
-        allowNonGptModel: pluginConfig.agents?.hephaestus?.allow_non_gpt_model,
+  const noThorNonGpt = isHookEnabled("no-thor-non-gpt")
+    ? safeHook("no-thor-non-gpt", () =>
+      createNoThorNonGptHook(ctx, {
+        allowNonGptModel: pluginConfig.agents?.thor?.allow_non_gpt_model,
       }))
     : null
 
-  const hephaestusAgentsMdInjector = isHookEnabled("hephaestus-agents-md-injector")
-    ? safeHook("hephaestus-agents-md-injector", () =>
-      createHephaestusAgentsMdInjectorHook(ctx, modelCacheState))
+  const thorAgentsMdInjector = isHookEnabled("thor-agents-md-injector")
+    ? safeHook("thor-agents-md-injector", () =>
+      createThorAgentsMdInjectorHook(ctx, modelCacheState))
     : null
 
   const questionLabelTruncator = isHookEnabled("question-label-truncator")
@@ -251,11 +251,11 @@ export function createSessionHooks(args: {
     editErrorRecovery,
     delegateTaskRetry,
     startWork,
-    prometheusMdOnly,
-    sisyphusJuniorNotepad,
-    noSisyphusGpt,
-    noHephaestusNonGpt,
-    hephaestusAgentsMdInjector,
+    mimirMdOnly,
+    odinJuniorNotepad,
+    noOdinGpt,
+    noThorNonGpt,
+    thorAgentsMdInjector,
     questionLabelTruncator,
     taskResumeInfo,
     runtimeFallback,

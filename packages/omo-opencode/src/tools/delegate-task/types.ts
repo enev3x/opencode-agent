@@ -1,5 +1,5 @@
 import type { BackgroundManager } from "../../features/background-agent"
-import type { CategoriesConfig, GitMasterConfig, BrowserAutomationProvider, AgentOverrides, SisyphusAgentConfig } from "../../config/schema"
+import type { CategoriesConfig, GitMasterConfig, BrowserAutomationProvider, AgentOverrides, OdinAgentConfig } from "../../config/schema"
 import type { ModelFallbackControllerAccessor } from "../../hooks/model-fallback"
 import type { LoadedSkill } from "../../features/opencode-skill-loader/types"
 import type { SessionPromptAsyncData, SessionPromptData, SessionStatusData } from "@opencode-ai/sdk"
@@ -102,14 +102,14 @@ export interface DelegateTaskToolOptions {
   availableModelsOverride?: Set<string>
   userCategories?: CategoriesConfig
   gitMasterConfig?: GitMasterConfig
-  sisyphusJuniorModel?: string
+  odinJuniorModel?: string
   browserProvider?: BrowserAutomationProvider
   disabledSkills?: Set<string>
   teamModeEnabled?: boolean
   availableCategories?: AvailableCategory[]
   availableSkills?: AvailableSkill[]
   agentOverrides?: AgentOverrides
-  sisyphusAgentConfig?: SisyphusAgentConfig
+  odinAgentConfig?: OdinAgentConfig
   modelFallbackControllerAccessor?: ModelFallbackControllerAccessor
   onSyncSessionCreated?: (event: SyncSessionCreatedEvent) => Promise<void>
   syncPollTimeoutMs?: number

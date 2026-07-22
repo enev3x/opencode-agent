@@ -64,9 +64,9 @@ export type ChatMessageHooks = {
   thinkMode?: ChatMessageHook | null
   claudeCodeHooks?: ChatMessageHook | null
   autoSlashCommand?: ChatMessageHook | null
-  noSisyphusGpt?: ChatMessageHook | null
-  noHephaestusNonGpt?: ChatMessageHook | null
-  hephaestusAgentsMdInjector?: ChatMessageHook | null
+  noOdinGpt?: ChatMessageHook | null
+  noThorNonGpt?: ChatMessageHook | null
+  thorAgentsMdInjector?: ChatMessageHook | null
   startWork?: ChatMessageHook | null
   goal?: GoalHook | null
   todoContinuationEnforcer?: TodoContinuationEnforcerHook | null

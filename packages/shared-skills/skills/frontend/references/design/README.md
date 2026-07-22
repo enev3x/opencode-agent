@@ -230,7 +230,7 @@ Once references are loaded, before writing any UI code:
 
 ## Phase Final — Design QA (MANDATORY, runs after implementation)
 
-Before declaring the task done, verify the rendered UI. **The verification authority is `/visual-qa`, not a hand-rolled checklist here.** Run `/visual-qa`: it captures every page and breakpoint (375 / 768 / 1280px) on fresh evidence, drives and inspects interaction states (hover/focus/active) and motion (transitions, scroll-triggered, load), runs the dual-oracle pass, and loops until an independent reviewer passes. For a concrete reference or clone, run it in reference-fidelity mode.
+Before declaring the task done, verify the rendered UI. **The verification authority is `/visual-qa`, not a hand-rolled checklist here.** Run `/visual-qa`: it captures every page and breakpoint (375 / 768 / 1280px) on fresh evidence, drives and inspects interaction states (hover/focus/active) and motion (transitions, scroll-triggered, load), runs the dual-volva pass, and loops until an independent reviewer passes. For a concrete reference or clone, run it in reference-fidelity mode.
 
 This skill adds only the design-taste judgments `/visual-qa` cannot make for you:
 

@@ -12,7 +12,7 @@ function makeSpec(overrides: Partial<TeamSpec> = {}): TeamSpec {
     createdAt: Date.now(),
     leadAgentId: "lead",
     members: [
-      { kind: "subagent_type", name: "lead", subagent_type: "sisyphus", backendType: "in-process", isActive: true },
+      { kind: "subagent_type", name: "lead", subagent_type: "odin", backendType: "in-process", isActive: true },
       { kind: "category", name: "worker", category: "quick", prompt: "do work", backendType: "in-process", isActive: true },
     ],
     ...overrides,
@@ -20,47 +20,47 @@ function makeSpec(overrides: Partial<TeamSpec> = {}): TeamSpec {
 }
 
 describe("resolveCallerTeamLead", () => {
-  test("returns an eligible sisyphus lead for the plain display name", () => {
+  test("returns an eligible odin lead for the plain display name", () => {
     // given
-    const rawAgentName = "Sisyphus"
+    const rawAgentName = "Odin"
 
     // when
     const result = resolveCallerTeamLead(rawAgentName)
 
     // then
     expect(result).toEqual({
-      agentTypeId: "sisyphus",
-      displayName: "Sisyphus",
+      agentTypeId: "odin",
+      displayName: "Odin",
       isEligibleForTeamLead: true,
     })
   })
 
-  test("returns an eligible sisyphus lead for the suffixed display name", () => {
+  test("returns an eligible odin lead for the suffixed display name", () => {
     // given
-    const rawAgentName = "Sisyphus - Ultraworker"
+    const rawAgentName = "Odin - Ultraworker"
 
     // when
     const result = resolveCallerTeamLead(rawAgentName)
 
     // then
     expect(result).toEqual({
-      agentTypeId: "sisyphus",
-      displayName: "Sisyphus - ultraworker",
+      agentTypeId: "odin",
+      displayName: "Odin - ultraworker",
       isEligibleForTeamLead: true,
     })
   })
 
   test("strips visible ordering prefixes before resolving the caller lead", () => {
     // given
-    const rawAgentName = "00|Sisyphus"
+    const rawAgentName = "00|Odin"
 
     // when
     const result = resolveCallerTeamLead(rawAgentName)
 
     // then
     expect(result).toEqual({
-      agentTypeId: "sisyphus",
-      displayName: "Sisyphus",
+      agentTypeId: "odin",
+      displayName: "Odin",
       isEligibleForTeamLead: true,
     })
   })
@@ -78,14 +78,14 @@ describe("resolveCallerTeamLead", () => {
 
   test("returns not eligible for read-only agents", () => {
     // given
-    const rawAgentName = "Oracle"
+    const rawAgentName = "Volva"
 
     // when
     const result = resolveCallerTeamLead(rawAgentName)
 
     // then
     expect(result).toEqual({
-      displayName: "Oracle",
+      displayName: "Volva",
       isEligibleForTeamLead: false,
     })
   })
@@ -97,7 +97,7 @@ describe("shouldReuseCallerLeadSession", () => {
     const spec = makeSpec({ leadAgentId: "lead" })
 
     // when
-    const result = shouldReuseCallerLeadSession(spec, "sisyphus")
+    const result = shouldReuseCallerLeadSession(spec, "odin")
 
     // then
     expect(result).toBe(true)
@@ -114,7 +114,7 @@ describe("shouldReuseCallerLeadSession", () => {
     })
 
     // when
-    const result = shouldReuseCallerLeadSession(spec, "sisyphus")
+    const result = shouldReuseCallerLeadSession(spec, "odin")
 
     // then
     expect(result).toBe(true)
@@ -125,12 +125,12 @@ describe("shouldReuseCallerLeadSession", () => {
     const spec = makeSpec({
       leadAgentId: "lead",
       members: [
-        { kind: "subagent_type", name: "lead", subagent_type: "atlas", backendType: "in-process", isActive: true },
+        { kind: "subagent_type", name: "lead", subagent_type: "heimdall", backendType: "in-process", isActive: true },
       ],
     })
 
     // when
-    const result = shouldReuseCallerLeadSession(spec, "sisyphus")
+    const result = shouldReuseCallerLeadSession(spec, "odin")
 
     // then
     expect(result).toBe(true)
@@ -152,7 +152,7 @@ describe("shouldReuseCallerLeadSession", () => {
     const spec = makeSpec({ leadAgentId: undefined })
 
     // when
-    const result = shouldReuseCallerLeadSession(spec, "sisyphus")
+    const result = shouldReuseCallerLeadSession(spec, "odin")
 
     // then
     expect(result).toBe(false)

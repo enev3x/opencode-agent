@@ -271,10 +271,10 @@ test("#given stale managed ulw-loop omo symlink #when linking bins #then removes
 	const pluginRoot = join(root, "plugin");
 	const componentRoot = join(pluginRoot, "components", "rules");
 	const binDir = join(root, "bin");
-	const oldTarget = join(root, "codex-home", "plugins", "cache", "sisyphuslabs", "omo", "0.1.0", "components", "ulw-loop", "dist", "cli.js");
+	const oldTarget = join(root, "codex-home", "plugins", "cache", "odinlabs", "omo", "0.1.0", "components", "ulw-loop", "dist", "cli.js");
 
 	await mkdir(join(componentRoot, "dist"), { recursive: true });
-	await mkdir(join(root, "codex-home", "plugins", "cache", "sisyphuslabs", "omo", "0.1.0", "components", "ulw-loop", "dist"), { recursive: true });
+	await mkdir(join(root, "codex-home", "plugins", "cache", "odinlabs", "omo", "0.1.0", "components", "ulw-loop", "dist"), { recursive: true });
 	await mkdir(binDir, { recursive: true });
 	await writeJson(join(pluginRoot, "package.json"), {
 		name: "@example/omo",

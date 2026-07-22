@@ -99,7 +99,7 @@ describe("ParentWakeNotifier late error recovery", () => {
     // given
     const { notifier, promptAsyncCalls } = createNotifier()
     const sessionID = "parent-late-session-error-after-window"
-    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       await notifier.flushPendingParentWake(sessionID)
@@ -145,7 +145,7 @@ describe("ParentWakeNotifier late error recovery", () => {
       },
     })
     const sessionID = "parent-late-error-user-wake-only"
-    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       await notifier.flushPendingParentWake(sessionID)
@@ -181,7 +181,7 @@ describe("ParentWakeNotifier late error recovery", () => {
       sessionMessagesImpl: async () => ({ data: sessionMessages }),
     })
     const sessionID = "parent-late-error-assistant-error-history"
-    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       await notifier.flushPendingParentWake(sessionID)
@@ -234,7 +234,7 @@ describe("ParentWakeNotifier late error recovery", () => {
       }),
     })
     const sessionID = "parent-late-window-accepted-output"
-    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       await notifier.flushPendingParentWake(sessionID)
@@ -276,7 +276,7 @@ describe("ParentWakeNotifier late error recovery", () => {
       },
     })
     const sessionID = "parent-window-inspection-retry"
-    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake(sessionID, FINAL_WAKE, { agent: "odin" }, true)
 
     try {
       await notifier.flushPendingParentWake(sessionID)

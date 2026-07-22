@@ -1,5 +1,5 @@
 import type { AgentConfig } from "@opencode-ai/sdk";
-import { createSisyphusJuniorAgentWithOverrides } from "../agents/sisyphus-junior";
+import { createOdinJuniorAgentWithOverrides } from "../agents/einherjar";
 import type { OhMyOpenCodeConfig } from "../config";
 import {
   getAgentConfigKey,
@@ -13,7 +13,7 @@ import {
 } from "./agent-override-protection";
 import type { AgentSourceMap, AgentSources } from "./agent-config-types";
 import { buildPlanDemoteConfig } from "./plan-model-inheritance";
-import { buildPrometheusAgentConfig } from "./prometheus-agent-config-builder";
+import { buildMimirAgentConfig } from "./mimir-agent-config-builder";
 
 type BuiltinAgentMap = Record<string, AgentConfig | undefined>;
 
@@ -105,17 +105,17 @@ async function createCoreAgentConfig(
 ): Promise<Record<string, unknown>> {
   const { builtinAgents, pluginConfig, sources, currentModel, useTaskSystem } = params;
   const agentConfig: Record<string, unknown> = {
-    sisyphus: builtinAgents.sisyphus,
+    odin: builtinAgents.odin,
   };
 
-  if (builtinAgents.hephaestus) {
-    agentConfig.hephaestus = builtinAgents.hephaestus;
+  if (builtinAgents.thor) {
+    agentConfig.thor = builtinAgents.thor;
   }
 
-  if (pluginConfig.sisyphus_agent?.planner_enabled ?? true) {
-    agentConfig.prometheus = await buildPrometheusAgentConfig({
+  if (pluginConfig.odin_agent?.planner_enabled ?? true) {
+    agentConfig.mimir = await buildMimirAgentConfig({
       configAgentPlan: sources.configAgent?.plan,
-      pluginPrometheusOverride: pluginConfig.agents?.prometheus as
+      pluginMimirOverride: pluginConfig.agents?.mimir as
         | (Record<string, unknown> & { prompt_append?: string })
         | undefined,
       userCategories: pluginConfig.categories,
@@ -124,13 +124,13 @@ async function createCoreAgentConfig(
     });
   }
 
-  if (builtinAgents.atlas) {
-    agentConfig.atlas = builtinAgents.atlas;
+  if (builtinAgents.heimdall) {
+    agentConfig.heimdall = builtinAgents.heimdall;
   }
 
-  agentConfig["sisyphus-junior"] = createSisyphusJuniorAgentWithOverrides(
-    pluginConfig.agents?.["sisyphus-junior"],
-    (builtinAgents.atlas as { model?: string } | undefined)?.model,
+  agentConfig["einherjar"] = createOdinJuniorAgentWithOverrides(
+    pluginConfig.agents?.["einherjar"],
+    (builtinAgents.heimdall as { model?: string } | undefined)?.model,
     useTaskSystem,
   );
 
@@ -149,20 +149,20 @@ function applyDefaultAgent(
     return;
   }
 
-  config.default_agent = getAgentDisplayName("sisyphus", pluginConfig?.agents);
+  config.default_agent = getAgentDisplayName("odin", pluginConfig?.agents);
 }
 
-async function assembleSisyphusEnabledConfig(params: AssembleAgentConfigParams): Promise<void> {
+async function assembleOdinEnabledConfig(params: AssembleAgentConfigParams): Promise<void> {
   const configuredDefaultAgent = getConfiguredDefaultAgent(params.config);
   applyDefaultAgent(params.config, configuredDefaultAgent, params.pluginConfig);
 
   const agentConfig = await createCoreAgentConfig(params);
   const { configAgent } = params.sources;
-  const plannerEnabled = params.pluginConfig.sisyphus_agent?.planner_enabled ?? true;
-  const replacePlan = params.pluginConfig.sisyphus_agent?.replace_plan ?? true;
+  const plannerEnabled = params.pluginConfig.odin_agent?.planner_enabled ?? true;
+  const replacePlan = params.pluginConfig.odin_agent?.replace_plan ?? true;
   const shouldDemotePlan = plannerEnabled && replacePlan;
 
-  if (params.pluginConfig.sisyphus_agent?.default_builder_enabled ?? false) {
+  if (params.pluginConfig.odin_agent?.default_builder_enabled ?? false) {
     const { name: _buildName, ...buildConfigWithoutName } = configAgent?.build ?? {};
     const migratedBuildConfig = migrateAgentConfig(buildConfigWithoutName);
     const override = params.pluginConfig.agents?.["OpenCode-Builder"];
@@ -176,7 +176,7 @@ async function assembleSisyphusEnabledConfig(params: AssembleAgentConfigParams):
   const migratedBuild = configAgent?.build ? migrateAgentConfig(configAgent.build) : {};
   const planDemoteConfig = shouldDemotePlan
     ? buildPlanDemoteConfig(
-        agentConfig.prometheus as Record<string, unknown> | undefined,
+        agentConfig.mimir as Record<string, unknown> | undefined,
         params.pluginConfig.agents?.plan as Record<string, unknown> | undefined,
       )
     : undefined;
@@ -204,7 +204,7 @@ async function assembleSisyphusEnabledConfig(params: AssembleAgentConfigParams):
     ...agentConfig,
     ...Object.fromEntries(
       Object.entries(params.builtinAgents).filter(
-        ([key]) => key !== "sisyphus" && key !== "hephaestus" && key !== "atlas",
+        ([key]) => key !== "odin" && key !== "thor" && key !== "heimdall",
       ),
     ),
     ...orderedCustomAgentSources(filteredSources, params.disabledAgentNames),
@@ -214,7 +214,7 @@ async function assembleSisyphusEnabledConfig(params: AssembleAgentConfigParams):
   };
 }
 
-function assembleSisyphusDisabledConfig(params: AssembleAgentConfigParams): void {
+function assembleOdinDisabledConfig(params: AssembleAgentConfigParams): void {
   const protectedBuiltinAgentNames = createProtectedAgentNameSet(Object.keys(params.builtinAgents));
   const filteredSources = filterCustomAgentSources(params.sources, protectedBuiltinAgentNames);
   const filteredConfigAgents = params.sources.configAgent
@@ -232,12 +232,12 @@ function assembleSisyphusDisabledConfig(params: AssembleAgentConfigParams): void
 
 export async function assembleAgentConfig(params: AssembleAgentConfigParams): Promise<AssemblyResult> {
   const configuredDefaultAgent = getConfiguredDefaultAgent(params.config);
-  const isSisyphusEnabled = params.pluginConfig.sisyphus_agent?.disabled !== true;
+  const isOdinEnabled = params.pluginConfig.odin_agent?.disabled !== true;
 
-  if (isSisyphusEnabled && params.builtinAgents.sisyphus) {
-    await assembleSisyphusEnabledConfig(params);
+  if (isOdinEnabled && params.builtinAgents.odin) {
+    await assembleOdinEnabledConfig(params);
   } else {
-    assembleSisyphusDisabledConfig(params);
+    assembleOdinDisabledConfig(params);
   }
 
   return { configuredDefaultAgent };

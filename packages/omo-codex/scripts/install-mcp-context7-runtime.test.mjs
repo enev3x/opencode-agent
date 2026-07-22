@@ -16,7 +16,7 @@ async function installContext7RuntimeFixture(context7) {
 
 	const result = await installCachedPlugin({
 		codexHome,
-		marketplaceName: "sisyphuslabs",
+		marketplaceName: "odinlabs",
 		name: "omo",
 		runCommand: async () => {},
 		sourcePath: sourceRoot,

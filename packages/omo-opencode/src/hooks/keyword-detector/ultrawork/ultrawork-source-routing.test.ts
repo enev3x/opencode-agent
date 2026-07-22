@@ -14,31 +14,31 @@ type UltraworkRoutingBaseline = {
 const ULTRAWORK_ROUTING_BASELINES: readonly UltraworkRoutingBaseline[] = [
   {
     name: "default",
-    agentName: "sisyphus",
+    agentName: "odin",
     modelID: "claude-sonnet-4-6",
     expectedSource: "default",
   },
   {
     name: "gpt",
-    agentName: "sisyphus",
+    agentName: "odin",
     modelID: "gpt-5.5",
     expectedSource: "gpt",
   },
   {
     name: "gemini",
-    agentName: "sisyphus",
+    agentName: "odin",
     modelID: "gemini-3.1-pro",
     expectedSource: "gemini",
   },
   {
     name: "glm",
-    agentName: "sisyphus",
+    agentName: "odin",
     modelID: "zai/glm-5.2",
     expectedSource: "glm",
   },
   {
     name: "planner",
-    agentName: "prometheus",
+    agentName: "mimir",
     modelID: "gpt-5.5",
     expectedSource: "planner",
   },

@@ -3,7 +3,7 @@ import type { AgentInfo } from "./subagent-discovery"
 import type { DelegatedModelConfig } from "./types"
 
 export interface ResolveSubagentExecutionOptions {
-  allowSisyphusJuniorDirect?: boolean
+  allowOdinJuniorDirect?: boolean
   allowPrimaryAgentDelegation?: boolean
 }
 

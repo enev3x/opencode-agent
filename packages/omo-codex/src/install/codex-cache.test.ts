@@ -340,7 +340,7 @@ describe("codex-cache", () => {
     // when
     const installed = await installCachedPlugin({
       codexHome,
-      marketplaceName: "sisyphuslabs",
+      marketplaceName: "odinlabs",
       name: "omo",
       sourcePath: sourceRoot,
       version: "0.1.0",
@@ -416,9 +416,9 @@ describe("codex-cache", () => {
     const pluginRoot = join(root, "plugin")
     const componentRoot = join(pluginRoot, "components", "rules")
     const binDir = join(root, "bin")
-    const oldTarget = join(root, "codex-home", "plugins", "cache", "sisyphuslabs", "omo", "0.1.0", "components", "ulw-loop", "dist", "cli.js")
+    const oldTarget = join(root, "codex-home", "plugins", "cache", "odinlabs", "omo", "0.1.0", "components", "ulw-loop", "dist", "cli.js")
     await mkdir(join(componentRoot, "dist"), { recursive: true })
-    await mkdir(join(root, "codex-home", "plugins", "cache", "sisyphuslabs", "omo", "0.1.0", "components", "ulw-loop", "dist"), {
+    await mkdir(join(root, "codex-home", "plugins", "cache", "odinlabs", "omo", "0.1.0", "components", "ulw-loop", "dist"), {
       recursive: true,
     })
     await mkdir(binDir, { recursive: true })
@@ -467,7 +467,7 @@ describe("codex-cache", () => {
     const componentRoot = join(pluginRoot, "components", "rules")
     const ulwLoopRoot = join(pluginRoot, "components", "ulw-loop")
     const binDir = join(root, "bin")
-    const oldTarget = join(root, "codex-home", "plugins", "cache", "sisyphuslabs", "omo", "9.9.9", "components", "ulw-loop", "dist", "cli.js")
+    const oldTarget = join(root, "codex-home", "plugins", "cache", "odinlabs", "omo", "9.9.9", "components", "ulw-loop", "dist", "cli.js")
     await mkdir(join(componentRoot, "dist"), { recursive: true })
     await mkdir(join(ulwLoopRoot, "dist"), { recursive: true })
     await mkdir(binDir, { recursive: true })
@@ -492,7 +492,7 @@ describe("codex-cache", () => {
     const pluginRoot = join(root, "plugin")
     const componentRoot = join(pluginRoot, "components", "rules")
     const binDir = join(root, "bin")
-    const otherTarget = join(root, "codex-home", "plugins", "cache", "sisyphuslabs", "other-plugin", "9.9.9", "components", "tool", "dist", "cli.js")
+    const otherTarget = join(root, "codex-home", "plugins", "cache", "odinlabs", "other-plugin", "9.9.9", "components", "tool", "dist", "cli.js")
     await mkdir(join(componentRoot, "dist"), { recursive: true })
     await mkdir(binDir, { recursive: true })
     await writeFile(join(pluginRoot, "package.json"), JSON.stringify({ name: "@scope/omo" }))
@@ -514,7 +514,7 @@ describe("codex-cache", () => {
     const pluginRoot = join(root, "plugin")
     const componentRoot = join(pluginRoot, "components", "rules")
     const binDir = join(root, "bin")
-    const userTarget = join(root, "codex-home", "plugins", "cache", "sisyphuslabs", "omo", "9.9.9", "components", "rules", "dist", "cli.js")
+    const userTarget = join(root, "codex-home", "plugins", "cache", "odinlabs", "omo", "9.9.9", "components", "rules", "dist", "cli.js")
     await mkdir(join(componentRoot, "dist"), { recursive: true })
     await mkdir(binDir, { recursive: true })
     await writeFile(join(pluginRoot, "package.json"), JSON.stringify({ name: "@scope/omo" }))

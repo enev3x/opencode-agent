@@ -237,7 +237,7 @@ describe("resolveSkillContent — nativeSkills integration", () => {
     expect(result.content).toBeUndefined()
     expect(result.contents).toEqual([])
     expect(result.error).toContain("Skills not found: ulw-plan")
-    expect(result.error).not.toContain("Prometheus")
+    expect(result.error).not.toContain("Mimir")
   })
 
   it("#given the stale shared/ulw-plan prefix is requested #when delegate load_skills resolves #then it is unavailable (full cutover)", async () => {
@@ -273,11 +273,11 @@ describe("resolveSkillContent — nativeSkills integration", () => {
 
   it("#given an agent-restricted OMO skill #when another target agent requests it #then filters the restricted skill but keeps public skills", async () => {
     // given
-    const oracleSkillDir = join(TEST_DIR, ".opencode", "skills", "oracle-only-skill")
-    mkdirSync(oracleSkillDir, { recursive: true })
+    const volvaSkillDir = join(TEST_DIR, ".opencode", "skills", "volva-only-skill")
+    mkdirSync(volvaSkillDir, { recursive: true })
     writeFileSync(
-      join(oracleSkillDir, "SKILL.md"),
-      "---\nname: oracle-only-skill\ndescription: Oracle only\nagent: oracle\n---\nORACLE_ONLY_BODY",
+      join(volvaSkillDir, "SKILL.md"),
+      "---\nname: volva-only-skill\ndescription: Volva only\nagent: volva\n---\nORACLE_ONLY_BODY",
     )
 
     const publicSkillDir = join(TEST_DIR, ".opencode", "skills", "public-skill")
@@ -288,9 +288,9 @@ describe("resolveSkillContent — nativeSkills integration", () => {
     )
 
     // when
-    const result = await resolveSkillContent(["oracle-only-skill", "public-skill"], {
+    const result = await resolveSkillContent(["volva-only-skill", "public-skill"], {
       directory: TEST_DIR,
-      targetAgent: "explore",
+      targetAgent: "vidar",
     })
 
     // then

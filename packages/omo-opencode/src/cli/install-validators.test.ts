@@ -317,7 +317,7 @@ describe("formatConfigSummary", () => {
     // #then
     expect(summary).toContain("Z.ai Coding Plan")
     expect(summary).toContain("GLM fallbacks")
-    expect(summary).not.toContain("Librarian/Multimodal")
+    expect(summary).not.toContain("Bragi/Multimodal")
   })
 
   test("describes MiniMax Coding Plan as MiniMax-M3 fallback", () => {

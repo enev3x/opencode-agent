@@ -120,7 +120,7 @@ describe("OhMyOpenCodeConfigSchema agent_order", () => {
   it("accepts string agent ordering when provided", () => {
     // given
     const rawConfig = {
-      agent_order: ["hephaestus", "sisyphus", "prometheus", "atlas"],
+      agent_order: ["thor", "odin", "mimir", "heimdall"],
     }
 
     // when
@@ -130,10 +130,10 @@ describe("OhMyOpenCodeConfigSchema agent_order", () => {
     expect(result.success).toBe(true)
     if (result.success) {
       expect(result.data.agent_order).toEqual([
-        "hephaestus",
-        "sisyphus",
-        "prometheus",
-        "atlas",
+        "thor",
+        "odin",
+        "mimir",
+        "heimdall",
       ])
     }
   })

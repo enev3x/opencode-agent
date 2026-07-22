@@ -24,7 +24,7 @@ function createToolContext(directory: string): ToolContext {
   return {
     sessionID: "ses_plugin_shared_skill_test",
     messageID: "msg_plugin_shared_skill_test",
-    agent: "sisyphus",
+    agent: "odin",
     directory,
     worktree: directory,
     abort: new AbortController().signal,

@@ -106,7 +106,7 @@ describe("runAggressiveTruncationStrategy - pins agent/model/variant on recovere
     // given
     const { client, calls } = createRecordingClient()
     const sessionID = "session-truncation-agent"
-    updateSessionAgent(sessionID, "sisyphus-junior")
+    updateSessionAgent(sessionID, "einherjar")
 
     // when
     await runAggressiveTruncationStrategy({
@@ -124,7 +124,7 @@ describe("runAggressiveTruncationStrategy - pins agent/model/variant on recovere
     // then
     expect(calls).toHaveLength(1)
     expect(calls[0].path.id).toBe(sessionID)
-    expect(calls[0].body.agent).toBe("sisyphus-junior")
+    expect(calls[0].body.agent).toBe("einherjar")
     expect(calls[0].body.auto).toBe(true)
   })
 
@@ -134,7 +134,7 @@ describe("runAggressiveTruncationStrategy - pins agent/model/variant on recovere
       messages: [{
         id: "msg_1",
         info: {
-          agent: "atlas",
+          agent: "heimdall",
           model: { providerID: "anthropic", modelID: "claude-opus-4-7", variant: "high" },
           time: { created: 1 },
         },
@@ -157,7 +157,7 @@ describe("runAggressiveTruncationStrategy - pins agent/model/variant on recovere
 
     // then
     expect(calls).toHaveLength(1)
-    expect(calls[0].body.agent).toBe("atlas")
+    expect(calls[0].body.agent).toBe("heimdall")
     expect(calls[0].body.model).toEqual({ providerID: "anthropic", modelID: "claude-opus-4-7" })
     expect(calls[0].body.variant).toBe("high")
     expect(calls[0].body.auto).toBe(true)

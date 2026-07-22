@@ -45,7 +45,7 @@ describe("codex cleanup safety", () => {
   test("#given traversal-shaped cleanup target #when managed removal runs #then canonical parent escapes are skipped", async () => {
     // given
     const codexHome = await mkdtemp(join(tmpdir(), "omo-codex-cleanup-safety-codex-"))
-    const managedCacheRoot = join(codexHome, "plugins", "cache", "sisyphuslabs")
+    const managedCacheRoot = join(codexHome, "plugins", "cache", "odinlabs")
     const traversalTarget = join(managedCacheRoot, "..", "..")
     await writeFixtureFile(join(managedCacheRoot, "omo", "0.1.0", "package.json"), "{}\n")
     const skipped: SkippedCleanupPath[] = []
@@ -70,7 +70,7 @@ describe("codex cleanup safety", () => {
   test("#given filesystem root as Codex home #when managed removal runs #then refuses even shaped managed paths", async () => {
     // given
     const codexHome = parse(tmpdir()).root
-    const shapedManagedTarget = join(codexHome, "plugins", "cache", "sisyphuslabs")
+    const shapedManagedTarget = join(codexHome, "plugins", "cache", "odinlabs")
     const skipped: SkippedCleanupPath[] = []
 
     // when

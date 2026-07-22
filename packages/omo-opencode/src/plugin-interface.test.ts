@@ -23,8 +23,8 @@ describe("createPluginInterface - command.execute.before", () => {
     mkdirSync(join(testDir, ".omo", "plans"), { recursive: true })
     writeFileSync(join(testDir, ".omo", "plans", "worker-plan.md"), "# Plan\n- [ ] Task 1")
     _resetForTesting()
-    registerAgentName("prometheus")
-    registerAgentName("sisyphus")
+    registerAgentName("mimir")
+    registerAgentName("odin")
   })
 
   afterEach(() => {
@@ -34,7 +34,7 @@ describe("createPluginInterface - command.execute.before", () => {
 
   test("executes start-work side effects for native command execution", async () => {
     // given
-    updateSessionAgent("ses-command-before", "prometheus")
+    updateSessionAgent("ses-command-before", "mimir")
     const pluginInterface = createPluginInterface({
       ctx: {
         directory: testDir,
@@ -75,13 +75,13 @@ describe("createPluginInterface - command.execute.before", () => {
     expect(pluginInterface["command.execute.before"]).toBeDefined()
     expect(output.parts[0]?.text).toContain("Auto-Selected Plan")
     expect(output.parts[0]?.text).toContain("boulder.json has been created")
-    expect(getSessionAgent("ses-command-before")).toBe("sisyphus")
-    expect(readBoulderState(testDir)?.agent).toBe("sisyphus")
+    expect(getSessionAgent("ses-command-before")).toBe("odin")
+    expect(readBoulderState(testDir)?.agent).toBe("odin")
   })
 
   test("does not run start-work side effects for other native commands with session context", async () => {
     // given
-    updateSessionAgent("ses-handoff", "prometheus")
+    updateSessionAgent("ses-handoff", "mimir")
     const pluginInterface = createPluginInterface({
       ctx: {
         directory: testDir,
@@ -121,13 +121,13 @@ describe("createPluginInterface - command.execute.before", () => {
     // then
     expect(output.parts[0]?.text).toContain("HANDOFF CONTEXT")
     expect(readBoulderState(testDir)).toBeNull()
-    expect(getSessionAgent("ses-handoff")).toBe("prometheus")
+    expect(getSessionAgent("ses-handoff")).toBe("mimir")
   })
 
-  test("switches native start-work to Atlas when Atlas is registered in config", async () => {
+  test("switches native start-work to Heimdall when Heimdall is registered in config", async () => {
     // given
-    registerAgentName("atlas")
-    updateSessionAgent("ses-command-atlas", "prometheus")
+    registerAgentName("heimdall")
+    updateSessionAgent("ses-command-heimdall", "mimir")
     const pluginInterface = createPluginInterface({
       ctx: {
         directory: testDir,
@@ -158,16 +158,16 @@ describe("createPluginInterface - command.execute.before", () => {
     // when
     await pluginInterface["chat.message"]?.(
       {
-        sessionID: "ses-command-atlas",
-        agent: "prometheus",
+        sessionID: "ses-command-heimdall",
+        agent: "mimir",
       } as never,
       output as never
     )
 
     // then
-    expect(output.message.agent).toBe("atlas")
-    expect(getSessionAgent("ses-command-atlas")).toBe("atlas")
-    expect(readBoulderState(testDir)?.agent).toBe("atlas")
+    expect(output.message.agent).toBe("heimdall")
+    expect(getSessionAgent("ses-command-heimdall")).toBe("heimdall")
+    expect(readBoulderState(testDir)?.agent).toBe("heimdall")
   })
 })
 
@@ -178,7 +178,7 @@ describe("createPluginInterface - goal native command smoke", () => {
     testDir = join(tmpdir(), `plugin-interface-goal-${randomUUID()}`)
     mkdirSync(testDir, { recursive: true })
     _resetForTesting()
-    registerAgentName("sisyphus")
+    registerAgentName("odin")
   })
 
   afterEach(() => {
@@ -236,7 +236,7 @@ describe("createPluginInterface - goal native command smoke", () => {
     await pluginInterface["chat.message"]?.(
       {
         sessionID: "ses-goal-native",
-        agent: "sisyphus",
+        agent: "odin",
       } as never,
       output as never,
     )
@@ -255,7 +255,7 @@ describe("createPluginInterface - goal native command smoke", () => {
 describe("createPluginInterface - backward compatibility", () => {
   beforeEach(() => {
     _resetForTesting()
-    registerAgentName("hephaestus")
+    registerAgentName("thor")
   })
 
   afterEach(() => {
@@ -289,13 +289,13 @@ describe("createPluginInterface - backward compatibility", () => {
     await pluginInterface["chat.message"]?.(
       {
         sessionID: "ses-legacy-zwsp",
-        agent: "\u200B\u200BHephaestus - Deep Agent",
+        agent: "\u200B\u200BThor - Deep Agent",
       } as never,
       output as never,
     )
 
     // then
-    expect(getSessionAgent("ses-legacy-zwsp")).toBe("Hephaestus - Deep Agent")
+    expect(getSessionAgent("ses-legacy-zwsp")).toBe("Thor - Deep Agent")
   })
 })
 
@@ -306,7 +306,7 @@ describe("createPluginInterface - chat.params variant injection", () => {
       ctx: { client: {} } as never,
       pluginConfig: {
         agents: {
-          sisyphus: { variant: "max" },
+          odin: { variant: "max" },
         },
       } as never,
       firstMessageVariantGate: {
@@ -321,7 +321,7 @@ describe("createPluginInterface - chat.params variant injection", () => {
     })
     const input = {
       sessionID: "ses-variant-inject",
-      agent: "sisyphus",
+      agent: "odin",
       model: { providerID: "anthropic", modelID: "claude-opus-4-6" },
       provider: { id: "anthropic" },
       message: {} as { variant?: string },
@@ -341,7 +341,7 @@ describe("createPluginInterface - chat.params variant injection", () => {
       ctx: { client: {} } as never,
       pluginConfig: {
         agents: {
-          sisyphus: { variant: "max" },
+          odin: { variant: "max" },
         },
       } as never,
       firstMessageVariantGate: {
@@ -356,7 +356,7 @@ describe("createPluginInterface - chat.params variant injection", () => {
     })
     const input = {
       sessionID: "ses-variant-keep",
-      agent: "sisyphus",
+      agent: "odin",
       model: { providerID: "anthropic", modelID: "claude-opus-4-6" },
       provider: { id: "anthropic" },
       message: { variant: "high" } as { variant?: string },

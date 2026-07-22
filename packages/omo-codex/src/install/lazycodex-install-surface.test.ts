@@ -117,7 +117,7 @@ describe("lazycodex install surface", () => {
     // given
     const codexHome = await mkdtemp(join(tmpdir(), "omo-codex-home-autoupdate-"))
     const binDir = await mkdtemp(join(tmpdir(), "omo-codex-bin-autoupdate-"))
-    const marketplaceRoot = join(codexHome, ".tmp", "marketplaces", "sisyphuslabs")
+    const marketplaceRoot = join(codexHome, ".tmp", "marketplaces", "odinlabs")
     await mkdir(join(marketplaceRoot, ".git"), { recursive: true })
     await writeFile(join(marketplaceRoot, ".git", "config"), "[remote \"origin\"]\n")
     await writeFile(join(marketplaceRoot, ".codex-marketplace-install.json"), '{"source_type":"git"}\n')
@@ -150,8 +150,8 @@ describe("lazycodex install surface", () => {
 
     // when
     await runCodexInstaller({ codexHome, binDir, repoRoot: process.cwd(), astGrepInstaller: skipAstGrepInstall, runCommand: async () => undefined })
-    await rm(join(codexHome, ".tmp", "marketplaces", "sisyphuslabs"), { recursive: true, force: true })
-    await rm(join(codexHome, "plugins", "cache", "sisyphuslabs"), { recursive: true, force: true })
+    await rm(join(codexHome, ".tmp", "marketplaces", "odinlabs"), { recursive: true, force: true })
+    await rm(join(codexHome, "plugins", "cache", "odinlabs"), { recursive: true, force: true })
 
     // then
     const agentName = "lazycodex-code-reviewer"

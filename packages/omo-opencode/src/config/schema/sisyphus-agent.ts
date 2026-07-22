@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const SisyphusAgentConfigSchema = z.object({
+export const OdinAgentConfigSchema = z.object({
   disabled: z.boolean().optional(),
   default_builder_enabled: z.boolean().optional(),
   planner_enabled: z.boolean().optional(),
@@ -8,4 +8,4 @@ export const SisyphusAgentConfigSchema = z.object({
   tdd: z.boolean().default(true).optional(),
 })
 
-export type SisyphusAgentConfig = z.infer<typeof SisyphusAgentConfigSchema>
+export type OdinAgentConfig = z.infer<typeof OdinAgentConfigSchema>

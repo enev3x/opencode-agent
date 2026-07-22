@@ -23,7 +23,7 @@ async function scaffoldPlugin(repoRoot, rootVersion) {
 	await writeJson(join(repoRoot, "package.json"), { name: "oh-my-opencode", version: rootVersion });
 	const pluginRoot = join(repoRoot, "packages", "omo-codex", "plugin");
 	await writeJson(join(repoRoot, "packages", "omo-codex", "package.json"), { name: "@oh-my-opencode/omo-codex", version: "0.1.0" });
-	await writeJson(join(pluginRoot, "package.json"), { name: "@sisyphuslabs/omo-codex-plugin", version: "0.1.0" });
+	await writeJson(join(pluginRoot, "package.json"), { name: "@odinlabs/omo-codex-plugin", version: "0.1.0" });
 	await writeJson(join(pluginRoot, ".codex-plugin", "plugin.json"), { name: "omo", version: "0.1.0" });
 	await writeJson(join(pluginRoot, "components", "rules", "package.json"), { name: "@code-yeongyu/codex-rules", version: "0.1.0" });
 	await writeJson(join(pluginRoot, "components", "rules", ".codex-plugin", "plugin.json"), { hooks: "./hooks/hooks.json" });

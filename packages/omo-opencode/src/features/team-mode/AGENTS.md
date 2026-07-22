@@ -55,9 +55,9 @@ Registered via [`src/plugin/tool-registry.ts`](../../plugin/tool-registry.ts) `t
 
 | Verdict | Agents | Notes |
 |---------|--------|-------|
-| `eligible` | sisyphus, atlas, sisyphus-junior | Three only |
-| `conditional` | hephaestus | Lacks `teammate: "allow"` permission by default. Either apply D-36 patch (add `teammate: "allow"` in `tool-config-handler.ts`) or use `subagent_type: "sisyphus"` instead |
-| `hard-reject` | oracle, librarian, explore, multimodal-looker, metis, momus, prometheus | Read-only or plan-mode-only — cannot write to mailbox; use `task` (delegate-task) instead |
+| `eligible` | odin, heimdall, einherjar | Three only |
+| `conditional` | thor | Lacks `teammate: "allow"` permission by default. Either apply D-36 patch (add `teammate: "allow"` in `tool-config-handler.ts`) or use `subagent_type: "odin"` instead |
+| `hard-reject` | volva, bragi, explore, huginn, urd, forseti, mimir | Read-only or plan-mode-only — cannot write to mailbox; use `task` (delegate-task) instead |
 
 Hard-reject agents throw at TeamSpec parse with a specific message ("Agent 'X' is read-only…"). The error message points members at delegate-task as the right escape hatch.
 
@@ -66,14 +66,14 @@ Hard-reject agents throw at TeamSpec parse with a specific message ("Agent 'X' i
 ```jsonc
 {
   "members": [
-    { "kind": "subagent_type", "name": "scout", "subagent_type": "sisyphus" },
+    { "kind": "subagent_type", "name": "scout", "subagent_type": "odin" },
     { "kind": "category", "name": "writer", "category": "writing", "prompt": "Write release notes" }
   ]
 }
 ```
 
 - `kind: "subagent_type"` — direct agent. `prompt` optional.
-- `kind: "category"` — routed through `sisyphus-junior` with the chosen category model. `prompt` REQUIRED.
+- `kind: "category"` — routed through `einherjar` with the chosen category model. `prompt` REQUIRED.
 
 ## MODULE LAYOUT
 

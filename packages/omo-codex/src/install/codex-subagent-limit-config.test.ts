@@ -46,7 +46,7 @@ describe("codex subagent limit config", () => {
         "max_threads = 6",
         "max_depth = 4",
         "",
-        "[agents.explorer]",
+        "[agents.vidarr]",
         'config_file = "./agents/explorer.toml"',
         "",
       ].join("\n"),
@@ -66,7 +66,7 @@ describe("codex subagent limit config", () => {
     const content = await readFile(configPath, "utf8")
     expect(content).toMatch(/\[agents\][\s\S]*?max_threads = 1000/)
     expect(content).toContain("max_depth = 4")
-    expect(content).toContain("[agents.explorer]")
+    expect(content).toContain("[agents.vidarr]")
     expect(content).toContain('config_file = "./agents/explorer.toml"')
     expect(content).not.toMatch(/^max_threads\s*=\s*6$/m)
   })

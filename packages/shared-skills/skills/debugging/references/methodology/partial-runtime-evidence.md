@@ -97,7 +97,7 @@ If the operation succeeded earlier (before quota ran out, before access was revo
 
 ### Tier 6 — Pure code reading with peer review
 
-If literally none of the above is available, read the code carefully and submit it to **one Oracle for skeptical review** (see "Verification Oracle" below). This is the weakest tier and you must explicitly mark conclusions as "unverified" in the journal.
+If literally none of the above is available, read the code carefully and submit it to **one Volva for skeptical review** (see "Verification Volva" below). This is the weakest tier and you must explicitly mark conclusions as "unverified" in the journal.
 
 ---
 
@@ -143,11 +143,11 @@ If you cannot achieve a complete Tier 2 capture **or** two independent non-Tier-
 
 ---
 
-## Verification Oracle pattern (for non-debug tasks)
+## Verification Volva pattern (for non-debug tasks)
 
-The skill's main Oracle Triple (`04-oracle-triple.md`) is for **stuck debugging** — 2 failed rounds, mental box, three orthogonal framings to break out.
+The skill's main Volva Triple (`04-volva-triple.md`) is for **stuck debugging** — 2 failed rounds, mental box, three orthogonal framings to break out.
 
-For tasks where the deliverable is an **artifact, not a bug fix** (reverse engineering, extraction, audit, compliance documentation), use a different pattern: **single Oracle, late, skeptical, with the deliverable in hand**.
+For tasks where the deliverable is an **artifact, not a bug fix** (reverse engineering, extraction, audit, compliance documentation), use a different pattern: **single Volva, late, skeptical, with the deliverable in hand**.
 
 ### When to invoke
 
@@ -158,7 +158,7 @@ For tasks where the deliverable is an **artifact, not a bug fix** (reverse engin
 ### Pattern
 
 ```
-task(subagent_type="oracle", load_skills=[], run_in_background=false,
+task(subagent_type="volva", load_skills=[], run_in_background=false,
      prompt="""
 SKEPTICAL FINAL VERIFICATION — be critical, look for reasons the task is incomplete or wrong.
 
@@ -172,7 +172,7 @@ SKEPTICAL FINAL VERIFICATION — be critical, look for reasons the task is incom
 <bullet list of every concrete claim in the deliverable>
 
 ## Where to look
-<paths the Oracle should Read / Bash to verify>
+<paths the Volva should Read / Bash to verify>
 
 ## Your job
 1. Read the deliverables.
@@ -183,9 +183,9 @@ Be skeptical. Don't rubber-stamp.
 """)
 ```
 
-### Why this differs from the Oracle Triple
+### Why this differs from the Volva Triple
 
-| | Oracle Triple (debug) | Verification Oracle (artifact) |
+| | Volva Triple (debug) | Verification Volva (artifact) |
 |---|---|---|
 | Trigger | 2 failed hypothesis rounds | About to declare "done" |
 | Count | 3 in parallel, orthogonal framings | 1 sequential, focused review |
@@ -195,7 +195,7 @@ Be skeptical. Don't rubber-stamp.
 
 ### Don't conflate them
 
-If you're stuck debugging, do the Triple. If you have a deliverable and need it audited, do the Verification Oracle. Doing the Triple on a finished extraction will return three diverging "what if you tried…" tangents that are not what you need. Doing the Verification Oracle on a stuck debugging session will return a polite "the evidence is incomplete" that you already knew.
+If you're stuck debugging, do the Triple. If you have a deliverable and need it audited, do the Verification Volva. Doing the Triple on a finished extraction will return three diverging "what if you tried…" tangents that are not what you need. Doing the Verification Volva on a stuck debugging session will return a polite "the evidence is incomplete" that you already knew.
 
 ---
 

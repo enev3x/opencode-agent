@@ -129,9 +129,9 @@ describe("BackgroundManager subagent failure parent isolation", () => {
       status: "running",
     })
     const nestedFailure = createTask({
-      id: "bg-momus",
+      id: "bg-forseti",
       parentSessionId: "subagent-session",
-      description: "Momus re-review v2 (bg)",
+      description: "Forseti re-review v2 (bg)",
       status: "error",
       error: "UnknownError: UnknownError",
       completedAt: new Date("2026-05-26T00:00:01.000Z"),

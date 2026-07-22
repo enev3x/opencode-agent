@@ -1,9 +1,9 @@
 import { describe, expect, test } from "bun:test"
 
-import { createSisyphusAgent } from "./sisyphus"
-import { createHephaestusAgent, UnsupportedHephaestusModelError } from "./hephaestus"
-import { maybeCreateHephaestusConfig } from "./builtin-agents/hephaestus-agent"
-import { buildSisyphusJuniorPrompt } from "./sisyphus-junior"
+import { createOdinAgent } from "./odin"
+import { createThorAgent, UnsupportedThorModelError } from "./thor"
+import { maybeCreateThorConfig } from "./builtin-agents/thor-agent"
+import { buildOdinJuniorPrompt } from "./einherjar"
 import type { AgentOverrides } from "./types"
 import type { CategoryConfig } from "../config/schema"
 
@@ -15,43 +15,43 @@ function countOccurrences(text: string, needle: string): number {
 }
 
 describe("GPT apply_patch prompt guidance", () => {
-  test("#given GPT-5.5 Sisyphus #when rendering the prompt #then apply_patch guidance appears once", () => {
+  test("#given GPT-5.5 Odin #when rendering the prompt #then apply_patch guidance appears once", () => {
     // given
     const model = "openai/gpt-5.5"
 
     // when
-    const agent = createSisyphusAgent(model)
+    const agent = createOdinAgent(model)
 
     // then
     expect(countOccurrences(agent.prompt ?? "", GPT_APPLY_PATCH_PHRASE)).toBe(1)
     expect(agent.prompt).not.toContain(GPT_ONLY_FILE_TOOL_PHRASE)
   })
 
-  test("#given GPT-5.5 Sisyphus-Junior #when rendering the prompt #then apply_patch guidance appears once", () => {
+  test("#given GPT-5.5 Einherjar #when rendering the prompt #then apply_patch guidance appears once", () => {
     // given
     const model = "openai/gpt-5.5"
 
     // when
-    const prompt = buildSisyphusJuniorPrompt(model, false)
+    const prompt = buildOdinJuniorPrompt(model, false)
 
     // then
     expect(countOccurrences(prompt, GPT_APPLY_PATCH_PHRASE)).toBe(1)
     expect(prompt).not.toContain(GPT_ONLY_FILE_TOOL_PHRASE)
   })
 
-  test("#given GPT-5.5 Hephaestus #when rendering the prompt #then apply_patch guidance appears once", () => {
+  test("#given GPT-5.5 Thor #when rendering the prompt #then apply_patch guidance appears once", () => {
     // given
     const model = "openai/gpt-5.5"
 
     // when
-    const agent = createHephaestusAgent(model)
+    const agent = createThorAgent(model)
 
     // then
     expect(countOccurrences(agent.prompt ?? "", GPT_APPLY_PATCH_PHRASE)).toBe(1)
     expect(agent.prompt).not.toContain(GPT_ONLY_FILE_TOOL_PHRASE)
   })
 
-  test("#given non-GPT Sisyphus variants #when rendering prompts #then GPT-only apply_patch guidance is absent", () => {
+  test("#given non-GPT Odin variants #when rendering prompts #then GPT-only apply_patch guidance is absent", () => {
     // given
     const models = [
       "opencode-go/kimi-k2.7",
@@ -61,7 +61,7 @@ describe("GPT apply_patch prompt guidance", () => {
 
     for (const model of models) {
       // when
-      const agent = createSisyphusAgent(model)
+      const agent = createOdinAgent(model)
 
       // then
       expect(agent.prompt).not.toContain(GPT_APPLY_PATCH_PHRASE)
@@ -69,7 +69,7 @@ describe("GPT apply_patch prompt guidance", () => {
     }
   })
 
-  test("#given non-GPT Hephaestus variants #when rendering prompts #then Hephaestus is rejected", () => {
+  test("#given non-GPT Thor variants #when rendering prompts #then Thor is rejected", () => {
     // given
     const models = [
       "opencode-go/qwen3.7-plus",
@@ -82,24 +82,24 @@ describe("GPT apply_patch prompt guidance", () => {
 
     for (const model of models) {
       // when
-      const createAgent = () => createHephaestusAgent(model)
+      const createAgent = () => createThorAgent(model)
 
       // then
-      expect(createAgent).toThrow(UnsupportedHephaestusModelError)
+      expect(createAgent).toThrow(UnsupportedThorModelError)
     }
   })
 
-  test("#given non-GPT Hephaestus override #when plugin config creates the agent #then Hephaestus is not registered", () => {
+  test("#given non-GPT Thor override #when plugin config creates the agent #then Thor is not registered", () => {
     // given
     const agentOverrides: AgentOverrides = {
-      hephaestus: {
+      thor: {
         model: "opencode-go/qwen3.7PLUS",
       },
     }
     const mergedCategories: Record<string, CategoryConfig> = {}
 
     // when
-    const config = maybeCreateHephaestusConfig({
+    const config = maybeCreateThorConfig({
       disabledAgents: [],
       agentOverrides,
       availableModels: new Set(["opencode-go/qwen3.7PLUS"]),

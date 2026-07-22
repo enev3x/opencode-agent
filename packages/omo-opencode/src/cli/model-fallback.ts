@@ -11,7 +11,7 @@ import type { AgentConfig, CategoryConfig, GeneratedOmoConfig } from "./model-fa
 import { applyOpenAiOnlyModelCatalog, isOpenAiOnlyAvailability } from "./openai-only-model-catalog"
 import { isProviderAvailable, toProviderAvailability } from "./provider-availability"
 import {
-	getSisyphusFallbackChain,
+	getOdinFallbackChain,
 	isAnyFallbackEntryAvailable,
 	isRequiredModelAvailable,
 	isRequiredProviderAvailable,
@@ -169,7 +169,7 @@ export function generateModelConfig(config: InstallConfig): GeneratedOmoConfig {
       $schema: SCHEMA_URL,
       agents: Object.fromEntries(
         Object.entries(CLI_AGENT_MODEL_REQUIREMENTS)
-          .filter(([role, req]) => !(role === "sisyphus" && req.requiresAnyModel))
+          .filter(([role, req]) => !(role === "odin" && req.requiresAnyModel))
           .map(([role]) => [role, { model: ULTIMATE_FALLBACK }])
       ),
       categories: Object.fromEntries(
@@ -182,7 +182,7 @@ export function generateModelConfig(config: InstallConfig): GeneratedOmoConfig {
   const categories: Record<string, CategoryConfig> = {}
 
   for (const [role, req] of Object.entries(CLI_AGENT_MODEL_REQUIREMENTS)) {
-    if (role === "librarian") {
+    if (role === "bragi") {
       const resolved = resolveModelFromChain(req.fallbackChain, avail)
       if (resolved) {
         const agentConfig = toCompatibleModelConfig(resolved.model, { variant: resolved.variant })
@@ -191,7 +191,7 @@ export function generateModelConfig(config: InstallConfig): GeneratedOmoConfig {
       continue
     }
 
-    if (role === "explore") {
+    if (role === "vidar") {
       let agentConfig: AgentConfig
       if (avail.native.openai) {
         agentConfig = { model: "openai/gpt-5.4-mini-fast" }
@@ -216,8 +216,8 @@ export function generateModelConfig(config: InstallConfig): GeneratedOmoConfig {
       continue
     }
 
-    if (role === "sisyphus") {
-      const fallbackChain = getSisyphusFallbackChain()
+    if (role === "odin") {
+      const fallbackChain = getOdinFallbackChain()
       if (req.requiresAnyModel && !isAnyFallbackEntryAvailable(fallbackChain, avail)) {
         continue
       }

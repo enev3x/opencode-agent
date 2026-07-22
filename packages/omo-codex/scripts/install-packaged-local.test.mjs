@@ -20,7 +20,7 @@ test("#given packaged lazycodex adapter #when installing locally #then uses bund
 		version: "0.1.2",
 	});
 	await writeJson(join(codexPackageRoot, "marketplace.json"), {
-		name: "sisyphuslabs",
+		name: "odinlabs",
 		plugins: [{ name: "omo", source: "./plugins/omo" }],
 	});
 	await writePluginAt(pluginRoot, "omo", "0.1.0");
@@ -57,14 +57,14 @@ test("#given packaged lazycodex adapter #when installing locally #then uses bund
 	const cachedLspCli = join(lspRuntimeRoot, "dist", "cli.js");
 
 	assert.deepEqual(result.installed.map((plugin) => `${plugin.name}@${plugin.version}`), ["omo@0.1.2"]);
-	assert.equal(pluginCacheRoot, join(codexHome, "plugins", "cache", "sisyphuslabs", "omo", "0.1.2"));
+	assert.equal(pluginCacheRoot, join(codexHome, "plugins", "cache", "odinlabs", "omo", "0.1.2"));
 	assert.equal(commands.length, 2);
 	const installCommand = commands.find((entry) => entry[0] === "npm");
 	assert.notEqual(installCommand, undefined);
 	const [command, args, cwd] = installCommand;
 	assert.equal(command, "npm");
 	assert.equal(args, "ci --omit=dev");
-	assert.equal(cwd.startsWith(join(codexHome, "plugins", "cache", "sisyphuslabs", "omo", ".tmp-0.1.2-")), true);
+	assert.equal(cwd.startsWith(join(codexHome, "plugins", "cache", "odinlabs", "omo", ".tmp-0.1.2-")), true);
 	const sotCommand = commands.find((entry) => entry[1].includes("migrate-omo-sot.mjs"));
 	assert.notEqual(sotCommand, undefined);
 	assert.equal(sotCommand[0], process.execPath);

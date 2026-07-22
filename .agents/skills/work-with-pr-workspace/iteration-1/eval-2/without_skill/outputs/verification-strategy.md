@@ -15,9 +15,9 @@ Verify:
 - `getPlanProgress(undefined)` returns safe default without crashing
 - Existing tests still pass (session_ids defaults, empty object, etc.)
 
-### atlas hook tests
+### heimdall hook tests
 ```bash
-bun test src/hooks/atlas/index.test.ts
+bun test src/hooks/heimdall/index.test.ts
 ```
 
 Verify:
@@ -25,9 +25,9 @@ Verify:
 - session.idle handler includes `[Worktree: ...]` context when `worktree_path` IS present
 - All 30+ existing tests still pass
 
-### atlas idle-event lineage tests
+### heimdall idle-event lineage tests
 ```bash
-bun test src/hooks/atlas/idle-event-lineage.test.ts
+bun test src/hooks/heimdall/idle-event-lineage.test.ts
 ```
 
 Verify existing lineage tests unaffected.
@@ -52,7 +52,7 @@ Verify zero new TypeScript errors. The changes are purely additive runtime guard
 ```
 lsp_diagnostics on:
   - src/features/boulder-state/storage.ts
-  - src/hooks/atlas/idle-event.ts
+  - src/hooks/heimdall/idle-event.ts
 ```
 
 Verify zero errors/warnings.
@@ -79,23 +79,23 @@ To manually verify the fix:
 
 ```bash
 # Create a malformed boulder.json (missing worktree_path)
-mkdir -p .sisyphus
-echo '{"active_plan": ".sisyphus/plans/test.md", "plan_name": "test", "session_ids": ["ses-1"]}' > .sisyphus/boulder.json
+mkdir -p .odin
+echo '{"active_plan": ".odin/plans/test.md", "plan_name": "test", "session_ids": ["ses-1"]}' > .odin/boulder.json
 
 # Create a plan file
-mkdir -p .sisyphus/plans
-echo '# Plan\n- [ ] Task 1' > .sisyphus/plans/test.md
+mkdir -p .odin/plans
+echo '# Plan\n- [ ] Task 1' > .odin/plans/test.md
 
-# Start opencode - atlas hook should NOT crash when session.idle fires
+# Start opencode - heimdall hook should NOT crash when session.idle fires
 # Verify /tmp/oh-my-opencode.log shows normal continuation behavior
 ```
 
 Also test the extreme case:
 ```bash
 # boulder.json with no required fields
-echo '{}' > .sisyphus/boulder.json
+echo '{}' > .odin/boulder.json
 
-# After fix: readBoulderState returns null, atlas hook gracefully skips
+# After fix: readBoulderState returns null, heimdall hook gracefully skips
 ```
 
 ## 7. CI Pipeline

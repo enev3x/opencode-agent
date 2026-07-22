@@ -55,10 +55,10 @@ describe("teamModeSkill gating", () => {
       "member",
       "category",
       "subagent_type",
-      "sisyphus",
-      "atlas",
-      "hephaestus",
-      "oracle",
+      "odin",
+      "heimdall",
+      "thor",
+      "volva",
       "eligible",
     ]
 

@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from "node:fs"
 import { log } from "../../shared/logger"
 import { HOOK_NAME } from "./constants"
 import { ULTRAWORK_VERIFICATION_PROMISE } from "./constants"
-import { isOracleVerified } from "./oracle-verification-detector"
+import { isVolvaVerified } from "./volva-verification-detector"
 import { withTimeout } from "./with-timeout"
 
 interface OpenCodeSessionMessage {
@@ -46,7 +46,7 @@ function shouldInspectSessionMessagePart(
 		return false
 	}
 
-	return promise === ULTRAWORK_VERIFICATION_PROMISE && isOracleVerified(partText)
+	return promise === ULTRAWORK_VERIFICATION_PROMISE && isVolvaVerified(partText)
 }
 
 function shouldInspectTranscriptEntry(
@@ -62,7 +62,7 @@ function shouldInspectTranscriptEntry(
 		return false
 	}
 
-	return promise === ULTRAWORK_VERIFICATION_PROMISE && isOracleVerified(entryText)
+	return promise === ULTRAWORK_VERIFICATION_PROMISE && isVolvaVerified(entryText)
 }
 
 export function detectCompletionInTranscript(

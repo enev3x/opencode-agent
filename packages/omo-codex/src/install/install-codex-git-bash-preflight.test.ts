@@ -150,7 +150,7 @@ describe("install-codex Git Bash preflight", () => {
 
     // then
     expect(result.gitBashPath).toBe(WINDOWS_GIT_BASH_PATH)
-    expect(await readFile(join(codexHome, "config.toml"), "utf8")).toContain("[marketplaces.sisyphuslabs]")
+    expect(await readFile(join(codexHome, "config.toml"), "utf8")).toContain("[marketplaces.odinlabs]")
   }, { timeout: INSTALL_CODEX_INTEGRATION_TEST_TIMEOUT_MS })
 
   test("#given Windows env override in installer options #when no custom resolver is provided #then default resolver uses it", async () => {
@@ -197,6 +197,6 @@ describe("install-codex Git Bash preflight", () => {
 
     // then
     expect(result.gitBashPath).toBeNull()
-    expect(await readFile(join(codexHome, "config.toml"), "utf8")).toContain("[marketplaces.sisyphuslabs]")
+    expect(await readFile(join(codexHome, "config.toml"), "utf8")).toContain("[marketplaces.odinlabs]")
   }, { timeout: INSTALL_CODEX_INTEGRATION_TEST_TIMEOUT_MS })
 })

@@ -11,7 +11,7 @@
 ```
 config/schema/
 ├── oh-my-opencode-config.ts    # ROOT: composes all sub-schemas
-├── agent-names.ts              # BuiltinAgentNameSchema enum (11 names: sisyphus, hephaestus, prometheus, oracle, librarian, explore, multimodal-looker, metis, momus, atlas, sisyphus-junior)
+├── agent-names.ts              # BuiltinAgentNameSchema enum (11 names: odin, thor, mimir, volva, bragi, explore, huginn, urd, forseti, heimdall, einherjar)
 ├── agent-overrides.ts          # AgentOverrideConfigSchema (21 fields per agent)
 ├── agent-definitions.ts        # custom agent definition schema
 ├── categories.ts               # 8 built-in + custom categories
@@ -19,8 +19,8 @@ config/schema/
 ├── skills.ts                   # SkillsConfigSchema (sources, paths, recursive)
 ├── commands.ts                 # BuiltinCommandNameSchema (goal, refactor, start-work, stop-continuation, remove-ai-slops, hyperplan)
 ├── experimental.ts             # Feature flags incl plugin_load_timeout_ms (min 1000), task_system, max_tools
-├── sisyphus.ts                 # SisyphusConfigSchema (task system)
-├── sisyphus-agent.ts           # SisyphusAgentConfigSchema
+├── odin.ts                 # OdinConfigSchema (task system)
+├── odin-agent.ts           # OdinAgentConfigSchema
 ├── goal.ts                     # GoalConfigSchema (enabled, auto_start, default_max_iterations) - replaces ralph_loop
 ├── ralph-loop.ts               # RalphLoopConfigSchema (DEPRECATED: parsed loose at root, migrated to goal in validate.ts)
 ├── tmux.ts                     # TmuxConfigSchema + TmuxLayoutSchema
@@ -50,7 +50,7 @@ config/schema/
 
 ## ROOT SCHEMA FIELDS
 
-`$schema`, `new_task_system_enabled`, `default_run_agent`, `agent_order`, `agent_definitions`, `disabled_mcps`, `disabled_agents`, `disabled_skills`, `disabled_hooks`, `disabled_commands`, `disabled_tools`, `disabled_providers`, `mcp_env_allowlist`, `hashline_edit`, `telemetry`, `model_fallback`, `agents`, `categories`, `claude_code`, `sisyphus_agent`, `comment_checker`, `experimental`, `auto_update`, `skills`, **`goal`** (new; replaces `ralph_loop`), `ralph_loop` (deprecated; migrated to `goal` in `validate.ts`), `runtime_fallback`, `background_task`, `notification`, `model_capabilities`, `openclaw`, `i18n`, `monitor`, `codegraph`, **`team_mode`**, `keyword_detector`, `babysitting`, `git_master`, `browser_automation_engine`, `websearch`, `tmux`, `tui`, `sisyphus`, `start_work`, `default_mode`, `_migrations`.
+`$schema`, `new_task_system_enabled`, `default_run_agent`, `agent_order`, `agent_definitions`, `disabled_mcps`, `disabled_agents`, `disabled_skills`, `disabled_hooks`, `disabled_commands`, `disabled_tools`, `disabled_providers`, `mcp_env_allowlist`, `hashline_edit`, `telemetry`, `model_fallback`, `agents`, `categories`, `claude_code`, `odin_agent`, `comment_checker`, `experimental`, `auto_update`, `skills`, **`goal`** (new; replaces `ralph_loop`), `ralph_loop` (deprecated; migrated to `goal` in `validate.ts`), `runtime_fallback`, `background_task`, `notification`, `model_capabilities`, `openclaw`, `i18n`, `monitor`, `codegraph`, **`team_mode`**, `keyword_detector`, `babysitting`, `git_master`, `browser_automation_engine`, `websearch`, `tmux`, `tui`, `odin`, `start_work`, `default_mode`, `_migrations`.
 
 ## RALPH_LOOP -> GOAL MIGRATION
 

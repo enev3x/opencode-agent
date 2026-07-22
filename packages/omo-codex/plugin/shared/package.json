@@ -1,5 +1,5 @@
 {
-	"name": "@sisyphuslabs/omo-codex-shared",
+	"name": "@odinlabs/omo-codex-shared",
 	"version": "4.10.0",
 	"description": "Shared source modules for OMO Codex plugin components.",
 	"type": "module",

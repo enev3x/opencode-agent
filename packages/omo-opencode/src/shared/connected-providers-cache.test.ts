@@ -98,7 +98,7 @@ describe("updateConnectedProvidersCache", () => {
 		const { testCacheStore, fakeUserCacheRoot } = createTestCacheContext(createConnectedProvidersCacheStore)
 
 		try {
-			//#given - a previous complete provider snapshot includes the Sisyphus fallback provider
+			//#given - a previous complete provider snapshot includes the Odin fallback provider
 			await testCacheStore.updateConnectedProvidersCache({
 				provider: {
 					list: async () => ({

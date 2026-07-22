@@ -5,10 +5,10 @@ import { PROMETHEUS_PLANS_DIR } from "../constants"
 import { parsePlanChecklist } from "../plan-checklist"
 import type { PlanProgress } from "../types"
 
-const LEGACY_PROMETHEUS_PLANS_DIR = ".sisyphus/plans"
+const LEGACY_PROMETHEUS_PLANS_DIR = ".odin/plans"
 const PROMETHEUS_PLAN_DIRS = [PROMETHEUS_PLANS_DIR, LEGACY_PROMETHEUS_PLANS_DIR] as const
 
-export function findPrometheusPlans(directory: string): string[] {
+export function findMimirPlans(directory: string): string[] {
   try {
     return PROMETHEUS_PLAN_DIRS.flatMap((planDir) => {
       const plansDir = join(directory, planDir)

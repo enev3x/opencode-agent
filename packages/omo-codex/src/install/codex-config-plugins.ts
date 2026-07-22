@@ -16,13 +16,13 @@ export function ensureOmoBuiltinMcpPolicies(config: string, input: {
   readonly codegraphMcpEnabled?: boolean
   readonly gitBashEnabled?: boolean
 }): string {
-  if (input.marketplaceName !== "sisyphuslabs" || !input.pluginNames.includes("omo")) return config
+  if (input.marketplaceName !== "odinlabs" || !input.pluginNames.includes("omo")) return config
   const codegraphEnabled = input.codegraphMcpEnabled ?? true
   const gitBashEnabled = (input.platform ?? process.platform) === "win32" && input.gitBashEnabled === true
   let nextConfig = removeStaleContext7PlaceholderMcp(config)
-  nextConfig = ensurePluginMcpEnabled(nextConfig, "omo@sisyphuslabs", "context7", true)
-  nextConfig = ensurePluginMcpEnabled(nextConfig, "omo@sisyphuslabs", "codegraph", codegraphEnabled)
-  nextConfig = ensurePluginMcpEnabled(nextConfig, "omo@sisyphuslabs", "git_bash", gitBashEnabled)
+  nextConfig = ensurePluginMcpEnabled(nextConfig, "omo@odinlabs", "context7", true)
+  nextConfig = ensurePluginMcpEnabled(nextConfig, "omo@odinlabs", "codegraph", codegraphEnabled)
+  nextConfig = ensurePluginMcpEnabled(nextConfig, "omo@odinlabs", "git_bash", gitBashEnabled)
   return nextConfig
 }
 

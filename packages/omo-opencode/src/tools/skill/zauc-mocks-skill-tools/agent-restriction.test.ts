@@ -40,9 +40,9 @@ describe("skill tool - agent restriction", () => {
   })
 
   it("allows skill when agent matches restriction", async () => {
-    const loadedSkills = [createMockSkill("restricted-skill", { agent: "sisyphus" })]
+    const loadedSkills = [createMockSkill("restricted-skill", { agent: "odin" })]
     const tool = createSkillTool({ skills: loadedSkills })
-    const context = { ...mockContext, agent: "sisyphus" }
+    const context = { ...mockContext, agent: "odin" }
 
     const result = await tool.execute({ name: "restricted-skill" }, context)
 
@@ -50,22 +50,22 @@ describe("skill tool - agent restriction", () => {
   })
 
   it("throws error when agent does not match restriction", async () => {
-    const loadedSkills = [createMockSkill("sisyphus-only-skill", { agent: "sisyphus" })]
+    const loadedSkills = [createMockSkill("odin-only-skill", { agent: "odin" })]
     const tool = createSkillTool({ skills: loadedSkills })
-    const context = { ...mockContext, agent: "oracle" }
+    const context = { ...mockContext, agent: "volva" }
 
-    return expect(tool.execute({ name: "sisyphus-only-skill" }, context)).rejects.toThrow(
-      'Skill "sisyphus-only-skill" is restricted to agent "sisyphus"'
+    return expect(tool.execute({ name: "odin-only-skill" }, context)).rejects.toThrow(
+      'Skill "odin-only-skill" is restricted to agent "odin"'
     )
   })
 
   it("throws error when context agent is undefined for restricted skill", async () => {
-    const loadedSkills = [createMockSkill("sisyphus-only-skill", { agent: "sisyphus" })]
+    const loadedSkills = [createMockSkill("odin-only-skill", { agent: "odin" })]
     const tool = createSkillTool({ skills: loadedSkills })
     const contextWithoutAgent = { ...mockContext, agent: unsafeTestValue<string>(undefined) }
 
-    return expect(tool.execute({ name: "sisyphus-only-skill" }, contextWithoutAgent)).rejects.toThrow(
-      'Skill "sisyphus-only-skill" is restricted to agent "sisyphus"'
+    return expect(tool.execute({ name: "odin-only-skill" }, contextWithoutAgent)).rejects.toThrow(
+      'Skill "odin-only-skill" is restricted to agent "odin"'
     )
   })
 })

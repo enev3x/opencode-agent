@@ -339,14 +339,14 @@ function marketplaceCheckEnv(root, pluginRoot, spawnLogPath, extra = {}) {
 test("#given marketplace plugin root without install snapshot #when running check #then skips npx update with marketplace-flow log and upgrade notice", async () => {
 	const root = await mkdtemp(join(tmpdir(), "lazycodex-auto-update-marketplace-"));
 	const codexHome = join(root, "codex-home");
-	const pluginRoot = join(codexHome, "plugins", "cache", "sisyphuslabs", "omo", "1.0.0");
+	const pluginRoot = join(codexHome, "plugins", "cache", "odinlabs", "omo", "1.0.0");
 	const spawnLogPath = join(root, "spawn.log");
-	await mkdir(join(codexHome, "plugins", "cache", "sisyphuslabs", ".agents", "plugins"), { recursive: true });
+	await mkdir(join(codexHome, "plugins", "cache", "odinlabs", ".agents", "plugins"), { recursive: true });
 	await mkdir(pluginRoot, { recursive: true });
 	await writeFile(
-		join(codexHome, "plugins", "cache", "sisyphuslabs", ".agents", "plugins", "marketplace.json"),
+		join(codexHome, "plugins", "cache", "odinlabs", ".agents", "plugins", "marketplace.json"),
 		JSON.stringify({
-			name: "sisyphuslabs",
+			name: "odinlabs",
 			plugins: [{ name: "omo", source: { source: "local", path: "./omo/1.0.0" } }],
 		}),
 	);
@@ -357,7 +357,7 @@ test("#given marketplace plugin root without install snapshot #when running chec
 	assert.equal(result.started, false);
 	assert.equal(result.reason, "marketplace-flow");
 	assert.equal(result.notices.length, 1);
-	assert.match(result.notices[0], /codex plugin marketplace upgrade sisyphuslabs/);
+	assert.match(result.notices[0], /codex plugin marketplace upgrade odinlabs/);
 	assert.match(result.notices[0], /hook re-approval/);
 	await assert.rejects(readFile(spawnLogPath, "utf8"), { code: "ENOENT" });
 	const state = JSON.parse(await readFile(env.LAZYCODEX_AUTO_UPDATE_STATE_PATH, "utf8"));
@@ -379,13 +379,13 @@ test("#given marketplace flow with stale local cache state #when running check #
 	const spawnLogPath = join(root, "spawn.log");
 	const binDir = join(root, "bin");
 	const codexHome = join(root, "codex-home");
-	const missingCachedCli = join(codexHome, "plugins", "cache", "sisyphuslabs", "omo", "1.0.1", "components", "ulw-loop", "dist", "cli.js");
-	await mkdir(join(codexHome, "plugins", "cache", "sisyphuslabs", ".agents", "plugins"), { recursive: true });
+	const missingCachedCli = join(codexHome, "plugins", "cache", "odinlabs", "omo", "1.0.1", "components", "ulw-loop", "dist", "cli.js");
+	await mkdir(join(codexHome, "plugins", "cache", "odinlabs", ".agents", "plugins"), { recursive: true });
 	await mkdir(binDir, { recursive: true });
 	await writeFile(
-		join(codexHome, "plugins", "cache", "sisyphuslabs", ".agents", "plugins", "marketplace.json"),
+		join(codexHome, "plugins", "cache", "odinlabs", ".agents", "plugins", "marketplace.json"),
 		JSON.stringify({
-			name: "sisyphuslabs",
+			name: "odinlabs",
 			plugins: [{ name: "omo", source: { source: "local", path: "./omo/1.0.1" } }],
 		}),
 	);
@@ -405,7 +405,7 @@ test("#given marketplace flow with stale local cache state #when running check #
 	assert.match(result.notices[0], /stale local LazyCodex cache/i);
 	assert.match(result.notices[0], /bundled reinstall repair/);
 	assert.doesNotMatch(result.notices[0], /Repair command/);
-	assert.doesNotMatch(result.notices[0], /plugins[\\/]+cache[\\/]+sisyphuslabs/);
+	assert.doesNotMatch(result.notices[0], /plugins[\\/]+cache[\\/]+odinlabs/);
 	const logEntries = (await readFile(env.LAZYCODEX_AUTO_UPDATE_LOG_PATH, "utf8")).trim().split("\n").map((line) => JSON.parse(line));
 	assert.equal(logEntries[0].event, "started");
 	assert.equal(logEntries[0].kind, "marketplace-local-repair");
@@ -421,11 +421,11 @@ test("#given stale marketplace cache and recent success state #when resolving pl
 	const { root, pluginRoot } = await makeStorePluginRoot("lazycodex-auto-update-marketplace-repair-throttle-");
 	const spawnLogPath = join(root, "spawn.log");
 	const codexHome = join(root, "codex-home");
-	await mkdir(join(codexHome, "plugins", "cache", "sisyphuslabs", ".agents", "plugins"), { recursive: true });
+	await mkdir(join(codexHome, "plugins", "cache", "odinlabs", ".agents", "plugins"), { recursive: true });
 	await writeFile(
-		join(codexHome, "plugins", "cache", "sisyphuslabs", ".agents", "plugins", "marketplace.json"),
+		join(codexHome, "plugins", "cache", "odinlabs", ".agents", "plugins", "marketplace.json"),
 		JSON.stringify({
-			name: "sisyphuslabs",
+			name: "odinlabs",
 			plugins: [{ name: "omo", source: { source: "local", path: "./omo/1.0.1" } }],
 		}),
 	);
@@ -445,11 +445,11 @@ test("#given stale marketplace cache and recent started state #when resolving pl
 	const { root, pluginRoot } = await makeStorePluginRoot("lazycodex-auto-update-marketplace-repair-retry-");
 	const spawnLogPath = join(root, "spawn.log");
 	const codexHome = join(root, "codex-home");
-	await mkdir(join(codexHome, "plugins", "cache", "sisyphuslabs", ".agents", "plugins"), { recursive: true });
+	await mkdir(join(codexHome, "plugins", "cache", "odinlabs", ".agents", "plugins"), { recursive: true });
 	await writeFile(
-		join(codexHome, "plugins", "cache", "sisyphuslabs", ".agents", "plugins", "marketplace.json"),
+		join(codexHome, "plugins", "cache", "odinlabs", ".agents", "plugins", "marketplace.json"),
 		JSON.stringify({
-			name: "sisyphuslabs",
+			name: "odinlabs",
 			plugins: [{ name: "omo", source: { source: "local", path: "./omo/1.0.1" } }],
 		}),
 	);
@@ -469,7 +469,7 @@ test("#given marketplace flow with stale Windows generated shim #when resolving 
 	const spawnLogPath = join(root, "spawn.log");
 	const binDir = join(root, "bin");
 	const codexHome = join(root, "codex-home");
-	const missingCachedCli = join(codexHome, "plugins", "cache", "sisyphuslabs", "omo", "1.0.1", "components", "ulw-loop", "dist", "cli.js");
+	const missingCachedCli = join(codexHome, "plugins", "cache", "odinlabs", "omo", "1.0.1", "components", "ulw-loop", "dist", "cli.js");
 	await mkdir(binDir, { recursive: true });
 	await writeFile(
 		join(binDir, "omo-ulw-loop.cmd"),
@@ -498,7 +498,7 @@ test("#given marketplace flow with non-managed stale cache-shaped bin #when reso
 	const spawnLogPath = join(root, "spawn.log");
 	const binDir = join(root, "bin");
 	const codexHome = join(root, "codex-home");
-	const missingCachedCli = join(codexHome, "plugins", "cache", "sisyphuslabs", "omo", "1.0.1", "components", "ulw-loop", "dist", "cli.js");
+	const missingCachedCli = join(codexHome, "plugins", "cache", "odinlabs", "omo", "1.0.1", "components", "ulw-loop", "dist", "cli.js");
 	await mkdir(binDir, { recursive: true });
 	await symlink(missingCachedCli, join(binDir, "user-tool"));
 	const env = marketplaceCheckEnv(root, pluginRoot, spawnLogPath, {

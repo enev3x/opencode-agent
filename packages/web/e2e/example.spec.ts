@@ -32,15 +32,15 @@ test.describe("Landing Page", () => {
 
     // when / then
     const agentNames = [
-      "Sisyphus",
-      "Hephaestus",
-      "Oracle",
-      "Librarian",
+      "Odin",
+      "Thor",
+      "Volva",
+      "Bragi",
       "Explore",
-      "Prometheus",
-      "Metis",
-      "Momus",
-      "Atlas",
+      "Mimir",
+      "Urd",
+      "Forseti",
+      "Heimdall",
     ]
     for (const name of agentNames) {
       await expect(page.getByText(name, { exact: true }).first()).toBeVisible()

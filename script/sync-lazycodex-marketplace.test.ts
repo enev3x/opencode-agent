@@ -24,7 +24,7 @@ interface WritePluginFixtureOptions {
 
 async function writePluginFixture(sourceRoot: string, options: WritePluginFixtureOptions = {}): Promise<void> {
   await writeJson(join(sourceRoot, "packages", "omo-codex", "marketplace.json"), {
-    name: "sisyphuslabs",
+    name: "odinlabs",
     plugins: [{ name: "omo", source: "./plugins/omo" }],
   })
   await writeJson(join(sourceRoot, "packages", "omo-codex", "plugin", ".codex-plugin", "plugin.json"), {
@@ -32,7 +32,7 @@ async function writePluginFixture(sourceRoot: string, options: WritePluginFixtur
     version: "1.2.3",
   })
   await writeJson(join(sourceRoot, "packages", "omo-codex", "plugin", "package.json"), {
-    name: "@sisyphuslabs/omo-codex-plugin",
+    name: "@odinlabs/omo-codex-plugin",
     version: "1.2.3",
   })
   await writeJson(join(sourceRoot, "packages", "omo-codex", "plugin", "hooks", "hooks.json"), {
@@ -181,7 +181,7 @@ describe("sync-lazycodex-marketplace", () => {
 
     // then
     const marketplace = JSON.parse(await readFile(join(lazycodexRoot, ".agents", "plugins", "marketplace.json"), "utf8"))
-    expect(marketplace.name).toBe("sisyphuslabs")
+    expect(marketplace.name).toBe("odinlabs")
     expect(marketplace.plugins[0].source).toBe("./plugins/omo")
     // `codex plugin marketplace add <repo>` scans the repo ROOT for the manifest,
     // so it must ship at the root too, identical to the .agents/plugins copy (lazycodex#139).
@@ -216,7 +216,7 @@ describe("sync-lazycodex-marketplace", () => {
     const sourceRoot = await mkdtemp(join(tmpdir(), "omo-sync-bad-source-"))
     const lazycodexRoot = await mkdtemp(join(tmpdir(), "omo-sync-bad-lazycodex-"))
     await writeJson(join(sourceRoot, "packages", "omo-codex", "marketplace.json"), {
-      name: "sisyphuslabs",
+      name: "odinlabs",
       plugins: [{ name: "omo", source: "./plugins/omo" }],
     })
 

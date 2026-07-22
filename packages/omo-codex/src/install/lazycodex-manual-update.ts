@@ -16,7 +16,7 @@ const INSTALLED_VERSION_FILE = "lazycodex-install.json"
 const KNOWN_LAZYCODEX_BUN_TRUST_PACKAGES = new Set([
   "@ast-grep/cli",
   "@code-yeongyu/comment-checker",
-  "@sisyphuslabs/omo-codex-plugin",
+  "@odinlabs/omo-codex-plugin",
   "lazycodex-ai",
   "oh-my-openagent",
   "oh-my-opencode",

@@ -230,17 +230,17 @@ describe("keyword-detector hyperplan keyword", () => {
     expect(text).not.toContain("<hyperplan-mode>")
   })
 
-  test("should skip hyperplan injection when agent is prometheus (planner)", async () => {
-    // given - hook running with prometheus agent and a prompt that only triggers hyperplan
-    const sessionID = "hyperplan-prometheus-session"
+  test("should skip hyperplan injection when agent is mimir (planner)", async () => {
+    // given - hook running with mimir agent and a prompt that only triggers hyperplan
+    const sessionID = "hyperplan-mimir-session"
     const hook = createKeywordDetectorHook(createMockPluginInput())
     const output = {
       message: {} as Record<string, unknown>,
       parts: [{ type: "text", text: "hyperplan refactor stuff" }],
     }
 
-    // when - hyperplan keyword detected with prometheus agent
-    await hook["chat.message"]({ sessionID, agent: "prometheus" }, output)
+    // when - hyperplan keyword detected with mimir agent
+    await hook["chat.message"]({ sessionID, agent: "mimir" }, output)
 
     // then - hyperplan should be filtered out for planner agents
     const text = textOf(output)

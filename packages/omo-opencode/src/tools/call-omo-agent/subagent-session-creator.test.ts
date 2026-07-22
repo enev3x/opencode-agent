@@ -37,14 +37,14 @@ describe("call-omo-agent resolveOrCreateSessionId", () => {
     const args = {
       description: "sync test",
       prompt: "hello",
-      subagent_type: "explore",
+      subagent_type: "vidar",
       run_in_background: false,
     } satisfies Parameters<typeof resolveOrCreateSessionId>[1]
 
     const toolContext = {
       sessionID: "ses_parent",
       messageID: "msg_parent",
-      agent: "sisyphus",
+      agent: "odin",
       abort: new AbortController().signal,
     } satisfies Parameters<typeof resolveOrCreateSessionId>[2]
 

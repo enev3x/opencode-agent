@@ -60,7 +60,7 @@ function createDoctorResultWithDetails(): DoctorResult {
       name: "Models",
       status: "pass",
       message: "2 agents, 1 category, 0 overrides",
-      details: ["Available models: openai/gpt-5.4", "Agent sisyphus -> openai/gpt-5.4"],
+      details: ["Available models: openai/gpt-5.4", "Agent odin -> openai/gpt-5.4"],
       issues: [],
     },
   ]
@@ -76,7 +76,7 @@ function createCodexDoctorResult(): DoctorResult {
     codexPath: "/usr/local/bin/codex",
     codexSource: "cli",
     codexAppId: null,
-    marketplaceName: "sisyphuslabs",
+    marketplaceName: "odinlabs",
     pluginName: "omo",
     pluginVersion: "4.7.5",
     pluginVersionStamped: true,
@@ -215,7 +215,7 @@ describe("formatDoctorOutput", () => {
       //#then
       expect(output).toContain("Models")
       expect(output).toContain("Available models: openai/gpt-5.4")
-      expect(output).toContain("Agent sisyphus -> openai/gpt-5.4")
+      expect(output).toContain("Agent odin -> openai/gpt-5.4")
     })
 
     it("renders Codex sections for Codex target", async () => {
@@ -228,7 +228,7 @@ describe("formatDoctorOutput", () => {
 
       //#then
       expect(output).toContain("Codex Information")
-      expect(output).toContain("marketplace sisyphuslabs")
+      expect(output).toContain("marketplace odinlabs")
       expect(output).toContain("plugin     omo@4.7.5")
       expect(output).toContain("package    lazycodex-ai@4.7.5")
       expect(output).not.toContain("OpenCode")
@@ -249,7 +249,7 @@ describe("formatDoctorOutput", () => {
       const output = stripAnsi(formatDoctorOutput(result, "verbose"))
 
       //#then
-      expect(output).toContain("✗ marketplace sisyphuslabs")
+      expect(output).toContain("✗ marketplace odinlabs")
     })
   })
 

@@ -13,7 +13,7 @@ function makeMockCtx(): ToolContextWithMetadata & { captured: CapturedMetadata[]
   return {
     sessionID: "ses_parent",
     messageID: "msg_parent",
-    agent: "sisyphus",
+    agent: "odin",
     abort: new AbortController().signal,
     callID: "call_001",
     metadata: async (input: { title?: string; metadata?: Record<string, unknown> }) => { captured.push(input as CapturedMetadata) },
@@ -24,7 +24,7 @@ function makeMockCtx(): ToolContextWithMetadata & { captured: CapturedMetadata[]
 const parentContext: ParentContext = {
   sessionID: "ses_parent",
   messageID: "msg_parent",
-  agent: "sisyphus",
+  agent: "odin",
   model: MODEL,
 }
 
@@ -48,7 +48,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
         client: { session: { create: async () => ({ data: { id: "ses_sync" } }) } },
         directory: "/tmp",
         onSyncSessionCreated: null,
-      }, parentContext, "explore", MODEL, undefined, undefined, undefined, deps)
+      }, parentContext, "vidar", MODEL, undefined, undefined, undefined, deps)
 
       const meta = ctx.captured.find((m: CapturedMetadata) => m.metadata?.sessionId)!
       expect(meta).toBeDefined()
@@ -64,18 +64,18 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
       const ctx = makeMockCtx()
       const args: DelegateTaskArgs = {
         description: "test", prompt: "do it",
-        load_skills: [], run_in_background: true, subagent_type: "explore",
+        load_skills: [], run_in_background: true, subagent_type: "vidar",
       }
 
       await executeBackgroundTask(args, ctx, unsafeTestValue({
         manager: {
           launch: async () => ({
-            id: "bg_abc123", description: "test", agent: "explore",
+            id: "bg_abc123", description: "test", agent: "vidar",
             status: "pending", sessionId: "ses_xyz789",
           }),
           getTask: () => undefined,
         },
-      }), parentContext, "explore", MODEL, undefined)
+      }), parentContext, "vidar", MODEL, undefined)
 
       const meta = ctx.captured.find((m: CapturedMetadata) => m.metadata?.sessionId)!
       expect(meta).toBeDefined()
@@ -95,7 +95,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
       }
 
       const launchedTask = {
-        id: "bg_unstable_abc", description: "test", agent: "explore",
+        id: "bg_unstable_abc", description: "test", agent: "vidar",
         status: "completed", sessionId: "ses_unstable_xyz",
       }
 
@@ -119,7 +119,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
           },
           syncPollTimeoutMs: 100,
         }),
-        parentContext, "explore", MODEL, undefined, "anthropic/claude-sonnet-4-6",
+        parentContext, "vidar", MODEL, undefined, "anthropic/claude-sonnet-4-6",
       )
 
       const meta = ctx.captured.find((m: CapturedMetadata) => m.metadata?.sessionId)!
@@ -142,7 +142,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
       await executeBackgroundContinuation(args, ctx, unsafeTestValue({
         manager: {
           resume: async () => ({
-            id: "bg_resumed_y", description: "continue", agent: "explore",
+            id: "bg_resumed_y", description: "continue", agent: "vidar",
             status: "running", sessionId: "ses_resumed_x", model: MODEL,
           }),
         },
@@ -166,7 +166,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
       await executeBackgroundContinuation(args, ctx, unsafeTestValue({
         manager: {
           resume: async () => ({
-            id: "bg_resumed_y", description: "continue", agent: "explore",
+            id: "bg_resumed_y", description: "continue", agent: "vidar",
             status: "running", sessionId: "ses_resumed_x", model: MODEL, category: "deep",
           }),
         },
@@ -184,7 +184,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
         description: "continue",
         prompt: "keep going",
         category: "quick",
-        requested_subagent_type: "oracle",
+        requested_subagent_type: "volva",
         load_skills: [],
         run_in_background: true,
         task_id: "ses_resumed_x",
@@ -193,7 +193,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
       await executeBackgroundContinuation(args, ctx, unsafeTestValue({
         manager: {
           resume: async () => ({
-            id: "bg_resumed_y", description: "continue", agent: "explore",
+            id: "bg_resumed_y", description: "continue", agent: "vidar",
             status: "running", sessionId: "ses_resumed_x", model: MODEL,
           }),
         },
@@ -201,7 +201,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
 
       const meta = ctx.captured.find((item: CapturedMetadata) => item.metadata?.sessionId)!
       expect(meta).toBeDefined()
-      expect(meta.metadata.requested_subagent_type).toBe("oracle")
+      expect(meta.metadata.requested_subagent_type).toBe("volva")
     })
   })
 
@@ -223,7 +223,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
         client: {
           session: {
             messages: async () => ({
-              data: [{ info: { agent: "explore", model: MODEL } }],
+              data: [{ info: { agent: "vidar", model: MODEL } }],
             }),
             prompt: async () => ({}),
           },
@@ -253,7 +253,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
         client: {
           session: {
             messages: async () => ({
-              data: [{ info: { agent: "explore", model: MODEL } }],
+              data: [{ info: { agent: "vidar", model: MODEL } }],
             }),
             prompt: async () => ({}),
           },
@@ -262,7 +262,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
 
       const meta = ctx.captured.find((item: CapturedMetadata) => item.metadata?.sessionId)!
       expect(meta).toBeDefined()
-      expect(meta.metadata.agent).toBe("explore")
+      expect(meta.metadata.agent).toBe("vidar")
     })
 
     test("#when called with category arg #then metadata.category equals args.category", async () => {
@@ -282,7 +282,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
         client: {
           session: {
             messages: async () => ({
-              data: [{ info: { agent: "explore", model: MODEL } }],
+              data: [{ info: { agent: "vidar", model: MODEL } }],
             }),
             prompt: async () => ({}),
           },
@@ -301,7 +301,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
         description: "continue",
         prompt: "keep going",
         category: "quick",
-        requested_subagent_type: "oracle",
+        requested_subagent_type: "volva",
         load_skills: [],
         run_in_background: false,
         task_id: "ses_cont",
@@ -316,7 +316,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
         client: {
           session: {
             messages: async () => ({
-              data: [{ info: { agent: "explore", model: MODEL } }],
+              data: [{ info: { agent: "vidar", model: MODEL } }],
             }),
             prompt: async () => ({}),
           },
@@ -325,7 +325,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
 
       const meta = ctx.captured.find((item: CapturedMetadata) => item.metadata?.sessionId)!
       expect(meta).toBeDefined()
-      expect(meta.metadata.requested_subagent_type).toBe("oracle")
+      expect(meta.metadata.requested_subagent_type).toBe("volva")
     })
   })
 
@@ -343,7 +343,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
         description: "test",
         prompt: "do it",
         category: "quick",
-        requested_subagent_type: "oracle",
+        requested_subagent_type: "volva",
         load_skills: [],
         run_in_background: false,
       }
@@ -352,11 +352,11 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
         client: { session: { create: async () => ({ data: { id: "ses_sync" } }) } },
         directory: "/tmp",
         onSyncSessionCreated: null,
-      }, parentContext, "Sisyphus-Junior", MODEL, undefined, undefined, undefined, deps)
+      }, parentContext, "Einherjar", MODEL, undefined, undefined, undefined, deps)
 
       const meta = ctx.captured.find((item: CapturedMetadata) => item.metadata?.sessionId)!
       expect(meta).toBeDefined()
-      expect(meta.metadata.requested_subagent_type).toBe("oracle")
+      expect(meta.metadata.requested_subagent_type).toBe("volva")
     })
 
     test("#when background-task publishes metadata #then metadata.requested_subagent_type preserves original", async () => {
@@ -366,7 +366,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
         description: "test",
         prompt: "do it",
         category: "quick",
-        requested_subagent_type: "oracle",
+        requested_subagent_type: "volva",
         load_skills: [],
         run_in_background: true,
       }
@@ -374,16 +374,16 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
       await executeBackgroundTask(args, ctx, unsafeTestValue({
         manager: {
           launch: async () => ({
-            id: "bg_abc123", description: "test", agent: "Sisyphus-Junior",
+            id: "bg_abc123", description: "test", agent: "Einherjar",
             status: "pending", sessionId: "ses_xyz789",
           }),
           getTask: () => undefined,
         },
-      }), parentContext, "Sisyphus-Junior", MODEL, undefined)
+      }), parentContext, "Einherjar", MODEL, undefined)
 
       const meta = ctx.captured.find((item: CapturedMetadata) => item.metadata?.sessionId)!
       expect(meta).toBeDefined()
-      expect(meta.metadata.requested_subagent_type).toBe("oracle")
+      expect(meta.metadata.requested_subagent_type).toBe("volva")
     })
 
     test("#when unstable-agent-task publishes metadata #then metadata.requested_subagent_type preserves original", async () => {
@@ -393,13 +393,13 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
         description: "test",
         prompt: "do it",
         category: "quick",
-        requested_subagent_type: "oracle",
+        requested_subagent_type: "volva",
         load_skills: [],
         run_in_background: false,
       }
 
       const launchedTask = {
-        id: "bg_unstable_abc", description: "test", agent: "Sisyphus-Junior",
+        id: "bg_unstable_abc", description: "test", agent: "Einherjar",
         status: "completed", sessionId: "ses_unstable_xyz",
       }
 
@@ -423,12 +423,12 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
           },
           syncPollTimeoutMs: 100,
         }),
-        parentContext, "Sisyphus-Junior", MODEL, undefined, "anthropic/claude-sonnet-4-6",
+        parentContext, "Einherjar", MODEL, undefined, "anthropic/claude-sonnet-4-6",
       )
 
       const meta = ctx.captured.find((item: CapturedMetadata) => item.metadata?.sessionId)!
       expect(meta).toBeDefined()
-      expect(meta.metadata.requested_subagent_type).toBe("oracle")
+      expect(meta.metadata.requested_subagent_type).toBe("volva")
     })
   })
 
@@ -444,7 +444,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
       await executeBackgroundContinuation(args, ctx, unsafeTestValue({
         manager: {
           resume: async () => ({
-            id: "bg_resume_title", description: "continue work", agent: "explore",
+            id: "bg_resume_title", description: "continue work", agent: "vidar",
             status: "running", sessionId: "ses_resume_title", model: MODEL,
           }),
         },
@@ -467,7 +467,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
         client: {
           session: {
             messages: async () => ({
-              data: [{ info: { agent: "explore", model: MODEL } }],
+              data: [{ info: { agent: "vidar", model: MODEL } }],
             }),
             prompt: async () => ({}),
           },
@@ -491,7 +491,7 @@ describe("taskId and backgroundTaskId metadata consistency", () => {
         getTask: (id: string) => ({
           id,
           sessionId: "ses_bg_session",
-          agent: "explore",
+          agent: "vidar",
           category: "deep",
           description: "test",
           status: "completed" as const,

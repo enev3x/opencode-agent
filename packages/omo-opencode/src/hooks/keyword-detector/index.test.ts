@@ -718,18 +718,18 @@ describe("keyword-detector agent-specific ultrawork messages", () => {
     return createPluginInputWithToast(async () => {})
   }
 
-  test("should skip ultrawork injection when agent is prometheus", async () => {
-    // given - collector and prometheus agent
+  test("should skip ultrawork injection when agent is mimir", async () => {
+    // given - collector and mimir agent
     const collector = new ContextCollector()
     const hook = createKeywordDetectorHook(createMockPluginInput(), collector)
-    const sessionID = "prometheus-session"
+    const sessionID = "mimir-session"
     const output = {
       message: {} as Record<string, unknown>,
       parts: [{ type: "text", text: "ultrawork plan this feature" }],
     }
 
-    // when - ultrawork keyword detected with prometheus agent
-    await hook["chat.message"]({ sessionID, agent: "prometheus" }, output)
+    // when - ultrawork keyword detected with mimir agent
+    await hook["chat.message"]({ sessionID, agent: "mimir" }, output)
 
     // then - ultrawork should be skipped for planner agents, text unchanged
     const text = expectTextPartText(output.parts)
@@ -749,7 +749,7 @@ describe("keyword-detector agent-specific ultrawork messages", () => {
     }
 
     // when - ultrawork keyword detected with planner agent
-    await hook["chat.message"]({ sessionID, agent: "Prometheus (Planner)" }, output)
+    await hook["chat.message"]({ sessionID, agent: "Mimir (Planner)" }, output)
 
     // then - ultrawork should be skipped, text unchanged
     const text = expectTextPartText(output.parts)
@@ -776,18 +776,18 @@ describe("keyword-detector agent-specific ultrawork messages", () => {
     expect(text).not.toContain("YOU ARE A PLANNER, NOT AN IMPLEMENTER")
   })
 
-  test("should use normal ultrawork message when agent is Sisyphus", async () => {
-    // given - collector and Sisyphus agent
+  test("should use normal ultrawork message when agent is Odin", async () => {
+    // given - collector and Odin agent
     const collector = new ContextCollector()
     const hook = createKeywordDetectorHook(createMockPluginInput(), collector)
-    const sessionID = "sisyphus-session"
+    const sessionID = "odin-session"
     const output = {
       message: {} as Record<string, unknown>,
       parts: [{ type: "text", text: "ultrawork implement this feature" }],
     }
 
-    // when - ultrawork keyword detected with Sisyphus agent
-    await hook["chat.message"]({ sessionID, agent: "sisyphus" }, output)
+    // when - ultrawork keyword detected with Odin agent
+    await hook["chat.message"]({ sessionID, agent: "odin" }, output)
 
     // then - should use normal ultrawork message with agent utilization instructions
     const text = expectTextPartText(output.parts)
@@ -818,55 +818,55 @@ describe("keyword-detector agent-specific ultrawork messages", () => {
     expect(text).toContain("do something")
   })
 
-  test("should skip ultrawork for prometheus but inject for sisyphus", async () => {
-    // given - two sessions, one with prometheus, one with sisyphus
+  test("should skip ultrawork for mimir but inject for odin", async () => {
+    // given - two sessions, one with mimir, one with odin
     const collector = new ContextCollector()
     const hook = createKeywordDetectorHook(createMockPluginInput(), collector)
 
-    // First session with prometheus
-    const prometheusSessionID = "prometheus-first"
-    const prometheusOutput = {
+    // First session with mimir
+    const mimirSessionID = "mimir-first"
+    const mimirOutput = {
       message: {} as Record<string, unknown>,
       parts: [{ type: "text", text: "ultrawork plan" }],
     }
-    await hook["chat.message"]({ sessionID: prometheusSessionID, agent: "prometheus" }, prometheusOutput)
+    await hook["chat.message"]({ sessionID: mimirSessionID, agent: "mimir" }, mimirOutput)
 
-    // Second session with sisyphus
-    const sisyphusSessionID = "sisyphus-second"
-    const sisyphusOutput = {
+    // Second session with odin
+    const odinSessionID = "odin-second"
+    const odinOutput = {
       message: {} as Record<string, unknown>,
       parts: [{ type: "text", text: "ultrawork implement" }],
     }
-    await hook["chat.message"]({ sessionID: sisyphusSessionID, agent: "sisyphus" }, sisyphusOutput)
+    await hook["chat.message"]({ sessionID: odinSessionID, agent: "odin" }, odinOutput)
 
-    // then - prometheus should have no injection, sisyphus should have normal ultrawork
-    const prometheusText = prometheusOutput.parts.find(isTextOutputPart)?.text
-    expect(prometheusText).toBe("ultrawork plan")
+    // then - mimir should have no injection, odin should have normal ultrawork
+    const mimirText = mimirOutput.parts.find(isTextOutputPart)?.text
+    expect(mimirText).toBe("ultrawork plan")
 
-    const sisyphusText = sisyphusOutput.parts.find(isTextOutputPart)?.text
-    expect(sisyphusText).toContain("YOU MUST LEVERAGE ALL AVAILABLE AGENTS")
-    expect(sisyphusText).toContain("---")
-    expect(sisyphusText).toContain("implement")
+    const odinText = odinOutput.parts.find(isTextOutputPart)?.text
+    expect(odinText).toContain("YOU MUST LEVERAGE ALL AVAILABLE AGENTS")
+    expect(odinText).toContain("---")
+    expect(odinText).toContain("implement")
   })
 
   test("should use session state agent over stale input.agent (bug fix)", async () => {
-    // given - same session, agent switched from prometheus to sisyphus in session state
+    // given - same session, agent switched from mimir to odin in session state
     const collector = new ContextCollector()
     const hook = createKeywordDetectorHook(createMockPluginInput(), collector)
     const sessionID = "same-session-agent-switch"
 
-    // Simulate: session state was updated to sisyphus (by index.ts updateSessionAgent)
-    updateSessionAgent(sessionID, "sisyphus")
+    // Simulate: session state was updated to odin (by index.ts updateSessionAgent)
+    updateSessionAgent(sessionID, "odin")
 
     const output = {
       message: {} as Record<string, unknown>,
       parts: [{ type: "text", text: "ultrawork implement this" }],
     }
 
-    // when - hook receives stale input.agent="prometheus" but session state says "Sisyphus"
-    await hook["chat.message"]({ sessionID, agent: "prometheus" }, output)
+    // when - hook receives stale input.agent="mimir" but session state says "Odin"
+    await hook["chat.message"]({ sessionID, agent: "mimir" }, output)
 
-    // then - should use Sisyphus from session state, NOT prometheus from stale input
+    // then - should use Odin from session state, NOT mimir from stale input
     const text = expectTextPartText(output.parts)
     expect(text).toContain("YOU MUST LEVERAGE ALL AVAILABLE AGENTS")
     expect(text).not.toContain("YOU ARE A PLANNER, NOT AN IMPLEMENTER")
@@ -877,7 +877,7 @@ describe("keyword-detector agent-specific ultrawork messages", () => {
     clearSessionAgent(sessionID)
   })
 
-  test("should fall back to input.agent when session state is empty and skip ultrawork for prometheus", async () => {
+  test("should fall back to input.agent when session state is empty and skip ultrawork for mimir", async () => {
     // given - no session state, only input.agent available
     const collector = new ContextCollector()
     const hook = createKeywordDetectorHook(createMockPluginInput(), collector)
@@ -891,10 +891,10 @@ describe("keyword-detector agent-specific ultrawork messages", () => {
       parts: [{ type: "text", text: "ultrawork plan this" }],
     }
 
-    // when - hook receives input.agent="prometheus" with no session state
-    await hook["chat.message"]({ sessionID, agent: "prometheus" }, output)
+    // when - hook receives input.agent="mimir" with no session state
+    await hook["chat.message"]({ sessionID, agent: "mimir" }, output)
 
-    // then - prometheus fallback from input.agent, ultrawork skipped
+    // then - mimir fallback from input.agent, ultrawork skipped
     const text = expectTextPartText(output.parts)
     expect(text).toBe("ultrawork plan this")
     expect(text).not.toContain("YOU ARE A PLANNER, NOT AN IMPLEMENTER")
@@ -958,18 +958,18 @@ describe("keyword-detector non-OMO agent skipping", () => {
     expect(text).toBe("find this inspect this ultrawork")
   })
 
-  test("should still inject keywords for OMO agents like Sisyphus", async () => {
-    // given - keyword-detector hook with Sisyphus agent
+  test("should still inject keywords for OMO agents like Odin", async () => {
+    // given - keyword-detector hook with Odin agent
     const collector = new ContextCollector()
     const hook = createKeywordDetectorHook(createMockPluginInput(), collector)
-    const sessionID = "sisyphus-session-omo"
+    const sessionID = "odin-session-omo"
     const output = {
       message: {} as Record<string, unknown>,
       parts: [{ type: "text", text: "ultrawork implement this" }],
     }
 
-    // when - keyword detection runs with Sisyphus (OMO agent)
-    await hook["chat.message"]({ sessionID, agent: "sisyphus" }, output)
+    // when - keyword detection runs with Odin (OMO agent)
+    await hook["chat.message"]({ sessionID, agent: "odin" }, output)
 
     // then - keywords should be injected normally
     const text = expectTextPartText(output.parts)

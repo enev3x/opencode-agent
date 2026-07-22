@@ -1,10 +1,10 @@
 import type { VariantTable } from "./types"
-import defaultPrompt from "../prompts/prometheus/default.md"
+import defaultPrompt from "../prompts/mimir/default.md"
 
-export const prometheusPromptVariants = {
+export const mimirPromptVariants = {
   default: {
     kind: "bundled",
     content: defaultPrompt,
-    filePath: "packages/prompts-core/prompts/prometheus/default.md",
+    filePath: "packages/prompts-core/prompts/mimir/default.md",
   },
 } satisfies VariantTable

@@ -98,7 +98,7 @@ describe("applyUltraworkModelOverrideOnMessage variant guard", () => {
 
     const config = {
       agents: {
-        sisyphus: {
+        odin: {
           ultrawork: {
             model: "anthropic/claude-opus-4-7",
             variant: "max",
@@ -118,7 +118,7 @@ describe("applyUltraworkModelOverrideOnMessage variant guard", () => {
     // when
     await applyUltraworkModelOverrideOnMessage(
       config,
-      "sisyphus",
+      "odin",
       output,
       { showToast: async () => {} },
       undefined,
@@ -151,7 +151,7 @@ describe("applyUltraworkModelOverrideOnMessage variant guard", () => {
 
     const config = {
       agents: {
-        sisyphus: {
+        odin: {
           ultrawork: {
             variant: "max",
           },
@@ -169,7 +169,7 @@ describe("applyUltraworkModelOverrideOnMessage variant guard", () => {
     // when
     await applyUltraworkModelOverrideOnMessage(
       config,
-      "sisyphus",
+      "odin",
       output,
       { showToast: async () => {} },
       undefined,

@@ -86,7 +86,7 @@ function hasOmoPluginCachePrefix(parts: readonly string[], endExclusive: number)
     if (
       parts[index] === "plugins" &&
       parts[index + 1] === "cache" &&
-      parts[index + 2] === "sisyphuslabs" &&
+      parts[index + 2] === "odinlabs" &&
       parts[index + 3] === "omo"
     ) {
       return index + 4 < endExclusive

@@ -46,19 +46,19 @@ export async function CognitiveLoadSection(): Promise<JSX.Element> {
         <Card className="bg-secondary/10 border-border/50">
           <CardHeader>
             <Badge variant="secondary" className="mb-2 w-fit">
-              {t("cognitiveLoad.prometheus.badge")}
+              {t("cognitiveLoad.mimir.badge")}
             </Badge>
-            <CardTitle className="text-2xl">{t("cognitiveLoad.prometheus.title")}</CardTitle>
-            <p className="text-muted-foreground">{t("cognitiveLoad.prometheus.subtitle")}</p>
+            <CardTitle className="text-2xl">{t("cognitiveLoad.mimir.title")}</CardTitle>
+            <p className="text-muted-foreground">{t("cognitiveLoad.mimir.subtitle")}</p>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-4">
               <div className="bg-background/50 border-border/50 rounded-lg border p-4">
                 <h3 className="text-primary mb-1 font-semibold">
-                  {t("cognitiveLoad.prometheus.prometheusTitle")}
+                  {t("cognitiveLoad.mimir.mimirTitle")}
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  {t("cognitiveLoad.prometheus.prometheusDescription")}
+                  {t("cognitiveLoad.mimir.mimirDescription")}
                 </p>
               </div>
               <div className="flex justify-center">
@@ -66,15 +66,15 @@ export async function CognitiveLoadSection(): Promise<JSX.Element> {
               </div>
               <div className="bg-background/50 border-border/50 rounded-lg border p-4">
                 <h3 className="text-primary mb-1 font-semibold">
-                  {t("cognitiveLoad.prometheus.atlasTitle")}
+                  {t("cognitiveLoad.mimir.heimdallTitle")}
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  {t("cognitiveLoad.prometheus.atlasDescription")}
+                  {t("cognitiveLoad.mimir.heimdallDescription")}
                 </p>
               </div>
             </div>
             <div className="border-border/50 text-muted-foreground mt-4 border-t pt-6 text-center font-bold">
-              {t("cognitiveLoad.prometheus.footer")}
+              {t("cognitiveLoad.mimir.footer")}
             </div>
           </CardContent>
         </Card>

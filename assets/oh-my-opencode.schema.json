@@ -825,7 +825,7 @@
           },
           "additionalProperties": false
         },
-        "sisyphus": {
+        "odin": {
           "type": "object",
           "properties": {
             "model": {
@@ -1188,7 +1188,7 @@
           },
           "additionalProperties": false
         },
-        "hephaestus": {
+        "thor": {
           "type": "object",
           "properties": {
             "model": {
@@ -1554,7 +1554,7 @@
           },
           "additionalProperties": false
         },
-        "sisyphus-junior": {
+        "einherjar": {
           "type": "object",
           "properties": {
             "model": {
@@ -2280,7 +2280,7 @@
           },
           "additionalProperties": false
         },
-        "prometheus": {
+        "mimir": {
           "type": "object",
           "properties": {
             "model": {
@@ -2643,7 +2643,7 @@
           },
           "additionalProperties": false
         },
-        "metis": {
+        "urd": {
           "type": "object",
           "properties": {
             "model": {
@@ -3006,7 +3006,7 @@
           },
           "additionalProperties": false
         },
-        "momus": {
+        "forseti": {
           "type": "object",
           "properties": {
             "model": {
@@ -3369,7 +3369,7 @@
           },
           "additionalProperties": false
         },
-        "oracle": {
+        "volva": {
           "type": "object",
           "properties": {
             "model": {
@@ -3732,7 +3732,7 @@
           },
           "additionalProperties": false
         },
-        "librarian": {
+        "bragi": {
           "type": "object",
           "properties": {
             "model": {
@@ -4095,7 +4095,7 @@
           },
           "additionalProperties": false
         },
-        "explore": {
+        "vidar": {
           "type": "object",
           "properties": {
             "model": {
@@ -4458,7 +4458,7 @@
           },
           "additionalProperties": false
         },
-        "multimodal-looker": {
+        "huginn": {
           "type": "object",
           "properties": {
             "model": {
@@ -4821,7 +4821,7 @@
           },
           "additionalProperties": false
         },
-        "atlas": {
+        "heimdall": {
           "type": "object",
           "properties": {
             "model": {
@@ -5826,7 +5826,7 @@
       },
       "additionalProperties": false
     },
-    "sisyphus_agent": {
+    "odin_agent": {
       "type": "object",
       "properties": {
         "disabled": {
@@ -6866,7 +6866,7 @@
       ],
       "additionalProperties": false
     },
-    "sisyphus": {
+    "odin": {
       "type": "object",
       "properties": {
         "tasks": {

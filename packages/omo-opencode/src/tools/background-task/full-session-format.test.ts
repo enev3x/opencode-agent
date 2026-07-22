@@ -24,7 +24,7 @@ function makeTask(): BackgroundTask {
     id: "bg_test",
     sessionId: "ses_child",
     description: "test task",
-    agent: "oracle",
+    agent: "volva",
     status: "completed",
   } as BackgroundTask
 }

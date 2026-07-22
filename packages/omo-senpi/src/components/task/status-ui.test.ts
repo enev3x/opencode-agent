@@ -156,7 +156,7 @@ describe("buildWidgetRows", () => {
   it("#given an active task #when building a row #then it retains useful id, target, model, mode, and status context", () => {
     // given
     const records = [
-      record({ task_id: "st_row", name: "finder", status: "running", agent_type: "explore", pid: 4242 }),
+      record({ task_id: "st_row", name: "finder", status: "running", agent_type: "vidar", pid: 4242 }),
     ]
 
     // when
@@ -220,7 +220,7 @@ describe("formatTaskRow", () => {
     const task = record({
       task_id: "st_legacy",
       status: "running",
-      agent_type: "explore",
+      agent_type: "vidar",
       model: "anthropic/claude-sonnet-4-6",
     })
 
@@ -269,7 +269,7 @@ describe("formatTaskRow", () => {
     const task = record({
       task_id: "st_cjk",
       status: "running",
-      agent_type: "explore",
+      agent_type: "vidar",
       final_response: `${"界".repeat(40)}tail`,
     })
 

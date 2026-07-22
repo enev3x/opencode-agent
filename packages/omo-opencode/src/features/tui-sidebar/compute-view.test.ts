@@ -17,14 +17,14 @@ const invalidConfig: ConfigState = {
 }
 const roster: RosterState = {
   kind: "rows",
-  rows: [{ label: "sisyphus", model: "openai/gpt-5.5" }],
+  rows: [{ label: "odin", model: "openai/gpt-5.5" }],
 }
 const idleAgents: AgentsState = { kind: "none" }
 const idleJobs: JobBoardState = { kind: "none" }
 const idleLoop: LoopState = { kind: "none" }
 const activeAgents: AgentsState = {
   kind: "list",
-  agents: [{ name: "sisyphus", status: "busy" }],
+  agents: [{ name: "odin", status: "busy" }],
 }
 const activeJobs: JobBoardState = {
   kind: "list",
@@ -161,7 +161,7 @@ describe("tui sidebar computeView", () => {
         jobs: [{ lastTool: "grep", toolCalls: 2, status: "running", title: "Review patch" }],
         kind: "list",
       },
-      agents: { agents: [{ status: "busy", name: "sisyphus" }], kind: "list" },
+      agents: { agents: [{ status: "busy", name: "odin" }], kind: "list" },
       loop: {
         activeGoal: "Ship sidebar",
         blocked: 1,
@@ -188,7 +188,7 @@ describe("tui sidebar computeView", () => {
     const original: SidebarView = { kind: "idle", roster }
     const changed: SidebarView = {
       kind: "idle",
-      roster: { kind: "rows", rows: [{ label: "atlas", model: "openai/gpt-5.5" }] },
+      roster: { kind: "rows", rows: [{ label: "heimdall", model: "openai/gpt-5.5" }] },
     }
 
     // when

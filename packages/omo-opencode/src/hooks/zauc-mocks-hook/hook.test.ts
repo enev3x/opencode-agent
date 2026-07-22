@@ -80,7 +80,7 @@ describe("createAutoUpdateCheckerHook", () => {
 
     const hook = createAutoUpdateCheckerHook(createPluginInput(), {
       showStartupToast: true,
-      isSisyphusEnabled: true,
+      isOdinEnabled: true,
       autoUpdate: true,
     }, {
       getCachedVersion: mockGetCachedVersion,
@@ -261,10 +261,10 @@ describe("createAutoUpdateCheckerHook", () => {
     expect(mockRunBackgroundUpdateCheck).not.toHaveBeenCalled()
   })
 
-  it("passes correct toast message with sisyphus enabled", async () => {
-    //#given - sisyphus mode enabled
+  it("passes correct toast message with odin enabled", async () => {
+    //#given - odin mode enabled
     const hook = createAutoUpdateCheckerHook(createPluginInput(), {
-      isSisyphusEnabled: true,
+      isOdinEnabled: true,
     }, {
       getCachedVersion: mockGetCachedVersion,
       getLocalDevVersion: mockGetLocalDevVersion,
@@ -283,12 +283,12 @@ describe("createAutoUpdateCheckerHook", () => {
     drainDeferredCheck()
     await flushScheduledWork()
 
-    //#then - startup toast includes sisyphus wording
+    //#then - startup toast includes odin wording
     expect(mockShowVersionToast).toHaveBeenCalledTimes(1)
     expect(mockShowVersionToast).toHaveBeenCalledWith(
       expect.anything(),
       "3.6.0",
-      expect.stringContaining("Sisyphus")
+      expect.stringContaining("Odin")
     )
   })
 })

@@ -32,7 +32,7 @@ describe("validateSenpiTeamMembers", () => {
   test("#given an unresolvable category #when validated #then it throws naming the allowed kinds", () => {
     // given
     const spec = normalizeSenpiTeamSpec(
-      { members: [{ kind: "oracle-like-unknown", name: "x" }] },
+      { members: [{ kind: "volva-like-unknown", name: "x" }] },
       "bad-category-team",
     )
     const ports: SenpiTeamMemberPorts = {
@@ -87,7 +87,7 @@ describe("validateSenpiTeamMembers", () => {
   test("#given a curated read-only agent #when validated #then it is rejected before the known-agent check", () => {
     // given
     const spec = normalizeSenpiTeamSpec(
-      { members: [{ kind: "agent", subagent_type: "oracle" }] },
+      { members: [{ kind: "agent", subagent_type: "volva" }] },
       "curated-agent-team",
     )
 
@@ -104,7 +104,7 @@ describe("validateSenpiTeamMembers", () => {
     if (caught instanceof SenpiTeamSpecError) {
       expect(caught.code).toBe("UNKNOWN_SUBAGENT_TYPE")
       expect(caught.message).toBe(
-        'curated read-only agent "oracle" cannot be a team member; delegate via the task tool instead',
+        'curated read-only agent "volva" cannot be a team member; delegate via the task tool instead',
       )
     }
   })

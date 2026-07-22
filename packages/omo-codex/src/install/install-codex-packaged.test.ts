@@ -27,7 +27,7 @@ test("#given packaged lazycodex tarball layout #when installing Codex plugin #th
   await mkdir(join(lspRuntimeRoot, "dist"), { recursive: true })
   await writeFile(
     join(codexPackageRoot, "marketplace.json"),
-    JSON.stringify({ name: "sisyphuslabs", plugins: [{ name: "omo", source: "./plugin" }] }),
+    JSON.stringify({ name: "odinlabs", plugins: [{ name: "omo", source: "./plugin" }] }),
   )
   await writeFile(
     join(pluginRoot, ".codex-plugin", "plugin.json"),
@@ -36,7 +36,7 @@ test("#given packaged lazycodex tarball layout #when installing Codex plugin #th
   await writeFile(
     join(pluginRoot, "package.json"),
     JSON.stringify({
-      name: "@sisyphuslabs/omo-codex-plugin",
+      name: "@odinlabs/omo-codex-plugin",
       version: "0.1.0",
       bin: { omo: "dist/cli.js" },
       scripts: { build: "exit 42" },
@@ -117,7 +117,7 @@ test("#given packaged lazycodex tarball layout #when installing Codex plugin #th
   const cachedLspCli = join(pluginPath, "components", "lsp-daemon", "dist", "cli.js")
 
   expect(result.installed.map((plugin) => `${plugin.name}@${plugin.version}`)).toEqual(["omo@4.5.12"])
-  expect(pluginPath).toBe(join(codexHome, "plugins", "cache", "sisyphuslabs", "omo", "4.5.12"))
+  expect(pluginPath).toBe(join(codexHome, "plugins", "cache", "odinlabs", "omo", "4.5.12"))
   expect(cachedManifest.version).toBe("4.5.12")
   expect(cachedPackage.version).toBe("4.5.12")
   expect(cachedComponentPackage.version).toBe("4.5.12")
@@ -128,7 +128,7 @@ test("#given packaged lazycodex tarball layout #when installing Codex plugin #th
   if (installCommand === undefined) throw new Error("missing cached plugin npm install command")
   expect(installCommand[0]).toBe("npm")
   expect(installCommand[1]).toBe("ci --omit=dev")
-  expect(installCommand[2].startsWith(join(codexHome, "plugins", "cache", "sisyphuslabs", "omo", ".tmp-4.5.12-"))).toBe(true)
+  expect(installCommand[2].startsWith(join(codexHome, "plugins", "cache", "odinlabs", "omo", ".tmp-4.5.12-"))).toBe(true)
   const sotCommand = commands.find((command) => command[1].includes("migrate-omo-sot.mjs"))
   if (sotCommand === undefined) throw new Error("missing OMO SOT migration command")
   expect(sotCommand[0]).toBe(process.execPath)
@@ -156,7 +156,7 @@ test("#given packaged lazycodex tarball layout #when simulating Windows install 
   await mkdir(join(lspRuntimeRoot, "dist"), { recursive: true })
   await writeFile(
     join(codexPackageRoot, "marketplace.json"),
-    JSON.stringify({ name: "sisyphuslabs", plugins: [{ name: "omo", source: "./plugin" }] }),
+    JSON.stringify({ name: "odinlabs", plugins: [{ name: "omo", source: "./plugin" }] }),
   )
   await writeFile(
     join(pluginRoot, ".codex-plugin", "plugin.json"),
@@ -165,7 +165,7 @@ test("#given packaged lazycodex tarball layout #when simulating Windows install 
   await writeFile(
     join(pluginRoot, "package.json"),
     JSON.stringify({
-      name: "@sisyphuslabs/omo-codex-plugin",
+      name: "@odinlabs/omo-codex-plugin",
       version: "0.1.0",
       bin: { omo: "dist/cli.js" },
     }),

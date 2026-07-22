@@ -37,18 +37,18 @@ function extractTodos(response: unknown): TodoSnapshot[] {
   return []
 }
 
-function isAtlasBootstrapTodo(todo: TodoSnapshot): boolean {
+function isHeimdallBootstrapTodo(todo: TodoSnapshot): boolean {
   return ATLAS_BOOTSTRAP_TODOS.some((bootstrapTodo) =>
     todo.id === bootstrapTodo.id || todo.content === bootstrapTodo.content
   )
 }
 
 function hasDetailedTodos(todos: TodoSnapshot[]): boolean {
-  return todos.some((todo) => !isAtlasBootstrapTodo(todo))
+  return todos.some((todo) => !isHeimdallBootstrapTodo(todo))
 }
 
-function isAtlasBootstrapTodoList(todos: TodoSnapshot[]): boolean {
-  return todos.length > 0 && todos.every(isAtlasBootstrapTodo)
+function isHeimdallBootstrapTodoList(todos: TodoSnapshot[]): boolean {
+  return todos.length > 0 && todos.every(isHeimdallBootstrapTodo)
 }
 
 function shouldRestoreOverCurrentTodos(input: {
@@ -56,7 +56,7 @@ function shouldRestoreOverCurrentTodos(input: {
   currentTodos: TodoSnapshot[]
 }): boolean {
   if (input.currentTodos.length === 0) return true
-  if (!isAtlasBootstrapTodoList(input.currentTodos)) return false
+  if (!isHeimdallBootstrapTodoList(input.currentTodos)) return false
   return hasDetailedTodos(input.snapshot)
 }
 
@@ -229,13 +229,13 @@ export function createCompactionTodoPreserverHook(
       return
     }
 
-    if (!isAtlasBootstrapTodoList(requestedTodos)) {
+    if (!isHeimdallBootstrapTodoList(requestedTodos)) {
       protectedSnapshots.delete(input.sessionID)
       return
     }
 
     replaceToolArgs(output, { todos: snapshot })
-    log(`[${HOOK_NAME}] Replaced late Atlas bootstrap todowrite with restored snapshot`, {
+    log(`[${HOOK_NAME}] Replaced late Heimdall bootstrap todowrite with restored snapshot`, {
       sessionID: input.sessionID,
       count: snapshot.length,
     })

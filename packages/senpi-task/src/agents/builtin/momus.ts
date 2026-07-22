@@ -1,9 +1,9 @@
 import type { AgentDefinition } from "../types"
 
-// Ported and senpi-adapted from packages/omo-opencode/src/agents/momus.ts (base default prompt only;
-// momus-gpt-5-6 variant routing is not ported - the fallback chain owns model choice).
+// Ported and senpi-adapted from packages/omo-opencode/src/agents/forseti.ts (base default prompt only;
+// forseti-gpt-5-6 variant routing is not ported - the fallback chain owns model choice).
 export const MOMUS_AGENT: AgentDefinition = {
-  name: "momus",
+  name: "forseti",
   description:
     "Expert reviewer for evaluating work plans against rigorous clarity, verifiability, and completeness standards.",
   mode: "subagent",

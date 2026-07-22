@@ -226,7 +226,7 @@ Another system reminder with research keyword.
 </system-reminder>`
 
       const cleanText = removeSystemReminders(text)
-      expect(cleanText).toContain("explore")
+      expect(cleanText).toContain("vidar")
       expect(cleanText).toContain("analyze")
       expect(cleanText).not.toContain("search and investigate")
       expect(cleanText).not.toContain("research")

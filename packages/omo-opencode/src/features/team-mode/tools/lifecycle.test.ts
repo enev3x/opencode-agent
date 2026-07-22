@@ -83,12 +83,12 @@ describe("team lifecycle tools", () => {
     )
   })
 
-  test("team_create resolves a visible sort-prefixed sisyphus caller into callerAgentTypeId", async () => {
+  test("team_create resolves a visible sort-prefixed odin caller into callerAgentTypeId", async () => {
     // given
     const teamCreateTool = createTeamCreateToolForTest()
     const toolContext = {
       ...createToolContext("lead-session"),
-      agent: "00|Sisyphus",
+      agent: "00|Odin",
     }
 
     // when
@@ -102,7 +102,7 @@ describe("team lifecycle tools", () => {
       config,
       backgroundManager,
       undefined,
-      { callerAgentTypeId: "sisyphus", parentMessageID: expect.any(String) },
+      { callerAgentTypeId: "odin", parentMessageID: expect.any(String) },
     )
   })
 
@@ -126,7 +126,7 @@ describe("team lifecycle tools", () => {
     const teamCreateTool = createTeamCreateToolForTest()
     const inlineSpec = {
       name: "alpha-team",
-      lead: { kind: "subagent_type", subagent_type: "sisyphus" },
+      lead: { kind: "subagent_type", subagent_type: "odin" },
       members: [{ kind: "category", name: "member-a", category: "quick", prompt: "Do the assigned work" }],
     }
 
@@ -344,27 +344,27 @@ describe("team lifecycle tools", () => {
   test("team_create denies a hard-reject caller even when spec has an explicit lead field", async () => {
     // given
     const teamCreateTool = createTeamCreateToolForTest()
-    const prometheusContext = {
+    const mimirContext = {
       ...createToolContext("lead-session"),
-      agent: "prometheus",
+      agent: "mimir",
     }
     const inlineSpec = {
       name: "alpha-team",
-      lead: { kind: "subagent_type", subagent_type: "sisyphus" },
+      lead: { kind: "subagent_type", subagent_type: "odin" },
       members: [{ kind: "category", name: "member-a", category: "quick", prompt: "Do the assigned work" }],
     }
 
     // when
     let errorMessage = ""
     try {
-      await teamCreateTool.execute({ inline_spec: inlineSpec }, prometheusContext)
+      await teamCreateTool.execute({ inline_spec: inlineSpec }, mimirContext)
     } catch (error) {
       errorMessage = error instanceof Error ? error.message : String(error)
     }
 
     // then
     expect(errorMessage).toContain("team_create denied")
-    expect(errorMessage).toContain("prometheus")
+    expect(errorMessage).toContain("mimir")
     expect(errorMessage).toContain("hard-reject")
     expect(createTeamRunMock).not.toHaveBeenCalled()
   })

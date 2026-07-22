@@ -303,7 +303,7 @@ Use nested command.
     expect(nestedCommand?.scope).toBe("opencode-project")
   })
 
-  it("keeps builtin start-work routed to Atlas during static discovery", () => {
+  it("keeps builtin start-work routed to Heimdall during static discovery", () => {
     // given
 
     // when
@@ -311,7 +311,7 @@ Use nested command.
     const startWorkCommand = commands.find((command) => command.name === "start-work")
 
     // then
-    expect(startWorkCommand?.metadata.agent).toBe("atlas")
+    expect(startWorkCommand?.metadata.agent).toBe("heimdall")
   })
 })
 

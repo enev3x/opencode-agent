@@ -402,7 +402,7 @@ describe("boulder-state", () => {
         taskLabel: "1",
         taskTitle: "Implement auth flow",
         sessionId: "ses_task_123",
-        agent: "sisyphus-junior",
+        agent: "einherjar",
         category: "deep",
       })
       const result = getTaskSessionState(TEST_DIR, "todo:1")
@@ -411,7 +411,7 @@ describe("boulder-state", () => {
       expect(result).not.toBeNull()
       expect(result?.session_id).toBe("opencode:ses_task_123")
       expect(result?.task_title).toBe("Implement auth flow")
-      expect(result?.agent).toBe("sisyphus-junior")
+      expect(result?.agent).toBe("einherjar")
       expect(result?.category).toBe("deep")
     })
 
@@ -454,7 +454,7 @@ describe("boulder-state", () => {
       const firstState = createBoulderState(
         join(TEST_DIR, ".omo/plans/plan-a.md"),
         "session-a",
-        "atlas",
+        "heimdall",
         "/worktree-a",
       )
       writeBoulderState(TEST_DIR, firstState)
@@ -464,7 +464,7 @@ describe("boulder-state", () => {
       const updatedState = addBoulderWork(TEST_DIR, {
         planPath: join(TEST_DIR, ".omo/plans/plan-b.md"),
         sessionId: "session-b",
-        agent: "atlas",
+        agent: "heimdall",
         worktreePath: "/worktree-b",
       })
 
@@ -1063,13 +1063,13 @@ describe("boulder-state", () => {
       //#given - plan path, session id, and agent type
       const planPath = "/path/to/feature.md"
       const sessionId = "ses-xyz789"
-      const agent = "atlas"
+      const agent = "heimdall"
 
       //#when - createBoulderState is called with agent
       const state = createBoulderState(planPath, sessionId, agent)
 
       //#then - state should include the agent field
-      expect(state.agent).toBe("atlas")
+      expect(state.agent).toBe("heimdall")
       expect(state.active_plan).toBe(planPath)
       expect(state.session_ids).toEqual(["opencode:ses-xyz789"])
       expect(state.plan_name).toBe("feature")
@@ -1148,7 +1148,7 @@ describe("boulder-state", () => {
       const planPath = join(TEST_DIR, ".omo", "plans", "raw-session.md")
 
       // when
-      const state = createBoulderState(planPath, "raw-sess", "atlas", undefined)
+      const state = createBoulderState(planPath, "raw-sess", "heimdall", undefined)
       writeBoulderState(TEST_DIR, state)
       const readBack = readBoulderState(TEST_DIR)
 
@@ -1161,7 +1161,7 @@ describe("boulder-state", () => {
       const planPath = join(TEST_DIR, ".omo", "plans", "codex-session.md")
 
       // when
-      const state = createBoulderState(planPath, "codex:raw-sess", "atlas", undefined)
+      const state = createBoulderState(planPath, "codex:raw-sess", "heimdall", undefined)
       writeBoulderState(TEST_DIR, state)
       const readBack = readBoulderState(TEST_DIR)
 
@@ -1206,7 +1206,7 @@ describe("boulder-state", () => {
     test("#given stored work with prefixed session #when looking up by raw id #then matching work is returned", () => {
       // given
       const planPath = join(TEST_DIR, ".omo", "plans", "lookup.md")
-      const state = createBoulderState(planPath, "opencode:raw-id", "atlas", undefined)
+      const state = createBoulderState(planPath, "opencode:raw-id", "heimdall", undefined)
       writeBoulderState(TEST_DIR, state)
 
       // when

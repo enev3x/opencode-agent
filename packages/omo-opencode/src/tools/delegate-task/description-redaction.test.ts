@@ -8,14 +8,14 @@ import type { DelegateTaskArgs, ToolContextWithMetadata } from "./types"
 const parentContext = {
   sessionID: "ses_parent",
   messageID: "msg_parent",
-  agent: "sisyphus",
+  agent: "odin",
 }
 
 function createToolContext(): ToolContextWithMetadata {
   return {
     sessionID: "ses_parent",
     messageID: "msg_parent",
-    agent: "sisyphus",
+    agent: "odin",
     abort: new AbortController().signal,
     metadata: async () => {},
   }
@@ -67,7 +67,7 @@ describe("background task description redaction", () => {
     )
 
     // then
-    expect(launchedDescription).toBe("Sisyphus-Junior background task")
+    expect(launchedDescription).toBe("Einherjar background task")
     expect(launchedDescription).not.toContain("SECRET_TOKEN")
   })
 
@@ -80,7 +80,7 @@ describe("background task description redaction", () => {
       prompt: "SECRET_TOKEN=never-write-this do work",
       run_in_background: true,
       load_skills: [],
-      subagent_type: "atlas",
+      subagent_type: "heimdall",
     })
 
     // when
@@ -103,13 +103,13 @@ describe("background task description redaction", () => {
         },
       }),
       parentContext,
-      "atlas",
+      "heimdall",
       undefined,
       undefined,
     )
 
     // then
-    expect(launchedDescription).toBe("atlas background task")
+    expect(launchedDescription).toBe("heimdall background task")
     expect(launchedDescription).not.toContain("SECRET_TOKEN")
   })
 
@@ -145,7 +145,7 @@ describe("background task description redaction", () => {
             id: "bg_unstable_secret",
             sessionId: "ses_unstable_secret",
             description: launchedDescription,
-            agent: "sisyphus-junior",
+            agent: "einherjar",
             status: "completed",
           }),
         },
@@ -163,14 +163,14 @@ describe("background task description redaction", () => {
         syncPollTimeoutMs: 100,
       }),
       parentContext,
-      "sisyphus-junior",
+      "einherjar",
       undefined,
       undefined,
       "test-model",
     )
 
     // then
-    expect(launchedDescription).toBe("sisyphus-junior background task")
+    expect(launchedDescription).toBe("einherjar background task")
     expect(launchedDescription).not.toContain("SECRET_TOKEN")
   })
 })

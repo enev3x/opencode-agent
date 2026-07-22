@@ -136,7 +136,7 @@ export function createCallOmoAgent(
       subagent_type: tool.schema
         .string()
         .describe(
-          "The agent to invoke. Only explore and librarian are allowed.",
+          "The agent to invoke. Only explore and bragi are allowed.",
         ),
       run_in_background: tool.schema
         .boolean()
@@ -160,7 +160,7 @@ export function createCallOmoAgent(
 
       const callableAgents = await resolveCallableAgents(ctx.client);
 
-      // Strip ZWSP and case-insensitive agent validation - allows "Explore", "EXPLORE", "explore" etc.
+      // Strip ZWSP and case-insensitive agent validation - allows "Explore", "EXPLORE", "vidar" etc.
       const strippedAgentType = stripInvisibleAgentCharacters(args.subagent_type)
       if (
         !callableAgents.some(

@@ -26,8 +26,8 @@ function createMockCtx(agents: Array<{ name: string; mode?: string }> = []): Plu
 }
 
 const DEFAULT_AGENTS = [
-  { name: "explore", mode: "subagent" },
-  { name: "librarian", mode: "subagent" },
+  { name: "vidar", mode: "subagent" },
+  { name: "bragi", mode: "subagent" },
 ]
 
 const reserveCommitMock = mock(() => 1)
@@ -76,7 +76,7 @@ describe("createCallOmoAgent edge cases", () => {
         {
           description: "Test",
           prompt: "Test prompt",
-          subagent_type: "explore",
+          subagent_type: "vidar",
           run_in_background: false,
         },
         toolCtx,
@@ -120,7 +120,7 @@ describe("createCallOmoAgent edge cases", () => {
       )
 
       expect(result).toContain("Invalid agent type")
-      expect(result).toContain("Only explore, librarian are allowed")
+      expect(result).toContain("Only explore, bragi are allowed")
     })
   })
 
@@ -128,7 +128,7 @@ describe("createCallOmoAgent edge cases", () => {
     test("#then the agent is callable without conflict", async () => {
       const agents = [
         ...DEFAULT_AGENTS,
-        { name: "explore", mode: "subagent" },
+        { name: "vidar", mode: "subagent" },
       ]
       const mockCtx = createMockCtx(agents)
       const mockManager = {
@@ -138,7 +138,7 @@ describe("createCallOmoAgent edge cases", () => {
           id: "task-id",
           sessionId: "ses-1",
           description: "Test",
-          agent: "explore",
+          agent: "vidar",
           status: "pending",
         })),
         getTask: mock(() => ({ status: "pending", sessionId: "ses-1" })),
@@ -150,7 +150,7 @@ describe("createCallOmoAgent edge cases", () => {
         {
           description: "Test",
           prompt: "Search codebase",
-          subagent_type: "explore",
+          subagent_type: "vidar",
           run_in_background: true,
         },
         toolCtx,
@@ -207,7 +207,7 @@ describe("createCallOmoAgent edge cases", () => {
         {
           description: "Test",
           prompt: "Continue work",
-          subagent_type: "explore",
+          subagent_type: "vidar",
           run_in_background: true,
           session_id: "ses-existing-123",
         },

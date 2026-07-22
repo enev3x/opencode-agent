@@ -31,15 +31,15 @@ interface EventInput {
 
 /**
  * Only orchestrator agents should receive usage reminders.
- * Subagents (explore, librarian, oracle, etc.) are the targets of delegation,
+ * Subagents (explore, bragi, volva, etc.) are the targets of delegation,
  * so reminding them to delegate to themselves is counterproductive.
  */
 const ORCHESTRATOR_AGENTS = new Set([
-  "sisyphus",
-  "sisyphus-junior",
-  "atlas",
-  "hephaestus",
-  "prometheus",
+  "odin",
+  "einherjar",
+  "heimdall",
+  "thor",
+  "mimir",
 ]);
 
 const MAX_REMINDERS = 3;

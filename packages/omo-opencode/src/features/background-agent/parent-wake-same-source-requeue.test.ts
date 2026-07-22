@@ -88,14 +88,14 @@ describe("ParentWakeNotifier — same-source reservation requeue (BUG-E)", () =>
     // given
     const { notifier, promptAsyncCalls } = createNotifier()
     const sessionID = "parent-hold-duplicate-wake"
-    notifier.queuePendingParentWake(sessionID, "wake A", { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake(sessionID, "wake A", { agent: "odin" }, true)
 
     try {
       await notifier.flushPendingParentWake(sessionID)
       expect(promptAsyncCalls).toHaveLength(1)
 
       // when
-      notifier.queuePendingParentWake(sessionID, "wake A", { agent: "sisyphus" }, true)
+      notifier.queuePendingParentWake(sessionID, "wake A", { agent: "odin" }, true)
       await notifier.flushPendingParentWake(sessionID)
       releaseParentWakeHold(sessionID)
       await notifier.flushPendingParentWake(sessionID)
@@ -113,15 +113,15 @@ describe("ParentWakeNotifier — same-source reservation requeue (BUG-E)", () =>
     // given
     const { notifier, promptAsyncCalls } = createNotifier()
     const sessionID = "parent-hold-redundant-duplicate-burst"
-    notifier.queuePendingParentWake(sessionID, "wake A", { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake(sessionID, "wake A", { agent: "odin" }, true)
 
     try {
       await notifier.flushPendingParentWake(sessionID)
       expect(promptAsyncCalls).toHaveLength(1)
 
       // when
-      notifier.queuePendingParentWake(sessionID, "wake A", { agent: "sisyphus" }, true)
-      notifier.queuePendingParentWake(sessionID, "wake A", { agent: "sisyphus" }, true)
+      notifier.queuePendingParentWake(sessionID, "wake A", { agent: "odin" }, true)
+      notifier.queuePendingParentWake(sessionID, "wake A", { agent: "odin" }, true)
       await notifier.flushPendingParentWake(sessionID)
       releaseParentWakeHold(sessionID)
       await notifier.flushPendingParentWake(sessionID)
@@ -139,7 +139,7 @@ describe("ParentWakeNotifier — same-source reservation requeue (BUG-E)", () =>
     // given
     const { notifier, promptAsyncCalls } = createNotifier()
     const sessionID = "parent-dispatched-window-duplicate"
-    notifier.queuePendingParentWake(sessionID, "wake A", { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake(sessionID, "wake A", { agent: "odin" }, true)
 
     try {
       await notifier.flushPendingParentWake(sessionID)
@@ -147,7 +147,7 @@ describe("ParentWakeNotifier — same-source reservation requeue (BUG-E)", () =>
       releaseParentWakeHold(sessionID)
 
       // when
-      notifier.queuePendingParentWake(sessionID, "wake A", { agent: "sisyphus" }, true)
+      notifier.queuePendingParentWake(sessionID, "wake A", { agent: "odin" }, true)
       await notifier.flushPendingParentWake(sessionID)
 
       // then
@@ -163,14 +163,14 @@ describe("ParentWakeNotifier — same-source reservation requeue (BUG-E)", () =>
     // given
     const { notifier, promptAsyncCalls } = createNotifier()
     const sessionID = "parent-hold-new-wake"
-    notifier.queuePendingParentWake(sessionID, "wake A", { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake(sessionID, "wake A", { agent: "odin" }, true)
 
     try {
       await notifier.flushPendingParentWake(sessionID)
       expect(promptAsyncCalls).toHaveLength(1)
 
       // when
-      notifier.queuePendingParentWake(sessionID, "wake B", { agent: "sisyphus" }, true)
+      notifier.queuePendingParentWake(sessionID, "wake B", { agent: "odin" }, true)
       await notifier.flushPendingParentWake(sessionID)
 
       // then
@@ -193,7 +193,7 @@ describe("ParentWakeNotifier — same-source reservation requeue (BUG-E)", () =>
     // given
     const { notifier, promptAsyncCalls } = createNotifier()
     const sessionID = "parent-hold-reply-upgrade"
-    notifier.queuePendingParentWake(sessionID, "wake A", { agent: "sisyphus" }, false)
+    notifier.queuePendingParentWake(sessionID, "wake A", { agent: "odin" }, false)
 
     try {
       await notifier.flushPendingParentWake(sessionID)
@@ -201,7 +201,7 @@ describe("ParentWakeNotifier — same-source reservation requeue (BUG-E)", () =>
       expect(promptAsyncCalls[0]?.body.noReply).toBe(true)
 
       // when
-      notifier.queuePendingParentWake(sessionID, "wake A", { agent: "sisyphus" }, true)
+      notifier.queuePendingParentWake(sessionID, "wake A", { agent: "odin" }, true)
       await notifier.flushPendingParentWake(sessionID)
 
       // then
@@ -225,27 +225,27 @@ describe("ParentWakeNotifier — same-source reservation requeue (BUG-E)", () =>
     // given
     const { notifier, promptAsyncCalls } = createNotifier()
     const sessionID = "parent-hold-context-change"
-    notifier.queuePendingParentWake(sessionID, "wake A", { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake(sessionID, "wake A", { agent: "odin" }, true)
 
     try {
       await notifier.flushPendingParentWake(sessionID)
       expect(promptAsyncCalls).toHaveLength(1)
-      expect(promptAsyncCalls[0]?.body.agent).toBe("sisyphus")
+      expect(promptAsyncCalls[0]?.body.agent).toBe("odin")
 
       // when
-      notifier.queuePendingParentWake(sessionID, "wake A", { agent: "atlas" }, true)
+      notifier.queuePendingParentWake(sessionID, "wake A", { agent: "heimdall" }, true)
       await notifier.flushPendingParentWake(sessionID)
 
       // then
       expect(promptAsyncCalls).toHaveLength(1)
-      expect(notifier.getPendingParentWakes().get(sessionID)?.promptContext.agent).toBe("atlas")
+      expect(notifier.getPendingParentWakes().get(sessionID)?.promptContext.agent).toBe("heimdall")
       expect(notifier.getPendingParentWakeTimers().has(sessionID)).toBe(true)
 
       releaseParentWakeHold(sessionID)
       await notifier.flushPendingParentWake(sessionID)
 
       expect(promptAsyncCalls).toHaveLength(2)
-      expect(promptAsyncCalls[1]?.body.agent).toBe("atlas")
+      expect(promptAsyncCalls[1]?.body.agent).toBe("heimdall")
       expect(notifier.getPendingParentWakes().has(sessionID)).toBe(false)
     } finally {
       notifier.shutdown()
@@ -264,7 +264,7 @@ describe("ParentWakeNotifier — same-source reservation requeue (BUG-E)", () =>
       },
     })
     const sessionID = "parent-failed-retry-during-hold"
-    notifier.queuePendingParentWake(sessionID, "retry wake", { agent: "sisyphus" }, true)
+    notifier.queuePendingParentWake(sessionID, "retry wake", { agent: "odin" }, true)
 
     try {
       await notifier.flushPendingParentWake(sessionID)

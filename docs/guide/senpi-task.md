@@ -6,7 +6,7 @@ The component is on by default. Disable it with the `--no-omo-task` flag; it als
 
 ## Spawning a child
 
-Use the `task` tool. Only `prompt` is required, and it must be written in English (`packages/senpi-task/src/tools/task/params.ts`). Pick a target with **either** `category` (routed through Sisyphus-Junior) **or** `subagent_type` (a named agent invoked directly) - the two are mutually exclusive.
+Use the `task` tool. Only `prompt` is required, and it must be written in English (`packages/senpi-task/src/tools/task/params.ts`). Pick a target with **either** `category` (routed through Einherjar) **or** `subagent_type` (a named agent invoked directly) - the two are mutually exclusive.
 
 - `run_in_background: false` (default) waits and returns the child's final response inline.
 - `run_in_background: true` returns a task id (prefixed `st_`) immediately so you can keep working and check back later.
@@ -21,7 +21,7 @@ For fanout, pass `tasks:[...]` instead of the top-level `prompt`/target fields. 
 {
   "tasks": [
     { "category": "quick", "prompt": "Check the API contract.", "name": "contract" },
-    { "subagent_type": "oracle", "prompt": "Review the migration risk.", "name": "risk" }
+    { "subagent_type": "volva", "prompt": "Review the migration risk.", "name": "risk" }
   ],
   "run_in_background": true
 }

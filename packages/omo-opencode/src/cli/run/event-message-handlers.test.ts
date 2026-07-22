@@ -164,7 +164,7 @@ describe("handleMessagePartUpdated", () => {
             id: "msg_1",
             sessionID: "ses_main",
             role: "assistant",
-            agent: "Sisyphus",
+            agent: "Odin",
             modelID: "claude-sonnet-4-6",
           },
         },
@@ -211,7 +211,7 @@ describe("handleMessagePartUpdated", () => {
 
     //#then
     const output = joinWriteCalls(stdoutSpy.mock.calls)
-    const metaCount = output.split("Sisyphus · claude-sonnet-4-6 · 2.4s").length - 1
+    const metaCount = output.split("Odin · claude-sonnet-4-6 · 2.4s").length - 1
     expect(metaCount).toBe(1)
     expect(state.completionMetaPrintedByMessageId["msg_1"]).toBe(true)
 
@@ -242,7 +242,7 @@ describe("handleMessageUpdated", () => {
           id: "msg_new",
           sessionID: "ses_main",
           role: "assistant",
-          agent: "Atlas",
+          agent: "Heimdall",
           modelID: "gpt-5.2",
           variant: "low",
         },

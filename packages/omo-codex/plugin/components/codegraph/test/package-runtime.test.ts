@@ -80,7 +80,7 @@ describe("CodeGraph component runtime package metadata", () => {
 		const codexNotice = readFileSync(resolve(repoRoot, "packages/omo-codex/THIRD-PARTY-NOTICES.md"), "utf8");
 
 		// when
-		const listsCodegraphComponent = codexNotice.includes("@sisyphuslabs/codex-codegraph");
+		const listsCodegraphComponent = codexNotice.includes("@odinlabs/codex-codegraph");
 		const listsUpstreamRuntime = codexNotice.includes("@colbymchenry/codegraph");
 
 		// then

@@ -38,7 +38,7 @@ describe("checkAndInterruptStaleTasks", () => {
       parentMessageId: "msg-1",
       description: "test",
       prompt: "test",
-      agent: "explore",
+      agent: "vidar",
       status: "running",
       startedAt: new Date(Date.now() - 120_000),
       ...overrides,
@@ -945,7 +945,7 @@ describe("pruneStaleTasksAndNotifications", () => {
       parentMessageId: "msg",
       description: "terminal",
       prompt: "terminal",
-      agent: "explore",
+      agent: "vidar",
       status: "completed",
       startedAt: new Date(Date.now() - 40 * 60 * 1000),
       completedAt: new Date(Date.now() - 31 * 60 * 1000),
@@ -962,7 +962,7 @@ describe("pruneStaleTasksAndNotifications", () => {
       parentMessageId: "msg",
       description: "old",
       prompt: "old",
-      agent: "explore",
+      agent: "vidar",
       status: "running",
       startedAt: new Date(Date.now() - 31 * 60 * 1000),
     }
@@ -991,7 +991,7 @@ describe("pruneStaleTasksAndNotifications", () => {
       parentMessageId: "msg",
       description: "active",
       prompt: "active",
-      agent: "oracle",
+      agent: "volva",
       status: "running",
       startedAt: new Date(Date.now() - 45 * 60 * 1000),
       progress: {
@@ -1024,7 +1024,7 @@ describe("pruneStaleTasksAndNotifications", () => {
       parentMessageId: "msg",
       description: "stale",
       prompt: "stale",
-      agent: "oracle",
+      agent: "volva",
       status: "running",
       startedAt: new Date(Date.now() - 60 * 60 * 1000),
       progress: {
@@ -1058,7 +1058,7 @@ describe("pruneStaleTasksAndNotifications", () => {
       parentMessageId: "msg",
       description: "active status",
       prompt: "active status",
-      agent: "oracle",
+      agent: "volva",
       status: "running",
       startedAt: new Date(Date.now() - 60 * 60 * 1000),
       progress: {
@@ -1093,7 +1093,7 @@ describe("pruneStaleTasksAndNotifications", () => {
       parentMessageId: "msg",
       description: "custom",
       prompt: "custom",
-      agent: "explore",
+      agent: "vidar",
       status: "running",
       startedAt: new Date(Date.now() - 61 * 60 * 1000),
     }
@@ -1123,7 +1123,7 @@ describe("pruneStaleTasksAndNotifications", () => {
       parentMessageId: "msg",
       description: "within",
       prompt: "within",
-      agent: "explore",
+      agent: "vidar",
       status: "running",
       startedAt: new Date(Date.now() - 45 * 60 * 1000),
     }
@@ -1155,7 +1155,7 @@ describe("pruneStaleTasksAndNotifications", () => {
       teamRunId: "team-run-1",
       description: "team member",
       prompt: "team member",
-      agent: "sisyphus-junior",
+      agent: "einherjar",
       status: "running",
       startedAt: new Date(Date.now() - 60 * 60 * 1000),
       progress: {

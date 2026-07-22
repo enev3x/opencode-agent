@@ -321,7 +321,7 @@ describe("dispatchInternalPrompt semantic dedupe", () => {
           path: { id: sessionID },
           body: {
             parts: [createInternalAgentContinuationTextPart("continue from route A")],
-            agent: "sisyphus",
+            agent: "odin",
             model: "openai/gpt-5",
           },
           query: { directory: "/workspace/project", tools: ["task"], route: "todo-enforcer" },
@@ -339,7 +339,7 @@ describe("dispatchInternalPrompt semantic dedupe", () => {
           path: { id: sessionID },
           body: {
             parts: [createInternalAgentContinuationTextPart("continue from route B")],
-            agent: "atlas",
+            agent: "heimdall",
             model: "anthropic/claude-sonnet",
           },
           query: { directory: "/workspace/project", tools: ["team_task_create"], route: "team-mailbox" },

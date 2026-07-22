@@ -5,7 +5,7 @@ import {
   buildGeminiToolGuide,
   buildGeminiToolMandate,
   buildGeminiVerificationOverride,
-} from "./sisyphus/gemini";
+} from "./odin/gemini";
 import { isGeminiModel } from "./types";
 
 export function applyGeminiFallbackOverrides(model: string, prompt: string): string {

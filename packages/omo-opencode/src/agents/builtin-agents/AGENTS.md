@@ -22,11 +22,11 @@ Conditional factory layer beneath the 11 raw `createXXXAgent` factories in `src/
 | `environment-context.ts` | Appends `createEnvContext()` block to agent prompt unless `disableOmoEnv` is set |
 | `available-skills.ts` | `buildAvailableSkills` -- merges builtin skills with discovered user skills, filters disabled |
 | `available-skills.test.ts` | Tests for builtin + discovered skill merging and disabled filtering |
-| `sisyphus-agent.ts` | `maybeCreateSisyphusConfig` -- checks disabled list, model requirements, applies overrides + frontier tool schema guard + GPT patch guard |
-| `sisyphus-agent.test.ts` | Tests for disabled-agent filtering, model resolution, override application, first-run fallback behavior |
-| `hephaestus-agent.ts` | `maybeCreateHephaestusConfig` -- provider gating (`requiresProvider`), category override support, variant defaulting to medium |
-| `atlas-agent.ts` | `maybeCreateAtlasConfig` -- UI-selected model respect, variant resolution |
-| `general-agents.ts` | `collectPendingBuiltinAgents` -- handles all non-special-cased agents (skips sisyphus/hephaestus/atlas/sisyphus-junior), bulk model resolution and override application |
+| `odin-agent.ts` | `maybeCreateOdinConfig` -- checks disabled list, model requirements, applies overrides + frontier tool schema guard + GPT patch guard |
+| `odin-agent.test.ts` | Tests for disabled-agent filtering, model resolution, override application, first-run fallback behavior |
+| `thor-agent.ts` | `maybeCreateThorConfig` -- provider gating (`requiresProvider`), category override support, variant defaulting to medium |
+| `heimdall-agent.ts` | `maybeCreateHeimdallConfig` -- UI-selected model respect, variant resolution |
+| `general-agents.ts` | `collectPendingBuiltinAgents` -- handles all non-special-cased agents (skips odin/thor/heimdall/einherjar), bulk model resolution and override application |
 
 ## PIPELINE FIT
 

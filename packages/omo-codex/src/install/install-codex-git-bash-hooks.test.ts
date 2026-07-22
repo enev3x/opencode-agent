@@ -33,7 +33,7 @@ describe("install-codex Git Bash hooks", () => {
 
     // then
     const configContent = await readFile(join(codexHome, "config.toml"), "utf8")
-    expect(configContent).toContain('[plugins."omo@sisyphuslabs".mcp_servers.git_bash]')
+    expect(configContent).toContain('[plugins."omo@odinlabs".mcp_servers.git_bash]')
     expect(configContent).toContain("enabled = true")
     expect(configContent).toContain(GIT_BASH_PRE_TOOL_USE_HOOK.slice(2))
     expect(configContent).toContain(GIT_BASH_POST_COMPACT_HOOK.slice(2))
@@ -65,7 +65,7 @@ describe("install-codex Git Bash hooks", () => {
 
     // then
     const configContent = await readFile(join(codexHome, "config.toml"), "utf8")
-    expect(configContent).toContain('[plugins."omo@sisyphuslabs".mcp_servers.git_bash]')
+    expect(configContent).toContain('[plugins."omo@odinlabs".mcp_servers.git_bash]')
     expect(configContent).toContain("enabled = false")
     expect(configContent).not.toContain(GIT_BASH_PRE_TOOL_USE_HOOK.slice(2))
     expect(configContent).not.toContain(GIT_BASH_POST_COMPACT_HOOK.slice(2))

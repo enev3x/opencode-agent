@@ -40,13 +40,13 @@ describe("statusThemeColor", () => {
 describe("taskCallLines", () => {
   test("#given current spawn arguments #when rendered #then the plain row includes task, target, actual prompt, and mode", () => {
     // given
-    const args = { prompt: "ship it", subagent_type: "atlas", run_in_background: false }
+    const args = { prompt: "ship it", subagent_type: "heimdall", run_in_background: false }
 
     // when
     const lines = taskCallLines(args)
 
     // then
-    expect(lines).toEqual(['task agent:atlas "ship it" foreground'])
+    expect(lines).toEqual(['task agent:heimdall "ship it" foreground'])
   })
 
   test("#given a spawn call #when rendered #then target and mode are summarized", () => {
@@ -172,13 +172,13 @@ describe("taskResultLines", () => {
       task_id: "st_0000000d",
       status: "completed",
       mode: "spawn",
-      subagent_type: "oracle",
+      subagent_type: "volva",
       model: "openai/manual",
       run_in_background: false,
     }).join(" ")
 
     // then
-    expect(row).toContain("agent:oracle")
+    expect(row).toContain("agent:volva")
     expect(row).toContain("model:openai/manual")
     expect(row).toContain("foreground")
     expect(row).not.toContain("prompt:")

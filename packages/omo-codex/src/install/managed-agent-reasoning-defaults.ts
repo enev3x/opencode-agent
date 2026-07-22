@@ -23,7 +23,7 @@ const MANAGED_REASONING_DEFAULT_UPGRADES = new Map<string, readonly ManagedReaso
     ],
   ],
   [
-    "librarian",
+    "bragi",
     [
       {
         previous: { model: "gpt-5.4-mini", effort: "low" },
@@ -36,7 +36,7 @@ const MANAGED_REASONING_DEFAULT_UPGRADES = new Map<string, readonly ManagedReaso
     ],
   ],
   [
-    "momus",
+    "forseti",
     [
       {
         previous: { model: "gpt-5.5", effort: "xhigh" },

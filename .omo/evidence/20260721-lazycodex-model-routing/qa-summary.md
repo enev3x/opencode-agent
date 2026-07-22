@@ -24,7 +24,7 @@
 - Package and repository typechecks passed; the build passed.
 - `bun run test:codex` passed: 510 Node tests and 382 Bun tests, with one
   expected platform-specific skip.
-- The isolated installer found the plugin cache, enabled `omo@sisyphuslabs`,
+- The isolated installer found the plugin cache, enabled `omo@odinlabs`,
   linked nine component bins and agent TOMLs, and reported the real
   `~/.codex/config.toml` checksum unchanged:
   `e1213327752215e76048d840b74aa0cecf3504d7`.

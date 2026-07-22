@@ -21,7 +21,7 @@ describe("task_update tool", () => {
   beforeEach(() => {
     testDir = mkdtempSync(join(tmpdir(), "omo-task-update-"))
     tool = createTaskUpdateTool({
-      sisyphus: {
+      odin: {
         tasks: {
           storage_path: testDir,
         },
@@ -324,13 +324,13 @@ describe("task_update tool", () => {
       //#when
       const args = {
         id: taskId,
-        owner: "sisyphus",
+        owner: "odin",
       }
       const resultStr = await tool.execute(args, TEST_CONTEXT)
       const result = JSON.parse(resultStr)
 
       //#then
-      expect(result.task.owner).toBe("sisyphus")
+      expect(result.task.owner).toBe("odin")
     })
 
     test("returns error when task not found", async () => {

@@ -35,7 +35,7 @@ describe("executeBackgroundContinuation - subagent metadata", () => {
       {
         sessionID: "parent-session",
         messageID: "msg-parent",
-        agent: "sisyphus",
+        agent: "odin",
       },
     )
 
@@ -49,8 +49,8 @@ describe("executeBackgroundContinuation - subagent metadata", () => {
     const mockManager = {
       resume: async () => ({
         id: "bg_task_001",
-        description: "oracle consultation",
-        agent: "oracle",
+        description: "volva consultation",
+        agent: "volva",
         status: "running",
         sessionId: "ses_resumed_123",
       }),
@@ -69,13 +69,13 @@ describe("executeBackgroundContinuation - subagent metadata", () => {
     const parentContext = {
       sessionID: "parent-session",
       messageID: "msg-parent",
-      agent: "sisyphus",
+      agent: "odin",
     }
 
     const args = {
       task_id: "ses_resumed_123",
       prompt: "continue working",
-      description: "resume oracle",
+      description: "resume volva",
       load_skills: [],
       run_in_background: true,
     }
@@ -86,7 +86,7 @@ describe("executeBackgroundContinuation - subagent metadata", () => {
 
     //#then - task_metadata should contain subagent field
     expect(result).toContain("<task_metadata>")
-    expect(result).toContain("subagent: oracle")
+    expect(result).toContain("subagent: volva")
     expect(result).toContain("session_id: ses_resumed_123")
     expect(result).toContain("background_task_id: bg_task_001")
     expect(result).not.toContain("task_id: ses_resumed_123")
@@ -118,7 +118,7 @@ describe("executeBackgroundContinuation - subagent metadata", () => {
     const parentContext = {
       sessionID: "parent-session",
       messageID: "msg-parent",
-      agent: "sisyphus",
+      agent: "odin",
     }
 
     const args = {
@@ -145,7 +145,7 @@ describe("executeBackgroundContinuation - subagent metadata", () => {
       resume: async () => ({
         id: "bg_task_cta",
         description: "continue task",
-        agent: "oracle",
+        agent: "volva",
         status: "running",
         sessionId: "ses_resumed_cta",
       }),
@@ -164,7 +164,7 @@ describe("executeBackgroundContinuation - subagent metadata", () => {
     const parentContext = {
       sessionID: "parent-session",
       messageID: "msg-parent",
-      agent: "sisyphus",
+      agent: "odin",
     }
 
     const args = {

@@ -53,6 +53,6 @@ Every path absolute (starts with `/`); include ALL relevant matches, not just th
 
 # Constraints
 - READ-ONLY: never `edit`, `write`, `apply_patch`, or anything that mutates the filesystem. Never create files - findings are message text only, no scratch files or temp dumps.
-- No internet browsing: external research is the librarian's job.
+- No internet browsing: external research is the bragi's job.
 - No emojis. No tool names in prose (say "search the codebase", not "use rg"). No preamble - answer directly.
 """

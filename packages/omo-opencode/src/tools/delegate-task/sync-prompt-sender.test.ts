@@ -45,7 +45,7 @@ bunDescribe("sendSyncPrompt", () => {
 
     const input = {
       sessionID: "test-session",
-      agentToUse: "sisyphus-junior",
+      agentToUse: "einherjar",
       args: {
         description: "test task",
         prompt: "test prompt",
@@ -86,7 +86,7 @@ bunDescribe("sendSyncPrompt", () => {
 
     const input = {
       sessionID: "test-session",
-      agentToUse: "sisyphus-junior",
+      agentToUse: "einherjar",
       args: {
         description: "test task",
         prompt: "test prompt",
@@ -107,7 +107,7 @@ bunDescribe("sendSyncPrompt", () => {
     bunExpect(promptArgs.body.tools.question).toBe(false)
   })
 
-  bunTest("applies agent tool restrictions for explore agent", async () => {
+  bunTest("applies agent tool restrictions for vidar agent", async () => {
     //#given
     const { sendSyncPrompt } = require("./sync-prompt-sender")
 
@@ -126,7 +126,7 @@ bunDescribe("sendSyncPrompt", () => {
 
     const input = {
       sessionID: "test-session",
-      agentToUse: "explore",
+      agentToUse: "vidar",
       args: {
         description: "test task",
         prompt: "test prompt",
@@ -148,7 +148,7 @@ bunDescribe("sendSyncPrompt", () => {
     bunExpect(promptArgs.body.tools.call_omo_agent).toBe(false)
   })
 
-  bunTest("applies agent tool restrictions for librarian agent", async () => {
+  bunTest("applies agent tool restrictions for bragi agent", async () => {
     //#given
     const { sendSyncPrompt } = require("./sync-prompt-sender")
 
@@ -167,7 +167,7 @@ bunDescribe("sendSyncPrompt", () => {
 
     const input = {
       sessionID: "test-session",
-      agentToUse: "librarian",
+      agentToUse: "bragi",
       args: {
         description: "test task",
         prompt: "test prompt",
@@ -189,7 +189,7 @@ bunDescribe("sendSyncPrompt", () => {
     bunExpect(promptArgs.body.tools.call_omo_agent).toBe(false)
   })
 
-  bunTest("does not restrict call_omo_agent for sisyphus agent", async () => {
+  bunTest("does not restrict call_omo_agent for odin agent", async () => {
     //#given
     const { sendSyncPrompt } = require("./sync-prompt-sender")
 
@@ -208,7 +208,7 @@ bunDescribe("sendSyncPrompt", () => {
 
     const input = {
       sessionID: "test-session",
-      agentToUse: "sisyphus",
+      agentToUse: "odin",
       args: {
         description: "test task",
         prompt: "test prompt",
@@ -249,7 +249,7 @@ bunDescribe("sendSyncPrompt", () => {
 
     const input = {
       sessionID: "test-session",
-      agentToUse: "sisyphus-junior",
+      agentToUse: "einherjar",
       args: {
         description: "test task",
         prompt: "test prompt",
@@ -272,7 +272,7 @@ bunDescribe("sendSyncPrompt", () => {
 
     //#then
     bunExpect(promptAsync).toHaveBeenCalled()
-    bunExpect(promptArgs.body.agent).toBe("sisyphus-junior")
+    bunExpect(promptArgs.body.agent).toBe("einherjar")
     bunExpect(promptArgs.body.model).toEqual({
       providerID: "openai",
       modelID: "gpt-5.4",
@@ -291,7 +291,7 @@ bunDescribe("sendSyncPrompt", () => {
 
     const input = {
       sessionID: "test-session",
-      agentToUse: "oracle",
+      agentToUse: "volva",
       args: {
         description: "test task",
         prompt: "test prompt",
@@ -356,7 +356,7 @@ bunDescribe("sendSyncPrompt", () => {
 
     const input = {
       sessionID: "test-session",
-      agentToUse: "sisyphus-junior",
+      agentToUse: "einherjar",
       args: {
         description: "test task",
         prompt: "test prompt",
@@ -387,7 +387,7 @@ bunDescribe("sendSyncPrompt", () => {
     bunExpect(promptWithModelSuggestionRetry).toHaveBeenCalledTimes(1)
     bunExpect(promptArgs.body.temperature).toBe(0.25)
   })
-  bunTest("#given oracle prompt starter returns unexpected EOF #when sending a sync prompt #then the prompt is treated as started", async () => {
+  bunTest("#given volva prompt starter returns unexpected EOF #when sending a sync prompt #then the prompt is treated as started", async () => {
     //#given
     const { sendSyncPrompt } = require("./sync-prompt-sender")
 
@@ -397,7 +397,7 @@ bunDescribe("sendSyncPrompt", () => {
 
     const input = {
       sessionID: "test-session",
-      agentToUse: "oracle",
+      agentToUse: "volva",
       args: {
         description: "test task",
         prompt: "test prompt",
@@ -424,7 +424,7 @@ bunDescribe("sendSyncPrompt", () => {
     bunExpect(promptWithModelSuggestionRetry).toHaveBeenCalledTimes(1)
   })
 
-  bunTest("returns non-oracle unexpected EOF from the prompt starter", async () => {
+  bunTest("returns non-volva unexpected EOF from the prompt starter", async () => {
     //#given
     const { sendSyncPrompt } = require("./sync-prompt-sender")
 
@@ -434,7 +434,7 @@ bunDescribe("sendSyncPrompt", () => {
 
     const input = {
       sessionID: "test-session",
-      agentToUse: "metis",
+      agentToUse: "urd",
       args: {
         description: "test task",
         prompt: "test prompt",
@@ -472,7 +472,7 @@ bunDescribe("sendSyncPrompt", () => {
 
     const input = {
       sessionID: "test-session",
-      agentToUse: "metis",
+      agentToUse: "urd",
       args: {
         description: "test task",
         prompt: "test prompt",
@@ -500,7 +500,7 @@ bunDescribe("sendSyncPrompt", () => {
     bunExpect(promptWithModelSuggestionRetry).toHaveBeenCalledTimes(1)
   })
 
-  bunTest("#given oracle prompt starter is blocked by the prompt gate #when sending a sync prompt #then the gate error is preserved", async () => {
+  bunTest("#given volva prompt starter is blocked by the prompt gate #when sending a sync prompt #then the gate error is preserved", async () => {
     //#given
     const { sendSyncPrompt } = require("./sync-prompt-sender")
 
@@ -510,7 +510,7 @@ bunDescribe("sendSyncPrompt", () => {
 
     const input = {
       sessionID: "test-session",
-      agentToUse: "oracle",
+      agentToUse: "volva",
       args: {
         description: "test task",
         prompt: "test prompt",

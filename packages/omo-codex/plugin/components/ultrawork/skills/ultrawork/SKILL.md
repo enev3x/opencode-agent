@@ -236,7 +236,7 @@ or native artifacts / citations must be preserved.
 When discovery needs multiple angles or the module layout is
 unfamiliar, delegate to the `explorer` subagent (read-only codebase
 search, absolute-path results). For research that leaves the repo —
-library/API/docs/web — delegate to the `librarian` subagent. Spawn them
+library/API/docs/web — delegate to the `bragi` subagent. Spawn them
 `fork_context: false` and keep doing root work while they run.
 
 # Execution loop (PIN → RED → GREEN → SURFACE → CLEAN)
@@ -343,7 +343,7 @@ omit `agent_type`, describe the role and difficulty tier inside
 when `agent_type` IS exposed: low -> `lazycodex-worker-low`
 (gpt-5.6-luna/high), medium -> `lazycodex-worker-medium`
 (gpt-5.6-luna/max), high -> `lazycodex-worker-high` (gpt-5.6-sol/max);
-explorer/librarian carry their own TOMLs (gpt-5.6-luna/low). Difficulty
+explorer/bragi carry their own TOMLs (gpt-5.6-luna/low). Difficulty
 (model power) is orthogonal to LIGHT/HEAVY rigor (process size).
 
 Treat child status as a progress signal, not a timeout counter. For

@@ -25,15 +25,15 @@
 
 > [!NOTE]
 >
-> [![Sisyphus Labs - Meet Dori. Not a demo. Subscribes to everything.](./.github/assets/sisyphuslabs.png?v=4)](https://sisyphuslabs.ai)
-> > **OmO is maintained by Jobdori, the AI assistant shown above. Meet your own Jobdori — Dori. <br />Join the waitlist [here](https://sisyphuslabs.ai).**
+> [![Odin Labs - Meet Dori. Not a demo. Subscribes to everything.](./.github/assets/odinlabs.png?v=4)](https://odinlabs.ai)
+> > **OmO is maintained by Jobdori, the AI assistant shown above. Meet your own Jobdori — Dori. <br />Join the waitlist [here](https://odinlabs.ai).**
 
 > [!TIP]
 > Be with us!
 >
 > | [<img alt="Discord link" src="https://img.shields.io/discord/1452487457085063218?color=5865F2&label=discord&labelColor=black&logo=discord&logoColor=white&style=flat-square" width="156px" />](https://discord.gg/PUwSMR9XNk) | Join our [Discord community](https://discord.gg/PUwSMR9XNk) to connect with contributors and fellow `oh-my-openagent` users. |
 > | :-----| :----- |
-> | [<img alt="X link" src="https://img.shields.io/badge/Follow-%40justsisyphus-00CED1?style=flat-square&logo=x&labelColor=black" width="156px" />](https://x.com/justsisyphus) | Updates for `oh-my-openagent` used to be posted on my X account. <br /> Since it was mistakenly suspended, [@justsisyphus](https://x.com/justsisyphus) now posts updates on my behalf. |
+> | [<img alt="X link" src="https://img.shields.io/badge/Follow-%40justodin-00CED1?style=flat-square&logo=x&labelColor=black" width="156px" />](https://x.com/justodin) | Updates for `oh-my-openagent` used to be posted on my X account. <br /> Since it was mistakenly suspended, [@justodin](https://x.com/justodin) now posts updates on my behalf. |
 > | [<img alt="GitHub Follow" src="https://img.shields.io/github/followers/code-yeongyu?style=flat-square&logo=github&labelColor=black&color=24292f" width="156px" />](https://github.com/code-yeongyu) | Follow [@code-yeongyu](https://github.com/code-yeongyu) on GitHub for more projects. |
 
 <!-- <CENTERED SECTION FOR GITHUB DISPLAY> -->
@@ -78,7 +78,7 @@
 
 > "It made me cancel my Cursor subscription. Unbelievable things are happening in the open source community." - [Arthur Guiot](https://x.com/arthur_guiot/status/2008736347092382053?s=20)
 
-> "If Claude Code does in 7 days what a human does in 3 months, Sisyphus does it in 1 hour. It just works until the task is done. It is a discipline agent." <br/>- B, Quant Researcher
+> "If Claude Code does in 7 days what a human does in 3 months, Odin does it in 1 hour. It just works until the task is done. It is a discipline agent." <br/>- B, Quant Researcher
 
 > "Knocked out 8000 eslint warnings with Oh My Opencode, just in a day" <br/>- [Jacob Ferrari](https://x.com/jacobferrari_/status/2003258761952289061)
 
@@ -123,7 +123,7 @@ Pick the edition(s) you want.
 | You want | Run | What lands on disk |
 | :--- | :--- | :--- |
 | **Ultimate** (OpenCode) | `bunx oh-my-openagent install` (TUI walks you through it) | Plugin registered in `opencode.json` + agent/model config + provider auth prompts |
-| **Light** (Codex CLI) | `npx lazycodex-ai install` | `~/.codex/plugins/cache/sisyphuslabs/omo/` + local Codex marketplace cache + `~/.codex/config.toml` marketplace/plugin/agent blocks + optional autonomous permissions + component CLIs in `~/.local/bin` |
+| **Light** (Codex CLI) | `npx lazycodex-ai install` | `~/.codex/plugins/cache/odinlabs/omo/` + local Codex marketplace cache + `~/.codex/config.toml` marketplace/plugin/agent blocks + optional autonomous permissions + component CLIs in `~/.local/bin` |
 | **Both** | `bunx oh-my-openagent install --platform=both` | Both of the above |
 
 `lazycodex-ai` defaults to the Codex Light installer and runs through Node/npm. `--platform` on the shared `omo` CLI still defaults to `opencode` (Ultimate).
@@ -163,7 +163,7 @@ The guide covers: platform selection, the subscription interview, provider authe
 
 The published npm package and CLI binary are still named `oh-my-opencode` (dual-published as `oh-my-openagent` during the rename transition). Inside `opencode.json`, the compatibility layer prefers the plugin entry `oh-my-openagent`, while legacy `oh-my-opencode` entries still load with a warning. Plugin config files still commonly use `oh-my-opencode.json[c]`; both legacy and renamed basenames are recognized.
 
-The recommended `bunx`/`npx` invocation is `oh-my-openagent install` (or the original `oh-my-opencode install`). The package also ships `omo` as a bin alias, but **do not** use `bunx omo` or `npx omo` — `omo` is a different, unrelated npm package by a different author, and the package manager may resolve the wrong one. `lazycodex-ai` is a single-purpose Node/npm installer package: `npx lazycodex-ai install` routes directly to the Codex Light installer. It is not the Codex marketplace name (the marketplace repository is `code-yeongyu/lazycodex`). Codex sees marketplace `sisyphuslabs` and plugin `omo`, enabled as `omo@sisyphuslabs`.
+The recommended `bunx`/`npx` invocation is `oh-my-openagent install` (or the original `oh-my-opencode install`). The package also ships `omo` as a bin alias, but **do not** use `bunx omo` or `npx omo` — `omo` is a different, unrelated npm package by a different author, and the package manager may resolve the wrong one. `lazycodex-ai` is a single-purpose Node/npm installer package: `npx lazycodex-ai install` routes directly to the Codex Light installer. It is not the Codex marketplace name (the marketplace repository is `code-yeongyu/lazycodex`). Codex sees marketplace `odinlabs` and plugin `omo`, enabled as `omo@odinlabs`.
 
 ### Telemetry
 
@@ -211,7 +211,7 @@ Even with only the following subscriptions, `ultrawork` works well (this project
 
 |       | Feature                                                  | Edition  | What it does                                                                                                                                                                                                     |
 | :---: | :------------------------------------------------------- | :------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|   🤖   | **Discipline Agents**                                    | Ultimate | Sisyphus orchestrates Hephaestus, Oracle, Librarian, Explore. A full AI dev team in parallel.                                                                                                                    |
+|   🤖   | **Discipline Agents**                                    | Ultimate | Odin orchestrates Thor, Volva, Bragi, Explore. A full AI dev team in parallel.                                                                                                                    |
 |   🧩   | **Codex CLI Light Edition**                              | Light    | Portable OMO components (rules, comment-checker, git-bash, LSP, ultrawork, ulw-loop, start-work continuation, telemetry) running inside OpenAI Codex CLI. Install via `npx lazycodex-ai install`.             |
 |   👥   | **Team Mode** (v4.0, opt-in)                             | Ultimate | Lead agent + up to 8 parallel members, real-time tmux visualization, dedicated `team_*` tools. Powers `hyperplan` (5 hostile critics) and `security-research` (3 hunters + 2 PoC engineers). [Docs →](docs/guide/team-mode.md) |
 |   ⚡   | **`ultrawork` / `ulw`**                                  | Both     | One word. Every agent activates. Doesn't stop until done.                                                                                                                                                        |
@@ -229,7 +229,7 @@ Even with only the following subscriptions, `ultrawork` works well (this project
 |   🖥️   | **Tmux Integration**                                     | Ultimate | Full interactive terminal. REPLs, debuggers, TUIs. All live.                                                                                                                                                     |
 |   🔌   | **Claude Code Compatible**                               | Ultimate | Your hooks, commands, skills, MCPs, and plugins? All work here.                                                                                                                                                  |
 |   🧬   | **Skill-Embedded MCPs**                                  | Ultimate | Skills carry their own MCP servers. No context bloat.                                                                                                                                                            |
-|   📋   | **Prometheus Planner**                                   | Ultimate | Interview-mode strategic planning before any execution.                                                                                                                                                          |
+|   📋   | **Mimir Planner**                                   | Ultimate | Interview-mode strategic planning before any execution.                                                                                                                                                          |
 |   🔍   | **`/init-deep`**                                         | Ultimate | Auto-generates hierarchical `AGENTS.md` files throughout your project. Great for both token efficiency and your agent's performance.                                                                             |
 
 > **Edition legend.** **Ultimate** = OpenCode-only (`bunx oh-my-openagent install`). **Light** = Codex CLI-only (`npx lazycodex-ai install`). **Both** = shipped in both editions, often with slightly different implementations under the hood.
@@ -237,19 +237,19 @@ Even with only the following subscriptions, `ultrawork` works well (this project
 ### Discipline Agents
 
 <table><tr>
-<td align="center"><img src=".github/assets/sisyphus.png" height="300" /></td>
-<td align="center"><img src=".github/assets/hephaestus.png" height="300" /></td>
+<td align="center"><img src=".github/assets/odin.png" height="300" /></td>
+<td align="center"><img src=".github/assets/thor.png" height="300" /></td>
 </tr></table>
 
-**Sisyphus** (`claude-opus-4-8` / **`kimi-k3`** / **`glm-5`** ) is your main orchestrator. He plans, delegates to specialists, and drives tasks to completion with aggressive parallel execution. He does not stop halfway. Claude Opus 4.8 and Kimi K3 are the recommended defaults.
+**Odin** (`claude-opus-4-8` / **`kimi-k3`** / **`glm-5`** ) is your main orchestrator. He plans, delegates to specialists, and drives tasks to completion with aggressive parallel execution. He does not stop halfway. Claude Opus 4.8 and Kimi K3 are the recommended defaults.
 
-**Hephaestus** (`gpt-5.6-sol` through OpenAI, GitHub Copilot, Vercel, or OpenCode at medium effort) is your autonomous deep worker. Give him a goal, not a recipe. He explores the codebase, researches patterns, and executes end-to-end without hand-holding. *The Legitimate Craftsman.*
+**Thor** (`gpt-5.6-sol` through OpenAI, GitHub Copilot, Vercel, or OpenCode at medium effort) is your autonomous deep worker. Give him a goal, not a recipe. He explores the codebase, researches patterns, and executes end-to-end without hand-holding. *The Legitimate Craftsman.*
 
-**Prometheus** (`claude-opus-4-8` / **`gpt-5.6-sol`** / **`glm-5.2`**) is your strategic planner. Interview mode: he asks questions, identifies scope, and builds a detailed plan before a single line of code is touched.
+**Mimir** (`claude-opus-4-8` / **`gpt-5.6-sol`** / **`glm-5.2`**) is your strategic planner. Interview mode: he asks questions, identifies scope, and builds a detailed plan before a single line of code is touched.
 
 Every agent is tuned to its model's specific strengths. No manual model juggling. [Learn more →](docs/guide/overview.md)
 
-> Anthropic [blocked OpenCode because of us.](https://x.com/thdxr/status/2010149530486911014) That's why Hephaestus is called "The Legitimate Craftsman." The irony is intentional.
+> Anthropic [blocked OpenCode because of us.](https://x.com/thdxr/status/2010149530486911014) That's why Thor is called "The Legitimate Craftsman." The irony is intentional.
 >
 > We run best on Opus or Kimi K3, but Kimi K3 + GPT-5.6 Sol already beats vanilla Claude Code. Zero config needed.
 
@@ -279,7 +279,7 @@ Restart opencode and the `team_*` tool family unlocks. Two skills already ride o
 
 ### Agent Orchestration
 
-When Sisyphus delegates to a subagent, it doesn't pick a model. It picks a **category**. The category maps automatically to the right model:
+When Odin delegates to a subagent, it doesn't pick a model. It picks a **category**. The category maps automatically to the right model:
 
 | Category             | What it's for                      |
 | :------------------- | :--------------------------------- |
@@ -346,11 +346,11 @@ project/
 
 Agents auto-read relevant context. Zero manual management.
 
-### Planning. Prometheus
+### Planning. Mimir
 
 Complex task? Don't prompt and pray.
 
-`/start-work` calls Prometheus. He **interviews you like a real engineer**, identifies scope and ambiguities, and builds a verified plan before touching code. The agent knows what it's building before it starts.
+`/start-work` calls Mimir. He **interviews you like a real engineer**, identifies scope and ambiguities, and builds a verified plan before touching code. The agent knows what it's building before it starts.
 
 ### Skills
 
@@ -416,7 +416,7 @@ To remove oh-my-openagent:
    omo cleanup --platform=codex
    ```
 
-   The uninstall command removes managed `sisyphuslabs` Codex cache/marketplace state, strips `omo@sisyphuslabs` plugin and hook-state blocks from `~/.codex/config.toml` after writing a backup, and removes agent TOML links listed in the install manifest. If a specific project still has old project-local Codex plugin state, run the command from that project or pass `--project <path>`; it repairs known project-local `.codex/config.toml` conflicts and reports project-local `.codex` artifacts without deleting project-owned files.
+   The uninstall command removes managed `odinlabs` Codex cache/marketplace state, strips `omo@odinlabs` plugin and hook-state blocks from `~/.codex/config.toml` after writing a backup, and removes agent TOML links listed in the install manifest. If a specific project still has old project-local Codex plugin state, run the command from that project or pass `--project <path>`; it repairs known project-local `.codex/config.toml` conflicts and reports project-local `.codex` artifacts without deleting project-owned files.
 
 ## Features
 
@@ -425,7 +425,7 @@ Features you'll think should've always existed. Once you use them, you can't go 
 See full [Features Documentation](docs/reference/features.md).
 
 **Quick Overview:**
-- **Agents**: Sisyphus (the main agent), Prometheus (planner), Oracle (architecture/debugging), Librarian (docs/code search), Explore (fast codebase grep), Multimodal Looker
+- **Agents**: Odin (the main agent), Mimir (planner), Volva (architecture/debugging), Bragi (docs/code search), Explore (fast codebase grep), Huginn
 - **Background Agents**: Run multiple agents in parallel like a real dev team
 - **LSP & AST Tools**: Refactoring, rename, diagnostics, AST-aware code search
 - **Hash-anchored Edit Tool**: `LINE#ID` references validate content before applying every change. Surgical edits, zero stale-line errors
@@ -451,7 +451,7 @@ See [Configuration Documentation](docs/reference/configuration.md).
 - **JSONC Support**: Comments and trailing commas supported
 - **Agents**: Override models, temperatures, prompts, and permissions for any agent
 - **Built-in Skills**: `playwright` (browser automation), `git-master` (atomic commits)
-- **Sisyphus Agent**: Main orchestrator with Prometheus (Planner) and Metis (Plan Consultant)
+- **Odin Agent**: Main orchestrator with Mimir (Planner) and Urd (Plan Consultant)
 - **Background Tasks**: Configure concurrency limits per provider/model
 - **Categories**: Domain-specific task delegation (`visual`, `business-logic`, custom)
 - **Hooks**: 54+ lifecycle hooks (61 with Team Mode), all configurable via `disabled_hooks`

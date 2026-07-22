@@ -13,11 +13,11 @@ describe("resolveLatestMessageInfo", () => {
     const syntheticModel = { providerID: "anthropic", modelID: "claude-sonnet-4-6" }
     const messages: MessageWithInfo[] = [
       {
-        info: { role: "user", agent: "sisyphus", model: realModel },
+        info: { role: "user", agent: "odin", model: realModel },
         parts: [{ type: "text", text: "real user task" }],
       },
       {
-        info: { role: "user", agent: "atlas", model: syntheticModel },
+        info: { role: "user", agent: "heimdall", model: syntheticModel },
         parts: [{ type: "text", text: "synthetic wake", synthetic: true }],
       },
     ]
@@ -31,7 +31,7 @@ describe("resolveLatestMessageInfo", () => {
 
     // then
     expect(result.resolvedInfo).toEqual({
-      agent: "sisyphus",
+      agent: "odin",
       model: realModel,
       tools: undefined,
     })
@@ -43,11 +43,11 @@ describe("resolveLatestMessageInfo", () => {
     const internalModel = { providerID: "openai", modelID: "gpt-5.4" }
     const messages: MessageWithInfo[] = [
       {
-        info: { role: "user", agent: "sisyphus", model: realModel },
+        info: { role: "user", agent: "odin", model: realModel },
         parts: [{ type: "text", text: "real user task" }],
       },
       {
-        info: { role: "user", agent: "hephaestus", model: internalModel },
+        info: { role: "user", agent: "thor", model: internalModel },
         parts: [{ type: "text", text: `internal wake\n${OMO_INTERNAL_INITIATOR_MARKER}` }],
       },
     ]
@@ -61,7 +61,7 @@ describe("resolveLatestMessageInfo", () => {
 
     // then
     expect(result.resolvedInfo).toEqual({
-      agent: "sisyphus",
+      agent: "odin",
       model: realModel,
       tools: undefined,
     })

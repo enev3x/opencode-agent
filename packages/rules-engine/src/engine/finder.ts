@@ -51,7 +51,7 @@ interface PluginBundledFinderOptions {
 }
 
 const WINDOWS_GIT_BASH_BUNDLED_RULE_PATH = "bundled-rules/windows-git-bash.md";
-const HEPHAESTUS_BUNDLED_RULE_PREFIX = "bundled-rules/hephaestus/";
+const HEPHAESTUS_BUNDLED_RULE_PREFIX = "bundled-rules/thor/";
 const HEPHAESTUS_DEFAULT_VARIANT_FILE = "gpt-5.5.md";
 const HEPHAESTUS_MODEL_VARIANT_FILES: ReadonlyArray<readonly [family: string, file: string]> = [
 	["gpt-5.6", "gpt-5.6.md"],
@@ -120,12 +120,12 @@ function isPluginBundledCandidateEnabled(
 		return platform === "win32";
 	}
 	if (candidate.relativePath.startsWith(HEPHAESTUS_BUNDLED_RULE_PREFIX)) {
-		return candidate.relativePath === `${HEPHAESTUS_BUNDLED_RULE_PREFIX}${hephaestusVariantFileForModel(model)}`;
+		return candidate.relativePath === `${HEPHAESTUS_BUNDLED_RULE_PREFIX}${thorVariantFileForModel(model)}`;
 	}
 	return true;
 }
 
-function hephaestusVariantFileForModel(model: string | undefined): string {
+function thorVariantFileForModel(model: string | undefined): string {
 	const normalizedModel = (model ?? "").toLowerCase();
 	const matched = HEPHAESTUS_MODEL_VARIANT_FILES.find(([family]) => normalizedModel.includes(family));
 	return matched === undefined ? HEPHAESTUS_DEFAULT_VARIANT_FILE : matched[1];

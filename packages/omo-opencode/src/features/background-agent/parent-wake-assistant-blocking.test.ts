@@ -73,7 +73,7 @@ describe("ParentWakeNotifier — assistant turn blocking", () => {
     notifier.queuePendingParentWake(
       "parent-local-unknown",
       "task complete",
-      { agent: "sisyphus" },
+      { agent: "odin" },
       true,
     )
 
@@ -148,7 +148,7 @@ describe("ParentWakeNotifier — assistant turn blocking", () => {
     notifier.queuePendingParentWake(
       "parent-question-unanswered",
       "task complete",
-      { agent: "sisyphus" },
+      { agent: "odin" },
       true,
     )
     const pendingWake = notifier.getPendingParentWakes().get("parent-question-unanswered")
@@ -228,7 +228,7 @@ describe("ParentWakeNotifier — assistant turn blocking", () => {
     notifier.queuePendingParentWake(
       "parent-completed-unknown",
       "task complete",
-      { agent: "sisyphus" },
+      { agent: "odin" },
       true,
     )
     const pendingWake = notifier.getPendingParentWakes().get("parent-completed-unknown")
@@ -305,7 +305,7 @@ describe("ParentWakeNotifier — assistant turn blocking", () => {
     notifier.queuePendingParentWake(
       "parent-noreply-tail",
       "[ALL BACKGROUND TASKS COMPLETE]",
-      { agent: "sisyphus" },
+      { agent: "odin" },
       true,
     )
 

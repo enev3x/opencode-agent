@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     template: "%s | Oh My OpenAgent",
   },
   description:
-    "Meet Sisyphus: The batteries-included agent that codes like you. Multi-model orchestration, Team Mode, background agents, 60+ lifecycle hooks.",
+    "Meet Odin: The batteries-included agent that codes like you. Multi-model orchestration, Team Mode, background agents, 60+ lifecycle hooks.",
   keywords: [
     "opencode",
     "oh-my-opencode",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     "oh-my-openagent",
     "ai agent",
     "code agent",
-    "sisyphus",
+    "odin",
     "multi-model",
     "team mode",
     "agent orchestration",
@@ -54,13 +54,13 @@ export const metadata: Metadata = {
     siteName: "Oh My OpenAgent",
     title: "Oh My OpenAgent — The Best Agent Harness",
     description:
-      "Meet Sisyphus: The batteries-included agent that codes like you. Multi-model orchestration, Team Mode, background agents, 60+ lifecycle hooks.",
+      "Meet Odin: The batteries-included agent that codes like you. Multi-model orchestration, Team Mode, background agents, 60+ lifecycle hooks.",
     // og:image is supplied by app/opengraph-image.tsx via Next.js file-based metadata convention.
   },
   twitter: {
     card: "summary_large_image",
     title: "Oh My OpenAgent — The Best Agent Harness",
-    description: "Meet Sisyphus: The batteries-included agent that codes like you.",
+    description: "Meet Odin: The batteries-included agent that codes like you.",
     // twitter:image is supplied by app/twitter-image.tsx via the file-based convention.
   },
   robots: {

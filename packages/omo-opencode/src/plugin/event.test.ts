@@ -636,7 +636,7 @@ describe("createEventHandler - idle deduplication", () => {
 				ralphLoop: { event: async () => {} },
 				stopContinuationGuard: { event: async () => {} },
 				compactionTodoPreserver: { event: async () => {} },
-				atlasHook: { handler: async () => {} },
+				heimdallHook: { handler: async () => {} },
 			}),
 		})
 
@@ -720,7 +720,7 @@ describe("createEventHandler - idle deduplication", () => {
 				ralphLoop: { event: async () => {} },
 				stopContinuationGuard: { event: async () => {} },
 				compactionTodoPreserver: { event: async () => {} },
-				atlasHook: { handler: async () => {} },
+				heimdallHook: { handler: async () => {} },
 			}),
 		})
 
@@ -776,7 +776,7 @@ describe("createEventHandler - idle deduplication", () => {
 				ralphLoop: { event: async () => {} },
 				stopContinuationGuard: { event: async () => {} },
 				compactionTodoPreserver: { event: async () => {} },
-				atlasHook: { handler: async () => {} },
+				heimdallHook: { handler: async () => {} },
 			}),
 		})
 
@@ -1465,7 +1465,7 @@ describe("createEventHandler - retry dedupe lifecycle", () => {
 						role: "user",
 						modelID: "claude-opus-4-8-thinking",
 						providerID: "anthropic",
-						agent: "Sisyphus - Ultraworker",
+						agent: "Odin - Ultraworker",
 					},
 				},
 			},
@@ -1484,7 +1484,7 @@ describe("createEventHandler - retry dedupe lifecycle", () => {
 		await chatMessageHandler(
 			{
 				sessionID,
-				agent: "sisyphus",
+				agent: "odin",
 				model: { providerID: "anthropic", modelID: "claude-opus-4-8-thinking" },
 			},
 			firstOutput,

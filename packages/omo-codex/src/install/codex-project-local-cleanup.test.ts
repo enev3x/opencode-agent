@@ -27,7 +27,7 @@ describe("codex project-local cleanup", () => {
         "max_depth = 3",
         "job_max_runtime_seconds = 3600",
         "",
-        "[agents.explorer]",
+        "[agents.vidarr]",
         'config_file = "./agents/explorer.toml"',
         "",
       ].join("\n"),
@@ -53,7 +53,7 @@ describe("codex project-local cleanup", () => {
     expect(content).not.toMatch(/^\s*max_threads\s*=/m)
     expect(content).toContain("max_depth = 3")
     expect(content).toContain("job_max_runtime_seconds = 3600")
-    expect(content).toContain("[agents.explorer]")
+    expect(content).toContain("[agents.vidarr]")
     expect(content).toContain('config_file = "./agents/explorer.toml"')
   })
 

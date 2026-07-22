@@ -6,9 +6,9 @@ import {
   buildExploreSection,
   buildHardBlocksSection,
   buildKeyTriggersSection,
-  buildLibrarianSection,
+  buildBragiSection,
   buildNonClaudePlannerSection,
-  buildOracleSection,
+  buildVolvaSection,
   buildParallelDelegationSection,
   buildToolSelectionTable,
 } from "./dynamic-agent-prompt-builder";
@@ -18,9 +18,9 @@ import type {
   AvailableSkill,
   AvailableTool,
 } from "./dynamic-agent-prompt-builder";
-import { buildTaskManagementSection } from "./sisyphus/default";
+import { buildTaskManagementSection } from "./odin/default";
 
-export interface SisyphusDynamicPromptSections {
+export interface OdinDynamicPromptSections {
   readonly agentIdentity: string;
   readonly antiPatterns: string;
   readonly categorySkillsGuide: string;
@@ -28,26 +28,26 @@ export interface SisyphusDynamicPromptSections {
   readonly exploreSection: string;
   readonly hardBlocks: string;
   readonly keyTriggers: string;
-  readonly librarianSection: string;
+  readonly bragiSection: string;
   readonly nonClaudePlannerSection: string;
-  readonly oracleSection: string;
+  readonly volvaSection: string;
   readonly parallelDelegationSection: string;
   readonly taskManagementSection: string;
   readonly todoHookNote: string;
   readonly toolSelection: string;
 }
 
-export function buildSisyphusDynamicPromptSections(
+export function buildOdinDynamicPromptSections(
   model: string,
   availableAgents: AvailableAgent[],
   availableTools: AvailableTool[],
   availableSkills: AvailableSkill[],
   availableCategories: AvailableCategory[],
   useTaskSystem: boolean,
-): SisyphusDynamicPromptSections {
+): OdinDynamicPromptSections {
   return {
     agentIdentity: buildAgentIdentitySection(
-      "Sisyphus",
+      "Odin",
       "Powerful AI Agent with orchestration capabilities from OhMyOpenCode",
     ),
     antiPatterns: buildAntiPatternsSection(),
@@ -59,9 +59,9 @@ export function buildSisyphusDynamicPromptSections(
     exploreSection: buildExploreSection(availableAgents),
     hardBlocks: buildHardBlocksSection(),
     keyTriggers: buildKeyTriggersSection(availableAgents, availableSkills),
-    librarianSection: buildLibrarianSection(availableAgents),
+    bragiSection: buildBragiSection(availableAgents),
     nonClaudePlannerSection: buildNonClaudePlannerSection(model),
-    oracleSection: buildOracleSection(availableAgents),
+    volvaSection: buildVolvaSection(availableAgents),
     parallelDelegationSection: buildParallelDelegationSection(model, availableCategories),
     taskManagementSection: buildTaskManagementSection(useTaskSystem),
     todoHookNote: buildTodoHookNote(useTaskSystem),

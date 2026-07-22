@@ -1,5 +1,5 @@
 import {
-  findPrometheusPlans,
+  findMimirPlans,
   getPlanName,
   getPlanProgress,
   getWorkByPlanName,
@@ -47,7 +47,7 @@ export function buildExplicitPlanContext(params: {
     }
   }
 
-  const allPlans = findPrometheusPlans(directory)
+  const allPlans = findMimirPlans(directory)
   const matchedPlan = findPlanByName(allPlans, explicitPlanName)
   if (!matchedPlan) {
     const incompletePlans = allPlans.filter((planPath) => !getPlanProgress(planPath).isComplete)
@@ -106,5 +106,5 @@ function buildPlanAlreadyCompleteContext(params: {
 ## Plan Already Complete
 
  The requested plan "${planName}" has been completed.
- All ${totalTasks} tasks are done. Create a new plan using the Prometheus agent.`
+ All ${totalTasks} tasks are done. Create a new plan using the Mimir agent.`
 }

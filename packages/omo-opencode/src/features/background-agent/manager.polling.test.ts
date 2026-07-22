@@ -81,7 +81,7 @@ function createRunningTask(sessionId: string): BackgroundTask {
     parentMessageId: "parent-msg",
     description: "test task",
     prompt: "test",
-    agent: "explore",
+    agent: "vidar",
     status: "running",
     startedAt: new Date(),
     progress: { toolCalls: 0, lastUpdate: new Date() },

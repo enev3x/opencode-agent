@@ -388,7 +388,7 @@ describe("createTeamRun", () => {
       createdAt: Date.now(),
       leadAgentId: "lead",
       members: [
-        { kind: "subagent_type", name: "lead", subagent_type: "sisyphus", backendType: "in-process", isActive: true },
+        { kind: "subagent_type", name: "lead", subagent_type: "odin", backendType: "in-process", isActive: true },
         { kind: "category", name: "member-1", category: "quick", prompt: "prompt-1", backendType: "in-process", isActive: true },
       ],
     }
@@ -401,7 +401,7 @@ describe("createTeamRun", () => {
       createConfig(baseDir),
       manager,
       undefined,
-      { callerAgentTypeId: "sisyphus" },
+      { callerAgentTypeId: "odin" },
     )
 
     // then
@@ -430,7 +430,7 @@ describe("createTeamRun", () => {
       createdAt: Date.now(),
       leadAgentId: "lead",
       members: [
-        { kind: "subagent_type", name: "lead", subagent_type: "sisyphus", backendType: "in-process", isActive: true },
+        { kind: "subagent_type", name: "lead", subagent_type: "odin", backendType: "in-process", isActive: true },
         { kind: "category", name: "worker", category: "quick", prompt: "work hard", backendType: "in-process", isActive: true },
       ],
     }
@@ -438,18 +438,18 @@ describe("createTeamRun", () => {
     // when
     const runtimeState = await createTeamRun(
       spec,
-      "ses_caller_sisyphus",
+      "ses_caller_odin",
       createContext(baseDir, manager),
       createConfig(baseDir),
       manager,
       undefined,
-      { callerAgentTypeId: "sisyphus" },
+      { callerAgentTypeId: "odin" },
     )
 
     // then
     const leadMember = runtimeState.members.find((member) => member.name === "lead")
-    expect(leadMember?.sessionId).toBe("ses_caller_sisyphus")
-    expect(leadMember?.subagent_type).toBe("sisyphus")
+    expect(leadMember?.sessionId).toBe("ses_caller_odin")
+    expect(leadMember?.subagent_type).toBe("odin")
     expect(leadMember?.model).toBeUndefined()
   })
 
@@ -469,7 +469,7 @@ describe("createTeamRun", () => {
       createdAt: Date.now(),
       leadAgentId: "captain",
       members: [
-        { kind: "subagent_type", name: "captain", subagent_type: "atlas", backendType: "in-process", isActive: true },
+        { kind: "subagent_type", name: "captain", subagent_type: "heimdall", backendType: "in-process", isActive: true },
         { kind: "category", name: "member-1", category: "quick", prompt: "prompt-1", backendType: "in-process", isActive: true },
       ],
     }
@@ -482,7 +482,7 @@ describe("createTeamRun", () => {
       createConfig(baseDir),
       manager,
       undefined,
-      { callerAgentTypeId: "sisyphus" },
+      { callerAgentTypeId: "odin" },
     )
 
     // then

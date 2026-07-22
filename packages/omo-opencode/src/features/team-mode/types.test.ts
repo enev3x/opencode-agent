@@ -30,7 +30,7 @@ describe("team-mode types", () => {
       kind: "category",
       name: "m1",
       category: "deep",
-      subagent_type: "sisyphus",
+      subagent_type: "odin",
       prompt: "impl X",
     }
 
@@ -47,7 +47,7 @@ describe("team-mode types", () => {
       name: "m1",
       kind: "category",
       category: "deep",
-      subagent_type: "sisyphus",
+      subagent_type: "odin",
       prompt: "impl X",
     }
 
@@ -102,7 +102,7 @@ describe("team-mode types", () => {
     } catch (error) {
       // then
       expect(error instanceof Error ? error.message : String(error)).toBe(
-        "Unknown subagent_type 'foobar'. Available ELIGIBLE agents: sisyphus, atlas, sisyphus-junior, hephaestus (if D-36 applied). Use delegate-task for read-only agents like oracle, librarian, explore, metis, momus, multimodal-looker.",
+        "Unknown subagent_type 'foobar'. Available ELIGIBLE agents: odin, heimdall, einherjar, thor (if D-36 applied). Use delegate-task for read-only agents like volva, bragi, explore, urd, forseti, huginn.",
       )
     }
   })
@@ -111,32 +111,32 @@ describe("team-mode types", () => {
     // given
     const cases = [
       [
-        "oracle",
-        "Agent 'oracle' is read-only (cannot write files). Team members must write to mailbox inbox files. Use delegate-task with subagent_type: 'oracle' for read-only analysis instead.",
+        "volva",
+        "Agent 'volva' is read-only (cannot write files). Team members must write to mailbox inbox files. Use delegate-task with subagent_type: 'volva' for read-only analysis instead.",
       ],
       [
-        "librarian",
-        "Agent 'librarian' is read-only (write/edit denied). Cannot write to mailbox as team member. Use delegate-task for research queries instead.",
+        "bragi",
+        "Agent 'bragi' is read-only (write/edit denied). Cannot write to mailbox as team member. Use delegate-task for research queries instead.",
       ],
       [
-        "explore",
-        "Agent 'explore' is read-only (write/edit denied). Cannot write to mailbox as team member. Use delegate-task for codebase exploration instead.",
+        "vidar",
+        "Agent 'vidar' is read-only (write/edit denied). Cannot write to mailbox as team member. Use delegate-task for codebase exploration instead.",
       ],
       [
-        "multimodal-looker",
-        "Agent 'multimodal-looker' has read-only tool access (only 'read' allowed). Cannot write to mailbox as team member.",
+        "huginn",
+        "Agent 'huginn' has read-only tool access (only 'read' allowed). Cannot write to mailbox as team member.",
       ],
       [
-        "metis",
-        "Agent 'metis' is read-only (pre-planning consultant). Cannot write to mailbox as team member. Use delegate-task for pre-planning analysis instead.",
+        "urd",
+        "Agent 'urd' is read-only (pre-planning consultant). Cannot write to mailbox as team member. Use delegate-task for pre-planning analysis instead.",
       ],
       [
-        "momus",
-        "Agent 'momus' is read-only (plan reviewer). Cannot write to mailbox as team member. Use delegate-task for plan review instead.",
+        "forseti",
+        "Agent 'forseti' is read-only (plan reviewer). Cannot write to mailbox as team member. Use delegate-task for plan review instead.",
       ],
       [
-        "prometheus",
-        "Agent 'prometheus' is plan-mode-only; can only write to .omo/*.md (enforced by prometheusMdOnly hook). Cannot write to team mailbox. Use delegate-task with subagent_type: 'plan' instead.",
+        "mimir",
+        "Agent 'mimir' is plan-mode-only; can only write to .omo/*.md (enforced by mimirMdOnly hook). Cannot write to team mailbox. Use delegate-task with subagent_type: 'plan' instead.",
       ],
     ] as const
 
@@ -162,7 +162,7 @@ describe("team-mode types", () => {
 
   test("parseMember returns valid subagent member", () => {
     // given
-    const member = { name: "m1", kind: "subagent_type", subagent_type: "sisyphus" }
+    const member = { name: "m1", kind: "subagent_type", subagent_type: "odin" }
 
     // when
     const result = parseMember(member)
@@ -171,18 +171,18 @@ describe("team-mode types", () => {
     expect(result).toMatchObject(member)
   })
 
-  test("parseMember returns parsed hephaestus and atlas subagent members", () => {
+  test("parseMember returns parsed thor and heimdall subagent members", () => {
     // given
-    const hephaestusMember = { name: "m1", kind: "subagent_type", subagent_type: "hephaestus" }
-    const atlasMember = { name: "m1", kind: "subagent_type", subagent_type: "atlas" }
+    const thorMember = { name: "m1", kind: "subagent_type", subagent_type: "thor" }
+    const heimdallMember = { name: "m1", kind: "subagent_type", subagent_type: "heimdall" }
 
     // when
-    const hephaestusResult = parseMember(hephaestusMember)
-    const atlasResult = parseMember(atlasMember)
+    const thorResult = parseMember(thorMember)
+    const heimdallResult = parseMember(heimdallMember)
 
     // then
-    expect(hephaestusResult).toMatchObject(hephaestusMember)
-    expect(atlasResult).toMatchObject(atlasMember)
+    expect(thorResult).toMatchObject(thorMember)
+    expect(heimdallResult).toMatchObject(heimdallMember)
   })
 
   test("category requires prompt", () => {
@@ -264,29 +264,29 @@ describe("team-mode types", () => {
     // then
     expect(entries).toHaveLength(11)
     expect(verdictCounts).toEqual({ eligible: 3, conditional: 1, "hard-reject": 7 })
-    expect(AGENT_ELIGIBILITY_REGISTRY.hephaestus.rejectionMessage).toBe(
-      "Agent 'hephaestus' lacks teammate permission. Either apply D-36 (add teammate: \"allow\" in tool-config-handler.ts) or use subagent_type: \"sisyphus\" instead.",
+    expect(AGENT_ELIGIBILITY_REGISTRY.thor.rejectionMessage).toBe(
+      "Agent 'thor' lacks teammate permission. Either apply D-36 (add teammate: \"allow\" in tool-config-handler.ts) or use subagent_type: \"odin\" instead.",
     )
-    expect(AGENT_ELIGIBILITY_REGISTRY.oracle.rejectionMessage).toBe(
-      "Agent 'oracle' is read-only (cannot write files). Team members must write to mailbox inbox files. Use delegate-task with subagent_type: 'oracle' for read-only analysis instead.",
+    expect(AGENT_ELIGIBILITY_REGISTRY.volva.rejectionMessage).toBe(
+      "Agent 'volva' is read-only (cannot write files). Team members must write to mailbox inbox files. Use delegate-task with subagent_type: 'volva' for read-only analysis instead.",
     )
-    expect(AGENT_ELIGIBILITY_REGISTRY.librarian.rejectionMessage).toBe(
-      "Agent 'librarian' is read-only (write/edit denied). Cannot write to mailbox as team member. Use delegate-task for research queries instead.",
+    expect(AGENT_ELIGIBILITY_REGISTRY.bragi.rejectionMessage).toBe(
+      "Agent 'bragi' is read-only (write/edit denied). Cannot write to mailbox as team member. Use delegate-task for research queries instead.",
     )
-    expect(AGENT_ELIGIBILITY_REGISTRY.explore.rejectionMessage).toBe(
-      "Agent 'explore' is read-only (write/edit denied). Cannot write to mailbox as team member. Use delegate-task for codebase exploration instead.",
+    expect(AGENT_ELIGIBILITY_REGISTRY.vidar.rejectionMessage).toBe(
+      "Agent 'vidar' is read-only (write/edit denied). Cannot write to mailbox as team member. Use delegate-task for codebase exploration instead.",
     )
-    expect(AGENT_ELIGIBILITY_REGISTRY["multimodal-looker"].rejectionMessage).toBe(
-      "Agent 'multimodal-looker' has read-only tool access (only 'read' allowed). Cannot write to mailbox as team member.",
+    expect(AGENT_ELIGIBILITY_REGISTRY["huginn"].rejectionMessage).toBe(
+      "Agent 'huginn' has read-only tool access (only 'read' allowed). Cannot write to mailbox as team member.",
     )
-    expect(AGENT_ELIGIBILITY_REGISTRY.metis.rejectionMessage).toBe(
-      "Agent 'metis' is read-only (pre-planning consultant). Cannot write to mailbox as team member. Use delegate-task for pre-planning analysis instead.",
+    expect(AGENT_ELIGIBILITY_REGISTRY.urd.rejectionMessage).toBe(
+      "Agent 'urd' is read-only (pre-planning consultant). Cannot write to mailbox as team member. Use delegate-task for pre-planning analysis instead.",
     )
-    expect(AGENT_ELIGIBILITY_REGISTRY.momus.rejectionMessage).toBe(
-      "Agent 'momus' is read-only (plan reviewer). Cannot write to mailbox as team member. Use delegate-task for plan review instead.",
+    expect(AGENT_ELIGIBILITY_REGISTRY.forseti.rejectionMessage).toBe(
+      "Agent 'forseti' is read-only (plan reviewer). Cannot write to mailbox as team member. Use delegate-task for plan review instead.",
     )
-    expect(AGENT_ELIGIBILITY_REGISTRY.prometheus.rejectionMessage).toBe(
-      "Agent 'prometheus' is plan-mode-only; can only write to .omo/*.md (enforced by prometheusMdOnly hook). Cannot write to team mailbox. Use delegate-task with subagent_type: 'plan' instead.",
+    expect(AGENT_ELIGIBILITY_REGISTRY.mimir.rejectionMessage).toBe(
+      "Agent 'mimir' is plan-mode-only; can only write to .omo/*.md (enforced by mimirMdOnly hook). Cannot write to team mailbox. Use delegate-task with subagent_type: 'plan' instead.",
     )
     expect(CategoryMemberSchema).toBeDefined()
     expect(SubagentMemberSchema).toBeDefined()
