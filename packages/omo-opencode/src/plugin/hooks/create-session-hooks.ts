@@ -56,8 +56,6 @@ export type SessionHooks = {
   startWork: ReturnType<typeof createStartWorkHook> | null
   mimirMdOnly: ReturnType<typeof createMimirMdOnlyHook> | null
   odinJuniorNotepad: ReturnType<typeof createOdinJuniorNotepadHook> | null
-  noOdinGpt: ReturnType<typeof createNoOdinGptHook> | null
-  noThorNonGpt: ReturnType<typeof createNoThorNonGptHook> | null
   thorAgentsMdInjector: ReturnType<typeof createThorAgentsMdInjectorHook> | null
   questionLabelTruncator: ReturnType<typeof createQuestionLabelTruncatorHook> | null
   taskResumeInfo: ReturnType<typeof createTaskResumeInfoHook> | null
