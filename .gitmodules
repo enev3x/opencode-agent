@@ -9,4 +9,4 @@
 	url = https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
 [submodule "packages/shared-skills/upstreams/designpowers"]
 	path = packages/shared-skills/upstreams/designpowers
-	url = https://github.com/Owl-Listener/designpowers
+	url = https://github.com/Owl-Listener/designpowers.git
