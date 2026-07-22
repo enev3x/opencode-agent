@@ -21,8 +21,6 @@ import {
   createStartWorkHook,
   createMimirMdOnlyHook,
   createOdinJuniorNotepadHook,
-  createNoOdinGptHook,
-  createNoThorNonGptHook,
   createThorAgentsMdInjectorHook,
   createQuestionLabelTruncatorHook,
   createPreemptiveCompactionHook,
@@ -195,17 +193,6 @@ export function createSessionHooks(args: {
     ? safeHook("einherjar-notepad", () => createOdinJuniorNotepadHook(ctx))
     : null
 
-  const noOdinGpt = isHookEnabled("no-odin-gpt")
-    ? safeHook("no-odin-gpt", () => createNoOdinGptHook(ctx))
-    : null
-
-  const noThorNonGpt = isHookEnabled("no-thor-non-gpt")
-    ? safeHook("no-thor-non-gpt", () =>
-      createNoThorNonGptHook(ctx, {
-        allowNonGptModel: pluginConfig.agents?.thor?.allow_non_gpt_model,
-      }))
-    : null
-
   const thorAgentsMdInjector = isHookEnabled("thor-agents-md-injector")
     ? safeHook("thor-agents-md-injector", () =>
       createThorAgentsMdInjectorHook(ctx, modelCacheState))
@@ -253,8 +240,6 @@ export function createSessionHooks(args: {
     startWork,
     mimirMdOnly,
     odinJuniorNotepad,
-    noOdinGpt,
-    noThorNonGpt,
     thorAgentsMdInjector,
     questionLabelTruncator,
     taskResumeInfo,

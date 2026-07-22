@@ -16,59 +16,24 @@ import { buildGpt55ThorPrompt as buildGpt55Prompt } from "./gpt-5-5";
 import { buildGpt56ThorPrompt as buildGpt56Prompt } from "./gpt-5-6";
 
 const MODE: AgentMode = "primary";
-const GPT_5_3_CODEX_RE = /^gpt-5[.-]3-codex(?:$|[.-])/i;
 const GPT_5_4_RE = /^gpt-5[.-]4(?:$|[.-])/i;
 const GPT_5_5_RE = /^gpt-5[.-]5(?:$|[.-])/i;
-const GPT_5_6_RE = /^gpt-5[.-]6(?:$|[.-])/i;
 
+// ponytail: no model restriction — any model works. GPT variants get
+// optimized prompts, everything else falls back to the base GPT prompt.
 export type ThorPromptSource = "gpt-5-6" | "gpt-5-5" | "gpt-5-4" | "gpt";
-
-export class UnsupportedThorModelError extends Error {
-  readonly model: string | undefined;
-
-  constructor(model: string | undefined) {
-    super(
-      `Thor only supports GPT-5.3 Codex, GPT-5.4, GPT-5.5, and GPT-5.6 models; received ${model ?? "no model"}.`,
-    );
-    this.name = "UnsupportedThorModelError";
-    this.model = model;
-  }
-}
 
 function extractModelName(model: string): string {
   return model.includes("/") ? (model.split("/").pop() ?? model) : model;
 }
 
-export function isThorSupportedModel(model: string | undefined): boolean {
-  if (!model) return false;
-  const modelName = extractModelName(model);
-  return (
-    GPT_5_3_CODEX_RE.test(modelName) ||
-    GPT_5_4_RE.test(modelName) ||
-    GPT_5_5_RE.test(modelName) ||
-    GPT_5_6_RE.test(modelName)
-  );
-}
-
-function assertThorSupportedModel(model: string | undefined): void {
-  if (!isThorSupportedModel(model)) {
-    throw new UnsupportedThorModelError(model);
-  }
-}
-
 export function getThorPromptSource(
   model?: string,
 ): ThorPromptSource {
-  assertThorSupportedModel(model);
-  if (model && isGpt5_6Model(model)) {
-    return "gpt-5-6";
-  }
-  if (model && isGpt5_5Model(model)) {
-    return "gpt-5-5";
-  }
-  if (model && GPT_5_4_RE.test(extractModelName(model))) {
-    return "gpt-5-4";
-  }
+  if (!model) return "gpt";
+  if (isGpt5_6Model(model)) return "gpt-5-6";
+  if (isGpt5_5Model(model)) return "gpt-5-5";
+  if (GPT_5_4_RE.test(extractModelName(model))) return "gpt-5-4";
   return "gpt";
 }
 

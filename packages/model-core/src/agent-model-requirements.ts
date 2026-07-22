@@ -36,8 +36,15 @@ export const AGENT_MODEL_REQUIREMENTS: Record<string, ModelRequirement> = {
         model: "gpt-5.6-sol",
         variant: "medium",
       },
+      {
+        providers: ["anthropic", "github-copilot", "opencode", "vercel"],
+        model: "claude-sonnet-4-6",
+      },
+      {
+        providers: ["opencode-go", "vercel"],
+        model: "kimi-k3",
+      },
     ],
-    requiresProvider: ["openai", "github-copilot", "opencode", "vercel"],
     requiresAnyModel: true,
   },
   volva: {
