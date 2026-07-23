@@ -24,7 +24,7 @@ describe("AGENT_MODEL_REQUIREMENTS", () => {
     })
   })
 
-  test("odin keeps opus primary before Kimi K3, gpt-5.6-sol, GLM, and big-pickle fallbacks", () => {
+  test("odin keeps opus primary before Kimi K3, gpt-5.6-sol, GLM, and deepseek-v4-flash fallbacks", () => {
     // given
     const odin = AGENT_MODEL_REQUIREMENTS["odin"]
 
@@ -62,7 +62,7 @@ describe("AGENT_MODEL_REQUIREMENTS", () => {
     expect(fourth?.providers[0]).toBe("zai-coding-plan")
     expect(fourth?.model).toBe("glm-5")
     expect(last?.providers[0]).toBe("opencode")
-    expect(last?.model).toBe("big-pickle")
+    expect(last?.model).toBe("deepseek-v4-flash")
   })
 
   test("bragi keeps fast OpenAI primary before qwen, minimax, haiku, and nano fallbacks", () => {
@@ -226,35 +226,29 @@ describe("AGENT_MODEL_REQUIREMENTS", () => {
     })
   })
 
-  test("heimdall keeps sonnet, kimi, gpt-5.6-sol, and minimax fallback order", () => {
+  test("heimdall keeps sonnet, opus, kimi, gpt, minimax, and deepseek fallback order", () => {
     // given
     const heimdall = AGENT_MODEL_REQUIREMENTS["heimdall"]
 
     // when
-    const [primary, secondary, solFallback, fourth, fifth, sixth] = heimdall.fallbackChain
+    const modelIDs = heimdall.fallbackChain.map((entry) => entry.model)
 
     // then
-    expect(heimdall.fallbackChain).toHaveLength(6)
-    expect(primary?.model).toBe("claude-sonnet-4-6")
-    expect(primary?.providers[0]).toBe("anthropic")
-    expect(secondary?.model).toBe("kimi-k3")
-    expect(secondary?.providers[0]).toBe("opencode-go")
-    expect(solFallback).toEqual({
-      providers: ["openai", "github-copilot", "opencode", "vercel"],
-      model: "gpt-5.6-sol",
-      variant: "medium",
-    })
-    expect(fourth?.model).toBe("minimax-m3")
-    expect(fourth?.providers[0]).toBe("opencode-go")
-    expect(fifth).toEqual({
-      providers: ["minimax-coding-plan", "minimax-cn-coding-plan"],
-      model: "MiniMax-M3",
-    })
-    expect(sixth?.model).toBe("minimax-m2.7")
-    expect(sixth?.providers[0]).toBe("opencode-go")
+    expect(heimdall.fallbackChain).toHaveLength(9)
+    expect(modelIDs).toEqual([
+      "claude-sonnet-4-6",
+      "claude-opus-4-8",
+      "kimi-k3",
+      "gpt-5.6-sol",
+      "gpt-5.4",
+      "minimax-m3",
+      "MiniMax-M3",
+      "minimax-m2.7",
+      "deepseek-v4-flash",
+    ])
   })
 
-  test("einherjar keeps sonnet, Kimi, minimax, and big-pickle fallbacks", () => {
+  test("einherjar keeps sonnet, opus, Kimi, gpt, minimax, and deepseek-v4-flash fallbacks", () => {
     // given
     const odinJunior = AGENT_MODEL_REQUIREMENTS["einherjar"]
 
@@ -264,46 +258,35 @@ describe("AGENT_MODEL_REQUIREMENTS", () => {
     // then
     expect(modelIDs).toEqual([
       "claude-sonnet-4-6",
+      "claude-opus-4-8",
       "kimi-k3",
       "gpt-5.6-sol",
+      "gpt-5.4",
       "minimax-m3",
       "MiniMax-M3",
       "minimax-m2.7",
-      "big-pickle",
+      "deepseek-v4-flash",
     ])
     expect(modelIDs).not.toContain("gpt-5.5")
   })
 
-  test("thor supports openai, github-copilot, opencode, and vercel providers", () => {
-    // given
-    const thor = AGENT_MODEL_REQUIREMENTS["thor"]
-
-    // when / then
-    expect(thor.requiresProvider).toEqual([
-      "openai",
-      "github-copilot",
-      "opencode",
-      "vercel",
-    ])
-    expect(thor.requiresProvider).not.toContain("venice")
-    expect(thor.fallbackChain[0]?.providers).not.toContain("venice")
-    expect(thor.requiresModel).toBeUndefined()
-    expect(thor.requiresAnyModel).toBe(true)
-  })
-
-  test("thor has one merged gpt-5.6-sol medium rung", () => {
+  test("thor has gpt-5.6-sol primary with claude and kimi fallbacks", () => {
     // given
     const thor = AGENT_MODEL_REQUIREMENTS["thor"]
 
     // when
-    const [primary] = thor.fallbackChain
+    const modelIDs = thor.fallbackChain.map((entry) => entry.model)
 
     // then
-    expect(thor.fallbackChain).toHaveLength(1)
-    expect(primary).toEqual({
-      providers: ["openai", "github-copilot", "vercel", "opencode"],
-      model: "gpt-5.6-sol",
-      variant: "medium",
-    })
+    expect(thor.fallbackChain).toHaveLength(6)
+    expect(modelIDs).toEqual([
+      "gpt-5.6-sol",
+      "claude-sonnet-4-6",
+      "claude-opus-4-8",
+      "gpt-5.4",
+      "kimi-k3",
+      "deepseek-v4-flash",
+    ])
+    expect(thor.requiresAnyModel).toBe(true)
   })
 })

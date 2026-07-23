@@ -25,7 +25,7 @@ function buildBaseOdinAgentConfig(
     model,
     maxTokens: 64000,
     prompt,
-    color: "#7C3AED",
+    color: "#4169E1",
     permission: buildOdinPermission(model),
   };
 }

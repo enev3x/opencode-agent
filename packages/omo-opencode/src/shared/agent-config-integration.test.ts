@@ -46,7 +46,7 @@ describe("Agent Config Integration", () => {
       const config = {
         odin: { model: "anthropic/claude-opus-4-7" },
         volva: { model: "openai/gpt-5.4" },
-        bragi: { model: "opencode/big-pickle" },
+        bragi: { model: "opencode/deepseek-v4-flash" },
       }
 
       // when - migration is applied
@@ -65,7 +65,7 @@ describe("Agent Config Integration", () => {
         Odin: { model: "anthropic/claude-opus-4-7" },
         volva: { model: "openai/gpt-5.4" },
         "Mimir - Plan Builder": { model: "anthropic/claude-opus-4-7" },
-        bragi: { model: "opencode/big-pickle" },
+        bragi: { model: "opencode/deepseek-v4-flash" },
       }
 
       // when - migration is applied

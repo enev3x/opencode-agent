@@ -196,7 +196,7 @@ describe("promptInstallConfig platform branching", () => {
     const options = firstCall?.options as Array<{ value: string; hint?: string }>
     const noOption = options?.find((o) => o.value === "no")
     expect(noOption?.hint).toContain(ULTIMATE_FALLBACK)
-    expect(noOption?.hint).not.toContain("big-pickle")
+    expect(noOption?.hint).not.toContain("deepseek-v4-flash")
   })
 
   test("uses explicit Codex autonomous override without asking", async () => {

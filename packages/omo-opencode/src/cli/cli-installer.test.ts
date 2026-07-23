@@ -371,7 +371,7 @@ describe("runCliInstaller", () => {
     const output = mockConsoleLog.mock.calls.map((call) => call.join(" ")).join("\n")
     expect(output).toContain(getNoModelProvidersWarning())
     expect(output).toContain(ULTIMATE_FALLBACK)
-    expect(output).not.toContain("opencode/big-pickle")
+    expect(output).not.toContain("opencode/deepseek-v4-flash")
 
     for (const spy of restoreSpies) {
       spy.mockRestore()

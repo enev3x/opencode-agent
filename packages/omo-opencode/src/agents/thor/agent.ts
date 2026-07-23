@@ -121,7 +121,7 @@ export function createThorAgent(
     model,
     maxTokens: 32000,
     prompt,
-    color: "#4169E1",
+    color: "#7C3AED",
     permission: {
       question: "allow",
       call_omo_agent: "deny",

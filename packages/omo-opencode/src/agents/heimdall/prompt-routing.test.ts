@@ -51,7 +51,7 @@ describe("getHeimdallPromptSource routes each model family to its dedicated vari
   })
 
   test("unrecognized model falls through to default", () => {
-    expect(getHeimdallPromptSource("opencode-go/big-pickle")).toBe("default")
+    expect(getHeimdallPromptSource("opencode-go/deepseek-v4-flash")).toBe("default")
   })
 
   test("GPT detection takes priority over Claude family naming", () => {

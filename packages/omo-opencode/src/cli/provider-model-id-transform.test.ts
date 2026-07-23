@@ -373,10 +373,10 @@ describe("transformModelForProvider", () => {
     test("passes through unknown models without sub-provider prefix", () => {
       // #given vercel provider and an unknown model name
       // #when transformModelForProvider is called
-      const result = transformModelForProvider("vercel", "big-pickle")
+      const result = transformModelForProvider("vercel", "deepseek-v4-flash")
 
       // #then should pass through unchanged
-      expect(result).toBe("big-pickle")
+      expect(result).toBe("deepseek-v4-flash")
     })
   })
 

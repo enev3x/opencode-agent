@@ -178,7 +178,7 @@ describe("messages transform assistant prefill alias repair", () => {
   test("#given alias providers with models outside the unsupported Anthropic family #when messages transform runs #then it keeps the assistant tail unchanged", async () => {
     //#given
     const scenarios: Array<{ name: string; providerID: string; modelID: string }> = [
-      { name: "opencode non-claude model", providerID: "opencode", modelID: "big-pickle" },
+      { name: "opencode non-claude model", providerID: "opencode", modelID: "deepseek-v4-flash" },
       { name: "opencode older claude model", providerID: "opencode", modelID: "claude-sonnet-4-5" },
       { name: "openrouter non-anthropic namespace", providerID: "openrouter", modelID: "openai/gpt-5.4" },
       { name: "openrouter bare claude-looking id", providerID: "openrouter", modelID: "claude-opus-4-8" },

@@ -352,7 +352,7 @@ describe("runTuiInstaller", () => {
     const warnMessages = warnSpy.mock.calls.map((call) => String(call[0]))
     expect(warnMessages.some((m) => m.includes(getNoModelProvidersWarning()))).toBe(true)
     expect(warnMessages.some((m) => m.includes(ULTIMATE_FALLBACK))).toBe(true)
-    expect(warnMessages.some((m) => m.includes("big-pickle"))).toBe(false)
+    expect(warnMessages.some((m) => m.includes("deepseek-v4-flash"))).toBe(false)
 
     for (const spy of restoreSpies) {
       spy.mockRestore()

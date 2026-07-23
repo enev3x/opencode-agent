@@ -128,7 +128,7 @@ describe("resolveModelWithFallback", () => {
     test("returns uiSelectedModel with override source when provided", () => {
       // given
       const input: ExtendedModelResolutionInput = {
-        uiSelectedModel: "opencode/big-pickle",
+        uiSelectedModel: "opencode/deepseek-v4-flash",
         userModel: "anthropic/claude-opus-4-7",
         fallbackChain: [
           { providers: ["anthropic", "github-copilot"], model: "claude-opus-4-7" },
@@ -142,15 +142,15 @@ describe("resolveModelWithFallback", () => {
       const resolved = expectResolved(result)
 
       // then
-      expect(resolved.model).toBe("opencode/big-pickle")
+      expect(resolved.model).toBe("opencode/deepseek-v4-flash")
       expect(resolved.source).toBe("override")
-      expect(logMock).toHaveBeenCalledWith("Model resolved via UI selection", { model: "opencode/big-pickle" })
+      expect(logMock).toHaveBeenCalledWith("Model resolved via UI selection", { model: "opencode/deepseek-v4-flash" })
     })
 
     test("UI selection takes priority over config override", () => {
       // given
       const input: ExtendedModelResolutionInput = {
-        uiSelectedModel: "opencode/big-pickle",
+        uiSelectedModel: "opencode/deepseek-v4-flash",
         userModel: "anthropic/claude-opus-4-7",
         availableModels: new Set(["anthropic/claude-opus-4-7"]),
         systemDefaultModel: "google/gemini-3.1-pro",
@@ -161,7 +161,7 @@ describe("resolveModelWithFallback", () => {
       const resolved = expectResolved(result)
 
       // then
-      expect(resolved.model).toBe("opencode/big-pickle")
+      expect(resolved.model).toBe("opencode/deepseek-v4-flash")
       expect(resolved.source).toBe("override")
     })
 
