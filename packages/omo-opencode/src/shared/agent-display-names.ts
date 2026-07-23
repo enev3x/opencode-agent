@@ -10,20 +10,20 @@
  * type selector dropdown. Use ` - ` (space-dash-space) instead of `(...)`.
  */
 export const AGENT_DISPLAY_NAMES: Record<string, string> = {
-  odin: "Odin - ultraworker",
-  thor: "Thor - Deep Agent",
-  mimir: "Mimir - Plan Builder",
-  heimdall: "Heimdall - Plan Executor",
-  "einherjar": "Einherjar",
-  urd: "Urd - Plan Consultant",
-  forseti: "Forseti - Plan Critic",
-  athena: "Athena - Council",
-  "athena-junior": "Athena-Junior - Council",
-  volva: "volva",
-  bragi: "bragi",
-  vidar: "vidar",
-  "huginn": "huginn",
-  "council-member": "council-member",
+  odin: "[TeamX] Odin - Orchestrator",
+  thor: "[TeamX] Thor - Deep Agent",
+  mimir: "[TeamX] Mimir - Plan Builder",
+  heimdall: "[TeamX] Heimdall - Plan Executor",
+  "einherjar": "[TeamX] Einherjar",
+  urd: "[TeamX] Urd - Plan Consultant",
+  forseti: "[TeamX] Forseti - Plan Critic",
+  athena: "[TeamX] Athena - Council",
+  "athena-junior": "[TeamX] Athena-Junior - Council",
+  volva: "[TeamX] Volva",
+  bragi: "[TeamX] Bragi",
+  vidar: "[TeamX] Vidar",
+  "huginn": "[TeamX] Huginn",
+  "council-member": "[TeamX] Council-Member",
 }
 
 const INVISIBLE_AGENT_CHARACTERS_REGEX = /[\u200B\u200C\u200D\uFEFF]/g
@@ -103,6 +103,12 @@ const LEGACY_DISPLAY_NAMES: Record<string, string> = {
   "forseti (plan critic)": "forseti",
   "athena (council)": "athena",
   "athena-junior (council)": "athena-junior",
+  "[teamx] odin - orchestrator": "odin",
+  "[teamx] thor - deep agent": "thor",
+  "[teamx] mimir - plan builder": "mimir",
+  "[teamx] heimdall - plan executor": "heimdall",
+  "[teamx] urd - plan consultant": "urd",
+  "[teamx] forseti - plan critic": "forseti",
 }
 
 function resolveKnownAgentConfigKey(agentName: string): string | undefined {
