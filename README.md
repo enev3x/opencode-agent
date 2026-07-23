@@ -159,6 +159,30 @@ curl -fsSL https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/refs/h
 
 The guide covers: platform selection, the subscription interview, provider authentication (Anthropic / Gemini / Copilot / Z.ai / OpenCode Zen), the agent-to-model matching matrix, modes (`ultrawork`, `search`, `analyze`, `team`, `hyperplan`), slash commands, the Light edition's 8 Codex components, Team Mode, and uninstall. Don't summarize it; read it end to end.
 
+### Install from Source
+
+For development or to use the latest unreleased features:
+
+```bash
+# Clone the repository
+git clone https://github.com/code-yeongyu/oh-my-openagent.git
+cd oh-my-openagent
+
+# Install dependencies (requires Bun)
+bun install
+
+# Build the plugin
+bun run build
+
+# Install globally
+npm install -g .
+
+# Run setup wizard
+oh-my-opencode install
+```
+
+After installation, the setup wizard will guide you through provider configuration (OpenAI, Anthropic, etc.) and model selection for each agent.
+
 ### Note on package and command names
 
 The published npm package and CLI binary are still named `oh-my-opencode` (dual-published as `oh-my-openagent` during the rename transition). Inside `opencode.json`, the compatibility layer prefers the plugin entry `oh-my-openagent`, while legacy `oh-my-opencode` entries still load with a warning. Plugin config files still commonly use `oh-my-opencode.json[c]`; both legacy and renamed basenames are recognized.
