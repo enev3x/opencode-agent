@@ -191,6 +191,28 @@ export const AGENT_MODEL_REQUIREMENTS: Record<string, ModelRequirement> = {
   },
   heimdall: {
     fallbackChain: [
+      {
+        providers: ["anthropic", "github-copilot", "opencode", "vercel"],
+        model: "claude-opus-4-8",
+        variant: "max",
+      },
+      {
+        providers: [
+          "opencode-go",
+          "kimi-for-coding",
+          "moonshotai",
+          "opencode",
+          "vercel",
+          "bailian-coding-plan",
+          "moonshotai-cn",
+          "firmware",
+          "ollama-cloud",
+          "aihubmix",
+        ],
+        model: "kimi-k3",
+      },
+      { providers: ["openai", "github-copilot", "opencode", "vercel"], model: "gpt-5.6-sol", variant: "medium" },
+      { providers: ["zai-coding-plan", "opencode", "bailian-coding-plan", "vercel"], model: "glm-5" },
       { providers: ["opencode"], model: "deepseek-v4-flash" },
     ],
     requiresAnyModel: true,
