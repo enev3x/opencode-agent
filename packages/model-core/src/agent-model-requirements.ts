@@ -192,25 +192,13 @@ export const AGENT_MODEL_REQUIREMENTS: Record<string, ModelRequirement> = {
   heimdall: {
     fallbackChain: [
       { providers: ["anthropic", "github-copilot", "opencode", "vercel"], model: "claude-sonnet-4-6" },
-      {
-        providers: ["anthropic", "github-copilot", "opencode", "vercel"],
-        model: "claude-opus-4-8",
-        variant: "max",
-      },
       { providers: ["opencode-go", "vercel"], model: "kimi-k3" },
       {
         providers: ["openai", "github-copilot", "opencode", "vercel"],
         model: "gpt-5.6-sol",
         variant: "medium",
       },
-      {
-        providers: ["openai", "github-copilot", "vercel", "opencode"],
-        model: "gpt-5.4",
-        variant: "medium",
-      },
-      { providers: ["opencode-go", "vercel"], model: "minimax-m3" },
-      { providers: ["minimax-coding-plan", "minimax-cn-coding-plan"], model: "MiniMax-M3" },
-      { providers: ["opencode-go", "vercel"], model: "minimax-m2.7" },
+      { providers: ["zai-coding-plan", "opencode", "vercel"], model: "glm-5" },
       { providers: ["opencode"], model: "deepseek-v4-flash" },
     ],
   },
