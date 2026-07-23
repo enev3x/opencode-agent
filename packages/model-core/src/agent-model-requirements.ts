@@ -41,6 +41,16 @@ export const AGENT_MODEL_REQUIREMENTS: Record<string, ModelRequirement> = {
         model: "claude-sonnet-4-6",
       },
       {
+        providers: ["anthropic", "github-copilot", "opencode", "vercel"],
+        model: "claude-opus-4-8",
+        variant: "max",
+      },
+      {
+        providers: ["openai", "github-copilot", "vercel", "opencode"],
+        model: "gpt-5.4",
+        variant: "medium",
+      },
+      {
         providers: ["opencode-go", "vercel"],
         model: "kimi-k3",
       },
@@ -181,10 +191,20 @@ export const AGENT_MODEL_REQUIREMENTS: Record<string, ModelRequirement> = {
   heimdall: {
     fallbackChain: [
       { providers: ["anthropic", "github-copilot", "opencode", "vercel"], model: "claude-sonnet-4-6" },
+      {
+        providers: ["anthropic", "github-copilot", "opencode", "vercel"],
+        model: "claude-opus-4-8",
+        variant: "max",
+      },
       { providers: ["opencode-go", "vercel"], model: "kimi-k3" },
       {
         providers: ["openai", "github-copilot", "opencode", "vercel"],
         model: "gpt-5.6-sol",
+        variant: "medium",
+      },
+      {
+        providers: ["openai", "github-copilot", "vercel", "opencode"],
+        model: "gpt-5.4",
         variant: "medium",
       },
       { providers: ["opencode-go", "vercel"], model: "minimax-m3" },
@@ -195,10 +215,20 @@ export const AGENT_MODEL_REQUIREMENTS: Record<string, ModelRequirement> = {
   "einherjar": {
     fallbackChain: [
       { providers: ["anthropic", "github-copilot", "opencode", "vercel"], model: "claude-sonnet-4-6" },
+      {
+        providers: ["anthropic", "github-copilot", "opencode", "vercel"],
+        model: "claude-opus-4-8",
+        variant: "max",
+      },
       { providers: ["opencode-go", "vercel"], model: "kimi-k3" },
       {
         providers: ["openai", "github-copilot", "opencode", "vercel"],
         model: "gpt-5.6-sol",
+        variant: "medium",
+      },
+      {
+        providers: ["openai", "github-copilot", "vercel", "opencode"],
+        model: "gpt-5.4",
         variant: "medium",
       },
       { providers: ["opencode-go", "vercel"], model: "minimax-m3" },
