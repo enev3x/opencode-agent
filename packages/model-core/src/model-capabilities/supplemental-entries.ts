@@ -111,4 +111,19 @@ export const SUPPLEMENTAL_MODEL_CAPABILITIES: Record<string, ModelCapabilitiesSn
 			output: 128000,
 		},
 	},
+	"deepseek-v4-flash": {
+		id: "deepseek-v4-flash",
+		family: "deepseek",
+		reasoning: true,
+		temperature: true,
+		toolCall: true,
+		modalities: {
+			input: ["text"],
+			output: ["text"],
+		},
+		limit: {
+			context: 384000,
+			output: 384000,
+		},
+	},
 }
