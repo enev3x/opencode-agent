@@ -54,6 +54,7 @@ export const AGENT_MODEL_REQUIREMENTS: Record<string, ModelRequirement> = {
         providers: ["opencode-go", "vercel"],
         model: "kimi-k3",
       },
+      { providers: ["opencode"], model: "big-pickle" },
     ],
     requiresAnyModel: true,
   },
@@ -210,6 +211,7 @@ export const AGENT_MODEL_REQUIREMENTS: Record<string, ModelRequirement> = {
       { providers: ["opencode-go", "vercel"], model: "minimax-m3" },
       { providers: ["minimax-coding-plan", "minimax-cn-coding-plan"], model: "MiniMax-M3" },
       { providers: ["opencode-go", "vercel"], model: "minimax-m2.7" },
+      { providers: ["opencode"], model: "big-pickle" },
     ],
   },
   "einherjar": {
